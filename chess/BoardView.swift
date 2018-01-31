@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GameView: UIView {
+class BoardView: UIView {
 
     let numCells = 8
     let gap: CGFloat = 25.0
