@@ -15,9 +15,8 @@ class GameView: UIView {
     let topLeftX: CGFloat = 320.0 / 5.5
     var topLeftY: CGFloat = 320.0 / 5.5
     override func draw(_ rect: CGRect) {
-        
+    
         drawBoard(color: .darkGray)
-        
     }
     func drawLine(withColor color: UIColor, fromX:CGFloat, fromY: CGFloat, toX: CGFloat, toY: CGFloat){
         let path = UIBezierPath()
@@ -37,8 +36,9 @@ class GameView: UIView {
         print("1.\(resultPoint2)")
         let resultPoint1 = CGPoint(x: floatX1, y: floatY1)
         print("1.\(resultPoint1)")
+       
         return resultPoint1
-//        return resultPoint2
+
     }
     
     func drawCell(withColor color: UIColor, x: CGFloat, y: CGFloat, width: CGFloat, height:CGFloat) {
@@ -46,8 +46,8 @@ class GameView: UIView {
         let path = UIBezierPath(rect: cellRect)
         color.setFill()
         path.fill()
-        
-    }
+        }
+    
     func drawBoard(color: UIColor) {
         for i in 0...numCells {
             drawLine(withColor: color, fromX: topLeftX, fromY: topLeftY +  CGFloat(i) * gap, toX:topLeftX + CGFloat(numCells) * gap, toY: topLeftY + CGFloat(i) * gap)
@@ -56,7 +56,6 @@ class GameView: UIView {
         let w = convert(gameX: 0, gameY: 0)
         for i in 0...numCells {
             drawLine(withColor: color,fromX: topLeftX + CGFloat(i) * gap, fromY: topLeftY , toX: topLeftX + CGFloat(i) * gap, toY: topLeftY + CGFloat(numCells) * gap)
-            drawLine(withColor: .blue, fromX: 0.0, fromY: 0.0, toX: 320.0, toY: 0.0)
             
         }
         for i in 0...3{
