@@ -10,8 +10,8 @@ import Foundation
 
 struct Board: CustomStringConvertible {
     
-    var numRows: Int
-    var numCols: Int
+    let numRows: Int
+    let numCols: Int
     
     var description: String {
         var dots = ""
