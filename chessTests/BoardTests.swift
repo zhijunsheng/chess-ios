@@ -10,14 +10,17 @@ import XCTest
 @testable import chess
 
 class BoardTests: XCTestCase {
+
     func testBoard(){
-     
-        func testSimpleBoardDescription(){
         
-        }
-        
-        print("---------------------")
-        let board = Board(numRows: 5, numCols: 3)
+        /*
+         5 . . .
+         4 . . .
+         3 . . .
+         2 . . .
+         1 . . .
+         */
+        let board = Board(numRows: 6, numCols: 5)
         
         print("\(board)")
     }

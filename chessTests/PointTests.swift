@@ -16,8 +16,7 @@ class PointTests: XCTestCase {
 //        print("//////////")
         let point = Point(row: 3, col: 5)
         
-//        print(point.row)
-//        print(point.col)
+
         
         XCTAssertEqual(3, point.row)
         XCTAssertEqual(5, point.col)
