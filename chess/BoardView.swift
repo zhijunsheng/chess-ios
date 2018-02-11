@@ -9,82 +9,141 @@
 import UIKit
 
 class BoardView: UIView {
-    
     let numCells = 8
-    let gap: CGFloat = 30.0
-    let topLeftX: CGFloat = 320.0 / 5.5
-    var topLeftY: CGFloat = 320.0 / 5.5
+    let gap: CGFloat = 39.0
+    let topLeftX: CGFloat = 16.5
+    let topLeftY: CGFloat = 35.0
     
     override func draw(_ rect: CGRect) {
         drawBoard(color: .darkGray)
-        drawBishop(xAxis: 6, yAxis: 8)
-        drawBishop(xAxis: 3, yAxis: 8)
         drawPawns()
+        drawBishops()
+        drawRooks()
+        drawKings()
+        drawQueens()
     }
    
+    func drawQueens(){
+    drawQueenB(xAxis: 5, yAxis: 1)
+    drawQueenW(xAxis: 4, yAxis: 8)
+    }
+    
+    func drawKings(){
+        drawKingW(xAxis: 5, yAxis: 8)
+        drawKingB(xAxis: 4, yAxis: 1)
+    }
+    
+    func drawRooks(){
+        drawRookW(xAxis: 1, yAxis: 8)
+        drawRookW(xAxis: 8, yAxis: 8)
+        drawRookB(xAxis: 1, yAxis: 1)
+        drawRookB(xAxis: 8, yAxis: 1)
+    }
+    
+    func drawBishops(){
+        drawBishopB(xAxis: 3, yAxis: 1)
+        drawBishopB(xAxis: 6, yAxis: 1)
+        drawBishopW(xAxis: 3, yAxis: 8)
+        drawBishopW(xAxis: 6, yAxis: 8)
+    }
+    
     func drawPawns(){
-        drawPawn(xAxis: 1, yAxis: 7)
-        drawPawn(xAxis: 2, yAxis: 7)
-        drawPawn(xAxis: 3, yAxis: 7)
-        drawPawn(xAxis: 4, yAxis: 7)
-        drawPawn(xAxis: 5, yAxis: 7)
-        drawPawn(xAxis: 6, yAxis: 7)
-        drawPawn(xAxis: 7, yAxis: 7)
-        drawPawn(xAxis: 8, yAxis: 7)
+        drawPawnW(xAxis: 1, yAxis: 7)
+        drawPawnW(xAxis: 2, yAxis: 7)
+        drawPawnW(xAxis: 3, yAxis: 7)
+        drawPawnW(xAxis: 4, yAxis: 7)
+        drawPawnW(xAxis: 5, yAxis: 7)
+        drawPawnW(xAxis: 6, yAxis: 7)
+        drawPawnW(xAxis: 7, yAxis: 7)
+        drawPawnW(xAxis: 8, yAxis: 7)
+        drawPawnB(xAxis: 1, yAxis: 2)
+        drawPawnB(xAxis: 2, yAxis: 2)
+        drawPawnB(xAxis: 3, yAxis: 2)
+        drawPawnB(xAxis: 4, yAxis: 2)
+        drawPawnB(xAxis: 5, yAxis: 2)
+        drawPawnB(xAxis: 6, yAxis: 2)
+        drawPawnB(xAxis: 7, yAxis: 2)
+        drawPawnB(xAxis: 8, yAxis: 2)
     }
     
-    func drawKnight( xAxis: Int, yAxis: Int){
+    func drawQueenW(xAxis: Int, yAxis: Int){
         let x = topLeftX - gap + CGFloat(xAxis) * gap
         let y = topLeftY - gap + CGFloat(yAxis) * gap
         
-        let piece = UIImage(named: "knight_chess")
+        let piece = UIImage(named: "queen_chess_w")
         piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
     }
     
-    func drawBishop( xAxis: Int, yAxis: Int){
+    func drawQueenB(xAxis: Int, yAxis: Int){
         let x = topLeftX - gap + CGFloat(xAxis) * gap
         let y = topLeftY - gap + CGFloat(yAxis) * gap
         
-        let piece = UIImage(named: "bishop_chess")
+        let piece = UIImage(named: "queen_chess_b")
         piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
     }
     
-    func drawPawn( xAxis: Int, yAxis: Int){
+    func drawKingB(xAxis: Int, yAxis: Int){
         let x = topLeftX - gap + CGFloat(xAxis) * gap
         let y = topLeftY - gap + CGFloat(yAxis) * gap
         
-        let piece = UIImage(named: "pawn_chess")
+        let piece = UIImage(named: "king_chess_b")
         piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
     }
     
-    func drawBoard(color: UIColor) {
-        for i in 0...numCells {
-            drawLine(withColor: color, fromX: topLeftX, fromY: topLeftY +  CGFloat(i) * gap, toX:topLeftX + CGFloat(numCells) * gap, toY: topLeftY + CGFloat(i) * gap)
-        }
-        let r = convert(gameX: 1, gameY: 0)
-        let w = convert(gameX: 0, gameY: 0)
+    func drawKingW(xAxis: Int, yAxis: Int){
+        let x = topLeftX - gap + CGFloat(xAxis) * gap
+        let y = topLeftY - gap + CGFloat(yAxis) * gap
         
-        for i in 0...numCells {
-            drawLine(withColor: color,fromX: topLeftX + CGFloat(i) * gap, fromY: topLeftY , toX: topLeftX + CGFloat(i) * gap, toY: topLeftY + CGFloat(numCells) * gap)
-        }
+        let piece = UIImage(named: "king_chess_w")
+        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
+    }
+    
+    func drawRookB(xAxis: Int, yAxis: Int){
+        let x = topLeftX - gap + CGFloat(xAxis) * gap
+        let y = topLeftY - gap + CGFloat(yAxis) * gap
         
-        for i in 0...3{
-            var a = 0
-            var b = 0.5
-            while a < 4 {
-                
-                drawCell(withColor: .white, x: w.x + gap * 2 * CGFloat(i), y: w.y + gap * CGFloat(a) * 2, width: gap, height: gap)
-                
-                drawCell(withColor: .black, x: w.x + gap * 2 * CGFloat(i), y: w.y + gap * CGFloat(b) * 2, width: gap, height: gap)
-                
-                drawCell(withColor: .black, x: r.x + gap * 2 * CGFloat(i), y: r.y + gap * CGFloat(a) * 2, width: gap, height: gap)
-                
-                drawCell(withColor: .white, x: r.x + gap * 2 * CGFloat(i), y: r.y + gap * CGFloat(b) * 2, width: gap, height: gap)
-                
-                a = a + 1
-                b = b + 1
-            }
-        }
+        let piece = UIImage(named: "rook_chess_b")
+        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
+    }
+    
+    func drawRookW(xAxis: Int, yAxis: Int){
+        let x = topLeftX - gap + CGFloat(xAxis) * gap
+        let y = topLeftY - gap + CGFloat(yAxis) * gap
+        
+        let piece = UIImage(named: "rook_chess_w")
+        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
+    }
+    
+    func drawBishopW(xAxis: Int, yAxis: Int){
+        let x = topLeftX - gap + CGFloat(xAxis) * gap
+        let y = topLeftY - gap + CGFloat(yAxis) * gap
+        
+        let piece = UIImage(named: "bishop_chess_w")
+        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
+    }
+    
+    func drawBishopB(xAxis: Int, yAxis: Int){
+        let x = topLeftX - gap + CGFloat(xAxis) * gap
+        let y = topLeftY - gap + CGFloat(yAxis) * gap
+        
+        let piece = UIImage(named: "bishop_chess_b")
+        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
+    }
+    
+    func drawPawnB(xAxis: Int, yAxis: Int){
+        let x = topLeftX - gap + CGFloat(xAxis) * gap
+        let y = topLeftY - gap + CGFloat(yAxis) * gap
+        
+        let piece = UIImage(named: "pawn_chess_b")
+        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
+    }
+
+    func drawPawnW(xAxis: Int, yAxis: Int){
+        let x = topLeftX - gap + CGFloat(xAxis) * gap
+        let y = topLeftY - gap + CGFloat(yAxis) * gap
+        
+        let piece = UIImage(named: "pawn_chess_w")
+        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
     }
     
     func drawCell(withColor color: UIColor, x: CGFloat, y: CGFloat, width: CGFloat, height:CGFloat) {
@@ -93,7 +152,7 @@ class BoardView: UIView {
         color.setFill()
         path.fill()
     }
- 
+    
     func drawLine(withColor color: UIColor, fromX:CGFloat, fromY: CGFloat, toX: CGFloat, toY: CGFloat){
         let path = UIBezierPath()
         path.move(to: CGPoint(x: fromX, y: fromY ))
@@ -115,5 +174,36 @@ class BoardView: UIView {
         print("1.\(resultPoint1)")
         
         return resultPoint1
+    }
+
+    func drawBoard(color: UIColor) {
+        for i in 0...numCells {
+            drawLine(withColor: color, fromX: topLeftX, fromY: topLeftY +  CGFloat(i) * gap, toX:topLeftX + CGFloat(numCells) * gap, toY: topLeftY + CGFloat(i) * gap)
+        }
+        let r = convert(gameX: 1, gameY: 0)
+        let w = convert(gameX: 0, gameY: 0)
+        
+        for i in 0...numCells {
+            drawLine(withColor: color,fromX: topLeftX + CGFloat(i) * gap, fromY: topLeftY , toX: topLeftX + CGFloat(i) * gap, toY: topLeftY + CGFloat(numCells) * gap)
+        }
+        
+        for i in 0...3{
+            var a = 0
+            var b = 0.5
+            
+            while a < 4 {
+                
+                drawCell(withColor: .white, x: w.x + gap * 2 * CGFloat(i), y: w.y + gap * CGFloat(a) * 2, width: gap, height: gap)
+                
+                drawCell(withColor: .gray, x: w.x + gap * 2 * CGFloat(i), y: w.y + gap * CGFloat(b) * 2, width: gap, height: gap)
+                
+                drawCell(withColor: .gray, x: r.x + gap * 2 * CGFloat(i), y: r.y + gap * CGFloat(a) * 2, width: gap, height: gap)
+                
+                drawCell(withColor: .white, x: r.x + gap * 2 * CGFloat(i), y: r.y + gap * CGFloat(b) * 2, width: gap, height: gap)
+                
+                a = a + 1
+                b = b + 1
+            }
+        }
     }
 }
