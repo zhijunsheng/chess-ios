@@ -12,6 +12,7 @@
 		07FDE4372018140A00A674FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07FDE4352018140A00A674FE /* Main.storyboard */; };
 		07FDE4392018140A00A674FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07FDE4382018140A00A674FE /* Assets.xcassets */; };
 		07FDE43C2018140A00A674FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07FDE43A2018140A00A674FE /* LaunchScreen.storyboard */; };
+		36119579202FDCC200718A91 /* SimpleLoopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36119578202FDCC200718A91 /* SimpleLoopTests.swift */; };
 		365DF22620214C4900AA01D7 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365DF22520214C4900AA01D7 /* Board.swift */; };
 		365DF22820214D4100AA01D7 /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365DF22720214D4100AA01D7 /* BoardTests.swift */; };
 		36A10EE7201D6ACC0010D9A7 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A10EE6201D6ACC0010D9A7 /* BoardView.swift */; };
@@ -37,6 +38,7 @@
 		07FDE4382018140A00A674FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07FDE43B2018140A00A674FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07FDE43D2018140A00A674FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		36119578202FDCC200718A91 /* SimpleLoopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleLoopTests.swift; sourceTree = "<group>"; };
 		365DF22520214C4900AA01D7 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		365DF22720214D4100AA01D7 /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		36A10EE6201D6ACC0010D9A7 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				36DF8A96201D6D0C00E0E07B /* Info.plist */,
 				36DF8A9F201D6E9100E0E07B /* PointTests.swift */,
 				365DF22720214D4100AA01D7 /* BoardTests.swift */,
+				36119578202FDCC200718A91 /* SimpleLoopTests.swift */,
 			);
 			path = chessTests;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				365DF22820214D4100AA01D7 /* BoardTests.swift in Sources */,
+				36119579202FDCC200718A91 /* SimpleLoopTests.swift in Sources */,
 				36DF8AA0201D6E9100E0E07B /* PointTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
