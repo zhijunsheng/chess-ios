@@ -4,7 +4,6 @@
 //
 //  Created by Bowen Lin on 2018-02-10.
 //  Copyright © 2018 GoldThumb Inc. All rights reserved.
-//
 
 import XCTest
 
@@ -15,13 +14,13 @@ class SimpleLoopTests: XCTestCase {
         XCTAssertEqual(0, addArray(intArray: []))
         XCTAssertEqual(6, addArray(intArray: [6]))
     }
-
+    
     func addArray(intArray: [Int]) -> Int {
         var sum = 0
         for x in intArray {
             sum = sum + x
         }
-
+        
         return sum
     }
     

@@ -21,11 +21,19 @@ class BoardView: UIView {
         drawRooks()
         drawKings()
         drawQueens()
+        drawKnights()
     }
-   
+    
+    func drawKnights(){
+        drawKnightW(xAxis: 2, yAxis: 8)
+        drawKnightW(xAxis: 7, yAxis: 8)
+        drawKnightB(xAxis: 2, yAxis: 1)
+        drawKnightB(xAxis: 7, yAxis: 1)
+    }
+    
     func drawQueens(){
-    drawQueenB(xAxis: 5, yAxis: 1)
-    drawQueenW(xAxis: 4, yAxis: 8)
+        drawQueenB(xAxis: 5, yAxis: 1)
+        drawQueenW(xAxis: 4, yAxis: 8)
     }
     
     func drawKings(){
@@ -64,6 +72,22 @@ class BoardView: UIView {
         drawPawnB(xAxis: 6, yAxis: 2)
         drawPawnB(xAxis: 7, yAxis: 2)
         drawPawnB(xAxis: 8, yAxis: 2)
+    }
+    
+    func drawKnightB(xAxis: Int, yAxis: Int){
+        let x = topLeftX - gap + CGFloat(xAxis) * gap
+        let y = topLeftY - gap + CGFloat(yAxis) * gap
+        
+        let piece = UIImage(named: "knight_chess_b")
+        piece?.draw(in: CGRect(x: x + 2, y: y, width: gap - 3, height: gap - 2))
+    }
+    
+    func drawKnightW(xAxis: Int, yAxis: Int){
+        let x = topLeftX - gap + CGFloat(xAxis) * gap
+        let y = topLeftY - gap + CGFloat(yAxis) * gap
+        
+        let piece = UIImage(named: "knight_chess_w")
+        piece?.draw(in: CGRect(x: x + 2, y: y, width: gap - 4, height: gap - 2))
     }
     
     func drawQueenW(xAxis: Int, yAxis: Int){
@@ -137,7 +161,7 @@ class BoardView: UIView {
         let piece = UIImage(named: "pawn_chess_b")
         piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
     }
-
+    
     func drawPawnW(xAxis: Int, yAxis: Int){
         let x = topLeftX - gap + CGFloat(xAxis) * gap
         let y = topLeftY - gap + CGFloat(yAxis) * gap
@@ -175,7 +199,7 @@ class BoardView: UIView {
         
         return resultPoint1
     }
-
+    
     func drawBoard(color: UIColor) {
         for i in 0...numCells {
             drawLine(withColor: color, fromX: topLeftX, fromY: topLeftY +  CGFloat(i) * gap, toX:topLeftX + CGFloat(numCells) * gap, toY: topLeftY + CGFloat(i) * gap)
