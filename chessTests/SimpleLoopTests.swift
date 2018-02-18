@@ -24,7 +24,7 @@ class SimpleLoopTests: XCTestCase {
     }
     
     func testCount(){
-       XCTAssertEqual(6, count(a: [6, 5, 4, 3, 2, 2]))
+        XCTAssertEqual(6, count(a: [6, 5, 4, 3, 2, 2]))
     }
     
     func count(a: [Int]) -> Int{
@@ -33,31 +33,27 @@ class SimpleLoopTests: XCTestCase {
             sum = sum + 1
         }
         print(sum)
-    return sum
+        return sum
     }
     
-    
     func testFactorial(){
-       var sum = 1
+        var sum = 1
         for a in 1...5 {
             sum = sum * a
-        print("sum = \(sum)")
+            print("sum = \(sum)")
         }
-        
     }
     
     func testSquares(){
         for a in 1...9{
             print("\(a * a) ")
         }
-        
     }
     
     func testContains() {
         XCTAssertTrue(contains(arr: [31, 1, 0, -1, 42], target: 31))
         XCTAssertFalse(contains(arr: [48, 9, 34, 2], target: 10))
     }
-    
     
     func contains(arr: [Int], target: Int) -> Bool {
         for a in arr {
@@ -67,15 +63,16 @@ class SimpleLoopTests: XCTestCase {
         }
         return false
     }
+    
     func testpiramid(){
         
         var a = 7
         while a > 0{
-    for b in 1...a{
-        print(b ,terminator:"")
-        }
-        print("")
-        a = a - 1
+            for b in 1...a{
+                print(b ,terminator:"")
+            }
+            print("")
+            a = a - 1
         }
     }
     
@@ -89,7 +86,7 @@ class SimpleLoopTests: XCTestCase {
             if a > max {
                 max = a
             }
-        print(max)
+            print(max)
         }
         return max
     }
@@ -131,7 +128,6 @@ class SimpleLoopTests: XCTestCase {
     func add(x: Int, y: Int) -> Int {
         let sum = x + y
         return sum
-       
     }
 }
 
