@@ -79,7 +79,7 @@ class BoardView: UIView {
         let y = topLeftY - gap + CGFloat(yAxis) * gap
         
         let piece = UIImage(named: "knight_chess_b")
-        piece?.draw(in: CGRect(x: x + 2, y: y, width: gap - 3, height: gap - 2))
+        piece?.draw(in: CGRect(x: x + 3, y: y, width: gap - 3, height: gap - 2))
     }
     
     func drawKnightW(xAxis: Int, yAxis: Int){
@@ -87,7 +87,7 @@ class BoardView: UIView {
         let y = topLeftY - gap + CGFloat(yAxis) * gap
         
         let piece = UIImage(named: "knight_chess_w")
-        piece?.draw(in: CGRect(x: x + 2, y: y, width: gap - 4, height: gap - 2))
+        piece?.draw(in: CGRect(x: x + 2, y: y + 1, width: gap - 4, height: gap - 2))
     }
     
     func drawQueenW(xAxis: Int, yAxis: Int){

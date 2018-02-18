@@ -103,9 +103,9 @@
 			isa = PBXGroup;
 			children = (
 				36DF8A96201D6D0C00E0E07B /* Info.plist */,
+				36119578202FDCC200718A91 /* SimpleLoopTests.swift */,
 				36DF8A9F201D6E9100E0E07B /* PointTests.swift */,
 				365DF22720214D4100AA01D7 /* BoardTests.swift */,
-				36119578202FDCC200718A91 /* SimpleLoopTests.swift */,
 			);
 			path = chessTests;
 			sourceTree = "<group>";
