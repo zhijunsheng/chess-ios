@@ -16,14 +16,18 @@ class BoardTests: XCTestCase {
     func testBoard(){
         
         /*
-         5 . . .
-         4 . . .
-         3 . . .
-         2 . . .
-         1 . . .
+         8 . . . . . . . .
+         7 . . . . . . . .
+         6 . . . . . . . .
+         5 . . . . . . . .
+         4 . . . . . . . .
+         3 . . . . . . . .
+         2 . . . . . . . .
+         1 . . . . . . . .
+         + A B C D E F G H
          */
         
-        let board = Board(numRows: 2, numCols: 5)
+        let board = Board(numRows: 8, numCols: 8)
         
         print("\(board)")
     }
