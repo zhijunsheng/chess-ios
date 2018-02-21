@@ -8,8 +8,7 @@
 
 import Foundation
 
-
-enum Piece {
+enum PieceType {
     case king
     case queen
     case knight
