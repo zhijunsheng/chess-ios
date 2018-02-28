@@ -13,7 +13,6 @@ import XCTest
 class PieceTests: XCTestCase {
  
     func testCanKnightMove() {
-
         let knight = Piece(color: .white, pieceType: .knight)
         /*
          8 . . . . . . . .
@@ -26,8 +25,8 @@ class PieceTests: XCTestCase {
          1 f . . . . . . .
          + A B C D E F G H
          */
+        
         XCTAssertFalse(knight.canKnightMove(from: Point(row: 1, col: 1), to: Point(row: 2, col: 1)))
-
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -39,6 +38,7 @@ class PieceTests: XCTestCase {
          1 f . . . . . . .
          + A B C D E F G H
          */
+        
         XCTAssertFalse(knight.canKnightMove(from: Point(row: 1, col: 1), to: Point(row: 2, col: 2)))
         /*
          8 . . . . . . . .
@@ -51,8 +51,8 @@ class PieceTests: XCTestCase {
          1 f . . . . . . .
          + A B C D E F G H
          */
+       
         XCTAssertTrue(knight.canKnightMove(from: Point(row: 1, col: 1), to: Point(row: 3, col: 2)))
-
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -64,8 +64,8 @@ class PieceTests: XCTestCase {
          1 t . . . . . . .
          + A B C D E F G H
          */
+       
         XCTAssertTrue(knight.canKnightMove(from: Point(row: 3, col: 2), to: Point(row: 1, col: 1)))
-
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -79,7 +79,6 @@ class PieceTests: XCTestCase {
          */
 
     XCTAssertTrue(knight.canKnightMove(from: Point(row: 3, col: 2), to: Point(row: 4, col: 4)))
-
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -91,8 +90,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
+        
         XCTAssertTrue(knight.canKnightMove(from: Point(row: 4, col: 4), to: Point(row: 3, col: 2)))
-
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -104,6 +103,7 @@ class PieceTests: XCTestCase {
          1 . . t . . . . .
          + A B C D E F G H
          */
+        
         XCTAssertTrue(knight.canKnightMove(from: Point(row: 3, col: 2), to: Point(row: 1, col: 3)))
         /*
          8 . . . . . . . .
@@ -116,13 +116,13 @@ class PieceTests: XCTestCase {
          1 . . . . . . . f
          + A B C D E F G H
          */
+       
         XCTAssertTrue(knight.canKnightMove(from: Point(row: 1, col: 8), to: Point(row: 3, col: 9)))
     
     }
     
     func testCanRookMove(){
         let rook = Piece(color: .black, pieceType: .rook)
-
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -135,8 +135,7 @@ class PieceTests: XCTestCase {
          + A B C D E F G H
          */
 
-    XCTAssertTrue(rook.canRookMove(from: Point(row: 1, col: 1), to: Point(row: 2, col: 1)))
-
+        XCTAssertTrue(rook.canRookMove(from: Point(row: 1, col: 1), to: Point(row: 2, col: 1)))
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -149,8 +148,7 @@ class PieceTests: XCTestCase {
          + A B C D E F G H
          */
 
-      XCTAssertFalse(rook.canRookMove(from: Point(row: 1, col: 1), to: Point(row: 2, col: 2)))
-
+        XCTAssertFalse(rook.canRookMove(from: Point(row: 1, col: 1), to: Point(row: 2, col: 2)))
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -207,7 +205,6 @@ class PieceTests: XCTestCase {
          */
         
         XCTAssertTrue(bishop.canBishopMove(from: Point(row: 1, col: 7), to: Point(row: 5, col: 3)))
-    
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -372,7 +369,6 @@ class PieceTests: XCTestCase {
     
     func testCanKingMove(){
          let king = Piece(color: .white, pieceType: .king)
-    
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -463,7 +459,8 @@ class PieceTests: XCTestCase {
          + A B C D E F G H
          */
         
-        XCTAssertTrue(king.canKingMove(from: Point(row: 5, col: 1), to: Point(row: 5, col: 2)))/*
+        XCTAssertTrue(king.canKingMove(from: Point(row: 5, col: 1), to: Point(row: 5, col: 2)))
+        /*
          8 . . . . . . . .
          7 . . . . . . . .
          6 . . . . . . . .
@@ -476,5 +473,48 @@ class PieceTests: XCTestCase {
          */
         
         XCTAssertFalse(king.canKingMove(from: Point(row: 5, col: 7), to: Point(row: 3, col: 7)))
+    }
+    
+    func testCanPawnMove(){
+        let pawn = Piece(color: .black, pieceType: .pawn)
+        /*
+         8 . . . . . . . .
+         7 . . . . . . . .
+         6 . . . . . . . .
+         5 . . . . . . . .
+         4 . . . . . . . .
+         3 . . . t . . . .
+         2 . . . f . . . .
+         1 . . . . . . . .
+         + A B C D E F G H
+         */
+        
+        XCTAssertTrue(pawn.canPawnMove(from: Point(row: 2, col: 4), to: Point(row: 3, col: 4)))
+        /*
+         8 . . . . . t . .
+         7 . . . . . f . .
+         6 . . . . . . . .
+         5 . . . . . . . .
+         4 . . . . . . . .
+         3 . . . . . . . .
+         2 . . . . . . . .
+         1 . . . . . . . .
+         + A B C D E F G H
+         */
+        
+        XCTAssertTrue(pawn.canPawnMove(from: Point(row: 7, col: 6), to: Point(row: 8, col: 6)))
+        /*
+         8 . . . . . . . .
+         7 . . . . . . . .
+         6 . f . . . . . .
+         5 . t . . . . . .
+         4 . . . . . . . .
+         3 . . . . . . . .
+         2 . . . . . . . .
+         1 . . . . . . . .
+         + A B C D E F G H
+         */
+        
+        XCTAssertFalse(pawn.canPawnMove(from: Point(row: 6, col: 2), to: Point(row: 5, col: 2)))
     }
 }
