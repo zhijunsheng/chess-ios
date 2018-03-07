@@ -48,13 +48,25 @@ class BoardTests: XCTestCase {
          + A B C D E F G H
          */
         
-        let board = Board(numRows: 8, numCols: 8)
+        let board = Board()
         
         print("\(board)")
     }
    
     // Pawn: if abs(from.row - to.row) == >=8 || abs(from.row - to.row) == <1
-    // Rook: if going right (from.col < to.col) and there is a piece in the way && the to.col > than the from.col of the piece in the way || if going up (from.row < to.row) and there is a piece in the way && the to.row > than the from.row of the piece in the way || if going down (from.row > to.row) and there is a piece in the way && the to.row is < than the from.row of the piece in the way || if going left (from.col > to.col)and there is a piece the way && to.col is =< than the from.col of the piece in the way, return false. If abs(from.row - to.row) == >=8 || if abs(from.row - to.row) == <1 || if abs(from.col - to.col) == >=8 || abs(from.col - to.col) == <1, return false
+    
+    /*
+     8 . . . . . . . .
+     7 . . . . . . . .
+     6 . f . . P . t .
+     5 . . . . . . . .
+     4 . . . . . . . .
+     3 . . . . . . . .
+     2 . . . . . . . .
+     1 . . . . . . . .
+     + A B C D E F G H
+     */
+    // Rook: if going right (from.col < to.col) and there is a piece in the way && the to.col > than the from.col of the piece in the way || if going up (from.row < to.row) and there is a piece in the way && the to.col > than the from.col of the piece in the way || if going down (from.row > to.row) and there is a piece in the way && the to.row is < than the from.row of the piece in the way || if going left (from.col > to.col)and there is a piece the way && to.col is =< than the from.col of the piece in the way, return false. If abs(from.row - to.row) == >=8 || if abs(from.row - to.row) == <1 || if abs(from.col - to.col) == >=8 || abs(from.col - to.col) == <1, return false
     
     // Knight: if abs(from.row - to.row) == >=8 || abs(from.row - to.row) == <1 || if abs(from.col - to.col) == >=8 || abs(from.col - to.col) == <1
     

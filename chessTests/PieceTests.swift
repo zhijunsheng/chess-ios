@@ -13,7 +13,9 @@ import XCTest
 class PieceTests: XCTestCase {
  
     func testCanKnightMove() {
-        let knight = Piece(color: .white, pieceType: .knight)
+        
+        
+        let knight = Piece(color: .white, pieceType: .knight, location: Point(row: 5, col: 2))
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -122,7 +124,7 @@ class PieceTests: XCTestCase {
     }
     
     func testCanRookMove(){
-        let rook = Piece(color: .black, pieceType: .rook)
+        let rook = Piece(color: .black, pieceType: .rook, location: Point(row: 8, col: 5))
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -178,7 +180,7 @@ class PieceTests: XCTestCase {
     }
 
     func testCanBishopMove(){
-        let bishop = Piece(color: .white, pieceType: .bishop)
+        let bishop = Piece(color: .white, pieceType: .bishop, location: Point(row: 8, col: 5))
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -247,7 +249,7 @@ class PieceTests: XCTestCase {
     }
     
     func testQueenCanMove(){
-        let queen = Piece(color: .white, pieceType: .queen)
+        let queen = Piece(color: .white, pieceType: .queen, location: Point(row: 8, col: 5))
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -368,7 +370,7 @@ class PieceTests: XCTestCase {
     }
     
     func testCanKingMove(){
-         let king = Piece(color: .white, pieceType: .king)
+         let king = Piece(color: .white, pieceType: .king, location: Point(row: 8, col: 5))
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -476,7 +478,7 @@ class PieceTests: XCTestCase {
     }
     
     func testCanPawnMove(){
-        let pawn = Piece(color: .black, pieceType: .pawn)
+        let pawn = Piece(color: .black, pieceType: .pawn, location: Point(row: 8, col: 5))
         /*
          8 . . . . . . . .
          7 . . . . . . . .

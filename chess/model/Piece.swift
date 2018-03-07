@@ -11,7 +11,8 @@ import Foundation
 struct Piece {
     let color: Player
     let pieceType: PieceType
-    
+    let location: Point
+   
     /*
      8 . . . . . . . .
      7 . . . . . . . .

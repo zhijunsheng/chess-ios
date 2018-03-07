@@ -12,6 +12,23 @@ struct Board: CustomStringConvertible {
     
     let numRows: Int
     let numCols: Int
+    var pieces: [Piece]
+    
+    
+    init() {
+        numRows = 8
+        numCols = 8
+        pieces = [Piece]()
+        initializeBoard()
+    
+    }
+    
+    mutating func initializeBoard(){
+        pieces.append(Piece(color: .white, pieceType: .knight, location: Point(row: 1, col: 2)))
+        pieces.append(Piece(color: .white, pieceType: .rook, location: Point(row: 1, col: 1)))
+        
+        // Homework: add all pieces on board, add pieces in board description,
+    }
     
     func canRookMove(from:Point, to:Point) -> Bool{
         // TODO
@@ -32,7 +49,10 @@ struct Board: CustomStringConvertible {
         return false
     }
     
+    // func canQueenMove(to:Point) -> Bool{
     func canQueenMove(from:Point, to:Point) -> Bool{
+        
+        
         // TODO
         return false
     }
