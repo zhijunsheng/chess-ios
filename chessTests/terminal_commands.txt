@@ -8,3 +8,13 @@ open chess.xcodeproj : open xcode proj
 git commands:
 git branch: show current branch
 git status: show status
+git commit -a: commit all
+git push: push to remote git repo
+git pull: pull...
+
+vim commands
+i: enter input mode
+esc: to quit input mode
+
+command mode
+:x : to quit vim
