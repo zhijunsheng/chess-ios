@@ -1,0 +1,10 @@
+pwd: show current location
+ls: show contents of current directory
+ls -l: long format for ls
+cd: change directory
+cd ..: go back to directory before
+open chess.xcodeproj : open xcode proj
+
+git commands:
+git branch: show current branch
+git status: show status

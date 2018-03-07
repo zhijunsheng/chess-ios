@@ -149,6 +149,7 @@ class PieceTests: XCTestCase {
          */
 
         XCTAssertFalse(rook.canRookMove(from: Point(row: 1, col: 1), to: Point(row: 2, col: 2)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -160,7 +161,6 @@ class PieceTests: XCTestCase {
          1 f . . . . . . t
          + A B C D E F G H
          */
-
         XCTAssertTrue(rook.canRookMove(from: Point(row: 1, col: 1), to: Point(row: 1, col: 8)))
         /*
          8 . . . . . . . .
