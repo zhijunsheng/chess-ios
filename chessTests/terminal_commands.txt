@@ -4,6 +4,7 @@ ls -l: long format for ls
 cd: change directory
 cd ..: go back to directory before
 open chess.xcodeproj : open xcode proj
+tab: auto complete
 
 git commands:
 git branch: show current branch

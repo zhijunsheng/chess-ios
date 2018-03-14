@@ -27,8 +27,8 @@ class PieceTests: XCTestCase {
          1 f . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertFalse(knight.canKnightMove(from: Point(row: 1, col: 1), to: Point(row: 2, col: 1)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -40,8 +40,8 @@ class PieceTests: XCTestCase {
          1 f . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertFalse(knight.canKnightMove(from: Point(row: 1, col: 1), to: Point(row: 2, col: 2)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -53,8 +53,8 @@ class PieceTests: XCTestCase {
          1 f . . . . . . .
          + A B C D E F G H
          */
-       
         XCTAssertTrue(knight.canKnightMove(from: Point(row: 1, col: 1), to: Point(row: 3, col: 2)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -66,8 +66,8 @@ class PieceTests: XCTestCase {
          1 t . . . . . . .
          + A B C D E F G H
          */
-       
         XCTAssertTrue(knight.canKnightMove(from: Point(row: 3, col: 2), to: Point(row: 1, col: 1)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -79,8 +79,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-
     XCTAssertTrue(knight.canKnightMove(from: Point(row: 3, col: 2), to: Point(row: 4, col: 4)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -92,8 +92,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(knight.canKnightMove(from: Point(row: 4, col: 4), to: Point(row: 3, col: 2)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -105,8 +105,8 @@ class PieceTests: XCTestCase {
          1 . . t . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(knight.canKnightMove(from: Point(row: 3, col: 2), to: Point(row: 1, col: 3)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -118,9 +118,7 @@ class PieceTests: XCTestCase {
          1 . . . . . . . f
          + A B C D E F G H
          */
-       
         XCTAssertTrue(knight.canKnightMove(from: Point(row: 1, col: 8), to: Point(row: 3, col: 9)))
-    
     }
     
     func testCanRookMove(){
@@ -136,8 +134,8 @@ class PieceTests: XCTestCase {
          1 f . . . . . . .
          + A B C D E F G H
          */
-
         XCTAssertTrue(rook.canRookMove(from: Point(row: 1, col: 1), to: Point(row: 2, col: 1)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -149,7 +147,6 @@ class PieceTests: XCTestCase {
          1 f . . . . . . .
          + A B C D E F G H
          */
-
         XCTAssertFalse(rook.canRookMove(from: Point(row: 1, col: 1), to: Point(row: 2, col: 2)))
         
         /*
@@ -164,6 +161,7 @@ class PieceTests: XCTestCase {
          + A B C D E F G H
          */
         XCTAssertTrue(rook.canRookMove(from: Point(row: 1, col: 1), to: Point(row: 1, col: 8)))
+        
         /*
          8 . . . . . . . .
          7 . . . f . . . .
@@ -175,7 +173,6 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-
         XCTAssertTrue(rook.canRookMove(from: Point(row: 7, col: 4), to: Point(row: 3, col: 4)))
     }
 
@@ -192,8 +189,8 @@ class PieceTests: XCTestCase {
          1 f . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(bishop.canBishopMove(from: Point(row: 1, col: 1), to: Point(row: 3, col: 3)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -205,8 +202,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . f .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(bishop.canBishopMove(from: Point(row: 1, col: 7), to: Point(row: 5, col: 3)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -218,8 +215,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(bishop.canBishopMove(from: Point(row: 5, col: 2), to: Point(row: 4, col: 3)))
+        
         /*
          8 . . . . . . . f
          7 . . . . . . . .
@@ -231,8 +228,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(bishop.canBishopMove(from: Point(row: 8, col: 8), to: Point(row: 3, col: 3)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -244,7 +241,6 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertFalse(bishop.canBishopMove(from: Point(row: 3, col: 3), to: Point(row: 3, col: 4)))
     }
     
@@ -261,8 +257,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(queen.canQueenMove(from: Point(row: 3, col: 3), to: Point(row: 3, col: 4)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -274,8 +270,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(queen.canQueenMove(from: Point(row: 3, col: 4), to: Point(row: 3, col: 7)))
+        
         /*
          8 . . . . . . . .
          7 . t . . . . . .
@@ -287,8 +283,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(queen.canQueenMove(from: Point(row: 3, col: 3), to: Point(row: 3, col: 4)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . f . .
@@ -300,8 +296,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(queen.canQueenMove(from: Point(row: 7, col: 6), to: Point(row: 3, col: 6)))
+        
         /*
          8 . . . . . . . .
          7 . f . . . . . .
@@ -313,8 +309,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(queen.canQueenMove(from: Point(row: 7, col: 2), to: Point(row: 2, col: 7)))
+       
         /*
          8 . . . . . . . .
          7 . . . . . t . .
@@ -326,8 +322,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(queen.canQueenMove(from: Point(row: 6, col: 5), to: Point(row: 7, col: 6)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . f . .
@@ -339,8 +335,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(queen.canQueenMove(from: Point(row: 7, col: 6), to: Point(row: 3, col: 6)))
+        
         /*
          8 . . . . . . . .
          7 . t . . . . . .
@@ -352,8 +348,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(queen.canQueenMove(from: Point(row: 2, col: 7), to: Point(row: 7, col: 2)))
+        
         /*
          8 . . . t . . . .
          7 . . . . . . . .
@@ -365,7 +361,6 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertFalse(queen.canQueenMove(from: Point(row: 8, col: 4), to: Point(row: 5, col: 3)))
     }
     
@@ -382,8 +377,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(king.canKingMove(from: Point(row: 2, col: 7), to: Point(row: 3, col: 7)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -395,8 +390,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(king.canKingMove(from: Point(row: 2, col: 4), to: Point(row: 3, col: 3)))
+        
         /*
          8 . . . . . . . .
          7 . . . t f . . .
@@ -408,8 +403,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(king.canKingMove(from: Point(row: 7, col: 5), to: Point(row: 7, col: 4)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -421,8 +416,8 @@ class PieceTests: XCTestCase {
          1 t . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(king.canKingMove(from: Point(row: 2, col: 2), to: Point(row: 1, col: 1)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -434,8 +429,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(king.canKingMove(from: Point(row: 4, col: 4), to: Point(row: 3, col: 4)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -447,8 +442,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(king.canKingMove(from: Point(row: 6, col: 5), to: Point(row: 5, col: 6)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -460,8 +455,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(king.canKingMove(from: Point(row: 5, col: 1), to: Point(row: 5, col: 2)))
+        
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -490,8 +485,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(pawn.canPawnMove(from: Point(row: 2, col: 4), to: Point(row: 3, col: 4)))
+       
         /*
          8 . . . . . t . .
          7 . . . . . f . .
@@ -503,8 +498,8 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertTrue(pawn.canPawnMove(from: Point(row: 7, col: 6), to: Point(row: 8, col: 6)))
+       
         /*
          8 . . . . . . . .
          7 . . . . . . . .
@@ -516,7 +511,6 @@ class PieceTests: XCTestCase {
          1 . . . . . . . .
          + A B C D E F G H
          */
-        
         XCTAssertFalse(pawn.canPawnMove(from: Point(row: 6, col: 2), to: Point(row: 5, col: 2)))
     }
 }

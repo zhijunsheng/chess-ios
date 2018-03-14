@@ -25,11 +25,11 @@ class BoardTests: XCTestCase {
          */
         
         
-//        let board = Board(numRows: 8, numCols: 8)
+        //        let board = Board(numRows: 8, numCols: 8)
         
-       
         
-//        XCTAssertTrue(board.canRookMove(from: Point(row: 1, col: 1), to: Point(row: 2, col: 2)))
+        
+        //        XCTAssertTrue(board.canRookMove(from: Point(row: 1, col: 1), to: Point(row: 2, col: 2)))
         
         
     }
@@ -52,7 +52,7 @@ class BoardTests: XCTestCase {
         
         print("\(board)")
     }
-   
+    
     // Pawn: if abs(from.row - to.row) == >=8 || abs(from.row - to.row) == <1
     
     /*

@@ -9,10 +9,6 @@
 import Foundation
 
 struct Point {
-    
     var row: Int
     var col: Int
-
-
-
 }
