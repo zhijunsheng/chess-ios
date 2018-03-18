@@ -16,6 +16,7 @@
 		36119579202FDCC200718A91 /* SimpleLoopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36119578202FDCC200718A91 /* SimpleLoopTests.swift */; };
 		3616FDBB203CF8BE0048506A /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3616FDBA203CF8BE0048506A /* Piece.swift */; };
 		3616FDBD203CFCF40048506A /* PieceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3616FDBC203CFCF40048506A /* PieceTests.swift */; };
+		364796FE205EF87300D5F7AA /* EightQueenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364796FD205EF87300D5F7AA /* EightQueenTests.swift */; };
 		365DF22620214C4900AA01D7 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365DF22520214C4900AA01D7 /* Board.swift */; };
 		365DF22820214D4100AA01D7 /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365DF22720214D4100AA01D7 /* BoardTests.swift */; };
 		36A10EE7201D6ACC0010D9A7 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A10EE6201D6ACC0010D9A7 /* BoardView.swift */; };
@@ -48,6 +49,7 @@
 		36119578202FDCC200718A91 /* SimpleLoopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleLoopTests.swift; sourceTree = "<group>"; };
 		3616FDBA203CF8BE0048506A /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
 		3616FDBC203CFCF40048506A /* PieceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceTests.swift; sourceTree = "<group>"; };
+		364796FD205EF87300D5F7AA /* EightQueenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EightQueenTests.swift; sourceTree = "<group>"; };
 		365DF22520214C4900AA01D7 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		365DF22720214D4100AA01D7 /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		36A10EE6201D6ACC0010D9A7 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				36BF327C203908C700B5498C /* PlayerTest.swift */,
 				3616FDBC203CFCF40048506A /* PieceTests.swift */,
 				36061D28204F6B8E00B74FC5 /* terminal_commands.txt */,
+				364796FD205EF87300D5F7AA /* EightQueenTests.swift */,
 			);
 			path = chessTests;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			files = (
 				3616FDBD203CFCF40048506A /* PieceTests.swift in Sources */,
 				36BF327D203908C700B5498C /* PlayerTest.swift in Sources */,
+				364796FE205EF87300D5F7AA /* EightQueenTests.swift in Sources */,
 				365DF22820214D4100AA01D7 /* BoardTests.swift in Sources */,
 				36119579202FDCC200718A91 /* SimpleLoopTests.swift in Sources */,
 				36DF8AA0201D6E9100E0E07B /* PointTests.swift in Sources */,
