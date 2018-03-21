@@ -11,6 +11,12 @@ import XCTest
 
 class BoardTests: XCTestCase {
     
+    func testMove() {
+        var board = Board()
+        board.move(targetPiece: board.pieces[7], to: Point(row: 6, col: 3))
+        print(board)
+    }
+    
     func testCanRookMove(){
         /*
          8 . . . . . . . .
@@ -30,8 +36,6 @@ class BoardTests: XCTestCase {
         
         
         //        XCTAssertTrue(board.canRookMove(from: Point(row: 1, col: 1), to: Point(row: 2, col: 2)))
-        
-        
     }
     
     func testBoard(){

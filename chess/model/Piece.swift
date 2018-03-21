@@ -13,6 +13,11 @@ struct Piece {
     let pieceType: PieceType
     let location: Point
    
+    
+    
+   
+    
+    
     /*
      8 . . . . . . . .
      7 . . . . . . . .
