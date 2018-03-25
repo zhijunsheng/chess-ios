@@ -125,15 +125,29 @@ struct Board: CustomStringConvertible {
                 var pieceExists = false
                 
                 for piece in pieces {
-                    if piece.location.row == row && piece.location.col == col && piece.pieceType == .king {
-                        dots += piece.color == .black ? "K " : "k "
-                        pieceExists = true
-                    } else if piece.location.row == row && piece.location.col == col && piece.pieceType == .queen{
-                        dots += piece.color == .black ? "Q " : "q "
-                        pieceExists = true
+                    if piece.location.row == row && piece.location.col == col {
+                        
+                        if piece.pieceType == .king {
+                            dots += piece.color == .black ? "K " : "k "
+                            pieceExists = true
+                        } else if piece.pieceType == .queen{
+                            dots += piece.color == .black ? "Q " : "q "
+                            pieceExists = true
+                        } else if piece.pieceType == .bishop{
+                            dots += piece.color == .black ? "B " : "b "
+                            pieceExists = true
+                        } else if piece.pieceType == .knight{
+                            dots += piece.color == .black ? "N " : "n "
+                            pieceExists = true
+                        } else if piece.pieceType == .rook{
+                            dots += piece.color == .black ? "R " : "r "
+                            pieceExists = true
+                        } else if piece.pieceType == .pawn{
+                            dots += piece.color == .black ? "P " : "p "
+                            pieceExists = true
+                        }
                     }
                 }
-                
                 if !pieceExists{
                     dots += ". "
                 }
