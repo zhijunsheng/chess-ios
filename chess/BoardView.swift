@@ -14,14 +14,17 @@ class BoardView: UIView {
     let topLeftX: CGFloat = 16.5
     let topLeftY: CGFloat = 35.0
     
+    let board = Board()
+    
     override func draw(_ rect: CGRect) {
+        print(board)
         drawBoard(color: .darkGray)
-        drawPawns()
-        drawBishops()
+//        drawPawns()
+//        drawBishops()
         drawRooks()
-        drawKings()
-        drawQueens()
-        drawKnights()
+//        drawKings()
+//        drawQueens()
+//        drawKnights()
     }
     
     func drawKnights(){
@@ -40,12 +43,17 @@ class BoardView: UIView {
         drawKingW(xAxis: 5, yAxis: 8)
         drawKingB(xAxis: 4, yAxis: 1)
     }
-    
+    func rowToY(){
+        
+        
+    }
     func drawRooks(){
-        drawRookW(xAxis: 1, yAxis: 8)
-        drawRookW(xAxis: 8, yAxis: 8)
-        drawRookB(xAxis: 1, yAxis: 1)
-        drawRookB(xAxis: 8, yAxis: 1)
+        var Brl1col = board.pieces[0].location.col
+        var Brl1row = board.pieces[0].location.row
+        //        drawRookW(xAxis: 1, yAxis: 8)
+//        drawRookW(xAxis: 8, yAxis: 8)
+        drawRookB(xAxis: Brl1col, yAxis: Brl1row)
+//        drawRookB(xAxis: 8, yAxis: 1)
     }
     
     func drawBishops(){
