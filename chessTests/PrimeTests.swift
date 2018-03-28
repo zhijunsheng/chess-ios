@@ -17,7 +17,7 @@ class PrimeTests: XCTestCase {
         XCTAssertTrue(isPrime(x: 2))
         XCTAssertTrue(isPrime(x: 137153))
         XCTAssertFalse(isPrime(x: 14))
-//        XCTAssertTrue(isPrime(x: 30303030303031))
+        XCTAssertTrue(isPrime(x: 30303030303031))
     }
     
     func isPrime(x: Int) -> Bool {
@@ -26,12 +26,23 @@ class PrimeTests: XCTestCase {
         if x == 2 {
             return true
         }
-
-        for i in 2 ... x - 1 {
+        let squareRoot = sqrt(Double(x))
+        let intSquareRoot = Int(squareRoot)
+        
+        for i in 2 ... intSquareRoot + 1 {
             if x % i == 0 {
                 return false
             }
         }
         return true
     }
+    
+    func testSquareRoot() {
+        let i = Double(30303030303031)
+        let result = sqrt(i)
+        let intResult = Int(result)
+        print(intResult)
+        print(result)
+    }
+
 }
