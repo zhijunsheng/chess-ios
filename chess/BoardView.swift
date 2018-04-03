@@ -31,7 +31,6 @@ class BoardView: UIView {
     }
     
     func drawPiece(piece: Piece) {
-        print("______________________________\(piece.pieceType)")
         let x = topLeftX - gap + CGFloat(piece.location.col) * gap
         let y = topLeftY - gap + CGFloat(9 - piece.location.row) * gap
         
@@ -39,10 +38,8 @@ class BoardView: UIView {
         if piece.color == .black {
             if piece.pieceType == .knight {
                 pieceImage = UIImage(named: "knight_chess_b")!
-                //            pieceImage.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
             } else if piece.pieceType == .rook {
                 pieceImage = UIImage(named: "rook_chess_b")!
-                //            pieceImage.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
             } else if piece.pieceType == .bishop {
                 pieceImage = UIImage(named: "bishop_chess_b")!
             } else if piece.pieceType == .queen {
@@ -69,24 +66,6 @@ class BoardView: UIView {
             }
         }
         pieceImage.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
-    }
-    
-    func drawKnightB(xAxis: Int, yAxis: Int){
-        let x = topLeftX - gap + CGFloat(xAxis) * gap
-        let y = topLeftY - gap + CGFloat(yAxis) * gap
-        
-        let piece = UIImage(named: "knight_chess_b")
-        piece?.draw(in: CGRect(x: x + 3, y: y, width: gap - 3, height: gap - 1))
-    }
-    
-    func rowToY(){
-        let i = 6
-        let convertRow = topLeftX - gap + CGFloat(board.pieces[i].location.row) * gap
-    }
-    
-    func colToX(){
-        let i = 6
-        let convertCol = topLeftX - gap + CGFloat(board.pieces[i].location.row) * gap
     }
     
     func drawCell(withColor color: UIColor, x: CGFloat, y: CGFloat, width: CGFloat, height:CGFloat) {
@@ -130,18 +109,14 @@ class BoardView: UIView {
             drawLine(withColor: color,fromX: topLeftX + CGFloat(i) * gap, fromY: topLeftY , toX: topLeftX + CGFloat(i) * gap, toY: topLeftY + CGFloat(numCells) * gap)
         }
         
-        for i in 0...3{
+        for i in 0...3 {
             var a = 0
             var b = 0.5
             
             while a < 4 {
-                
                 drawCell(withColor: .white, x: w.x + gap * 2 * CGFloat(i), y: w.y + gap * CGFloat(a) * 2, width: gap, height: gap)
-                
                 drawCell(withColor: .gray, x: w.x + gap * 2 * CGFloat(i), y: w.y + gap * CGFloat(b) * 2, width: gap, height: gap)
-                
                 drawCell(withColor: .gray, x: r.x + gap * 2 * CGFloat(i), y: r.y + gap * CGFloat(a) * 2, width: gap, height: gap)
-                
                 drawCell(withColor: .white, x: r.x + gap * 2 * CGFloat(i), y: r.y + gap * CGFloat(b) * 2, width: gap, height: gap)
                 
                 a = a + 1

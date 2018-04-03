@@ -23,7 +23,7 @@ struct Board: CustomStringConvertible {
     }
     
     mutating func initializeBoard(){
-        pieces.append(Piece(color: .black, pieceType: .rook, location: Point(row: 8, col:1 )))
+        pieces.append(Piece(color: .black, pieceType: .rook, location: Point(row: 8, col: 1 )))
         pieces.append(Piece(color: .black, pieceType: .rook, location: Point(row: 8, col: 8)))
         pieces.append(Piece(color: .black, pieceType: .knight, location: Point(row: 8, col: 2)))
         pieces.append(Piece(color: .black, pieceType: .knight, location: Point(row: 8, col: 7)))
