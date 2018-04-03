@@ -19,67 +19,56 @@ class BoardView: UIView {
     override func draw(_ rect: CGRect) {
         print(board)
         drawBoard(color: .darkGray)
-//        drawPawns()
-//        drawBishops()
-        drawRooks()
-//        drawKings()
-//        drawQueens()
-//        drawKnights()
+        drawPieces()
     }
     
-    func drawKnights(){
-        drawKnightW(xAxis: 2, yAxis: 8)
-        drawKnightW(xAxis: 7, yAxis: 8)
-        drawKnightB(xAxis: 2, yAxis: 1)
-        drawKnightB(xAxis: 7, yAxis: 1)
-    }
-    
-    func drawQueens(){
-        drawQueenB(xAxis: 5, yAxis: 1)
-        drawQueenW(xAxis: 4, yAxis: 8)
-    }
-    
-    func drawKings(){
-        drawKingW(xAxis: 5, yAxis: 8)
-        drawKingB(xAxis: 4, yAxis: 1)
-    }
-    func rowToY(){
+    func drawPieces(){
+        print("inside drawPieces()")
         
+        for piece in board.pieces {
+            drawPiece(piece: piece)
+        }
+    }
+    
+    func drawPiece(piece: Piece) {
+        print("______________________________\(piece.pieceType)")
+        let x = topLeftX - gap + CGFloat(piece.location.col) * gap
+        let y = topLeftY - gap + CGFloat(9 - piece.location.row) * gap
         
-    }
-    func drawRooks(){
-        var Brl1col = board.pieces[0].location.col
-        var Brl1row = board.pieces[0].location.row
-        //        drawRookW(xAxis: 1, yAxis: 8)
-//        drawRookW(xAxis: 8, yAxis: 8)
-        drawRookB(xAxis: Brl1col, yAxis: Brl1row)
-//        drawRookB(xAxis: 8, yAxis: 1)
-    }
-    
-    func drawBishops(){
-        drawBishopB(xAxis: 3, yAxis: 1)
-        drawBishopB(xAxis: 6, yAxis: 1)
-        drawBishopW(xAxis: 3, yAxis: 8)
-        drawBishopW(xAxis: 6, yAxis: 8)
-    }
-    
-    func drawPawns(){
-        drawPawnW(xAxis: 1, yAxis: 7)
-        drawPawnW(xAxis: 2, yAxis: 7)
-        drawPawnW(xAxis: 3, yAxis: 7)
-        drawPawnW(xAxis: 4, yAxis: 7)
-        drawPawnW(xAxis: 5, yAxis: 7)
-        drawPawnW(xAxis: 6, yAxis: 7)
-        drawPawnW(xAxis: 7, yAxis: 7)
-        drawPawnW(xAxis: 8, yAxis: 7)
-        drawPawnB(xAxis: 1, yAxis: 2)
-        drawPawnB(xAxis: 2, yAxis: 2)
-        drawPawnB(xAxis: 3, yAxis: 2)
-        drawPawnB(xAxis: 4, yAxis: 2)
-        drawPawnB(xAxis: 5, yAxis: 2)
-        drawPawnB(xAxis: 6, yAxis: 2)
-        drawPawnB(xAxis: 7, yAxis: 2)
-        drawPawnB(xAxis: 8, yAxis: 2)
+        var pieceImage: UIImage = UIImage()
+        if piece.color == .black {
+            if piece.pieceType == .knight {
+                pieceImage = UIImage(named: "knight_chess_b")!
+                //            pieceImage.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
+            } else if piece.pieceType == .rook {
+                pieceImage = UIImage(named: "rook_chess_b")!
+                //            pieceImage.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
+            } else if piece.pieceType == .bishop {
+                pieceImage = UIImage(named: "bishop_chess_b")!
+            } else if piece.pieceType == .queen {
+                pieceImage = UIImage(named: "queen_chess_b")!
+            } else if piece.pieceType == .king {
+                pieceImage = UIImage(named: "king_chess_b")!
+            } else if piece.pieceType == .pawn {
+                pieceImage = UIImage(named: "pawn_chess_b")!
+            }
+        } else {
+            if piece.pieceType == .knight {
+                pieceImage = UIImage(named: "knight_chess_w")!
+               
+            } else if piece.pieceType == .rook {
+                pieceImage = UIImage(named: "rook_chess_w")!
+            } else if piece.pieceType == .bishop {
+                pieceImage = UIImage(named: "bishop_chess_w")!
+            } else if piece.pieceType == .queen {
+                pieceImage = UIImage(named: "queen_chess_w")!
+            } else if piece.pieceType == .king {
+                pieceImage = UIImage(named: "king_chess_w")!
+            } else if piece.pieceType == .pawn {
+                pieceImage = UIImage(named: "pawn_chess_w")!
+            }
+        }
+        pieceImage.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
     }
     
     func drawKnightB(xAxis: Int, yAxis: Int){
@@ -90,92 +79,14 @@ class BoardView: UIView {
         piece?.draw(in: CGRect(x: x + 3, y: y, width: gap - 3, height: gap - 1))
     }
     
-    func drawKnightW(xAxis: Int, yAxis: Int){
-        let x = topLeftX - gap + CGFloat(xAxis) * gap
-        let y = topLeftY - gap + CGFloat(yAxis) * gap
-        
-        let piece = UIImage(named: "knight_chess_w")
-        piece?.draw(in: CGRect(x: x + 3, y: y + 1, width: gap - 4, height: gap - 2))
+    func rowToY(){
+        let i = 6
+        let convertRow = topLeftX - gap + CGFloat(board.pieces[i].location.row) * gap
     }
     
-    func drawQueenW(xAxis: Int, yAxis: Int){
-        let x = topLeftX - gap + CGFloat(xAxis) * gap
-        let y = topLeftY - gap + CGFloat(yAxis) * gap
-        
-        let piece = UIImage(named: "queen_chess_w")
-        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
-    }
-    
-    func drawQueenB(xAxis: Int, yAxis: Int){
-        let x = topLeftX - gap + CGFloat(xAxis) * gap
-        let y = topLeftY - gap + CGFloat(yAxis) * gap
-        
-        let piece = UIImage(named: "queen_chess_b")
-        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
-    }
-    
-    func drawKingB(xAxis: Int, yAxis: Int){
-        let x = topLeftX - gap + CGFloat(xAxis) * gap
-        let y = topLeftY - gap + CGFloat(yAxis) * gap
-        
-        let piece = UIImage(named: "king_chess_b")
-        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
-    }
-    
-    func drawKingW(xAxis: Int, yAxis: Int){
-        let x = topLeftX - gap + CGFloat(xAxis) * gap
-        let y = topLeftY - gap + CGFloat(yAxis) * gap
-        
-        let piece = UIImage(named: "king_chess_w")
-        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
-    }
-    
-    func drawRookB(xAxis: Int, yAxis: Int){
-        let x = topLeftX - gap + CGFloat(xAxis) * gap
-        let y = topLeftY - gap + CGFloat(yAxis) * gap
-        
-        let piece = UIImage(named: "rook_chess_b")
-        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
-    }
-    
-    func drawRookW(xAxis: Int, yAxis: Int){
-        let x = topLeftX - gap + CGFloat(xAxis) * gap
-        let y = topLeftY - gap + CGFloat(yAxis) * gap
-        
-        let piece = UIImage(named: "rook_chess_w")
-        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
-    }
-    
-    func drawBishopW(xAxis: Int, yAxis: Int){
-        let x = topLeftX - gap + CGFloat(xAxis) * gap
-        let y = topLeftY - gap + CGFloat(yAxis) * gap
-        
-        let piece = UIImage(named: "bishop_chess_w")
-        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
-    }
-    
-    func drawBishopB(xAxis: Int, yAxis: Int){
-        let x = topLeftX - gap + CGFloat(xAxis) * gap
-        let y = topLeftY - gap + CGFloat(yAxis) * gap
-        
-        let piece = UIImage(named: "bishop_chess_b")
-        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
-    }
-    
-    func drawPawnB(xAxis: Int, yAxis: Int){
-        let x = topLeftX - gap + CGFloat(xAxis) * gap
-        let y = topLeftY - gap + CGFloat(yAxis) * gap
-        
-        let piece = UIImage(named: "pawn_chess_b")
-        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
-    }
-    
-    func drawPawnW(xAxis: Int, yAxis: Int){
-        let x = topLeftX - gap + CGFloat(xAxis) * gap
-        let y = topLeftY - gap + CGFloat(yAxis) * gap
-        
-        let piece = UIImage(named: "pawn_chess_w")
-        piece?.draw(in: CGRect(x: x, y: y, width: gap, height: gap))
+    func colToX(){
+        let i = 6
+        let convertCol = topLeftX - gap + CGFloat(board.pieces[i].location.row) * gap
     }
     
     func drawCell(withColor color: UIColor, x: CGFloat, y: CGFloat, width: CGFloat, height:CGFloat) {

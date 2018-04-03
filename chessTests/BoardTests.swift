@@ -13,7 +13,7 @@ class BoardTests: XCTestCase {
     
     func testMove() {
         var board = Board()
-        board.move(targetPiece: board.pieces[8], to: Point(row: 4, col: 7))
+        board.move(targetPiece: board.pieces[1], to: Point(row: 4, col: 7))
         print(board)
     }
     
