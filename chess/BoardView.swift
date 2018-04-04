@@ -14,9 +14,14 @@ class BoardView: UIView {
     let topLeftX: CGFloat = 16.5
     let topLeftY: CGFloat = 35.0
     
-    let board = Board()
+    var board = Board()
     
     override func draw(_ rect: CGRect) {
+        // move black knight to (3,3)
+        //board.move(targetPiece: board.pieces[2], to: Point(row: 6, col: 3))
+        // move white pawn to (5,4)
+        //board.move(targetPiece: board.pieces[28], to: Point(row: 4, col: 5))
+        
         print(board)
         drawBoard(color: .darkGray)
         drawPieces()
