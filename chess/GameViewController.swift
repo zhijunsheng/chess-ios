@@ -13,8 +13,6 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        print("in viewDidLoad()")
     }
 
 }
