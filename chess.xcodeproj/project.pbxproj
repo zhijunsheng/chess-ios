@@ -79,11 +79,11 @@
 			children = (
 				07FDE4312018140A00A674FE /* AppDelegate.swift */,
 				07FDE4332018140A00A674FE /* GameViewController.swift */,
+				7577D2FF218402F600CEA3D6 /* BoardView.swift */,
 				07FDE4352018140A00A674FE /* Main.storyboard */,
 				07FDE4382018140A00A674FE /* Assets.xcassets */,
 				07FDE43A2018140A00A674FE /* LaunchScreen.storyboard */,
 				07FDE43D2018140A00A674FE /* Info.plist */,
-				7577D2FF218402F600CEA3D6 /* BoardView.swift */,
 			);
 			path = chess;
 			sourceTree = "<group>";

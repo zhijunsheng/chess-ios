@@ -17,14 +17,8 @@ class BoardView: UIView {
     
     override func draw(_ rect: CGRect) {
         for i in 0..<8 {
-            if i % 2 == 0 {
-                for j in 0..<8 {
-                    drawSquare(x: originX + side * CGFloat(j), y: originY + side * CGFloat(i), color: (j % 2 == 1) ? whiteSquare : blackSquare)
-                }
-            } else {
-                for j in 0..<8 {
-                    drawSquare(x: originX + side * CGFloat(j), y: originY + side * CGFloat(i), color: (j % 2 == 0) ? whiteSquare : blackSquare)
-                }
+            for j in 0..<8 {
+                drawSquare(x: originX + side * CGFloat(j), y: originY + side * CGFloat(i), color: ((j + i) % 2 == 1) ? whiteSquare : blackSquare)
             }
         }
     }
