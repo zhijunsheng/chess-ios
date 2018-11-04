@@ -16,4 +16,8 @@ class BoardTests: XCTestCase {
         print(anything)
     }
     
+//    func testBoardPieces() {
+//        let anything = Board()
+//        let piece = <#value#>
+//    }
 }
