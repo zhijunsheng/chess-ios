@@ -22,6 +22,8 @@ struct Board: CustomStringConvertible {
     let cols = 8
     let rows = 8
     
+    var pieces: [Piece] = []
+    
 //    func isXY(x: Int, y: Int, onPoints points: [Piece]) -> Bool {
 //        var onSnake = false
 //        for cell in points {
@@ -40,12 +42,6 @@ struct Board: CustomStringConvertible {
         }
         return nil
     }
-    
-    let pieces: [Piece] = [Piece(row: 1, col: 1, isWhite: false, rank: .pawn),
-                           Piece(row: 0, col: 0, isWhite: false, rank: .rook),
-                           Piece(row: 7, col: 3, isWhite: true, rank: .bishop),
-                           Piece(row: 0, col: 4, isWhite: false, rank: .queen),
-    ]
     
     var description: String {
         
