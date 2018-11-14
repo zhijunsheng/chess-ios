@@ -24,16 +24,122 @@ struct Board: CustomStringConvertible {
     
     var pieces: [Piece] = []
     
-//    func isXY(x: Int, y: Int, onPoints points: [Piece]) -> Bool {
-//        var onSnake = false
-//        for cell in points {
-//            if cell.col == x && cell.row == y {
-//                onSnake = true
-//                break
-//            }
-//        }
-//        return onSnake
-//    }
+    mutating func move(piece: Piece, destinationRow: Int, destinationCol: Int) -> Bool {
+        switch piece.rank {
+        case .pawn: if !canPawnMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol, isWhite: piece.isWhite) {
+                return false
+            }
+        case .knight:
+            if !canKnightMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol, isWhite: piece.isWhite) {
+                return false
+            }
+        case .bishop: break
+        case .rook: if !canRookMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol, isWhite: piece.isWhite) {
+                return false
+            }
+        case .king: if !canKingMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol, isWhite: piece.isWhite) {
+                return false
+            }
+        case .queen: break
+        }
+        
+        if let idx = indexOfPieceOn(row: piece.row, col: piece.col) {
+            pieces.remove(at: idx)
+            
+            // not perfect code here⤵︎, but it works
+            //                       ↡
+            //                       ↡
+            if let existingDestPieceIdx = indexOfPieceOn(row: destinationRow, col: destinationCol) {
+                pieces.remove(at: existingDestPieceIdx)
+            }
+            
+            let newDestPiece = Piece(row: destinationRow, col: destinationCol, isWhite: piece.isWhite, rank: piece.rank)
+            
+            pieces.append(newDestPiece)
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func indexOfPieceOn(row: Int, col: Int) -> Int? {
+        for i in pieces.indices {
+            if pieces[i].col == col && pieces[i].row == row {
+                return i
+            }
+        }
+        return nil
+    }
+    
+    func pieceOn(row: Int, col: Int) -> Piece? {
+        for piece in pieces {
+            if row == piece.row && col == piece.col {
+                return piece
+            }
+        }
+        return nil
+    }
+    
+    func isDestOutOfBoard(destRow: Int, destCol: Int) -> Bool {
+        if destRow < 0 || destCol < 0 || destRow > 7 || destCol > 7 {
+            return true
+        }
+        return false
+    }
+    
+    func isDestOnOwnPieces(destRow: Int, destCol: Int, isWhite: Bool) -> Bool {
+        for piece in pieces {
+            if destRow == piece.row && destCol == piece.col {
+                if piece.isWhite == isWhite {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    func canKnightMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int, isWhite: Bool) -> Bool {
+        if isDestOutOfBoard(destRow: toRow, destCol: toCol) || isDestOnOwnPieces(destRow: toRow, destCol: toCol, isWhite: isWhite) {
+            return false
+        }
+        if abs(toRow - fromRow) == 1 && abs(toCol - fromCol) == 2 || abs(toRow - fromRow) == 2 && abs(toCol - fromCol) == 1 {
+            return true
+        }
+        return false
+    }
+    
+    func canPawnMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int, isWhite: Bool) -> Bool {
+        if isDestOutOfBoard(destRow: toRow, destCol: toCol) || isDestOnOwnPieces(destRow: toRow, destCol: toCol, isWhite: isWhite) {
+            return false
+        }
+        if toRow - fromRow == 1 {
+            return true
+        }
+        return false
+    }
+    
+    func canRookMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int, isWhite: Bool) -> Bool {
+        if isDestOutOfBoard(destRow: toRow, destCol: toCol) || isDestOnOwnPieces(destRow: toRow, destCol: toCol, isWhite: isWhite) {
+            return false
+        }
+        for i in 1...7 {
+            if abs(toRow - fromRow) == i || abs(toCol - fromCol) == i {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func canKingMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int, isWhite: Bool) -> Bool {
+        if isDestOutOfBoard(destRow: toRow, destCol: toCol) || isDestOnOwnPieces(destRow: toRow, destCol: toCol, isWhite: isWhite) {
+            return false
+        }
+        if abs(toRow - fromRow) == 1 || abs(toCol - fromCol) == 1 {
+            return true
+        }
+        return false
+    }
+    
     func isXY(x: Int, y: Int, onPoints pieces: [Piece]) -> Piece? {
         for piece in pieces {
             if piece.col == x && piece.row == y {
