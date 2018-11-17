@@ -134,7 +134,17 @@ struct Board: CustomStringConvertible {
         if isDestOutOfBoard(destRow: toRow, destCol: toCol) || isDestOnOwnPieces(destRow: toRow, destCol: toCol, isWhite: isWhite) {
             return false
         }
-        if abs(toRow - fromRow) == 1 || abs(toCol - fromCol) == 1 {
+        if abs(toRow - fromRow) == 1 || abs(toCol - fromCol) == 1 || abs(toRow - fromRow) == 1 && abs(toCol - fromCol) == 1 {
+            return true
+        }
+        return false
+    }
+    
+    func canBishopMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int, isWhite: Bool) -> Bool {
+        if isDestOutOfBoard(destRow: toRow, destCol: toCol) || isDestOnOwnPieces(destRow: toRow, destCol: toCol, isWhite: isWhite) {
+            return false
+        }
+        if abs(toRow - fromRow) == 1 && abs(toCol - fromCol) == 1 {
             return true
         }
         return false

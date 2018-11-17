@@ -106,5 +106,27 @@ class BoardTests: XCTestCase {
         XCTAssertTrue(board.move(piece: board.pieces[0], destinationRow: 1, destinationCol: 3))
         print(board)
         XCTAssertEqual(1, board.pieces.count)
+        
+        
+        board.pieces = [
+            Piece(row: 0, col: 0, isWhite: false, rank: .rook),
+        ]
+        print(board)
+        XCTAssertTrue(board.move(piece: board.pieces[0], destinationRow: 0, destinationCol: 7))
+        print(board)
+        
+        
+        board.pieces = [
+            Piece(row: 1, col: 4, isWhite: false, rank: .pawn),
+        ]
+        print(board)
+        XCTAssertTrue(board.move(piece: board.pieces[0], destinationRow: 2, destinationCol: 4))
+        print(board)
+        board.pieces = [
+            Piece(row: 1, col: 4, isWhite: false, rank: .pawn),
+        ]
+        print(board)
+        XCTAssertFalse(board.move(piece: board.pieces[0], destinationRow: 0, destinationCol: 4))
+        print(board)
     }
 }
