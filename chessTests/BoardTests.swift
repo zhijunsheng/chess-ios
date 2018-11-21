@@ -106,16 +106,15 @@ class BoardTests: XCTestCase {
         XCTAssertTrue(board.move(piece: board.pieces[0], destinationRow: 1, destinationCol: 3))
         print(board)
         XCTAssertEqual(1, board.pieces.count)
-        
-        
         board.pieces = [
-            Piece(row: 0, col: 0, isWhite: false, rank: .rook),
+            Piece(row: 0, col: 1, isWhite: false, rank: .knight),
+            Piece(row: 1, col: 3, isWhite: true, rank: .pawn),
         ]
         print(board)
-        XCTAssertTrue(board.move(piece: board.pieces[0], destinationRow: 0, destinationCol: 7))
+        XCTAssertFalse(board.move(piece: board.pieces[0], destinationRow: 0, destinationCol: 1))
         print(board)
         
-        
+        //pawn
         board.pieces = [
             Piece(row: 1, col: 4, isWhite: false, rank: .pawn),
         ]
@@ -127,6 +126,51 @@ class BoardTests: XCTestCase {
         ]
         print(board)
         XCTAssertFalse(board.move(piece: board.pieces[0], destinationRow: 0, destinationCol: 4))
+        print(board)
+        
+    }
+    
+    func testRook() {
+        var board = Board()
+        
+        //rook
+        board.pieces = [
+            Piece(row: 0, col: 0, isWhite: false, rank: .rook),
+        ]
+        print(board)
+        XCTAssertTrue(board.move(piece: board.pieces[0], destinationRow: 0, destinationCol: 7))
+        print(board)
+        
+        board.pieces = [
+            Piece(row: 0, col: 0, isWhite: false, rank: .rook),
+        ]
+        print(board)
+        XCTAssertFalse(board.move(piece: board.pieces[0], destinationRow: 3, destinationCol: 5))
+        print(board)
+        
+        board.pieces = [
+            Piece(row: 0, col: 0, isWhite: false, rank: .rook),
+        ]
+        print(board)
+        XCTAssertFalse(board.move(piece: board.pieces[0], destinationRow: 0, destinationCol: 0))
+        print(board)
+    }
+    
+    func testBishop() {
+        var board = Board()
+        
+        board.pieces = [
+            Piece(row: 0, col: 0, isWhite: false, rank: .bishop),
+        ]
+        print(board)
+        XCTAssertTrue(board.move(piece: board.pieces[0], destinationRow: 7, destinationCol: 7))
+        print(board)
+        
+        board.pieces = [
+            Piece(row: 0, col: 0, isWhite: false, rank: .bishop),
+        ]
+        print(board)
+        XCTAssertFalse(board.move(piece: board.pieces[0], destinationRow: 3, destinationCol: 5))
         print(board)
     }
 }

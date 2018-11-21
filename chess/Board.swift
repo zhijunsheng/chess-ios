@@ -33,7 +33,10 @@ struct Board: CustomStringConvertible {
             if !canKnightMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol, isWhite: piece.isWhite) {
                 return false
             }
-        case .bishop: break
+        case .bishop:
+            if !canBishopMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol, isWhite: piece.isWhite) {
+                return false
+            }
         case .rook: if !canRookMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol, isWhite: piece.isWhite) {
                 return false
             }
@@ -122,10 +125,9 @@ struct Board: CustomStringConvertible {
         if isDestOutOfBoard(destRow: toRow, destCol: toCol) || isDestOnOwnPieces(destRow: toRow, destCol: toCol, isWhite: isWhite) {
             return false
         }
-        for i in 1...7 {
-            if abs(toRow - fromRow) == i || abs(toCol - fromCol) == i {
-                return true
-            }
+        
+        if fromRow == toRow || fromCol == toCol {
+            return true
         }
         return false
     }
@@ -144,7 +146,7 @@ struct Board: CustomStringConvertible {
         if isDestOutOfBoard(destRow: toRow, destCol: toCol) || isDestOnOwnPieces(destRow: toRow, destCol: toCol, isWhite: isWhite) {
             return false
         }
-        if abs(toRow - fromRow) == 1 && abs(toCol - fromCol) == 1 {
+        if abs(toRow - fromRow) == abs(toCol - fromCol) {
             return true
         }
         return false
