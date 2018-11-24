@@ -74,11 +74,28 @@ class GameViewController: UIViewController {
         addPiece(image: #imageLiteral(resourceName: "knight_chess_w"), row: 7, col: 6)
         addPiece(image: #imageLiteral(resourceName: "rook_chess_w"), row: 7, col: 7)
     }
+    
     // =(^-.-^)= ~meow
     func addPiece(image: UIImage, row: Int, col: Int) {
         let piece: UIImageView = UIImageView(frame: CGRect(x: 60 + boardView.originX + boardView.side * CGFloat(col), y: 100 + boardView.originY + boardView.side * CGFloat(row), width: boardView.side, height: boardView.side))
         piece.image = image
         view.addSubview(piece)
+        
+        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        piece.addGestureRecognizer(gestureRecognizer)
+        piece.isUserInteractionEnabled = true
+    }
+    
+    @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
+        if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
+            let translation = gestureRecognizer.translation(in: boardView)
+            gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x + translation.x, y: gestureRecognizer.view!.center.y + translation.y)
+            gestureRecognizer.setTranslation(CGPoint.zero, in: boardView)
+        }
+        
+        if gestureRecognizer.state == .ended {
+            
+        }
     }
 }
 
