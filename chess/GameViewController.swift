@@ -87,6 +87,16 @@ class GameViewController: UIViewController {
     }
     
     @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
+        if gestureRecognizer.state == .began {
+            if let pieceView = gestureRecognizer.view {
+                changeScreentoLogic(x: pieceView.frame.origin.x, y: pieceView.frame.origin.y)
+            }
+//            print(gestureRecognizer.view?.frame)
+            
+//            let translation = gestureRecognizer.translation(in: boardView)
+//            changeScreentoLogic(x: translation.x, y: translation.y)
+        }
+        
         if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
             let translation = gestureRecognizer.translation(in: boardView)
             gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x + translation.x, y: gestureRecognizer.view!.center.y + translation.y)
@@ -94,8 +104,59 @@ class GameViewController: UIViewController {
         }
         
         if gestureRecognizer.state == .ended {
+            let translation = gestureRecognizer.translation(in: boardView)
+            var piecePoint = CGPoint(x: gestureRecognizer.view!.center.x + translation.x, y: gestureRecognizer.view!.center.y + translation.y)
+            print(piecePoint)
+            print(boardView.frame.origin)
+            let destX = boardView.frame.origin.x + boardView.originX + boardView.side / 2
+            let destY = boardView.frame.origin.y + boardView.originY + boardView.side / 2
             
+            // x : 60 + 25 + 12.5
+            // y : 100 + 25 + 12.5
+            if abs(piecePoint.x - destX) < boardView.side / 2 && abs(piecePoint.y - destY) < boardView.side / 2 {
+//                piecePoint.x = destX
+//                piecePoint.y = destY
+                boardView.setNeedsDisplay()
+                print("✅accepted✅")
+            } else {
+                print("🚫rejected🚫")
+            }
         }
+    }
+    
+    func changeScreentoLogic(x: CGFloat, y: CGFloat) {
+        print(boardView.frame)
+        print("x = \(x), y = \(y)")
+        // row = ?
+        // col = ?
+        // 85 => col 0, 110 => col 1
+        // 85 = boardView.frame.origin.x + boardView.originX
+        // 125 = boardView.frame.origin.y + boardView.originY
+        //
+        // 125 => row 0
+        let abcd = (x - boardView.frame.origin.x - boardView.originX) / boardView.side
+        print(abcd)
+        
+        let wxyz = (y - boardView.frame.origin.y - boardView.originY) / boardView.side
+        print(wxyz)
+        if let piece = pieceAt(row: Int(wxyz), col: Int(abcd)) {
+            print("☡ !! FOUND PIECE !! ☡ \(piece.rank) \(piece.rank)")
+            let successful = board.move(piece: piece, destinationRow: Int(wxyz), destinationCol: Int(abcd))
+            print(successful)
+            print(board)
+            boardView.setNeedsDisplay()
+        }
+        
+        // then we know which piece it is based on data pieces
+    }
+    
+    func pieceAt(row: Int, col: Int) -> Piece? {
+        for piece in board.pieces {
+            if piece.col == col && piece.row == row {
+                return piece
+            }
+        }
+        return nil
     }
 }
 

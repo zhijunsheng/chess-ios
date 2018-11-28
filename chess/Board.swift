@@ -27,7 +27,7 @@ struct Board: CustomStringConvertible {
     mutating func move(piece: Piece, destinationRow: Int, destinationCol: Int) -> Bool {
         switch piece.rank {
         case .pawn: if !canPawnMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol, isWhite: piece.isWhite) {
-                return false
+//                return false FIXME
             }
         case .knight:
             if !canKnightMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol, isWhite: piece.isWhite) {
