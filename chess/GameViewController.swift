@@ -19,12 +19,15 @@ class GameViewController: UIViewController {
         for i in 0 ..< 2 {
             addPiece(piece: UIImage(named: "bishop_chess_b")!, col: 2 + i * 3, row: 7)
             addPiece(piece: UIImage(named: "bishop_chess_w")!, col: 2 + i * 3, row: 0)
+            addPiece(piece: UIImage(named: "rook_chess_b")!, col: 0 + i * 7, row: 7)
+             addPiece(piece: UIImage(named: "rook_chess_w")!, col: 0 + i * 7, row: 0)
         }
         
         for i in 0 ..< 8 {
             addPiece(piece: UIImage(named: "pawn_chess_b")!, col: i, row: 6)
             addPiece(piece: UIImage(named: "pawn_chess_w")!, col: i, row: 1)
         }
+        
     }
     
     func addPiece(piece: UIImage, col: Int, row: Int) {
