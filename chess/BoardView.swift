@@ -12,7 +12,7 @@ class BoardView: UIView {
                 if (c + i) % 2 == 0 {
                     color = .white
                 } else {
-                    color = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+                    color = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
                 }
                 drawSquare(x:  CGFloat(i) * cellSide + originX, y: originY + CGFloat(c) * cellSide, colour: color)
             }
