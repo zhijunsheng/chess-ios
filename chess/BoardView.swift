@@ -17,29 +17,6 @@ class BoardView: UIView {
                 drawSquare(x:  CGFloat(i) * cellSide + originX, y: originY + CGFloat(c) * cellSide, colour: color)
             }
         }
-        
-        //        for c in 0 ..< 4 {
-        //            for i in 0 ..< 8 {
-        //                var color: UIColor
-        //                if i % 2 == 0 {
-        //                    color = .white
-        //                } else {
-        //                    color = .black
-        //                }
-        //                drawSquare(x:  CGFloat(i) * cellSide + originX, y: originY + CGFloat(c) * 2 * cellSide, colour: color)
-        //            }
-        //
-        //            for i in 0 ..< 8 {
-        //                var color: UIColor
-        //                if i % 2 == 0 {
-        //                    color = .black
-        //                } else {
-        //                    color = .white
-        //                }
-        //                drawSquare(x:  CGFloat(i) * cellSide + originX, y: cellSide + originY + CGFloat(c) * 2 * cellSide, colour: color)
-        //            }
-        //        }
-        
     }
     
     func drawSquare(x: CGFloat, y: CGFloat, colour: UIColor) {
