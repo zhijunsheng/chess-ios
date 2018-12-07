@@ -14,7 +14,6 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         
-        print("in viewDidLoad()")
     }
 
 }
