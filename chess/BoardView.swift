@@ -14,46 +14,6 @@ class BoardView: UIView {
         // row 1, gray
         
         for i in 0..<4 {
-//            print(10 + i * 2)
-            
-            // 0
-            // 2
-            // 4
-            // 6
-//            print(i * 2)
-            
-            // 1
-            // 3
-            // 5
-            // 7
-            print(i * 2 + 1)
-        }
-        
-//        feather.move(to: CGPoint(x: originX + 0 * cellSide, y: originY))
-//        feather.addLine(to: CGPoint(x: originX + 1 * cellSide, y: originY))
-//        feather.addLine(to: CGPoint(x: originX + 1 * cellSide, y: originY + cellSide))
-//        feather.addLine(to: CGPoint(x: originX, y: originY + cellSide))
-//        feather.close()
-//
-//        feather.move(to: CGPoint(x: originX + 2 * cellSide, y: originY))
-//        feather.addLine(to: CGPoint(x: originX + 3 * cellSide, y: originY))
-//        feather.addLine(to: CGPoint(x: originX + 3 * cellSide, y: originY + cellSide))
-//        feather.addLine(to: CGPoint(x: originX + 2 * cellSide, y: originY + cellSide))
-//        feather.close()
-//
-//        feather.move(to: CGPoint(x: originX + 4 * cellSide, y: originY))
-//        feather.addLine(to: CGPoint(x: originX + 5 * cellSide, y: originY))
-//        feather.addLine(to: CGPoint(x: originX + 5 * cellSide, y: originY + cellSide))
-//        feather.addLine(to: CGPoint(x: originX + 4 * cellSide, y: originY + cellSide))
-//        feather.close()
-//
-//        feather.move(to: CGPoint(x: originX + 6 * cellSide, y: originY))
-//        feather.addLine(to: CGPoint(x: originX + 7 * cellSide, y: originY))
-//        feather.addLine(to: CGPoint(x: originX + 7 * cellSide, y: originY + cellSide))
-//        feather.addLine(to: CGPoint(x: originX + 6 * cellSide, y: originY + cellSide))
-//        feather.close()
-        
-        for i in 0..<4 {
             feather.move(to: CGPoint(x: originX + CGFloat(i * 2) * cellSide, y: originY))
             feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 1) * cellSide, y: originY))
             feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 1) * cellSide, y: originY + cellSide))
@@ -61,162 +21,65 @@ class BoardView: UIView {
             feather.close()
         }
         
-        
         // row 2, gray
-        
-        feather.move(to: CGPoint(x: originX + cellSide, y: originY))
-        feather.addLine(to: CGPoint(x: originX + 2 * cellSide, y: originY))
-        feather.addLine(to: CGPoint(x: originX + 2 * cellSide, y: originY + 2 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + cellSide, y: originY + 2 * cellSide))
-        feather.close()
-        
-        feather.move(to: CGPoint(x: originX + 3 * cellSide, y: originY + cellSide))
-        feather.addLine(to: CGPoint(x: originX + 4 * cellSide, y: originY + cellSide))
-        feather.addLine(to: CGPoint(x: originX + 4 * cellSide, y: originY + 2 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 3 * cellSide, y: originY + 2 * cellSide))
-        feather.close()
-
-        feather.move(to: CGPoint(x: originX + 5 * cellSide, y: originY + cellSide))
-        feather.addLine(to: CGPoint(x: originX + 6 * cellSide, y: originY + cellSide))
-        feather.addLine(to: CGPoint(x: originX + 6 * cellSide, y: originY + 2 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 5 * cellSide, y: originY + 2 * cellSide))
-        feather.close()
-
-        feather.move(to: CGPoint(x: originX + 7 * cellSide, y: originY + cellSide))
-        feather.addLine(to: CGPoint(x: originX + 8 * cellSide, y: originY + cellSide))
-        feather.addLine(to: CGPoint(x: originX + 8 * cellSide, y: originY + 2 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 7 * cellSide, y: originY + 2 * cellSide))
-        feather.close()
+    
+        for i in 0..<4 {
+            feather.move(to: CGPoint(x: originX + CGFloat(i * 2 + 1) * cellSide, y: originY))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 2) * cellSide, y: originY))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 2) * cellSide, y: originY + 2 * cellSide))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 1) * cellSide, y: originY + 2 * cellSide))
+            feather.close()
+        }
         
         // row 3, gray
         
-        feather.move(to: CGPoint(x: originX, y: originY + 2 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + cellSide, y: originY + 2 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + cellSide, y: originY + 3 * cellSide))
-        feather.addLine(to: CGPoint(x: originX, y: originY + 3 * cellSide))
-        feather.close()
-        
-        feather.move(to: CGPoint(x: originX + 2 * cellSide, y: originY + 2 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 3 * cellSide, y: originY + 2 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 3 * cellSide, y: originY + 3 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 2 * cellSide, y: originY + 3 * cellSide))
-        feather.close()
-        
-        feather.move(to: CGPoint(x: originX + 4 * cellSide, y: originY + 2 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 5 * cellSide, y: originY + 2 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 5 * cellSide, y: originY + 3 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 4 * cellSide, y: originY + 3 * cellSide))
-        feather.close()
-        
-        feather.move(to: CGPoint(x: originX + 6 * cellSide, y: originY + 2 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 7 * cellSide, y: originY + 2 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 7 * cellSide, y: originY + 3 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 6 * cellSide, y: originY + 3 * cellSide))
-        feather.close()
+        for i in 0..<4 {
+            feather.move(to: CGPoint(x: originX + CGFloat(i * 2) * cellSide, y: originY + 2 * cellSide))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 1) * cellSide, y: originY + 2 * cellSide))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 1) * cellSide, y: originY + 3 * cellSide))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2) * cellSide, y: originY + 3 * cellSide))
+            feather.close()
+        }
         
         // row 4, gray
         
-        feather.move(to: CGPoint(x: originX + cellSide, y: originY + 3 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 2 * cellSide, y: originY + 3 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 2 * cellSide, y: originY + 4 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + cellSide, y: originY + 4 * cellSide))
-        feather.close()
-        
-        feather.move(to: CGPoint(x: originX + 3 * cellSide, y: originY + 3 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 4 * cellSide, y: originY + 3 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 4 * cellSide, y: originY + 4 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 3 * cellSide, y: originY + 4 * cellSide))
-        feather.close()
-        
-        feather.move(to: CGPoint(x: originX + 5 * cellSide, y: originY + 3 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 6 * cellSide, y: originY + 3 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 6 * cellSide, y: originY + 4 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 5 * cellSide, y: originY + 4 * cellSide))
-        feather.close()
-        
-        feather.move(to: CGPoint(x: originX + 7 * cellSide, y: originY + 3 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 8 * cellSide, y: originY + 3 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 8 * cellSide, y: originY + 4 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 7 * cellSide, y: originY + 4 * cellSide))
-        feather.close()
+        for i in 0..<4 {
+            feather.move(to: CGPoint(x: originX + CGFloat(i * 2 + 1) * cellSide, y: originY + 3 * cellSide))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 2) * cellSide, y: originY + 3 * cellSide))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 2) * cellSide, y: originY + 4 * cellSide))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 1) * cellSide, y: originY + 4 * cellSide))
+            feather.close()
+        }
         
         // row 5, gray
         
-        feather.move(to: CGPoint(x: originX, y: originY + 4 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + cellSide, y: originY + 4 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + cellSide, y: originY + 5 * cellSide))
-        feather.addLine(to: CGPoint(x: originX, y: originY + cellSide + 4 * cellSide))
-        feather.close()
-        
-        feather.move(to: CGPoint(x: originX + 2 * cellSide, y: originY + 4 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 3 * cellSide, y: originY + 4 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 3 * cellSide, y: originY + 5 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 2 * cellSide, y: originY + 5 * cellSide))
-        feather.close()
-        
-        feather.move(to: CGPoint(x: originX + 4 * cellSide, y: originY + 4 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 5 * cellSide, y: originY + 4 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 5 * cellSide, y: originY + 5 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 4 * cellSide, y: originY + 5 * cellSide))
-        feather.close()
-        
-        feather.move(to: CGPoint(x: originX + 6 * cellSide, y: originY + 4 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 7 * cellSide, y: originY + 4 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 7 * cellSide, y: originY + 5 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 6 * cellSide, y: originY + 5 * cellSide))
-        feather.close()
+        for i in 0..<4 {
+            feather.move(to: CGPoint(x: originX + CGFloat(i * 2) * cellSide, y: originY + 4 * cellSide))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 1) * cellSide, y: originY + 4 * cellSide))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 1) * cellSide, y: originY + 5 * cellSide))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2) * cellSide, y: originY + 5 * cellSide))
+            feather.close()
+        }
         
         // row 6, gray
         
-        feather.move(to: CGPoint(x: originX + cellSide, y: originY + 5 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 2 * cellSide, y: originY + 5 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 2 * cellSide, y: originY + 6 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + cellSide, y: originY + 6 * cellSide))
-        feather.close()
-        
-        feather.move(to: CGPoint(x: originX + 3 * cellSide, y: originY + 5 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 4 * cellSide, y: originY + 5 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 4 * cellSide, y: originY + 6 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 3 * cellSide, y: originY + 6 * cellSide))
-        feather.close()
-        
-        feather.move(to: CGPoint(x: originX + 5 * cellSide, y: originY + 5 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 6 * cellSide, y: originY + 5 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 6 * cellSide, y: originY + 6 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 5 * cellSide, y: originY + 6 * cellSide))
-        feather.close()
-        
-        feather.move(to: CGPoint(x: originX + 7 * cellSide, y: originY + 5 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 8 * cellSide, y: originY + 5 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 8 * cellSide, y: originY + 6 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 7 * cellSide, y: originY + 6 * cellSide))
-        feather.close()
+        for i in 0..<4 {
+            feather.move(to: CGPoint(x: originX + CGFloat(i * 2 + 1) * cellSide, y: originY + 5 * cellSide))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 2) * cellSide, y: originY + 5 * cellSide))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 2) * cellSide, y: originY + 6 * cellSide))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 1) * cellSide, y: originY + 6 * cellSide))
+            feather.close()
+        }
         
         // row 7, gray
         
-        feather.move(to: CGPoint(x: originX, y: originY + 6 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + cellSide, y: originY + 6 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + cellSide, y: originY + 7 * cellSide))
-        feather.addLine(to: CGPoint(x: originX, y: originY + cellSide + 6 * cellSide))
-        feather.close()
-        
-        feather.move(to: CGPoint(x: originX + 2 * cellSide, y: originY + 6 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 3 * cellSide, y: originY + 6 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 3 * cellSide, y: originY + 7 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 2 * cellSide, y: originY + 7 * cellSide))
-        feather.close()
-        
-        feather.move(to: CGPoint(x: originX + 4 * cellSide, y: originY + 6 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 5 * cellSide, y: originY + 6 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 5 * cellSide, y: originY + 7 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 4 * cellSide, y: originY + 7 * cellSide))
-        feather.close()
-        
-        feather.move(to: CGPoint(x: originX + 6 * cellSide, y: originY + 6 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 7 * cellSide, y: originY + 6 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 7 * cellSide, y: originY + 7 * cellSide))
-        feather.addLine(to: CGPoint(x: originX + 6 * cellSide, y: originY + 7 * cellSide))
-        feather.close()
+        for i in 0..<4 {
+            feather.move(to: CGPoint(x: originX + CGFloat(i * 2) * cellSide, y: originY + 6 * cellSide))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 1) * cellSide, y: originY + 6 * cellSide))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2 + 1) * cellSide, y: originY + 7 * cellSide))
+            feather.addLine(to: CGPoint(x: originX + CGFloat(i * 2) * cellSide, y: originY + 7 * cellSide))
+            feather.close()
+        }
         
         // row 8, gray
         
