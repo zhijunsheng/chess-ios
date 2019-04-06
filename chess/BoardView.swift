@@ -322,27 +322,5 @@ class BoardView: UIView {
 
         #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).setFill()
         pen.fill()
-        
-//        drawSquare(col: 7, row: 0, color: #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1))
-//        drawSquare(col: 0, row: 1, color: #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1))
-//
-//    }
-//
-//    func drawSquare(col: Int, row: Int, color: UIColor) {
-//        let pen = UIBezierPath()
-
-//        color.setFill()
-        pen.fill()
     }
 }
-
-/*
- 
- pwd
- ls -l
- 
- 
- 
- 
- 
- */
