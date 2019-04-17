@@ -54,6 +54,7 @@ class GameViewController: UIViewController {
             let imgV5 = UIImageView(frame: rect5)
             imgV5.image = knightChessW
             view.addSubview(imgV5)
+        }
         
         // black pawns
         
@@ -101,5 +102,4 @@ class GameViewController: UIViewController {
         view.addSubview(imgV27)
         view.addSubview(imgV28)
     }
-}
 }
