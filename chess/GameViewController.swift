@@ -15,11 +15,19 @@ class GameViewController: UIViewController {
     
         super.viewDidLoad()
         
+
+        
         let wreck = CGRect(x:  boardView.originXForBoard + boardView.cellSide * 3, y: boardView.originYForFirstSquare, width: boardView.cellSide, height: boardView.cellSide)
         let fightingImage = UIImage(named: "queen_chess_b")
         let pieceImageView = UIImageView(frame: wreck)
         pieceImageView.image = fightingImage
         boardView.addSubview(pieceImageView)
+        
+        let wreck11 = CGRect(x:  boardView.originXForBoard + boardView.cellSide * 3, y: boardView.originYForFirstSquare + boardView.cellSide * 7, width: boardView.cellSide, height: boardView.cellSide)
+        let fightingImage11 = UIImage(named: "queen_chess_w")
+        let pieceImageView11 = UIImageView(frame: wreck11)
+        pieceImageView11.image = fightingImage11
+        boardView.addSubview(pieceImageView11)
         
         let wreck1 = CGRect(x:  boardView.originXForBoard + boardView.cellSide * 4, y: boardView.originYForFirstSquare, width: boardView.cellSide, height: boardView.cellSide)
         let fightingImage1 = UIImage(named: "king_chess_b")
@@ -52,6 +60,24 @@ class GameViewController: UIViewController {
             let pieceImageView4 = UIImageView(frame: wreck4)
             pieceImageView4.image = fightingImage4
             boardView.addSubview(pieceImageView4)
+            
+            let wreck5 = CGRect(x:  boardView.originXForBoard + boardView.cellSide * CGFloat(2 + 3 * i),y: boardView.originYForFirstSquare + boardView.cellSide * 7, width: boardView.cellSide, height: boardView.cellSide)
+            let fightingImage5 = UIImage(named: "bishop_chess_w")
+            let pieceImageView5 = UIImageView(frame: wreck5)
+            pieceImageView5.image = fightingImage5
+            boardView.addSubview(pieceImageView5)
+            
+                let wreck6 = CGRect(x:  boardView.originXForBoard + boardView.cellSide * CGFloat(1 + 5 * i), y: boardView.originYForFirstSquare + boardView.cellSide * 7, width: boardView.cellSide, height: boardView.cellSide)
+                let fightingImage6 = UIImage(named: "knight_chess_w")
+                let pieceImageView6 = UIImageView(frame: wreck6)
+                pieceImageView6.image = fightingImage6
+                boardView.addSubview(pieceImageView6)
+            
+            let wreck8 = CGRect(x:  boardView.originXForBoard + boardView.cellSide * CGFloat(i * 7), y: boardView.originYForFirstSquare + boardView.cellSide * 7, width: boardView.cellSide, height: boardView.cellSide)
+            let fightingImage8 = UIImage(named: "rook_chess_w")
+            let pieceImageView8 = UIImageView(frame: wreck8)
+            pieceImageView8.image = fightingImage8
+            boardView.addSubview(pieceImageView8)
         }
          let whitePawnImage = UIImage(named: "pawn_chess_w")
         let blackPawnImage = UIImage(named: "pawn_chess_b")
