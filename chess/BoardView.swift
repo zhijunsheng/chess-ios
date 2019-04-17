@@ -107,7 +107,7 @@ class BoardView: UIView {
         feather.addLine(to: CGPoint(x: originX + 7 * cellSide, y: originY + 8 * cellSide))
         feather.close()
 
-        #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1).setFill()
+        #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1).setFill()
         feather.fill()
         
         let pen = UIBezierPath()
@@ -320,7 +320,7 @@ class BoardView: UIView {
         pen.addLine(to: CGPoint(x: originX + 6 * cellSide, y: originY + 8 * cellSide))
         pen.close()
 
-        #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).setFill()
+        #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1).setFill()
         pen.fill()
     }
 }
