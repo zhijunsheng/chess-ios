@@ -32,13 +32,15 @@ class GameViewController: UIViewController {
             view.addSubview(imgV)
         }
 
-        let rect3 = CGRect(x: boardView.originX + 3 * boardView.cellSide, y: boardView.originY, width: boardView.cellSide, height: boardView.cellSide)
-        let imgV3 = UIImageView(frame: rect3)
-        imgV3.image = UIImage(named: "king_chess_b")
+        let kingChessBRect = CGRect(x: boardView.originX + 3 * boardView.cellSide, y: boardView.originY, width: boardView.cellSide, height: boardView.cellSide)
+        let kingChessBImgV = UIImageView(frame: kingChessBRect)
+        kingChessBImgV.image = UIImage(named: "king_chess_b")
+        view.addSubview(kingChessBImgV)
         
-        let rect4 = CGRect(x: boardView.originX + 3 * boardView.cellSide, y: boardView.originY + 7 * boardView.cellSide, width: boardView.cellSide, height: boardView.cellSide)
-        let imgV4 = UIImageView(frame: rect4)
-        imgV4.image = UIImage(named: "king_chess_w")
+        let kingChessWRect = CGRect(x: boardView.originX + 3 * boardView.cellSide, y: boardView.originY + 7 * boardView.cellSide, width: boardView.cellSide, height: boardView.cellSide)
+        let kingChessWImgV = UIImageView(frame: kingChessWRect)
+        kingChessWImgV.image = UIImage(named: "king_chess_w")
+        view.addSubview(kingChessWImgV)
         
         let knightChessB = UIImage(named: "knight_chess_b")
         for i in 0..<2 {
@@ -50,10 +52,10 @@ class GameViewController: UIViewController {
         
         let knightChessW = UIImage(named: "knight_chess_w")
         for i in 0..<2 {
-            let rect5 = CGRect(x: boardView.originX + (1 + 5 * CGFloat(i)) * boardView.cellSide, y: boardView.originY + 7 * boardView.cellSide, width: boardView.cellSide, height: boardView.cellSide)
-            let imgV5 = UIImageView(frame: rect5)
-            imgV5.image = knightChessW
-            view.addSubview(imgV5)
+            let rect = CGRect(x: boardView.originX + (1 + 5 * CGFloat(i)) * boardView.cellSide, y: boardView.originY + 7 * boardView.cellSide, width: boardView.cellSide, height: boardView.cellSide)
+            let imgV = UIImageView(frame: rect)
+            imgV.image = knightChessW
+            view.addSubview(imgV)
         }
         
         // black pawns
@@ -74,13 +76,15 @@ class GameViewController: UIViewController {
             view.addSubview(imgV)
         }
         
-        let rect27 = CGRect(x: boardView.originX + 4 * boardView.cellSide, y: boardView.originY, width: boardView.cellSide, height: boardView.cellSide)
-        let imgV27 = UIImageView(frame: rect27)
-        imgV27.image = UIImage(named: "queen_chess_b")
+        let queenChessBRect = CGRect(x: boardView.originX + 4 * boardView.cellSide, y: boardView.originY, width: boardView.cellSide, height: boardView.cellSide)
+        let queenChessBImgV = UIImageView(frame: queenChessBRect)
+        queenChessBImgV.image = UIImage(named: "queen_chess_b")
+        view.addSubview(queenChessBImgV)
         
         let rect28 = CGRect(x: boardView.originX + 4 * boardView.cellSide, y: boardView.originY + 7 * boardView.cellSide, width: boardView.cellSide, height: boardView.cellSide)
         let imgV28 = UIImageView(frame: rect28)
         imgV28.image = UIImage(named: "queen_chess_w")
+        view.addSubview(imgV28)
         
         let rookChessB = UIImage(named: "rook_chess_b")
         for i in 0..<2 {
@@ -97,9 +101,5 @@ class GameViewController: UIViewController {
             imgV.image = rookChessW
             view.addSubview(imgV)
         }
-        view.addSubview(imgV3)
-        view.addSubview(imgV4)
-        view.addSubview(imgV27)
-        view.addSubview(imgV28)
     }
 }
