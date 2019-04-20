@@ -6,16 +6,7 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         let boardView: BoardView = view as! BoardView
-    
-        // i => a + b * i
-        // i => 2 + 3 * i
-        // 0 => 2
-        // 1 => 5
         
-        // i => a + b * i, a = 0, b = 7
-        // i => 0 + 7 * i
-        // 0 => 0
-        // 1 => 7
         let bishopChessB = UIImage(named: "bishop_chess_b")
         for i in 0..<2 {
             let rect = CGRect(x: boardView.originX + (2 + 3 * CGFloat(i)) * boardView.cellSide, y: boardView.originY, width: boardView.cellSide, height: boardView.cellSide)
@@ -81,10 +72,10 @@ class GameViewController: UIViewController {
         queenChessBImgV.image = UIImage(named: "queen_chess_b")
         view.addSubview(queenChessBImgV)
         
-        let rect28 = CGRect(x: boardView.originX + 4 * boardView.cellSide, y: boardView.originY + 7 * boardView.cellSide, width: boardView.cellSide, height: boardView.cellSide)
-        let imgV28 = UIImageView(frame: rect28)
-        imgV28.image = UIImage(named: "queen_chess_w")
-        view.addSubview(imgV28)
+        let queenChessWRect = CGRect(x: boardView.originX + 4 * boardView.cellSide, y: boardView.originY + 7 * boardView.cellSide, width: boardView.cellSide, height: boardView.cellSide)
+        let queenChessWImgV = UIImageView(frame: queenChessWRect)
+        queenChessWImgV.image = UIImage(named: "queen_chess_w")
+        view.addSubview(queenChessWImgV)
         
         let rookChessB = UIImage(named: "rook_chess_b")
         for i in 0..<2 {
