@@ -3,10 +3,13 @@ import UIKit
 class BoardView: UIView {
     let cellside101: CGFloat = 0
     
-    let originXForBoard: CGFloat = 0.0000000000
-    let originYForFirstSquare: CGFloat = 0.0000000000000
-    let cellSide: CGFloat = 36
+    var originXForBoard: CGFloat = 0.0
+    var originYForFirstSquare: CGFloat = 0.0
+    let cellSide: CGFloat = 25
+    
     override func draw(_ rect: CGRect) {
+        originXForBoard = (bounds.width - cellSide * 8) / 2
+        originYForFirstSquare = (bounds.height - cellSide * 8) / 2
         
         for i in 0...3 {
              drawSquare(locationX: originXForBoard + cellSide * CGFloat(i) * 2 , locationY: originYForFirstSquare, colourLiteral: #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1))
