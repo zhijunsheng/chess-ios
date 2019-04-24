@@ -5,11 +5,11 @@ class BoardView: UIView {
     
     var originXForBoard: CGFloat = 0.0
     var originYForFirstSquare: CGFloat = 0.0
-    var cellSide: CGFloat = 05
+    var cellSide: CGFloat = 0.0
     
     override func draw(_ rect: CGRect) {
         
-        cellSide = (bounds.width * 0.9) / 8
+        cellSide = (bounds.width * 0.90) / 8
         originXForBoard = (bounds.width - cellSide * 8) / 2
         originYForFirstSquare = (bounds.height - cellSide * 8) / 2
         
