@@ -16,10 +16,10 @@ class GameViewController: UIViewController {
         
         
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         let wreck = CGRect(x:  boardView.originXForBoard + boardView.cellSide * 3, y: boardView.originYForFirstSquare, width: boardView.cellSide, height: boardView.cellSide)
         let fightingImage = UIImage(named: "queen_chess_b")
         let pieceImageView = UIImageView(frame: wreck)
@@ -98,3 +98,4 @@ class GameViewController: UIViewController {
     }
 
 }
+
