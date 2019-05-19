@@ -139,9 +139,15 @@ class GameViewController: UIViewController {
         
         let wxyz = (y - boardView.frame.origin.y - boardView.originY) / boardView.side
         print(wxyz)
-        if let piece = pieceAt(row: Int(wxyz), col: Int(abcd)) {
-            print("☡ !! FOUND PIECE !! ☡ \(piece.rank) \(piece.rank)")
-            let successful = board.move(piece: piece, destinationRow: Int(wxyz), destinationCol: Int(abcd))
+        if var piece = pieceAt(row: Int(wxyz), col: Int(abcd), destX: Int(wxyz), destY: Int(abcd)) {
+           // print("☡ !! FOUND PIECE !! ☡ \(piece.rank) \(piece.rank)")
+            let successful = board.move(piece: piece, destinationRow: piece.row, destinationCol: piece.row)
+            if board.move(piece: piece, destinationRow: piece.row, destinationCol: piece.row) == true {
+                piece.col = Int(abcd)
+                piece.row = Int(wxyz)
+                print(successful)
+                boardView.setNeedsDisplay()
+            }
             print(successful)
             print(board)
             boardView.setNeedsDisplay()
@@ -150,7 +156,7 @@ class GameViewController: UIViewController {
         // then we know which piece it is based on data pieces
     }
     
-    func pieceAt(row: Int, col: Int) -> Piece? {
+    func pieceAt(row: Int, col: Int, destX: Int, destY: Int) -> Piece? {
         for piece in board.pieces {
             if piece.col == col && piece.row == row {
                 return piece
@@ -158,5 +164,11 @@ class GameViewController: UIViewController {
         }
         return nil
     }
+    
+//    if gestureRecognizer.state == .began {
+//    if let pieceView = gestureRecognizer.view {
+//    changeScreentoLogic(x: pieceView.frame.origin.x, y: pieceView.frame.origin.y)
+//    }
+
 }
 

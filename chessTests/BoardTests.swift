@@ -132,8 +132,17 @@ class BoardTests: XCTestCase {
     
     func testRook() {
         var board = Board()
-        
+//        r . . . . . . .
+//        . . . . . . . .
+//        . . . . . . . .
+//        . . . . . . . .
+//        . . . . . . . .
+//        . . . . . . . .
+//        . . . . . . . .
+//        . . . . . . . .
+
         //rook
+        
         board.pieces = [
             Piece(row: 0, col: 0, isWhite: false, rank: .rook),
         ]
