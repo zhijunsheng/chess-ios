@@ -8,9 +8,10 @@
 
 import Foundation
 
-struct Piece {
+struct Piece: Hashable {
     var row : Int
     var col : Int
+    let imageName: String
     var isWhite : Bool
     var rank : Rank
     

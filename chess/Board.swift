@@ -22,7 +22,7 @@ struct Board: CustomStringConvertible {
     let cols = 8
     let rows = 8
     
-    var pieces: [Piece] = []
+    var pieces: Set<Piece> = Set<Piece>()
     
     mutating func move(piece: Piece, destinationRow: Int, destinationCol: Int) -> Bool {
         switch piece.rank {
@@ -30,7 +30,7 @@ struct Board: CustomStringConvertible {
                 return false
             }
         case .knight:
-            if !canKnightMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol, isWhite: piece.isWhite) {
+            if !canKnightMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol) {
                 return false
             }
         case .bishop:
@@ -48,32 +48,6 @@ struct Board: CustomStringConvertible {
         
         return true
         
-        if let idx = indexOfPieceOn(row: piece.row, col: piece.col) {
-            pieces.remove(at: idx)
-            
-            // not perfect code here⤵︎, but it works
-            //                       ↡
-            //                       ↡
-            if let existingDestPieceIdx = indexOfPieceOn(row: destinationRow, col: destinationCol) {
-                pieces.remove(at: existingDestPieceIdx)
-            }
-            
-            let newDestPiece = Piece(row: destinationRow, col: destinationCol, isWhite: piece.isWhite, rank: piece.rank)
-            
-            pieces.append(newDestPiece)
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    func indexOfPieceOn(row: Int, col: Int) -> Int? {
-        for i in pieces.indices {
-            if pieces[i].col == col && pieces[i].row == row {
-                return i
-            }
-        }
-        return nil
     }
     
     func pieceOn(row: Int, col: Int) -> Piece? {
@@ -103,10 +77,7 @@ struct Board: CustomStringConvertible {
         return false
     }
     
-    func canKnightMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int, isWhite: Bool) -> Bool {
-        if isDestOutOfBoard(destRow: toRow, destCol: toCol) || isDestOnOwnPieces(destRow: toRow, destCol: toCol, isWhite: isWhite) {
-            return false
-        }
+    func canKnightMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Bool {
         if abs(toRow - fromRow) == 1 && abs(toCol - fromCol) == 2 || abs(toRow - fromRow) == 2 && abs(toCol - fromCol) == 1 {
             return true
         }
@@ -154,7 +125,7 @@ struct Board: CustomStringConvertible {
         return false
     }
     
-    func isXY(x: Int, y: Int, onPoints pieces: [Piece]) -> Piece? {
+    func isXY(x: Int, y: Int, onPoints pieces: Set<Piece>) -> Piece? {
         for piece in pieces {
             if piece.col == x && piece.row == y {
                 return piece
