@@ -18,22 +18,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CUT-Px-zmQ" customClass="BoardView" customModule="chess" customModuleProvider="target">
-                                <rect key="frame" x="16" y="160" width="343" height="347"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oWO-Ak-2WI" customClass="BoardView" customModule="chess" customModuleProvider="target">
+                                <rect key="frame" x="39" y="183" width="297" height="300"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="9eD-qE-hwb" appends="YES" id="ffH-Zo-Ghi"/>
+                        </connections>
                     </view>
                     <connections>
-                        <outlet property="boardView" destination="CUT-Px-zmQ" id="O7Y-fv-WEN"/>
+                        <outlet property="boardView" destination="oWO-Ak-2WI" id="dAc-Eg-Hm8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="9eD-qE-hwb">
+                    <connections>
+                        <action selector="pan:" destination="BYZ-38-t0r" id="ZbH-2h-o8c"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="140" y="132.68365817091455"/>
+            <point key="canvasLocation" x="-36" y="-184.85757121439281"/>
         </scene>
     </scenes>
 </document>

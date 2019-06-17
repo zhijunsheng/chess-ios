@@ -44,12 +44,10 @@ class GameViewController: UIViewController {
         for wpawnNo in 0...7 {
             board.pieces.insert(Piece(row: 6, col: wpawnNo, imageName: "pawn_chess_w", isWhite: true, rank: .pawn))
         }
-        
+        board.movePiece(fromCol: 0, fromRow: 0, toCol: 5, toRow: 5)
         boardView.pieces = board.pieces
-        
         print(board)
         
-        print(boardView)
         
          //var piece: UIImageView = UIImageView(image: UIImage(named: "rook_chess_b"))
 //        for i in 0...7 {
@@ -87,8 +85,32 @@ class GameViewController: UIViewController {
 //        piece.isUserInteractionEnabled = true
 //    }
     
+    func nearestSquare(clicked: CGFloat) -> Int {
+        return Int(floor(clicked))
+    }
+    
+    @IBAction func pan(_ sender: UIPanGestureRecognizer) {
+        if sender.state == .began {
+            let fingerX = sender.location(in: boardView).x
+
+
+//            let col = nearestSquare(clicked: (sender.location(in: boardView).x - boardView.originX) / boardView.side)
+//            let row = nearestSquare(clicked: (sender.location(in: boardView).y - boardView.originY) / boardView.side)
+
+
+//            print(col)
+            print(fingerX)
+//            print(row)
+//            print(boardView.originX)
+//            print(boardView.side)
+//            print(sender.location(in: boardView).x)
+        }
+    }
+    
     @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         if gestureRecognizer.state == .began {
+            
+           
 //            if let pieceView = gestureRecognizer.view {
 //                changeScreentoLogic(x: pieceView.frame.origin.x, y: pieceView.frame.origin.y)
 //            }

@@ -24,6 +24,21 @@ struct Board: CustomStringConvertible {
     
     var pieces: Set<Piece> = Set<Piece>()
     
+    mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        guard let piece = pieceOn(row: fromCol, col: fromRow) else {
+            return
+        }
+        if canMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
+            pieces.remove(piece)
+            pieces.insert(Piece(row: toRow, col: toCol, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
+        }
+
+    }
+    
+    func canMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        return true
+    }
+    
     mutating func move(piece: Piece, destinationRow: Int, destinationCol: Int) -> Bool {
         switch piece.rank {
         case .pawn: if !canPawnMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol, isWhite: piece.isWhite) {
