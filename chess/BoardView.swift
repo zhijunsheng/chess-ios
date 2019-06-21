@@ -12,6 +12,7 @@ class BoardView: UIView {
     var originX: CGFloat = 0
     var originY: CGFloat = 0
     let side: CGFloat = 80
+    let margin: CGFloat = 20
     let blackSquare = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 1)
     let whiteSquare = #colorLiteral(red: 0.8274509804, green: 0.8392156863, blue: 0.831372549, alpha: 1)
     var pieces: Set<Piece> = Set<Piece>()

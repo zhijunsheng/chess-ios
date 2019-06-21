@@ -89,18 +89,25 @@ class GameViewController: UIViewController {
         return Int(floor(clicked))
     }
     
+    
+    
     @IBAction func pan(_ sender: UIPanGestureRecognizer) {
         if sender.state == .began {
             let fingerX = sender.location(in: boardView).x
+            let fingerY = sender.location(in: boardView).y
+
+            // if close to right edge: minus
+            // else do plus
+            // let x = raining ? 9 : 3
+//            let adjustedX = (closerTo(smaller: <#T##Int#>, larger: <#T##Int#>, number: Int(sender.location(in: boardView).x)) != nil) ? sender.location(in: boardView).x - boardView.margin : sender.location(in: boardView).x + boardView.margin
+            
+            let col = Utils.xyToColRow(xy: fingerX, orgXY: boardView.originX, side: boardView.side, margin: boardView.margin)
+            let row = Utils.xyToColRow(xy: fingerY, orgXY: boardView.originY, side: boardView.side, margin: boardView.margin)
 
 
-//            let col = nearestSquare(clicked: (sender.location(in: boardView).x - boardView.originX) / boardView.side)
-//            let row = nearestSquare(clicked: (sender.location(in: boardView).y - boardView.originY) / boardView.side)
-
-
-//            print(col)
-            print(fingerX)
-//            print(row)
+            print(col)
+//            print(fingerX,fingerY)
+            print(row)
 //            print(boardView.originX)
 //            print(boardView.side)
 //            print(sender.location(in: boardView).x)
@@ -109,7 +116,7 @@ class GameViewController: UIViewController {
     
     @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         if gestureRecognizer.state == .began {
-            
+            //
            
 //            if let pieceView = gestureRecognizer.view {
 //                changeScreentoLogic(x: pieceView.frame.origin.x, y: pieceView.frame.origin.y)
