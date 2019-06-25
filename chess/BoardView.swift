@@ -9,17 +9,22 @@
 import UIKit
 
 class BoardView: UIView {
+    // define a constant of percentage, e.g 0.8
+    
     var originX: CGFloat = 0
     var originY: CGFloat = 0
-    let side: CGFloat = 80
-    let margin: CGFloat = 20
+    let side: CGFloat = 40
+    let margin: CGFloat = 7.5
     let blackSquare = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 1)
-    let whiteSquare = #colorLiteral(red: 0.8274509804, green: 0.8392156863, blue: 0.831372549, alpha: 1)
+    let whiteSquare = #colorLiteral(red: 0.951580584, green: 1, blue: 0.9881752133, alpha: 1)
     var pieces: Set<Piece> = Set<Piece>()
     
     override func draw(_ rect: CGRect) {
-//        originX = (bounds.width - side * 8) / 2
-//        originY = (bounds.height - side * 8) / 2
+        
+        // calculate how big side should be
+        
+        originX = (bounds.width - side * 8) / 2
+        originY = (bounds.height - side * 8) / 2
 
         
         

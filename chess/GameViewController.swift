@@ -10,10 +10,14 @@ import UIKit
 
 class GameViewController: UIViewController {
     
-    var board = Board()
-//    var keyPieceValueImageView: [Piece: UIImageView] = [:]
+    private var board = Board()
     
+//    var keyPieceValueImageView: [Piece: UIImageView] = [:]
+    private var fromCol: Int? = nil
+    private var fromRow: Int? = nil
     @IBOutlet weak var boardView: BoardView!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +48,8 @@ class GameViewController: UIViewController {
         for wpawnNo in 0...7 {
             board.pieces.insert(Piece(row: 6, col: wpawnNo, imageName: "pawn_chess_w", isWhite: true, rank: .pawn))
         }
-        board.movePiece(fromCol: 0, fromRow: 0, toCol: 5, toRow: 5)
+
+        
         boardView.pieces = board.pieces
         print(board)
         
@@ -96,23 +101,31 @@ class GameViewController: UIViewController {
             let fingerX = sender.location(in: boardView).x
             let fingerY = sender.location(in: boardView).y
 
-            // if close to right edge: minus
-            // else do plus
-            // let x = raining ? 9 : 3
-//            let adjustedX = (closerTo(smaller: <#T##Int#>, larger: <#T##Int#>, number: Int(sender.location(in: boardView).x)) != nil) ? sender.location(in: boardView).x - boardView.margin : sender.location(in: boardView).x + boardView.margin
+            fromCol = Utils.xyToColRow(xy: fingerX, orgXY: boardView.originX, side: boardView.side, margin: boardView.margin)
+            fromRow = Utils.xyToColRow(xy: fingerY, orgXY: boardView.originY, side: boardView.side, margin: boardView.margin)
             
-            let col = Utils.xyToColRow(xy: fingerX, orgXY: boardView.originX, side: boardView.side, margin: boardView.margin)
-            let row = Utils.xyToColRow(xy: fingerY, orgXY: boardView.originY, side: boardView.side, margin: boardView.margin)
-
-
-            print(col)
-//            print(fingerX,fingerY)
-            print(row)
-//            print(boardView.originX)
-//            print(boardView.side)
-//            print(sender.location(in: boardView).x)
+        } else if sender.state == .ended {
+            
+            let fingerX = sender.location(in: boardView).x
+            let fingerY = sender.location(in: boardView).y
+            
+            guard let fromCol = fromCol, let fromRow = fromRow, let toCol = Utils.xyToColRow(xy: fingerX, orgXY: boardView.originX, side: boardView.side, margin: boardView.margin), let toRow = Utils.xyToColRow(xy: fingerY, orgXY: boardView.originY, side: boardView.side, margin: boardView.margin) else {
+                return
+            }
+            
+            board.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+            boardView.pieces = board.pieces
+            print(fromCol)
+            print(fromRow)
+            print(toCol)
+            print(toRow)
+            boardView.setNeedsDisplay()
         }
+        // types: Int, String, Double, Hashable, Class, Struct, Enum, etc.
+        // defining methods: let, var, func, switch, timer, guard, etc.
     }
+    
+    
     
     @objc func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
         if gestureRecognizer.state == .began {
