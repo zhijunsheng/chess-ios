@@ -36,7 +36,25 @@ struct Board: CustomStringConvertible {
     }
     
     func canMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        return true
+        guard let candidate = pieceOn(row: fromRow, col: fromCol) else {
+            return false
+        }
+        
+        
+        switch candidate.rank {
+        case .pawn:
+            return canPawnMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol, isWhite: candidate.isWhite)
+        case .knight:
+            return canKnightMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
+        case .bishop:
+            return canBishopMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol, isWhite: candidate.isWhite)
+        case .rook:
+            return canRookMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol, isWhite: candidate.isWhite)
+        case .king:
+            return canKingMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol, isWhite: candidate.isWhite)
+        case .queen:
+            return true
+        }
     }
     
     mutating func move(piece: Piece, destinationRow: Int, destinationCol: Int) -> Bool {
