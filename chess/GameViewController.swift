@@ -115,10 +115,8 @@ class GameViewController: UIViewController {
             
             board.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
             boardView.pieces = board.pieces
-            print(fromCol)
-            print(fromRow)
-            print(toCol)
-            print(toRow)
+            print(fromCol, fromRow, toCol, toRow)
+            print(board)
             boardView.setNeedsDisplay()
         }
         // types: Int, String, Double, Hashable, Class, Struct, Enum, etc.

@@ -25,7 +25,7 @@ struct Board: CustomStringConvertible {
     var pieces: Set<Piece> = Set<Piece>()
     
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
-        guard let piece = pieceOn(row: fromCol, col: fromRow) else {
+        guard let piece = pieceOn(row: fromRow, col: fromCol) else {
             return
         }
         if canMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
