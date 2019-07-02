@@ -28,11 +28,20 @@ struct Board: CustomStringConvertible {
         guard let piece = pieceOn(row: fromRow, col: fromCol) else {
             return
         }
-        if canMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
-            pieces.remove(piece)
-            pieces.insert(Piece(row: toRow, col: toCol, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
-        }
 
+        if canMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
+            if capturePiece(pieceCol: fromCol, pieceRow: fromRow, col: toCol, row: toRow) {
+                guard let target = pieceOn(row: toRow, col: toCol) else {
+                    return
+                }
+                pieces.remove(target)
+                pieces.remove(piece)
+                pieces.insert(Piece(row: toRow, col: toCol, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
+            } else {
+                pieces.remove(piece)
+                pieces.insert(Piece(row: toRow, col: toCol, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
+            }
+        }
     }
     
     func canMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
@@ -118,14 +127,30 @@ struct Board: CustomStringConvertible {
         return false
     }
     
+    func capturePiece(pieceCol: Int, pieceRow: Int, col: Int, row: Int) -> Bool {
+        guard let candidate = pieceOn(row: pieceRow, col: pieceCol) else {
+            return false
+        }
+        if canMove(fromCol: candidate.col, fromRow: candidate.row, toCol: col, toRow: row) {
+            if (pieceOn(row: row, col: col) != nil) {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+    
     func canKnightMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Bool {
         return abs(toRow - fromRow) == 1 && abs(toCol - fromCol) == 2 || abs(toRow - fromRow) == 2 && abs(toCol - fromCol) == 1
     }
     
     func canPawnMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int, isWhite: Bool) -> Bool {
-        
-        if toRow - fromRow == 1 {
-            return true
+        if isWhite {
+            return fromRow - 1 == toRow
+        } else if !isWhite {
+            return fromRow + 1 == toRow
         }
         return false
     }
