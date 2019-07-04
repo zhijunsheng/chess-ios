@@ -21,6 +21,8 @@ import Foundation
 struct Board: CustomStringConvertible {
     let cols = 8
     let rows = 8
+    var isWhiteTurn: Bool = true
+    
     
     var pieces: Set<Piece> = Set<Piece>()
     
@@ -37,9 +39,11 @@ struct Board: CustomStringConvertible {
                 pieces.remove(target)
                 pieces.remove(piece)
                 pieces.insert(Piece(row: toRow, col: toCol, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
+                isWhiteTurn = !isWhiteTurn
             } else {
                 pieces.remove(piece)
                 pieces.insert(Piece(row: toRow, col: toCol, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
+                isWhiteTurn = !isWhiteTurn
             }
         }
     }
@@ -52,19 +56,24 @@ struct Board: CustomStringConvertible {
         if isDestOutOfBoard(destRow: toRow, destCol: toCol) || isDestOnOwnPieces(destRow: toRow, destCol: toCol, isWhite: candidate.isWhite) {
             return false
         }
-        switch candidate.rank {
-        case .pawn:
-            return canPawnMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol, isWhite: candidate.isWhite)
-        case .knight:
-            return canKnightMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
-        case .bishop:
-            return canBishopMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
-        case .rook:
-            return canRookMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
-        case .king:
-            return canKingMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
-        case .queen:
-            return canQueenMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
+        
+        if candidate.isWhite != isWhiteTurn {
+            return false
+        } else {
+            switch candidate.rank {
+            case .pawn:
+                return canPawnMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol, isWhite: candidate.isWhite)
+            case .knight:
+                return canKnightMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
+            case .bishop:
+                return canBishopMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
+            case .rook:
+                return canRookMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
+            case .king:
+                return canKingMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
+            case .queen:
+                return canQueenMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
+            }
         }
     }
     
@@ -148,9 +157,17 @@ struct Board: CustomStringConvertible {
     
     func canPawnMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int, isWhite: Bool) -> Bool {
         if isWhite {
-            return fromRow - 1 == toRow
+            if (pieceOn(row: fromRow - 1, col: fromCol) != nil) {
+                return false
+            } else {
+                return fromRow - 1 == toRow || (pieceOn(row: fromRow - 1, col: fromCol + 1) != nil) || (pieceOn(row: fromRow - 1, col: fromCol - 1) != nil)
+            }
         } else if !isWhite {
-            return fromRow + 1 == toRow
+            if (pieceOn(row: fromRow + 1, col: fromCol) != nil) {
+                return false
+            } else {
+                return fromRow + 1 == toRow || (pieceOn(row: fromRow + 1, col: fromCol + 1) != nil) || (pieceOn(row: fromRow + 1, col: fromCol - 1) != nil)
+            }
         }
         return false
     }

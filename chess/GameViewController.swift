@@ -95,7 +95,6 @@ class GameViewController: UIViewController {
     }
     
     
-    
     @IBAction func pan(_ sender: UIPanGestureRecognizer) {
         if sender.state == .began {
             let fingerX = sender.location(in: boardView).x
