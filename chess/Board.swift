@@ -53,60 +53,25 @@ struct Board: CustomStringConvertible {
             return false
         }
         
-        if isDestOutOfBoard(destRow: toRow, destCol: toCol) || isDestOnOwnPieces(destRow: toRow, destCol: toCol, isWhite: candidate.isWhite) {
+        if isDestOutOfBoard(destRow: toRow, destCol: toCol) ||
+           isDestOnOwnPieces(destRow: toRow, destCol: toCol, isWhite: candidate.isWhite) ||
+           candidate.isWhite != isWhiteTurn {
             return false
         }
-        
-        if candidate.isWhite != isWhiteTurn {
-            return false
-        } else {
-            switch candidate.rank {
-            case .pawn:
-                return canPawnMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol, isWhite: candidate.isWhite)
-            case .knight:
-                return canKnightMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
-            case .bishop:
-                return canBishopMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
-            case .rook:
-                return canRookMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
-            case .king:
-                return canKingMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
-            case .queen:
-                return canQueenMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
-            }
-        }
-    }
-    
-    mutating func move(piece: Piece, destinationRow: Int, destinationCol: Int) -> Bool {
-        switch piece.rank {
+        switch candidate.rank {
         case .pawn:
-        if !canPawnMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol, isWhite: piece.isWhite) {
-                return false
-            }
+            return canPawnMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol, isWhite: candidate.isWhite)
         case .knight:
-            if !canKnightMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol) {
-                return false
-            }
+            return canKnightMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
         case .bishop:
-            if !canBishopMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol) {
-                return false
-            }
+            return canBishopMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
         case .rook:
-            if !canRookMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol) {
-                return false
-            }
+            return canRookMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
         case .king:
-            if !canKingMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol) {
-                return false
-            }
+            return canKingMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
         case .queen:
-            if !canQueenMoveFrom(fromRow: piece.row, fromCol: piece.col, toRow: destinationRow, toCol: destinationCol) {
-                return false
-            }
+            return canQueenMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
         }
-        
-        return true
-        
     }
     
     func pieceOn(row: Int, col: Int) -> Piece? {
