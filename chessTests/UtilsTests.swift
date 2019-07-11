@@ -31,6 +31,16 @@ class UtilsTests: XCTestCase {
         XCTAssertNil(Utils.xyToColRow(xy: 175, orgXY: 70, side: 100, margin: 15))
     }
     
-    
+    func testSum() {
+        // 1275
+        let x = 50
+        var y = 0
+        var n = 0
+        for i in 1...x {
+            n += i
+        }
+        y = n
+        print(y)
+    }
     
 }

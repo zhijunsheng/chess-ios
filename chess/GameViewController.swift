@@ -14,7 +14,7 @@ class GameViewController: UIViewController {
     private var fromCol: Int? = nil
     private var fromRow: Int? = nil
     @IBOutlet weak var boardView: BoardView!
-    
+    private var thingImageView: UIImageView? = nil
     
     
     override func viewDidLoad() {
@@ -62,8 +62,24 @@ class GameViewController: UIViewController {
             fromCol = Utils.xyToColRow(xy: fingerX, orgXY: boardView.originX, side: boardView.side, margin: boardView.margin)
             fromRow = Utils.xyToColRow(xy: fingerY, orgXY: boardView.originY, side: boardView.side, margin: boardView.margin)
             
-        } else if sender.state == .ended {
+            guard let fromCol = fromCol, let fromRow = fromRow, let piece = board.pieceOn(row: fromRow, col: fromCol), let image = UIImage(named: piece.imageName) else {
+                return
+            }
+            boardView.pieces.remove(Piece(row: piece.row, col: piece.col, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
+            thingImageView = UIImageView(frame: CGRect(x: fingerX, y: fingerY, width: boardView.side, height: boardView.side))
+            thingImageView!.image = image
             
+            
+            view.addSubview(thingImageView!)
+        } else if sender.state == .changed {
+            guard let thingImageView = thingImageView else {
+                return
+            }
+            thingImageView.center = CGPoint(x: sender.location(in: boardView).x + 25, y: sender.location(in: boardView).y + boardView.side * 2)
+            print(sender.location(in: boardView).x, sender.location(in: boardView).y)
+            boardView.setNeedsDisplay()
+        } else if sender.state == .ended {
+            thingImageView?.removeFromSuperview()
             let fingerX = sender.location(in: boardView).x
             let fingerY = sender.location(in: boardView).y
             
@@ -76,6 +92,7 @@ class GameViewController: UIViewController {
             print(fromCol, fromRow, toCol, toRow)
             print(board)
             boardView.setNeedsDisplay()
+            thingImageView = nil
         }
         
     }
