@@ -8,6 +8,15 @@
 
 import UIKit
 
+//r n b q k b n r
+//p . p p p p p p
+//. P . . . . . .
+//. . . . . . . .
+//. . . . . . . .
+//. . . . . . . .
+//. P P P P P P P
+//R N B Q K B N R
+
 class BoardView: UIView {
     let boardSize: CGFloat = 0.9
     var originX: CGFloat = 0
@@ -17,6 +26,9 @@ class BoardView: UIView {
     let blackSquare = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 1)
     let whiteSquare = #colorLiteral(red: 0.951580584, green: 1, blue: 0.9881752133, alpha: 1)
     var pieces: Set<Piece> = Set<Piece>()
+    public var movingPiece: Piece? = nil
+    
+    
     
     override func draw(_ rect: CGRect) {
         side = bounds.width * boardSize / 8
@@ -60,30 +72,9 @@ class BoardView: UIView {
     
     private func drawPieces() {
         for piece in pieces {
-            drawPiece(piece: Piece(row: piece.row, col: piece.col, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
+            if piece != movingPiece {
+                drawPiece(piece: Piece(row: piece.row, col: piece.col, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
+            }
         }
-        
-//        drawPiece(piece: Piece(row: 0, col: 0, imageName: "rook_chess_b", isWhite: false, rank: .rook))
-//        drawPiece(piece: Piece(row: 0, col: 1, imageName: "knight_chess_b", isWhite: false, rank: .knight))
-//        drawPiece(piece: Piece(row: 0, col: 2, imageName: "bishop_chess_b", isWhite: false, rank: .bishop))
-//        drawPiece(piece: Piece(row: 0, col: 3, imageName: "queen_chess_b", isWhite: false, rank: .queen))
-//        drawPiece(piece: Piece(row: 0, col: 4, imageName: "king_chess_b", isWhite: false, rank: .king))
-//        drawPiece(piece: Piece(row: 0, col: 5, imageName: "bishop_chess_b", isWhite: false, rank: .bishop))
-//        drawPiece(piece: Piece(row: 0, col: 6, imageName: "knight_chess_b", isWhite: false, rank: .knight))
-//        drawPiece(piece: Piece(row: 0, col: 7, imageName: "rook_chess_b", isWhite: false, rank: .rook))
-//        drawPiece(piece: Piece(row: 7, col: 0, imageName: "rook_chess_w", isWhite: true, rank: .rook))
-//        drawPiece(piece: Piece(row: 7, col: 1, imageName: "knight_chess_w", isWhite: true, rank: .knight))
-//        drawPiece(piece: Piece(row: 7, col: 2, imageName: "bishop_chess_w", isWhite: true, rank: .bishop))
-//        drawPiece(piece: Piece(row: 7, col: 3, imageName: "queen_chess_w", isWhite: true, rank: .queen))
-//        drawPiece(piece: Piece(row: 7, col: 4, imageName: "king_chess_w", isWhite: true, rank: .king))
-//        drawPiece(piece: Piece(row: 7, col: 5, imageName: "bishop_chess_w", isWhite: true, rank: .bishop))
-//        drawPiece(piece: Piece(row: 7, col: 6, imageName: "knight_chess_w", isWhite: true, rank: .knight))
-//        drawPiece(piece: Piece(row: 7, col: 7, imageName: "rook_chess_w", isWhite: true, rank: .rook))
-//        for bpawnNo in 0...7 {
-//            drawPiece(piece: Piece(row: 1, col: bpawnNo, imageName: "pawn_chess_b", isWhite: false, rank: .pawn))
-//        }
-//        for wpawnNo in 0...7 {
-//            drawPiece(piece: Piece(row: 6, col: wpawnNo, imageName: "pawn_chess_w", isWhite: true, rank: .pawn))
-//        }
     }
 }

@@ -65,10 +65,9 @@ class GameViewController: UIViewController {
             guard let fromCol = fromCol, let fromRow = fromRow, let piece = board.pieceOn(row: fromRow, col: fromCol), let image = UIImage(named: piece.imageName) else {
                 return
             }
-            boardView.pieces.remove(Piece(row: piece.row, col: piece.col, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
             thingImageView = UIImageView(frame: CGRect(x: fingerX, y: fingerY, width: boardView.side, height: boardView.side))
             thingImageView!.image = image
-            
+            boardView.movingPiece = piece
             
             view.addSubview(thingImageView!)
         } else if sender.state == .changed {
@@ -76,13 +75,12 @@ class GameViewController: UIViewController {
                 return
             }
             thingImageView.center = CGPoint(x: sender.location(in: boardView).x + 25, y: sender.location(in: boardView).y + boardView.side * 2)
-            print(sender.location(in: boardView).x, sender.location(in: boardView).y)
             boardView.setNeedsDisplay()
         } else if sender.state == .ended {
             thingImageView?.removeFromSuperview()
             let fingerX = sender.location(in: boardView).x
             let fingerY = sender.location(in: boardView).y
-            
+            boardView.movingPiece = nil
             guard let fromCol = fromCol, let fromRow = fromRow, let toCol = Utils.xyToColRow(xy: fingerX, orgXY: boardView.originX, side: boardView.side, margin: boardView.margin), let toRow = Utils.xyToColRow(xy: fingerY, orgXY: boardView.originY, side: boardView.side, margin: boardView.margin) else {
                 return
             }
@@ -91,8 +89,8 @@ class GameViewController: UIViewController {
             boardView.pieces = board.pieces
             print(fromCol, fromRow, toCol, toRow)
             print(board)
-            boardView.setNeedsDisplay()
             thingImageView = nil
+            boardView.setNeedsDisplay()
         }
         
     }
