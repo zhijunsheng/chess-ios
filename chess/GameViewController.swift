@@ -82,6 +82,7 @@ class GameViewController: UIViewController {
             let fingerY = sender.location(in: boardView).y
             boardView.movingPiece = nil
             guard let fromCol = fromCol, let fromRow = fromRow, let toCol = Utils.xyToColRow(xy: fingerX, orgXY: boardView.originX, side: boardView.side, margin: boardView.margin), let toRow = Utils.xyToColRow(xy: fingerY, orgXY: boardView.originY, side: boardView.side, margin: boardView.margin) else {
+                boardView.setNeedsDisplay()
                 return
             }
             
