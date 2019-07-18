@@ -121,17 +121,37 @@ struct Board: CustomStringConvertible {
     }
     
     func canPawnMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int, isWhite: Bool) -> Bool {
+        guard let candidate = pieceOn(row: fromRow, col: fromCol) else {
+            return false
+            
+        }
         if isWhite {
-            if (pieceOn(row: fromRow - 1, col: fromCol) != nil) {
-                return false
+            if candidate.row == 6 {
+                if (pieceOn(row: fromRow - 1, col: fromCol) != nil) {
+                    return false
+                } else {
+                    return fromRow - 1 == toRow || (pieceOn(row: fromRow - 1, col: fromCol + 1) != nil) || (pieceOn(row: fromRow - 1, col: fromCol - 1) != nil) || fromRow - 2 == toRow
+                }
             } else {
-                return fromRow - 1 == toRow || (pieceOn(row: fromRow - 1, col: fromCol + 1) != nil) || (pieceOn(row: fromRow - 1, col: fromCol - 1) != nil)
+                if (pieceOn(row: fromRow - 1, col: fromCol) != nil) {
+                    return false
+                } else {
+                    return fromRow - 1 == toRow || (pieceOn(row: fromRow - 1, col: fromCol + 1) != nil) || (pieceOn(row: fromRow - 1, col: fromCol - 1) != nil)
+                }
             }
         } else if !isWhite {
-            if (pieceOn(row: fromRow + 1, col: fromCol) != nil) {
-                return false
+            if candidate.row == 1 {
+                if (pieceOn(row: fromRow + 1, col: fromCol) != nil) {
+                    return false
+                } else {
+                    return fromRow + 1 == toRow || (pieceOn(row: fromRow + 1, col: fromCol + 1) != nil) || (pieceOn(row: fromRow + 1, col: fromCol - 1) != nil) || fromRow + 2 == toRow
+                }
             } else {
-                return fromRow + 1 == toRow || (pieceOn(row: fromRow + 1, col: fromCol + 1) != nil) || (pieceOn(row: fromRow + 1, col: fromCol - 1) != nil)
+                if (pieceOn(row: fromRow + 1, col: fromCol) != nil) {
+                    return false
+                } else {
+                    return fromRow + 1 == toRow || (pieceOn(row: fromRow + 1, col: fromCol + 1) != nil) || (pieceOn(row: fromRow + 1, col: fromCol - 1) != nil) || fromRow + 2 == toRow
+                }
             }
         }
         return false
