@@ -79,18 +79,23 @@ class ViewController: UIViewController {
             knightBlackImageView.image = knightBlackImage
             boardView.addSubview(knightBlackImageView)
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     }
+    @IBAction func tap(_ sender: UITapGestureRecognizer) {
+        print(". . .")
+        print(sender.location(in: boardView))
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
 
