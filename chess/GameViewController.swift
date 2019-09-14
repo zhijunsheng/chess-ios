@@ -10,9 +10,8 @@ import UIKit
 
 class GameViewController: UIViewController {
     
-    @IBOutlet var boardView: BoardView!
+    @IBOutlet weak var boardView: BoardView!
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
