@@ -13,15 +13,15 @@ class BoardView: UIView {
         originX = bounds.width * (1 - boardWidthPercent) / 2
         originY = (bounds.height - bounds.width * boardWidthPercent) / 2
         
-        for c in 0 ..< 8 {
-            for i in 0 ..< 8 {
-                var color: UIColor
-                if (c + i) % 2 == 0 {
-                    color = .white
-                } else {
-                    color = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-                }
-                drawSquare(x:  CGFloat(i) * cellSide + originX, y: originY + CGFloat(c) * cellSide, colour: color)
+        drawBoard()
+        
+    }
+    
+    func drawBoard() {
+        for row in 0 ..< 8 {
+            for col in 0 ..< 8 {
+                let color: UIColor = (row + col) % 2 == 0 ? .white : .gray
+                drawSquare(x:  CGFloat(col) * cellSide + originX, y: originY + CGFloat(row) * cellSide, colour: color)
             }
         }
     }
