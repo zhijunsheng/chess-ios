@@ -1,9 +1,10 @@
 import UIKit
 
 class BoardView: UIView {
-    let originX         : CGFloat = 16
-    let originY         : CGFloat = 20
-    let side            : CGFloat = 40
+    let originX         : CGFloat = 0
+    let originY         : CGFloat = 0
+    let side            : CGFloat = 91.5
+    
     override func draw(_ rect: CGRect) {
     
         drawSquares()
