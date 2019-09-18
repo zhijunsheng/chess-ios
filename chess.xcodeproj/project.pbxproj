@@ -15,6 +15,7 @@
 		8298DE8521BCACD7005A95FF /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8298DE8421BCACD7005A95FF /* BoardView.swift */; };
 		82A9360B232C7BE70033E09F /* GameRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A9360A232C7BE70033E09F /* GameRules.swift */; };
 		82A9360D232C7E290033E09F /* GameRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A9360C232C7E290033E09F /* GameRulesTests.swift */; };
+		82A9360F232DBE650033E09F /* ChessPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A9360E232DBE650033E09F /* ChessPiece.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		8298DE8421BCACD7005A95FF /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		82A9360A232C7BE70033E09F /* GameRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRules.swift; sourceTree = "<group>"; };
 		82A9360C232C7E290033E09F /* GameRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRulesTests.swift; sourceTree = "<group>"; };
+		82A9360E232DBE650033E09F /* ChessPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessPiece.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				07FDE4312018140A00A674FE /* AppDelegate.swift */,
+				82A9360E232DBE650033E09F /* ChessPiece.swift */,
 				07FDE4332018140A00A674FE /* ViewController.swift */,
 				82A9360A232C7BE70033E09F /* GameRules.swift */,
 				8298DE8421BCACD7005A95FF /* BoardView.swift */,
@@ -209,6 +212,7 @@
 				8298DE8521BCACD7005A95FF /* BoardView.swift in Sources */,
 				07FDE4342018140A00A674FE /* ViewController.swift in Sources */,
 				07FDE4322018140A00A674FE /* AppDelegate.swift in Sources */,
+				82A9360F232DBE650033E09F /* ChessPiece.swift in Sources */,
 				82A9360B232C7BE70033E09F /* GameRules.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

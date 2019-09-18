@@ -84,18 +84,4 @@ class ViewController: UIViewController {
         print(". . .")
         print(sender.location(in: boardView))
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
-
