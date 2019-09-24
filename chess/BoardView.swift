@@ -5,12 +5,31 @@ class BoardView: UIView {
     let originY         : CGFloat = 0
     let side            : CGFloat = 91.5
     
+    var fC : Int = 53
+    var fR : Int = 89
+    
+    
     override func draw(_ rect: CGRect) {
     
         drawSquares()
         drawFrame()
         
       
+    }
+//    + side / 2
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let first = touches.first!
+        fC = Int(first.location(in: self).x / side)
+        fR = Int(first.location(in: self).y / side)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let first = touches.first!
+        let tC : Int = Int(first.location(in: self).x / side)
+        let tR : Int = Int(first.location(in: self).y / side)
+        print("FROM: (\(fC), \(fR)), TO: (\(tC), \(tR))")
+        
+        
     }
     
     func drawSquares() {
