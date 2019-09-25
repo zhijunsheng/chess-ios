@@ -191,5 +191,47 @@ struct Board: CustomStringConvertible {
         return board
     }
     
+    func pieceInBetweenCol(fromCol: Int, toCol: Int, row: Int, board: Board) -> Bool {
+        if fromCol < toCol {
+            let smaller = fromCol
+            let larger = toCol
+            for x in smaller + 1..<larger {
+                if (board.pieceOn(row: row, col: x) != nil) {
+                    return true
+                }
+            }
+        } else if fromCol > toCol {
+            let smaller = toCol
+            let larger = fromCol
+            for x in smaller + 1..<larger {
+                if (board.pieceOn(row: row, col: x) != nil) {
+                    
+                }
+            }
+        }
+        return true
+    }
+    
+    func pieceInBetweenRow(fromRow: Int, toRow: Int, col: Int, board: Board) -> Bool {
+        if fromRow < toRow {
+            let smaller = fromRow
+            let larger = toRow
+            for x in smaller + 1..<larger {
+                if (board.pieceOn(row: x, col: col) != nil) {
+                    return true
+                }
+            }
+        } else if fromRow > toRow {
+            let smaller = toRow
+            let larger = fromRow
+            for x in smaller + 1..<larger {
+                if (board.pieceOn(row: x, col: col) != nil) {
+                    
+                }
+            }
+        }
+        return true
+    }
+    
     
 }
