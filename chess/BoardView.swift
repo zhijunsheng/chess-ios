@@ -28,8 +28,6 @@ class BoardView: UIView {
     var pieces: Set<Piece> = Set<Piece>()
     public var movingPiece: Piece? = nil
     
-    
-    
     override func draw(_ rect: CGRect) {
         side = bounds.width * boardSize / 8
         margin = side / 5
@@ -38,6 +36,10 @@ class BoardView: UIView {
     
         drawBoard()
         drawPieces()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    print("hdhfdjkncsdkfcdhmsjnhcjs,fhkk,jvgjdcmjhnj,dmjfchgdjhjffhcndvfdhscjhjfdkjhhefnjcfdkjcsffhdhdsjskdkjfhdhndhjfkfjdljkfhgn")
     }
     
     private func drawSquare(x: CGFloat, y: CGFloat, color: UIColor) {

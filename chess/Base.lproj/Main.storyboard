@@ -36,20 +36,12 @@
                             <constraint firstItem="oWO-Ak-2WI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Z2f-k8-SkJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="9eD-qE-hwb" appends="YES" id="ffH-Zo-Ghi"/>
-                        </connections>
                     </view>
                     <connections>
                         <outlet property="boardView" destination="oWO-Ak-2WI" id="dAc-Eg-Hm8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="9eD-qE-hwb">
-                    <connections>
-                        <action selector="pan:" destination="BYZ-38-t0r" id="ZbH-2h-o8c"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-36.231884057971016" y="-185.05434782608697"/>
         </scene>
