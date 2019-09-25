@@ -36,7 +36,7 @@ class BoardView: UIView {
     
         drawBoard()
         drawPieces()
-    }
+    } 
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     print("hdhfdjkncsdkfcdhmsjnhcjs,fhkk,jvgjdcmjhnj,dmjfchgdjhjffhcndvfdhscjhjfdkjhhefnjcfdkjcsffhdhdsjskdkjfhdhndhjfkfjdljkfhgn")
