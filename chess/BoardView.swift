@@ -36,10 +36,25 @@ class BoardView: UIView {
     
         drawBoard()
         drawPieces()
-    } 
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    print("hdhfdjkncsdkfcdhmsjnhcjs,fhkk,jvgjdcmjhnj,dmjfchgdjhjffhcndvfdhscjhjfdkjhhefnjcfdkjcsffhdhdsjskdkjfhdhndhjfkfjdljkfhgn")
+        let touch = touches.first!
+        let loc = touch.location(in: self)
+        let thing1: Int = Int((loc.x - originX) / side)
+        let thing2: Int = Int((loc.y - originY) / side)
+        print("from (\(thing1), \(thing2))")
+        
+//        print("hdhfdjkncsdkfcdhmsjnhcjs,fhkk,jvgjdcmjhnj,dmjfchgdjhjffhcndvfdhscjhjfdkjhh")
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        let loc = touch.location(in: self)
+        let thing1: Int = Int((loc.x - originX) / side)
+        let thing2: Int = Int((loc.y - originY) / side)
+        print("to (\(thing1), \(thing2)).")
+        // print out sth like From (3, 2) To (4, 5)
     }
     
     private func drawSquare(x: CGFloat, y: CGFloat, color: UIColor) {
