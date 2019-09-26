@@ -26,7 +26,11 @@ class BoardView: UIView {
     let blackSquare = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 1)
     let whiteSquare = #colorLiteral(red: 0.951580584, green: 1, blue: 0.9881752133, alpha: 1)
     var pieces: Set<Piece> = Set<Piece>()
+    var thingy1: Int = Int.min
+    var thingy2: Int = Int.min
     public var movingPiece: Piece? = nil
+    var chessDelagate: ChessDelegate? = nil
+    
     
     override func draw(_ rect: CGRect) {
         side = bounds.width * boardSize / 8
@@ -41,10 +45,8 @@ class BoardView: UIView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         let loc = touch.location(in: self)
-        let thing1: Int = Int((loc.x - originX) / side)
-        let thing2: Int = Int((loc.y - originY) / side)
-        print("from (\(thing1), \(thing2))")
-        
+        thingy1 = Int((loc.x - originX) / side)
+        thingy2 = Int((loc.y - originY) / side)
 //        print("hdhfdjkncsdkfcdhmsjnhcjs,fhkk,jvgjdcmjhnj,dmjfchgdjhjffhcndvfdhscjhjfdkjhh")
     }
     
@@ -53,7 +55,10 @@ class BoardView: UIView {
         let loc = touch.location(in: self)
         let thing1: Int = Int((loc.x - originX) / side)
         let thing2: Int = Int((loc.y - originY) / side)
-        print("to (\(thing1), \(thing2)).")
+        print("from(\(thingy1), \(thingy2)) to (\(thing1), \(thing2)).")
+        
+        chessDelagate?.move(startX: thingy1, startY: thingy2, endX: thing1, endY: thing2)
+
         // print out sth like From (3, 2) To (4, 5)
     }
     

@@ -8,7 +8,8 @@
 
 import UIKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, ChessDelegate {
+    
     
     private var board = Board()
     private var fromCol: Int? = nil
@@ -19,6 +20,8 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        boardView.chessDelagate = self
         
         board.pieces.insert(Piece(row: 0, col: 0, imageName: "rook_chess_b", isWhite: false, rank: .rook))
         board.pieces.insert(Piece(row: 0, col: 1, imageName: "knight_chess_b", isWhite: false, rank: .knight))
@@ -47,6 +50,10 @@ class GameViewController: UIViewController {
         
         boardView.pieces = board.pieces
         print(board)
+    }
+    
+    func move(startX: Int, startY: Int, endX: Int, endY: Int) {
+        print("DELAGATE ALERT: YOU HAVE ACTIVATED THIS PRINT INSIDE DELAGATE")
     }
     
     func nearestSquare(clicked: CGFloat) -> Int {
