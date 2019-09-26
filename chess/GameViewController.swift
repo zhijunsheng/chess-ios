@@ -47,60 +47,17 @@ class GameViewController: UIViewController, ChessDelegate {
             board.pieces.insert(Piece(row: 6, col: wpawnNo, imageName: "pawn_chess_w", isWhite: true, rank: .pawn))
         }
 
-        
         boardView.pieces = board.pieces
-        print(board)
     }
     
     func move(startX: Int, startY: Int, endX: Int, endY: Int) {
-        print("DELAGATE ALERT: YOU HAVE ACTIVATED THIS PRINT INSIDE DELAGATE")
+        board.movePiece(fromCol: startX, fromRow: startY, toCol: endX, toRow: endY)
+        boardView.pieces = board.pieces
+        boardView.setNeedsDisplay()
     }
     
     func nearestSquare(clicked: CGFloat) -> Int {
         return Int(floor(clicked))
-    }
-    
-    
-    @IBAction func pan(_ sender: UIPanGestureRecognizer) {
-        if sender.state == .began {
-            let fingerX = sender.location(in: boardView).x
-            let fingerY = sender.location(in: boardView).y
-
-            fromCol = Utils.xyToColRow(xy: fingerX, orgXY: boardView.originX, side: boardView.side, margin: boardView.margin)
-            fromRow = Utils.xyToColRow(xy: fingerY, orgXY: boardView.originY, side: boardView.side, margin: boardView.margin)
-            
-            guard let fromCol = fromCol, let fromRow = fromRow, let piece = board.pieceOn(row: fromRow, col: fromCol), let image = UIImage(named: piece.imageName) else {
-                return
-            }
-            thingImageView = UIImageView(frame: CGRect(x: fingerX, y: fingerY, width: boardView.side, height: boardView.side))
-            thingImageView!.image = image
-            boardView.movingPiece = piece
-            
-            view.addSubview(thingImageView!)
-        } else if sender.state == .changed {
-            guard let thingImageView = thingImageView else {
-                return
-            }
-            thingImageView.center = CGPoint(x: sender.location(in: boardView).x + 25, y: sender.location(in: boardView).y + boardView.side * 2)
-            boardView.setNeedsDisplay()
-        } else if sender.state == .ended {
-            thingImageView?.removeFromSuperview()
-            let fingerX = sender.location(in: boardView).x
-            let fingerY = sender.location(in: boardView).y
-            boardView.movingPiece = nil
-            guard let fromCol = fromCol, let fromRow = fromRow, let toCol = Utils.xyToColRow(xy: fingerX, orgXY: boardView.originX, side: boardView.side, margin: boardView.margin), let toRow = Utils.xyToColRow(xy: fingerY, orgXY: boardView.originY, side: boardView.side, margin: boardView.margin) else {
-                boardView.setNeedsDisplay()
-                return
-            }
-            
-            board.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
-            boardView.pieces = board.pieces
-            print(fromCol, fromRow, toCol, toRow)
-            print(board)
-            thingImageView = nil
-            boardView.setNeedsDisplay()
-        }
-        
     }
     
     func pieceAt(row: Int, col: Int, destX: Int, destY: Int) -> Piece? {
