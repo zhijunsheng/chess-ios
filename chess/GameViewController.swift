@@ -12,8 +12,13 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var boardView: BoardView!
     
+    var chessBoard = ChessBoard()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        chessBoard.initializeBoard()
+        boardView.chessPieces = chessBoard.pieces
         
         for i in 0 ..< 2 {
             addPiece(piece: UIImage(named: "bishop_chess_b")!, col: 2 + i * 3, row: 7)

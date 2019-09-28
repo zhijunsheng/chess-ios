@@ -8,9 +8,26 @@
 
 import Foundation
 
+/*
+ 
+ design pattern MVC
+ 
+ M: Model, ChessBoard
+ V: View, BoardView
+ C: Controller, GameViewController
+ 
+ */
 struct ChessBoard: CustomStringConvertible {
     
     var pieces: Set<ChessPiece> = Set<ChessPiece>()
+    
+    mutating func initializeBoard() {
+        for i in 0 ..< 8 {
+            pieces.insert(ChessPiece(rank: .pawn, col: i, row: 1, isWhite: false, imgName: "pawn_chess_b"))
+            pieces.insert(ChessPiece(rank: .pawn, col: i, row: 6, isWhite: true, imgName: "pawn_chess_w"))
+        }
+    }
+    
     /*
  
      0 1 2 3 4 5 6 7
@@ -26,9 +43,7 @@ struct ChessBoard: CustomStringConvertible {
     */
     var description: String {
         var boardString: String =  " "
-        
-        
-        
+
         for i in 0 ..< 8 {
             boardString += " \(i)"
         }
