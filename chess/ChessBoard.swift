@@ -10,6 +10,7 @@ import Foundation
 
 struct ChessBoard: CustomStringConvertible {
     
+    var pieces: Set<ChessPiece> = Set<ChessPiece>()
     /*
  
      0 1 2 3 4 5 6 7
@@ -26,6 +27,8 @@ struct ChessBoard: CustomStringConvertible {
     var description: String {
         var boardString: String =  " "
         
+        
+        
         for i in 0 ..< 8 {
             boardString += " \(i)"
         }
@@ -33,9 +36,25 @@ struct ChessBoard: CustomStringConvertible {
             boardString += "\n"
             boardString += "\(row)"
             for col in 0 ..< 8 {
-                boardString += " ."
+                let piece = pieceAt(col: col, row: row)
+                if piece?.rank == .pawn {
+                    boardString += " P"
+                } else if piece?.rank == .rook {
+                    boardString += " R"
+                } else {
+                    boardString += " ."
+                }
             }
         }
         return boardString
+    }
+    
+    func pieceAt(col: Int, row: Int) -> ChessPiece? {
+        for piece in pieces {
+            if piece.col == col && piece.row == row {
+                return piece
+            }
+        }
+        return nil
     }
 }

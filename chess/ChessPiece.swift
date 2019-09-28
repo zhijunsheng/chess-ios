@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ChessPiece {
+struct ChessPiece: Hashable {
     let rank: ChessPieceRank
     let col: Int
     let row: Int

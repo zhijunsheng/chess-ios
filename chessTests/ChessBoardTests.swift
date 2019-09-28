@@ -12,7 +12,9 @@ import XCTest
 
 class ChessBoardTests: XCTestCase {
     func testPrintBoard() {
-        let board: ChessBoard = ChessBoard()
+        var board: ChessBoard = ChessBoard()
+        board.pieces.insert(ChessPiece(rank: .pawn, col: 2, row: 7, isWhite: true, imgName: ""))
+        board.pieces.insert(ChessPiece(rank: .rook, col: 5, row: 4, isWhite: false, imgName: ""))
         print(board)
     }
 }
