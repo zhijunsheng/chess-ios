@@ -182,15 +182,13 @@ struct Board: CustomStringConvertible {
      
     */
     var description: String {
-        var board: String = "  "
-        for row in -1..<rows {
-            if row > -1 {
-                board += "\(row) "
-            }
-            for col in 0..<cols {
-                if row == -1 {
-                    board += "\(col) "
-                } else if let piece = isXY(x: col, y: row, onPoints: pieces) {
+        var board: String = ""
+        board += "  0 1 2 3 4 5 6 7"
+        board.append("\n")
+        for i in 0..<rows {
+            board += "\(i) "
+            for j in 0..<cols {
+                if let piece = isXY(x: j, y: i, onPoints: pieces) {
                     switch piece.rank {
                     case .pawn: piece.isWhite ? board += "P " : (board += "p ")
                     case .knight: piece.isWhite ? board.append("N ") : board.append("n ")
@@ -207,7 +205,6 @@ struct Board: CustomStringConvertible {
             board.append("\n")
         }
         return board
-        
     }
     
     func pieceInBetweenCol(fromCol: Int, toCol: Int, row: Int, board: Board) -> Bool {
