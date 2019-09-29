@@ -12,8 +12,8 @@ import XCTest
 class BoardTests: XCTestCase {
     
     func testPrintBoard() {
-        let anything = Board()
-        print(anything)
+        let board = Board()
+        print(board)
     }
     
     
@@ -30,8 +30,8 @@ class BoardTests: XCTestCase {
         print(anything)
     }
     
+    // FIXME: Swift
     
-    //TO DO:
     /*
     r n b q k b n r
     p p p p p p p p
@@ -74,6 +74,9 @@ class BoardTests: XCTestCase {
         print(board)
     }
     
+    func testR() {
+        // gdghf
+    }
     
     func testNmove() {
         var board = Board()
@@ -83,110 +86,6 @@ class BoardTests: XCTestCase {
         board.pieces = [Piece(row: 0, col: 1, imageName: "bn", isWhite: false, rank: .knight)]
         XCTAssertFalse(board.canKnightMoveFrom(fromRow: 0, fromCol: 1, toRow: 7, toCol: 7))
         XCTAssertTrue(board.canKnightMoveFrom(fromRow: 0, fromCol: 1, toRow: 2, toCol: 2))
-//        XCTAssertFalse(board.canKnightMoveFrom(fromRow: 0, fromCol: 1, toRow: -1, toCol: -1))
         XCTAssertTrue(board.canKnightMoveFrom(fromRow: 0, fromCol: 1, toRow: 1, toCol: 3))
-        /*
-        board.pieces = [Piece(row: 0, col: 1, imageName: "<#String#>", isWhite: false, rank: .knight)]
-        
-        print(board)
-        board.pieces = [Piece(row: 0, col: 1, imageName: "<#String#>", isWhite: false, rank: .knight)]
-        
-        print(board)
-        // ...
-        board.pieces = [
-            Piece(row: 0, col: 1, imageName: "<#String#>", isWhite: false, rank: .knight),
-            Piece(row: 1, col: 3, imageName: "<#String#>", isWhite: false, rank: .pawn),
-        ]
-        XCTAssertFalse(board.move(piece: board.pieces[0], destinationRow: 1, destinationCol: 3))
-        
-        board.pieces = [
-            Piece(row: 0, col: 1, imageName: "<#String#>", isWhite: false, rank: .knight),
-            Piece(row: 1, col: 3, imageName: "<#String#>", isWhite: true, rank: .pawn),
-        ]
-        print(board)
-        XCTAssertEqual(2, board.pieces.count)
-        XCTAssertTrue(board.move(piece: board.pieces[0], destinationRow: 1, destinationCol: 3))
-        print(board)
-        XCTAssertEqual(1, board.pieces.count)
-        board.pieces = [
-            Piece(row: 0, col: 1, imageName: "<#String#>", isWhite: false, rank: .knight),
-            Piece(row: 1, col: 3, imageName: "<#String#>", isWhite: true, rank: .pawn),
-        ]
-        print(board)
-        XCTAssertFalse(board.move(piece: board.pieces[0], destinationRow: 0, destinationCol: 1))
-        print(board)
-        
-        //pawn
-        board.pieces = [
-            Piece(row: 1, col: 4, imageName: "<#String#>", isWhite: false, rank: .pawn),
-        ]
-        print(board)
-        XCTAssertTrue(board.move(piece: board.pieces[0], destinationRow: 2, destinationCol: 4))
-        print(board)
-        board.pieces = [
-            Piece(row: 1, col: 4, imageName: "<#String#>", isWhite: false, rank: .pawn),
-        ]
-        print(board)
-        XCTAssertFalse(board.move(piece: board.pieces[0], destinationRow: 0, destinationCol: 4))
-        print(board)
- 
- */
     }
-    
-    /*
-    
-    func testRook() {
-        var board = Board()
-//        r . . . . . . .
-//        . . . . . . . .
-//        . . . . . . . .
-//        . . . . . . . .
-//        . . . . . . . .
-//        . . . . . . . .
-//        . . . . . . . .
-//        . . . . . . . .
-
-        //rook
-        
-        board.pieces = [
-            Piece(row: 0, col: 0, imageName: "<#String#>", isWhite: false, rank: .rook),
-        ]
-        print(board)
-        XCTAssertTrue(board.move(piece: board.pieces[0], destinationRow: 0, destinationCol: 7))
-        print(board)
-        
-        board.pieces = [
-            Piece(row: 0, col: 0, imageName: "<#String#>", isWhite: false, rank: .rook),
-        ]
-        print(board)
-        XCTAssertFalse(board.move(piece: board.pieces[0], destinationRow: 3, destinationCol: 5))
-        print(board)
-        
-        board.pieces = [
-            Piece(row: 0, col: 0, imageName: "<#String#>", isWhite: false, rank: .rook),
-        ]
-        print(board)
-        XCTAssertFalse(board.move(piece: board.pieces[0], destinationRow: 0, destinationCol: 0))
-        print(board)
-    }
-    
-    func testBishop() {
-        var board = Board()
-        
-        board.pieces = [
-            Piece(row: 0, col: 0, imageName: "<#String#>", isWhite: false, rank: .bishop),
-        ]
-        print(board)
-        XCTAssertTrue(board.move(piece: board.pieces[0], destinationRow: 7, destinationCol: 7))
-        print(board)
-        
-        board.pieces = [
-            Piece(row: 0, col: 0, imageName: "<#String#>", isWhite: false, rank: .bishop),
-        ]
-        print(board)
-        XCTAssertFalse(board.move(piece: board.pieces[0], destinationRow: 3, destinationCol: 5))
-        print(board)
-    }
- 
- */
 }
