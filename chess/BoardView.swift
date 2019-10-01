@@ -36,10 +36,22 @@ class BoardView: UIView {
     }
     
     func drawPieces() {
-       drawPiece(col: 4, row: 4, imageName: "King-white")
-       drawPiece(col: 3, row: 4, imageName: "King-black")
-//       drawPiece(col: <#T##Int#>, row: <#T##Int#>, imageName: <#T##String#>)
-        
+        drawPiece(col: 3, row: 0, imageName: "King-white")
+        drawPiece(col: 3, row: 7, imageName: "King-black")
+        drawPiece(col: 4, row: 0, imageName: "Queen-white")
+        drawPiece(col: 4, row: 7, imageName: "Queen-black")
+        for i in 0..<2 {
+            drawPiece(col: 0 + i * 7, row: 0, imageName: "Rook-white")
+            drawPiece(col: 0 + i * 7, row: 7, imageName: "Rook-black")
+            drawPiece(col: 1 + i * 5, row: 0, imageName: "Knight-white")
+            drawPiece(col: 1 + i * 5, row: 7, imageName: "Knight-black")
+            drawPiece(col: 2 + i * 3, row: 0, imageName: "Bishop-white")
+            drawPiece(col: 2 + i * 3, row: 7, imageName: "Bishop-black")
+        }
+        for i in 0..<8 {
+            drawPiece(col: i, row: 1, imageName: "Pawn-white")
+            drawPiece(col: i, row: 6, imageName: "Pawn-black")
+        }
     }
     
     func drawPiece(col: Int, row: Int, imageName: String) {
