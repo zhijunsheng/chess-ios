@@ -4,18 +4,21 @@ class BoardView: UIView {
     let originX         : CGFloat = 0
     let originY         : CGFloat = 0
     let side            : CGFloat = 91.5
-    
-    var fC : Int = 53
-    var fR : Int = 89
+    var fC              : Int = 53
+    var fR              : Int = 89
+    var delegate        : ChessDelegate? = nil
+    var shadowPieceBox  : Set<ChessPiece> = Set<ChessPiece>()
     
     
     override func draw(_ rect: CGRect) {
     
         drawSquares()
         drawFrame()
-        
+        drawPieces()
       
     }
+    
+    
 //    + side / 2
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let first = touches.first!
@@ -28,8 +31,20 @@ class BoardView: UIView {
         let tC : Int = Int(first.location(in: self).x / side)
         let tR : Int = Int(first.location(in: self).y / side)
         print("FROM: (\(fC), \(fR)), TO: (\(tC), \(tR))")
+        delegate?.move(fromCol: fC, fromRow: fR, toCol: tC, toRow: tR)
         
+    }
+    
+    func drawPieces() {
+       drawPiece(col: 4, row: 4, imageName: "King-white")
+       drawPiece(col: 3, row: 4, imageName: "King-black")
+//       drawPiece(col: <#T##Int#>, row: <#T##Int#>, imageName: <#T##String#>)
         
+    }
+    
+    func drawPiece(col: Int, row: Int, imageName: String) {
+        let piece = UIImage(named: "\(imageName)")
+        piece?.draw(in: CGRect(x: originX + side * CGFloat(col), y: originY + side * CGFloat(row), width: side, height: side))
     }
     
     func drawSquares() {
