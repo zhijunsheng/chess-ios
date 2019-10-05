@@ -38,11 +38,11 @@ struct Board: CustomStringConvertible {
                 }
                 pieces.remove(target)
                 pieces.remove(piece)
-                pieces.insert(Piece(row: toRow, col: toCol, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
+                pieces.insert(Piece(col: toCol, row: toRow, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
                 isWhiteTurn = !isWhiteTurn
             } else {
                 pieces.remove(piece)
-                pieces.insert(Piece(row: toRow, col: toCol, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
+                pieces.insert(Piece(col: toCol, row: toRow, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
                 isWhiteTurn = !isWhiteTurn
             }
         }
@@ -144,6 +144,7 @@ struct Board: CustomStringConvertible {
     }
     
     func canRookMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Bool {
+        
         return fromRow == toRow || fromCol == toCol
     }
     
@@ -168,6 +169,41 @@ struct Board: CustomStringConvertible {
         return nil
     }
     
+    
+    /*
+     
+     0 1 2 3 4 5 6 7
+   0 . . . . . . . .
+   1 . . . . . . . .
+   2 . o . * * . o .
+   3 . . . . . . . .
+   4 . . . . . . . .
+   5 . . . . . . . .
+   6 . . . . . . . .
+   7 . . . . . . . .
+     
+     */
+    func numPiecesInBetween(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Int {
+        var count = 0
+        
+        if fromCol == toCol {
+            for i in (min(fromRow, toRow)) + 1...(max(fromRow, toRow)) - 1 {
+                if pieceOn(row: i, col: fromCol) != nil {
+                    count += 1
+                }
+            }
+        } else if fromRow == toRow {
+            // o . * * . o
+            //
+            for i in (min(fromCol, toCol)) + 1...(max(fromCol, toCol)) - 1 {
+                if pieceOn(row: fromRow, col: i) != nil {
+                    count += 1
+                }
+            }
+        }
+        
+        return count
+    }
     /*
  
      0 1 2 3 4 5 6 7

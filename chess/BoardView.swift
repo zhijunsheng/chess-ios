@@ -95,7 +95,7 @@ class BoardView: UIView {
     private func drawPieces() {
         for piece in pieces {
             if piece != movingPiece {
-                drawPiece(piece: Piece(row: piece.row, col: piece.col, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
+                drawPiece(piece: Piece(col: piece.col, row: piece.row, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
             }
         }
     }
