@@ -17,6 +17,7 @@ class GameViewController: UIViewController {
         
     }
 
+    /*
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
@@ -97,5 +98,6 @@ class GameViewController: UIViewController {
         }
     }
 
+    */
 }
 
