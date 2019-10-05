@@ -8,6 +8,8 @@ class BoardView: UIView {
     var chessPieces: Set<ChessPiece> = Set<ChessPiece>()
     var touchBeganLocation: CGPoint = CGPoint(x: -1, y: -2)
     
+    var chessDelegate: ChessDelegate?
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         touchBeganLocation = touch.location(in: self)
@@ -25,6 +27,8 @@ class BoardView: UIView {
         let toRow: Int = Int((touchEndedLocation.y - originY) / cellSide)
         
         print("from: (\(fromCol), \(fromRow)) to: (\(toCol), \(toRow))")
+        
+        chessDelegate?.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
     }
     
     override func draw(_ rect: CGRect) {

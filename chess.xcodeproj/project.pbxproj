@@ -17,6 +17,7 @@
 		5B01E09B233517A80070D60C /* ChessBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B01E09A233517A80070D60C /* ChessBoardTests.swift */; };
 		5B16016C232DDE67001D1FC1 /* ChessPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B16016B232DDE67001D1FC1 /* ChessPiece.swift */; };
 		5B16016E232DE4E3001D1FC1 /* ChessPieceRank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B16016D232DE4E3001D1FC1 /* ChessPieceRank.swift */; };
+		5B36F0692348C291006F3E06 /* ChessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B36F0682348C291006F3E06 /* ChessDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		5B01E09A233517A80070D60C /* ChessBoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardTests.swift; sourceTree = "<group>"; };
 		5B16016B232DDE67001D1FC1 /* ChessPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessPiece.swift; sourceTree = "<group>"; };
 		5B16016D232DE4E3001D1FC1 /* ChessPieceRank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessPieceRank.swift; sourceTree = "<group>"; };
+		5B36F0682348C291006F3E06 /* ChessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				07FDE4312018140A00A674FE /* AppDelegate.swift */,
+				5B36F0682348C291006F3E06 /* ChessDelegate.swift */,
 				5B01E098233514D20070D60C /* ChessBoard.swift */,
 				5B16016D232DE4E3001D1FC1 /* ChessPieceRank.swift */,
 				5B16016B232DDE67001D1FC1 /* ChessPiece.swift */,
@@ -214,6 +217,7 @@
 			files = (
 				07FDE4342018140A00A674FE /* GameViewController.swift in Sources */,
 				5B01E099233514D20070D60C /* ChessBoard.swift in Sources */,
+				5B36F0692348C291006F3E06 /* ChessDelegate.swift in Sources */,
 				5B16016E232DE4E3001D1FC1 /* ChessPieceRank.swift in Sources */,
 				36A10EE7201D6ACC0010D9A7 /* BoardView.swift in Sources */,
 				07FDE4322018140A00A674FE /* AppDelegate.swift in Sources */,
