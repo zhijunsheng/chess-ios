@@ -16,7 +16,7 @@ class BoardView: UIView {
 
     }
     
-    func drawPieces()  { 
+    func drawPieces()  {
         drawPiece(col: 1, row: 7, imageName: "knight_chess_w")
         drawPiece(col: 2, row: 0, imageName: "bishop_chess_b")
     }
@@ -24,7 +24,7 @@ class BoardView: UIView {
     
     func drawPiece(col:Int,  row:Int, imageName: String)  {
         let image = UIImage(named: imageName)
-        image?.draw(in: CGRect(x: originX + CGFloat(col) * cellSide, y: originY, width: cellSide, height: cellSide))
+        image?.draw(in: CGRect(x: originX + CGFloat(col) * cellSide, y: originY + CGFloat(row) * cellSide, width: cellSide, height: cellSide))
     }
     
     func drawBoard()  {
