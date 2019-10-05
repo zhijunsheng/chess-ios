@@ -10,6 +10,18 @@ import XCTest
 
 class WhileLoopTests: XCTestCase {
     
+    func testAddFunc() {
+        let theSum = add(num1: 123, b: 100)
+        print("theSum = \(theSum)")
+    }
+    
+    func add(num1: Int, b: Int) -> Int {
+//        let a = 123
+//        let b = 100
+        let sum = num1 + b
+        return sum
+    }
+    
     //    func testWeirdSymbols() {
     //        let quotient = 556545465 / 67
     //        let remainder = 556545465 % 67
