@@ -60,17 +60,17 @@ struct Board: CustomStringConvertible {
         }
         switch candidate.rank {
         case .pawn:
-            return canPawnMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol, isWhite: candidate.isWhite)
+            return canPawnMove(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol, isWhite: candidate.isWhite)
         case .knight:
-            return canKnightMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
+            return canKnightMove(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
         case .bishop:
-            return canBishopMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
+            return canBishopMove(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
         case .rook:
-            return canRookMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
+            return canRookMove(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
         case .king:
-            return canKingMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
+            return canKingMove(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
         case .queen:
-            return canQueenMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
+            return canQueenMove(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
         }
     }
     
@@ -116,11 +116,11 @@ struct Board: CustomStringConvertible {
         }
     }
     
-    func canKnightMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Bool {
+    func canKnightMove(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Bool {
         return abs(toRow - fromRow) == 1 && abs(toCol - fromCol) == 2 || abs(toRow - fromRow) == 2 && abs(toCol - fromCol) == 1
     }
     
-    func canPawnMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int, isWhite: Bool) -> Bool {
+    func canPawnMove(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int, isWhite: Bool) -> Bool {
         guard let candidate = pieceOn(col: fromCol, row: fromRow) else {
             return false
         }
@@ -143,21 +143,21 @@ struct Board: CustomStringConvertible {
         return false
     }
     
-    func canRookMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Bool {
+    func canRookMove(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Bool {
         
         return (fromRow == toRow || fromCol == toCol) && numPiecesInBetween(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol) == 0
     }
     
-    func canKingMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Bool {
+    func canKingMove(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Bool {
         return abs(toRow - fromRow) == 1 || abs(toCol - fromCol) == 1 || abs(toRow - fromRow) == 1 && abs(toCol - fromCol) == 1
     }
     
-    func canBishopMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Bool {
+    func canBishopMove(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Bool {
         return abs(toRow - fromRow) == abs(toCol - fromCol)
     }
     
-    func canQueenMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Bool {
-        return canRookMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol) || canBishopMoveFrom(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
+    func canQueenMove(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Bool {
+        return canRookMove(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol) || canBishopMove(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol)
     }
     
     func isXY(x: Int, y: Int, onPoints pieces: Set<Piece>) -> Piece? {
