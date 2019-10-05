@@ -6,6 +6,26 @@ class BoardView: UIView {
     var originX: CGFloat = 40
     var originY: CGFloat = 50
     var chessPieces: Set<ChessPiece> = Set<ChessPiece>()
+    var touchBeganLocation: CGPoint = CGPoint(x: -1, y: -2)
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        touchBeganLocation = touch.location(in: self)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        let touchEndedLocation = touch.location(in: self)
+        print("from: (\(touchBeganLocation.x), \(touchBeganLocation.y)) to: (\(touchEndedLocation.x), \(touchEndedLocation.y))")
+        
+        let fromCol: Int = Int((touchBeganLocation.x - originX) / cellSide)
+        let fromRow: Int = Int((touchBeganLocation.y - originY) / cellSide)
+        
+        let toCol: Int = Int((touchEndedLocation.x - originX) / cellSide)
+        let toRow: Int = Int((touchEndedLocation.y - originY) / cellSide)
+        
+        print("from: (\(fromCol), \(fromRow)) to: (\(toCol), \(toRow))")
+    }
     
     override func draw(_ rect: CGRect) {
         cellSide = bounds.width * boardWidthPercent / 8
