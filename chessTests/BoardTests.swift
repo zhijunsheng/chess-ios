@@ -18,7 +18,7 @@ class BoardTests: XCTestCase {
     
     func testPiecesBetween() {
         /*
-        0 1 2 3 4 5 6 7
+          0 1 2 3 4 5 6 7
         0 p . . . . . . .
         1 . . . . . . . .
         2 . . . . . . . .
@@ -37,7 +37,7 @@ class BoardTests: XCTestCase {
         print(anything)
         
         /*
-         0 1 2 3 4 5 6 7
+           0 1 2 3 4 5 6 7
          0 p . . . . . . .
          1 . . . . . . . .
          2 . . . . . . . .

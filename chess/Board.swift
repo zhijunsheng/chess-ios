@@ -27,13 +27,13 @@ struct Board: CustomStringConvertible {
     var pieces: Set<Piece> = Set<Piece>()
     
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
-        guard let piece = pieceOn(row: fromRow, col: fromCol) else {
+        guard let piece = pieceOn(col: fromCol, row: fromRow) else {
             return
         }
 
         if canMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
             if capturePiece(pieceCol: fromCol, pieceRow: fromRow, col: toCol, row: toRow) {
-                guard let target = pieceOn(row: toRow, col: toCol) else {
+                guard let target = pieceOn(col: toCol, row: toRow) else {
                     return
                 }
                 pieces.remove(target)
@@ -49,7 +49,7 @@ struct Board: CustomStringConvertible {
     }
     
     func canMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        guard let candidate = pieceOn(row: fromRow, col: fromCol) else {
+        guard let candidate = pieceOn(col: fromCol, row: fromRow) else {
             return false
         }
         
@@ -74,7 +74,7 @@ struct Board: CustomStringConvertible {
         }
     }
     
-    func pieceOn(row: Int, col: Int) -> Piece? {
+    func pieceOn(col: Int, row: Int) -> Piece? {
         for piece in pieces {
             if row == piece.row && col == piece.col {
                 return piece
@@ -102,11 +102,11 @@ struct Board: CustomStringConvertible {
     }
     
     func capturePiece(pieceCol: Int, pieceRow: Int, col: Int, row: Int) -> Bool {
-        guard let candidate = pieceOn(row: pieceRow, col: pieceCol) else {
+        guard let candidate = pieceOn(col: pieceCol, row: pieceRow) else {
             return false
         }
         if canMove(fromCol: candidate.col, fromRow: candidate.row, toCol: col, toRow: row) {
-            if (pieceOn(row: row, col: col) != nil) {
+            if (pieceOn(col: col, row: row) != nil) {
                 return true
             } else {
                 return false
@@ -121,23 +121,23 @@ struct Board: CustomStringConvertible {
     }
     
     func canPawnMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int, isWhite: Bool) -> Bool {
-        guard let candidate = pieceOn(row: fromRow, col: fromCol) else {
+        guard let candidate = pieceOn(col: fromCol, row: fromRow) else {
             return false
         }
         
-        if isWhite && (pieceOn(row: fromRow - 1, col: fromCol) == nil) {
+        if isWhite && (pieceOn(col: fromCol, row: fromRow - 1) == nil) {
             if candidate.row == 6 {
-                return (fromRow - 1 == toRow || (pieceOn(row: fromRow - 1, col: fromCol + 1) != nil) || (pieceOn(row: fromRow - 1, col: fromCol - 1) != nil) || fromRow - 2 == toRow)
+                return (fromRow - 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) || fromRow - 2 == toRow)
             } else {
-                return fromRow - 1 == toRow || (pieceOn(row: fromRow - 1, col: fromCol + 1) != nil) || (pieceOn(row: fromRow - 1, col: fromCol - 1) != nil)
+                return fromRow - 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil)
             }
         }
         
-        if !isWhite && (pieceOn(row: fromRow + 1, col: fromCol) == nil) {
+        if !isWhite && (pieceOn(col: fromCol, row: fromRow + 1) == nil) {
             if candidate.row == 1 {
-                return fromRow + 1 == toRow || (pieceOn(row: fromRow + 1, col: fromCol + 1) != nil) || (pieceOn(row: fromRow + 1, col: fromCol - 1) != nil) || fromRow + 2 == toRow
+                return fromRow + 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow + 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) || fromRow + 2 == toRow
             } else {
-                return fromRow + 1 == toRow || (pieceOn(row: fromRow + 1, col: fromCol + 1) != nil) || (pieceOn(row: fromRow + 1, col: fromCol - 1) != nil) || fromRow + 2 == toRow
+                return fromRow + 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow + 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) || fromRow + 2 == toRow
             }
         }
         return false
@@ -145,7 +145,7 @@ struct Board: CustomStringConvertible {
     
     func canRookMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Bool {
         
-        return fromRow == toRow || fromCol == toCol
+        return (fromRow == toRow || fromCol == toCol) && numPiecesInBetween(fromRow: fromRow, fromCol: fromCol, toRow: toRow, toCol: toCol) == 0
     }
     
     func canKingMoveFrom(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Bool {
@@ -178,17 +178,30 @@ struct Board: CustomStringConvertible {
    2 . o . * * . o .
    3 . . . . . . . .
    4 . . . . . . . .
-   5 . . . . . . . .
-   6 . . . . . . . .
+   5 . . . o o . . .
+   6 . . . o . o . .
    7 . . . . . . . .
      
      */
     func numPiecesInBetween(fromRow: Int, fromCol: Int, toRow: Int, toCol: Int) -> Int {
         var count = 0
         
+        // 0 + 1...1 - 1
+        // 1 + 1...2 - 1
+        // 2 + 1...3 - 1
+        // 3 + 1...4 - 1
+        // 4 + 1...5 - 1
+        // 5 + 1...6 - 1
+        // 6 + 1...7 - 1
+        if abs(fromRow - toRow) == 1 { // |01 - 56| = 55
+            return count
+        } else if abs(fromCol - toCol) == 1 {
+            return count
+        }
+        
         if fromCol == toCol {
             for i in (min(fromRow, toRow)) + 1...(max(fromRow, toRow)) - 1 {
-                if pieceOn(row: i, col: fromCol) != nil {
+                if pieceOn(col: fromCol, row: i) != nil {
                     count += 1
                 }
             }
@@ -196,7 +209,7 @@ struct Board: CustomStringConvertible {
             // o . * * . o
             //
             for i in (min(fromCol, toCol)) + 1...(max(fromCol, toCol)) - 1 {
-                if pieceOn(row: fromRow, col: i) != nil {
+                if pieceOn(col: i, row: fromRow) != nil {
                     count += 1
                 }
             }
@@ -242,48 +255,5 @@ struct Board: CustomStringConvertible {
         }
         return board
     }
-    
-    func pieceInBetweenCol(fromCol: Int, toCol: Int, row: Int, board: Board) -> Bool {
-        if fromCol < toCol {
-            let smaller = fromCol
-            let larger = toCol
-            for x in smaller + 1..<larger {
-                if (board.pieceOn(row: row, col: x) != nil) {
-                    return true
-                }
-            }
-        } else if fromCol > toCol {
-            let smaller = toCol
-            let larger = fromCol
-            for x in smaller + 1..<larger {
-                if (board.pieceOn(row: row, col: x) != nil) {
-                    
-                }
-            }
-        }
-        return true
-    }
-    
-    func pieceInBetweenRow(fromRow: Int, toRow: Int, col: Int, board: Board) -> Bool {
-        if fromRow < toRow {
-            let smaller = fromRow
-            let larger = toRow
-            for x in smaller + 1..<larger {
-                if (board.pieceOn(row: x, col: col) != nil) {
-                    return true
-                }
-            }
-        } else if fromRow > toRow {
-            let smaller = toRow
-            let larger = fromRow
-            for x in smaller + 1..<larger {
-                if (board.pieceOn(row: x, col: col) != nil) {
-                    
-                }
-            }
-        }
-        return true
-    }
-    
     
 }
