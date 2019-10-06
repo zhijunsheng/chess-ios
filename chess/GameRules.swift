@@ -1,19 +1,5 @@
 import Foundation
 struct GameRules: CustomStringConvertible {
-    
-    /*
-    0 1 2 3 4 5 6 7
-  0 . . . k . . . .
-  1 . . . . . . . .
-  2 . . . . . . . .
-  3 . . . . . . . .
-  4 . . . . . . . .
-  5 . . . . . . . .
-  6 . . . . . . . .
-  7 . . . . . . . .
-     
- 
-    */
     var pieceBox = Set<ChessPiece>()
     
     mutating func move(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
@@ -64,15 +50,7 @@ struct GameRules: CustomStringConvertible {
                         break
                     }
                 }
-
-                    
-                
             }
-            
-            
-        }
-        
-       
-        return desc
+        }; return desc
     }
 }

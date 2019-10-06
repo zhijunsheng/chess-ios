@@ -8,8 +8,7 @@ class BoardView: UIView {
     var fR              : Int = 89
     var delegate        : ChessDelegate? = nil
     var shadowPieceBox  : Set<ChessPiece> = Set<ChessPiece>()
-    
-    
+
     override func draw(_ rect: CGRect) {
     
         drawSquares()
@@ -17,9 +16,6 @@ class BoardView: UIView {
         drawPieces()
       
     }
-    
-    
-//    + side / 2
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let first = touches.first!
         fC = Int(first.location(in: self).x / side)
@@ -30,32 +26,15 @@ class BoardView: UIView {
         let first = touches.first!
         let tC : Int = Int(first.location(in: self).x / side)
         let tR : Int = Int(first.location(in: self).y / side)
-        print("FROM: (\(fC), \(fR)), TO: (\(tC), \(tR))")
-        delegate?.move(fromCol: fC, fromRow: fR, toCol: tC, toRow: tR)
         
+        delegate?.move(fromCol: fC, fromRow: fR, toCol: tC, toRow: tR)
+
     }
-    
+
     func drawPieces() {
         for piece in shadowPieceBox {
             drawPiece(col: piece.col, row: piece.row, imageName: piece.imageName)
         }
-        
-//        drawPiece(col: 3, row: 0, imageName: "King-white")
-//        drawPiece(col: 3, row: 7, imageName: "King-black")
-//        drawPiece(col: 4, row: 0, imageName: "Queen-white")
-//        drawPiece(col: 4, row: 7, imageName: "Queen-black")
-//        for i in 0..<2 {
-//            drawPiece(col: 0 + i * 7, row: 0, imageName: "Rook-white")
-//            drawPiece(col: 0 + i * 7, row: 7, imageName: "Rook-black")
-//            drawPiece(col: 1 + i * 5, row: 0, imageName: "Knight-white")
-//            drawPiece(col: 1 + i * 5, row: 7, imageName: "Knight-black")
-//            drawPiece(col: 2 + i * 3, row: 0, imageName: "Bishop-white")
-//            drawPiece(col: 2 + i * 3, row: 7, imageName: "Bishop-black")
-//        }
-//        for i in 0..<8 {
-//            drawPiece(col: i, row: 1, imageName: "Pawn-white")
-//            drawPiece(col: i, row: 6, imageName: "Pawn-black")
-//        }
     }
     
     func drawPiece(col: Int, row: Int, imageName: String) {
@@ -66,26 +45,12 @@ class BoardView: UIView {
     func drawSquares() {
         for i in 0...3 {
             drawQuadrilateral(x: originX, y: originY + side * CGFloat(i) * 2)
-        }
-        for i in 0...3 {
             drawQuadrilateral(x: side + originX, y: side + originY + side * CGFloat(i) * 2)
-        }
-        for i in 0...3 {
             drawQuadrilateral(x: side * 2 + originX, y: originY + side * CGFloat(i) * 2)
-        }
-        for i in 0...3 {
             drawQuadrilateral(x: side * 3 + originX, y: side + originY + side * CGFloat(i) * 2)
-        }
-        for i in 0...3 {
             drawQuadrilateral(x: side * 4 + originX, y: originY + side * CGFloat(i) * 2)
-        }
-        for i in 0...3 {
             drawQuadrilateral(x: side * 5 + originX, y: side + originY + side * CGFloat(i) * 2)
-        }
-        for i in 0...3 {
             drawQuadrilateral(x: side * 6 + originX, y: originY + side * CGFloat(i) * 2)
-        }
-        for i in 0...3 {
             drawQuadrilateral(x: side * 7 + originX, y: side + originY + side * CGFloat(i) * 2)
         }
     }
@@ -110,7 +75,4 @@ class BoardView: UIView {
         #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1).setFill()
         a1.fill()
     }
-    
-    
-    
 }

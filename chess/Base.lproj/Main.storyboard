@@ -26,18 +26,39 @@
                                     <constraint firstAttribute="width" secondItem="aQ7-B9-awR" secondAttribute="height" multiplier="1:1" id="ESI-qB-WsU"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLW-XG-V6p">
+                                <rect key="frame" x="20" y="756" width="728" height="107.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="90"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GM0-Ue-scB">
+                                <rect key="frame" x="20" y="884" width="728" height="120"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="90"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="newGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Waf-n5-NdX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="aQ7-B9-awR" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="D1h-Nl-2Fd"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aQ7-B9-awR" secondAttribute="trailing" constant="20" id="MxC-kA-oxJ"/>
+                            <constraint firstItem="gLW-XG-V6p" firstAttribute="top" secondItem="aQ7-B9-awR" secondAttribute="bottom" constant="8" id="PrG-bg-bZv"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="GM0-Ue-scB" secondAttribute="trailing" constant="20" id="T5J-1J-GWj"/>
                             <constraint firstItem="aQ7-B9-awR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Xhv-Zj-2xT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gLW-XG-V6p" secondAttribute="trailing" constant="20" id="hkv-B5-DQO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="GM0-Ue-scB" secondAttribute="bottom" constant="20" id="oGF-al-tD1"/>
+                            <constraint firstItem="gLW-XG-V6p" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="pjc-ui-jfo"/>
+                            <constraint firstItem="GM0-Ue-scB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="sLa-zR-jXH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="boardView" destination="aQ7-B9-awR" id="DL5-ck-bLN"/>
+                        <outlet property="isWhiteTurnLabel" destination="gLW-XG-V6p" id="ohZ-ai-N0O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
