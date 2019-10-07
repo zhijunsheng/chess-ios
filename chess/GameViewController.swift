@@ -9,6 +9,7 @@
 import UIKit
 
 class GameViewController: UIViewController, ChessDelegate {
+    
     @IBOutlet weak var boardView: BoardView!
     
     var chessBoard = ChessBoard()
@@ -18,9 +19,12 @@ class GameViewController: UIViewController, ChessDelegate {
         
         chessBoard.initializeBoard()
         boardView.chessPieces = chessBoard.pieces
+        boardView.chessDelegate = self
     }
     
     func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
-        
+        chessBoard.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        boardView.chessPieces = chessBoard.pieces
+        boardView.setNeedsDisplay()
     }
 }

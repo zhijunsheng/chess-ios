@@ -21,6 +21,17 @@ struct ChessBoard: CustomStringConvertible {
     
     var pieces: Set<ChessPiece> = Set<ChessPiece>()
     
+    mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        
+        guard let piece = pieceAt(col: fromCol, row: fromRow) else {
+            return
+        }
+        
+        pieces.remove(piece)
+        pieces.insert(ChessPiece(rank: piece.rank, col: toCol, row: toRow, isWhite: piece.isWhite, imgName: piece.imgName))
+        
+    }
+    
     mutating func initializeBoard() {
         for i in 0 ..< 8 {
             pieces.insert(ChessPiece(rank: .pawn, col: i, row: 1, isWhite: false, imgName: "pawn_chess_b"))
