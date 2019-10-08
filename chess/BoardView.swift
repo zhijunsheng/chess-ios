@@ -13,14 +13,30 @@ class BoardView: UIView {
         
         drawBoard()
         drawPieces()
-
     }
     
     func drawPieces()  {
-        drawPiece(col: 1, row: 7, imageName: "knight_chess_w")
-        drawPiece(col: 2, row: 0, imageName: "bishop_chess_b")
-    }
+        
+        for p in 0..<2 {
+            drawPiece(col: p * 5 + 1, row: 0, imageName: "knight_chess_b")
+            drawPiece(col: p * 5 + 1, row: 7, imageName: "knight_chess_w")
+            drawPiece(col: p * 7, row: 0, imageName: "rook_chess_b")
+            drawPiece(col: p * 7, row: 7, imageName: "rook_chess_w")
+            drawPiece(col: p * 3 + 2, row: 7 , imageName: "bishop_chess_w")
+            drawPiece(col: p * 3 + 2, row: 0 , imageName: "bishop_chess_b")
+        }
 
+        drawPiece(col: 3, row: 0, imageName: "king_chess_b")
+        drawPiece(col: 3, row: 7, imageName: "king_chess_w")
+        
+        drawPiece(col: 4, row: 0, imageName: "queen_chess_b")
+        drawPiece(col: 4, row: 7, imageName: "queen_chess_w")
+        
+        for y in 0...7 {
+            drawPiece(col: 0 + y, row: 6, imageName: "pawn_chess_w")
+            drawPiece(col: 0 + y, row: 1, imageName: "pawn_chess_b")
+        }
+    }
     
     func drawPiece(col:Int,  row:Int, imageName: String)  {
         let image = UIImage(named: imageName)
@@ -70,5 +86,6 @@ class BoardView: UIView {
         pencil.fill()
         pencil.stroke()
     }
+    
 }
 
