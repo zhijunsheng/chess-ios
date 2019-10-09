@@ -58,6 +58,27 @@ class BoardTests: XCTestCase {
         XCTAssertEqual(board.numPiecesInBetween(fromRow: 0, fromCol: 0, toCol: 0, toRow: 7), 1)
     }
     
+    func testPiecesBetweenD() {
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 b . . . . . . .
+         1 . . . . . . . .
+         2 . . n . . . . .
+         3 . . . . . . . .
+         4 . . . . n . . .
+         5 . . . . . o . .
+         6 . . . . . . . .
+         7 r . . . . . . .
+         */
+        var anything = Board()
+        anything.pieces = [Piece(col: 0, row: 0, imageName: "wr", isWhite: false, rank: .pawn),
+                           Piece(col: 4, row: 4, imageName: "wr", isWhite: false, rank: .rook),
+        ]
+        XCTAssertEqual(anything.numPiecesInBetween(fromRow: 0, fromCol: 0, toCol: 7, toRow: 7), 1)
+        
+        print(anything)
+    }
+    
     func testBoardPieces() {
         var anything = Board()
         anything.pieces = [Piece(col: 1, row: 1, imageName: "<#String#>", isWhite: false, rank: .pawn),
@@ -128,11 +149,15 @@ class BoardTests: XCTestCase {
  
     */
     
+    func testB() {
+        
+    }
+    
     func testN() {
         var board = Board()
         board.pieces = [Piece(col: 2, row: 2, imageName: "bn", isWhite: false, rank: .knight)]
-        XCTAssertTrue(board.canRookMove(fromCol: 2, fromRow: 2, toCol: 3, toRow: 4))
-//        XCTAssertTrue(board.canRookMoveFrom(fromRow: 0, fromCol: 7, toRow: 7, toCol: 7))
+        XCTAssertTrue(board.canKnightMove(fromCol: 2, fromRow: 2, toCol: 4, toRow: 3))
+        XCTAssertTrue(board.canKnightMove(fromCol: 4, fromRow: 3, toCol: 2, toRow: 2))
     }
     
     func testR0() {
@@ -164,6 +189,31 @@ class BoardTests: XCTestCase {
         XCTAssertTrue(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 7, toRow: 1))
     }
     
+    func testR2() {
+        /*
+         
+           0 1 2 3 4 5 6 7
+         0 . . . . . . .|r|
+         1 . . . . . . .|.|
+         2 . . . . . . .|N|
+         3 . . . . . . .|.|
+         4 . . . . . . .|n|
+         5 . . . . . . .|.|
+         6 . . . . . . .|.|
+         7 . . . . . . .|✗|
+         
+         */
+        var board = Board()
+        board.pieces = [Piece(col: 7, row: 0, imageName: "br", isWhite: false, rank: .rook),
+                        Piece(col: 7, row: 2, imageName: "wn", isWhite: true, rank: .knight),
+                        Piece(col: 7, row: 4, imageName: "bn", isWhite: false, rank: .knight)]
+        XCTAssertEqual(3, board.pieces.count)
+        XCTAssertFalse(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 6, toRow: 1))
+        XCTAssertTrue(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 7, toRow: 2))
+        XCTAssertFalse(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 7, toRow: 7))
+        XCTAssertEqual(2, board.pieces.count)
+    }
+    
     func testNmove() {
         var board = Board()
         
@@ -173,7 +223,6 @@ class BoardTests: XCTestCase {
         XCTAssertFalse(board.canKnightMove(fromCol: 1, fromRow: 0, toCol: 7, toRow: 7))
         XCTAssertTrue(board.canKnightMove(fromCol: 1, fromRow: 0, toCol: 2, toRow: 2))
         XCTAssertTrue(board.canKnightMove(fromCol: 1, fromRow: 0, toCol: 3, toRow: 1))
-    }
+    }//TODO: HW
     
-    // HW: test numPiecesInBetween
 }

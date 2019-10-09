@@ -186,6 +186,41 @@ struct Board: CustomStringConvertible {
     func numPiecesInBetween(fromRow: Int, fromCol: Int, toCol: Int, toRow: Int) -> Int {
         var count = 0
         
+        /*
+         
+         0 1 2 3 4 5 6 7
+         0 . . . . . . . .
+         1 . o . . . . . .
+         2 . . o . . . . .
+         3 . . . o . . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 . . . . . . . .
+         7 . . . . . . . .
+         
+         0 1 2 3 4 5 6 7
+         0 . . . . . . . .
+         1 . . o . . . . .
+         2 . . . o . . . .
+         3 . . . . o . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 . . . . . . . .
+         7 . . . . . . . .
+         
+         0 1 2 3 4 5 6 7
+         0 . . . . . . . .
+         1 . . . . o . . .
+         2 . . . o . . . .
+         3 . . o . . . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 . . . . . . . .
+         7 . . . . . . . .
+         
+         */
+        
+        
         // 0 + 1...1 - 1
         // 1 + 1...2 - 1
         // 2 + 1...3 - 1
@@ -213,23 +248,18 @@ struct Board: CustomStringConvertible {
                     count += 1
                 }
             }
+        } else if abs(toCol - fromCol) == abs(toRow - fromRow) {
+            
+            for i in (min(fromCol, toCol)) + 1...(max(fromCol, toCol)) - 1 {
+                if pieceOn(col: fromCol + i, row: fromRow + i) != nil {
+                    count += 1
+                }
+            }
         }
         
         return count
     }
-    /*
- 
-     0 1 2 3 4 5 6 7
-     . . . . . . . .
-     . . . . . . . .
-     . . . . . . . .
-     . . . . . . . .
-     . . . . . . . .
-     . . . . . . . .
-     . . . . . . . .
-     . . . . . . . .
-     
-    */
+
     var description: String {
         var board: String = ""
         board += "  0 1 2 3 4 5 6 7"
