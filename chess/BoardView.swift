@@ -2,12 +2,14 @@ import UIKit
 
 class BoardView: UIView {
     
-    let boardOriginX: CGFloat = 33
-    let boardOriginY: CGFloat = 38
-    let cellSide: CGFloat = 28
+    var boardOriginX: CGFloat = 33
+    var boardOriginY: CGFloat = 38
+    let cellSide: CGFloat = 80
     
     override func draw(_ rect: CGRect) {
-
+        boardOriginX = (bounds.width - 8 * cellSide) / 2
+        boardOriginY = (bounds.height - 8 * cellSide) / 2
+        
         drawChessBoard()
         
 
