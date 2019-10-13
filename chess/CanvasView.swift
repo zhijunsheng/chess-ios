@@ -15,13 +15,24 @@ class CanvasView: UIView {
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
         
-        let bPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 100, height: 120))
+        let bPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: 80, height: 80))
         bPath.fill()
-        
-        let bPath2 = UIBezierPath(rect: CGRect(x: 90 + 200, y: 100 + 50, width: 100, height: 100))
-        #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0).setFill()
+        let bPath1 = UIBezierPath(rect: CGRect(x: 80, y: 80, width: 80, height: 80))
+        bPath1.fill()
+        let bPath2 = UIBezierPath(rect: CGRect(x: 160, y: 0, width: 80, height: 80))
         bPath2.fill()
-   
+        let bPath3 = UIBezierPath(rect: CGRect(x: 240, y: 80, width: 80, height: 80))
+        bPath3.fill()
+        let bPath4 = UIBezierPath(rect: CGRect(x: 320, y: 0, width: 80, height: 80))
+        bPath4.fill()
+        let bPath5 = UIBezierPath(rect: CGRect(x: 400, y: 80, width: 80, height: 80))
+        bPath5.fill()
+        let bPath6 = UIBezierPath(rect: CGRect(x: 480, y: 0, width: 80, height: 80))
+        bPath6.fill()
+        let bPath7 = UIBezierPath(rect: CGRect(x: 560, y: 80, width: 80, height: 80))
+        bPath7.fill()
+        
+        
     }
  
 
