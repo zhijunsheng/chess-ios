@@ -19,16 +19,22 @@ import Foundation
  */
 struct ChessBoard: CustomStringConvertible {
     
+    // capture a piece, eat
+    
     var pieces: Set<ChessPiece> = Set<ChessPiece>()
     
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         
-        guard let piece = pieceAt(col: fromCol, row: fromRow) else {
+        guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
             return
         }
         
-        pieces.remove(piece)
-        pieces.insert(ChessPiece(rank: piece.rank, col: toCol, row: toRow, isWhite: piece.isWhite, imgName: piece.imgName))
+        if let targetPiece = pieceAt(col: toCol, row: toRow) {
+            pieces.remove(targetPiece)
+        }
+        
+        pieces.remove(movingPiece)
+        pieces.insert(ChessPiece(rank: movingPiece.rank, col: toCol, row: toRow, isWhite: movingPiece.isWhite, imgName: movingPiece.imgName))
         
     }
     
