@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qgu-nV-q8D" customClass="CanvasView" customModule="chess" customModuleProvider="target">
-                                <rect key="frame" x="138" y="155" width="400" height="400"/>
+                                <rect key="frame" x="64" y="131" width="640" height="640"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.97582972850000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
