@@ -32,6 +32,11 @@ class CanvasView: UIView {
         let bPath7 = UIBezierPath(rect: CGRect(x: 560, y: 80, width: 80, height: 80))
         bPath7.fill()
         
+        let bishopImage = UIImage(named: "bishop_chess_w")
+        bishopImage?.draw(in: CGRect(x: 160, y: 0, width: 80, height: 80))
+        
+        let rookImage = UIImage(named: "rook_chess_w")
+        rookImage?.draw(in: CGRect(x: 0, y: 0, width: 80, height: 80))
         
     }
  
