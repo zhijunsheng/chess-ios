@@ -14,14 +14,27 @@ class StuffTests: XCTestCase {
  
      ABCDE * 4 = EDCBA
      
-     ABCDE
+     A = 2
+     E = 8
+     B = 1
+     D = 7
+     C = 9
+     
+     21978
      *   4
-    --------
-     EDCBA
+     --------
+     87912
+     
+     21000 * 4 = 84000
+     
+     
+     Why couldn't B equal to 2?
+     
+     because d * 4 would need to end in 9 because in reverse, B is second. there is the 3 from the previous E * 4 so it doesn't make sense.
  
     */
     
-    
+    // hi
     
     func testThing() {
         var count = 0
@@ -43,7 +56,6 @@ class StuffTests: XCTestCase {
     }
     
     func testThingy() {
-        
         for i in 10000...24999 {
             let onesDigit = i - i / 10 * 10
             

@@ -27,6 +27,7 @@ struct Board: CustomStringConvertible {
     var pieces: Set<Piece> = Set<Piece>()
     
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        
         guard let piece = pieceOn(col: fromCol, row: fromRow) else {
             return
         }
@@ -46,6 +47,7 @@ struct Board: CustomStringConvertible {
                 isWhiteTurn = !isWhiteTurn
             }
         }
+        
     }
     
     func canMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
@@ -144,7 +146,6 @@ struct Board: CustomStringConvertible {
     }
     
     func canRookMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        
         return (fromRow == toRow || fromCol == toCol) && numPiecesInBetween(fromRow: fromRow, fromCol: fromCol, toCol: toCol, toRow: toRow) == 0
     }
     

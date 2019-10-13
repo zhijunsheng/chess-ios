@@ -207,12 +207,12 @@ class BoardTests: XCTestCase {
         board.pieces = [Piece(col: 7, row: 0, imageName: "br", isWhite: false, rank: .rook),
                         Piece(col: 7, row: 2, imageName: "wn", isWhite: true, rank: .knight),
                         Piece(col: 7, row: 4, imageName: "bn", isWhite: false, rank: .knight)]
-        XCTAssertEqual(3, board.pieces.count)
         XCTAssertFalse(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 6, toRow: 1))
         XCTAssertTrue(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 7, toRow: 2))
         XCTAssertFalse(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 7, toRow: 7))
-        XCTAssertEqual(2, board.pieces.count)
     }
+    
+    
     
     func testNmove() {
         var board = Board()
