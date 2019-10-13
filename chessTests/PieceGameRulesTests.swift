@@ -1,10 +1,31 @@
 import XCTest
 @testable import chess
-class GameRulesTests: XCTestCase {
+class PieceGameRulesTests: XCTestCase {
+    
+    /*
+           c o l
+     
+       0 1 2 3 4 5 6 7
+     0 . . . . . . . .
+     1 . . n . . . . .
+  r  2 . . . x o . . .
+  o  3 . . . . . . . .
+  w  4 . . . . . . . .
+     5 . . . . . . . .
+     6 . . . . . . . .
+     7 . . . . . . . .
+     
+     */
+    func testCanKnightMove() {
+        print("import XCTest")
+        let game = GameRules()
+        XCTAssertTrue(game.canKnightMove(fromCol: 2, fromRow: 1, toCol: 4, toRow: 2))
+        XCTAssertFalse(game.canKnightMove(fromCol: 2, fromRow: 1, toCol: 3, toRow: 2))
+    }
 
     func testPrintingBoard() {
         var game = GameRules()
-        
+        print(game)
         game.pieceBox.insert(ChessPiece(col: 3, row: 0, rank: "K", isWhite: true, imageName:   "King-white"))
         game.pieceBox.insert(ChessPiece(col: 3, row: 7, rank: "K", isWhite: false, imageName:  "King-black"))
         game.pieceBox.insert(ChessPiece(col: 4, row: 0, rank: "Q", isWhite: true, imageName:  "Queen-white"))
@@ -21,14 +42,6 @@ class GameRulesTests: XCTestCase {
             game.pieceBox.insert(ChessPiece(col: 2 + i * 3, row: 0, rank: "B", isWhite: true, imageName:  "Bishop-white"))
             game.pieceBox.insert(ChessPiece(col: 2 + i * 3, row: 7, rank: "B", isWhite: false, imageName: "Bishop-white"))
 
-        }
-        
-        
-        
-        //  1. print: rook, knite, bishop   (for)
-        //  2. print: queen     (for)
-        print(game)
-        
+        };print(game)
     }
-
 }

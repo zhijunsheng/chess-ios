@@ -15,7 +15,7 @@
 		822E3AD1234DFEC200452E75 /* MathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822E3AD0234DFEC200452E75 /* MathTests.swift */; };
 		8298DE8521BCACD7005A95FF /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8298DE8421BCACD7005A95FF /* BoardView.swift */; };
 		82A9360B232C7BE70033E09F /* GameRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A9360A232C7BE70033E09F /* GameRules.swift */; };
-		82A9360D232C7E290033E09F /* GameRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A9360C232C7E290033E09F /* GameRulesTests.swift */; };
+		82A9360D232C7E290033E09F /* PieceGameRulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A9360C232C7E290033E09F /* PieceGameRulesTests.swift */; };
 		82A9360F232DBE650033E09F /* ChessPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A9360E232DBE650033E09F /* ChessPiece.swift */; };
 		82A93611233B8F1D0033E09F /* ChessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A93610233B8F1D0033E09F /* ChessDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -43,7 +43,7 @@
 		822E3AD0234DFEC200452E75 /* MathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathTests.swift; sourceTree = "<group>"; };
 		8298DE8421BCACD7005A95FF /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		82A9360A232C7BE70033E09F /* GameRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRules.swift; sourceTree = "<group>"; };
-		82A9360C232C7E290033E09F /* GameRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRulesTests.swift; sourceTree = "<group>"; };
+		82A9360C232C7E290033E09F /* PieceGameRulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceGameRulesTests.swift; sourceTree = "<group>"; };
 		82A9360E232DBE650033E09F /* ChessPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessPiece.swift; sourceTree = "<group>"; };
 		82A93610233B8F1D0033E09F /* ChessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,7 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				36DF8A96201D6D0C00E0E07B /* Info.plist */,
-				82A9360C232C7E290033E09F /* GameRulesTests.swift */,
+				82A9360C232C7E290033E09F /* PieceGameRulesTests.swift */,
 				822E3AD0234DFEC200452E75 /* MathTests.swift */,
 			);
 			path = chessTests;
@@ -228,7 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82A9360D232C7E290033E09F /* GameRulesTests.swift in Sources */,
+				82A9360D232C7E290033E09F /* PieceGameRulesTests.swift in Sources */,
 				822E3AD1234DFEC200452E75 /* MathTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
