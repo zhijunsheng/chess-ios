@@ -275,56 +275,21 @@ class BoardView: UIView {
         #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).setFill()
         pencil64.fill()
         
+        let blackRookImage = UIImage(named: "rook_chess_b")
+        blackRookImage?.draw(in: CGRect(x: 0, y: 0, width: 80, height: 80))
         
+        let blackKnightImage = UIImage(named: "knight_chess_b")
+        blackKnightImage?.draw(in: CGRect(x: 80, y: 0, width: 80, height: 80))
         
+        let blackBishopImage = UIImage(named: "bishop_chess_b")
+        blackBishopImage?.draw(in: CGRect(x: 400, y: 0, width: 80, height: 80))
+        blackBishopImage?.draw(in: CGRect(x: 160, y: 0, width: 80, height: 80))
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        let blackKingImage = UIImage(named: "king_chess_b")
+        blackKingImage?.draw(in: CGRect(x: 240, y: 0, width: 80, height: 80))
+
+        let blackQueenImage = UIImage(named: "queen_chess_b")
+        blackQueenImage?.draw(in: CGRect(x: 320, y: 0, width: 80, height: 80))
         
         
         
