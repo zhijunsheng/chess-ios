@@ -154,7 +154,7 @@ struct Board: CustomStringConvertible {
     }
     
     func canBishopMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        return abs(toRow - fromRow) == abs(toCol - fromCol)
+        return abs(toRow - fromRow) == abs(toCol - fromCol) && numPiecesInBetween(fromRow: fromRow, fromCol: fromCol, toCol: toCol, toRow: toRow) == 0
     }
     
     func canQueenMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
@@ -252,8 +252,10 @@ struct Board: CustomStringConvertible {
         } else if abs(toCol - fromCol) == abs(toRow - fromRow) {
             
             for i in (min(fromCol, toCol)) + 1...(max(fromCol, toCol)) - 1 {
-                if pieceOn(col: fromCol + i, row: fromRow + i) != nil {
-                    count += 1
+                for j in (min(fromRow, toRow)) + 1...(max(fromRow, toRow)) - 1{
+                    if pieceOn(col: i, row: j) != nil {
+                        count += 1
+                    }
                 }
             }
         }
