@@ -43,6 +43,40 @@ struct GameRules: CustomStringConvertible {
         return false
     }
     
+      /*
+             c o l
+       
+         0 1 2 3 4 5 6 7
+       0 x . . . . . . .
+       1 . x . . . . . x
+    r  2 . . x . . . x .
+    o  3 . . . x . x . .
+    w  4 . . . . o . . .
+       5 . . . x . x . .
+       6 . . x . . . x .
+       7 . x . . . . . x
+     */
+    func canBishopMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+
+        return false
+    }
+    func canKingMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        if fromCol + 1 == toCol && fromRow == toRow
+        || fromCol - 1 == toCol && fromRow == toRow
+        || fromCol == toCol && fromRow + 1 == toRow
+        || fromCol == toCol && fromRow - 1 == toRow
+        {
+            return true
+        }
+        if fromCol + 1 == toCol && fromRow + 1 == toRow
+        || fromCol - 1 == toCol && fromRow - 1 == toRow
+        || fromCol + 1 == toCol && fromRow - 1 == toRow
+        || fromCol - 1 == toCol && fromRow + 1 == toRow
+        {
+            return true
+        }
+        return false
+    }
     mutating func move(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
             return
