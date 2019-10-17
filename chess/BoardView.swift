@@ -277,9 +277,11 @@ class BoardView: UIView {
         
         let blackRookImage = UIImage(named: "rook_chess_b")
         blackRookImage?.draw(in: CGRect(x: 0, y: 0, width: 80, height: 80))
+        blackRookImage?.draw(in: CGRect(x: 560, y: 0, width: 80, height: 80))
         
         let blackKnightImage = UIImage(named: "knight_chess_b")
         blackKnightImage?.draw(in: CGRect(x: 80, y: 0, width: 80, height: 80))
+        blackKnightImage?.draw(in: CGRect(x: 480, y: 0, width: 80, height: 80))
         
         let blackBishopImage = UIImage(named: "bishop_chess_b")
         blackBishopImage?.draw(in: CGRect(x: 400, y: 0, width: 80, height: 80))
@@ -291,10 +293,45 @@ class BoardView: UIView {
         let blackQueenImage = UIImage(named: "queen_chess_b")
         blackQueenImage?.draw(in: CGRect(x: 320, y: 0, width: 80, height: 80))
         
+        let blackPawnImage = UIImage(named: "pawn_chess_b")
+        blackPawnImage?.draw(in: CGRect(x: 0, y: 80, width: 80, height: 80))
+        blackPawnImage?.draw(in: CGRect(x: 80, y: 80, width: 80, height: 80))
+        blackPawnImage?.draw(in: CGRect(x: 160, y: 80, width: 80, height: 80))
+        blackPawnImage?.draw(in: CGRect(x: 240, y: 80, width: 80, height: 80))
+        blackPawnImage?.draw(in: CGRect(x: 320, y: 80, width: 80, height: 80))
+        blackPawnImage?.draw(in: CGRect(x: 400, y: 80, width: 80, height: 80))
+        blackPawnImage?.draw(in: CGRect(x: 480, y: 80, width: 80, height: 80))
+        blackPawnImage?.draw(in: CGRect(x: 560, y: 80, width: 80, height: 80))
         
+        let whiteRookImage = UIImage(named: "rook_chess_w")
+        whiteRookImage?.draw(in: CGRect(x: 0, y: 560, width: 80, height: 80))
+        whiteRookImage?.draw(in: CGRect(x: 560, y: 560, width: 80, height: 80))
         
+        let whiteKnightImage = UIImage(named: "knight_chess_w")
+        whiteKnightImage?.draw(in: CGRect(x: 80, y: 560, width: 80, height: 80))
+        whiteKnightImage?.draw(in: CGRect(x: 480, y: 560, width: 80, height: 80))
         
+        let whiteBishopImage = UIImage(named: "bishop_chess_w")
+        whiteBishopImage?.draw(in: CGRect(x: 160, y: 560, width: 80, height: 80))
+        whiteBishopImage?.draw(in: CGRect(x: 400, y: 560, width: 80, height: 80))
         
+        let whiteKingImage = UIImage(named: "king_chess_w")
+        whiteKingImage?.draw(in: CGRect(x: 240, y: 560, width: 80, height: 80))
+        
+        let whiteQueenImage = UIImage(named: "queen_chess_w")
+        whiteQueenImage?.draw(in: CGRect(x: 320, y: 560, width: 80, height: 80))
+        
+        let whitePawnImage = UIImage(named: "pawn_chess_w")
+        whitePawnImage?.draw(in: CGRect(x: 0, y: 480, width: 80, height: 80))
+        whitePawnImage?.draw(in: CGRect(x: 80, y: 480, width: 80, height: 80))
+        whitePawnImage?.draw(in: CGRect(x: 160, y: 480, width: 80, height: 80))
+        whitePawnImage?.draw(in: CGRect(x: 240, y: 480, width: 80, height: 80))
+        whitePawnImage?.draw(in: CGRect(x: 320, y: 480, width: 80, height: 80))
+        whitePawnImage?.draw(in: CGRect(x: 400, y: 480, width: 80, height: 80))
+        whitePawnImage?.draw(in: CGRect(x: 480, y: 480, width: 80, height: 80))
+        whitePawnImage?.draw(in: CGRect(x: 560, y: 480, width: 80, height: 80))
+
+
         
     }
     
