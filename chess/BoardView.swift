@@ -5,12 +5,38 @@ class BoardView: UIView {
 
     var originX: CGFloat = 123_456_789_123_456_789.0
     var originY: CGFloat = 173_738_383_838_839_498.0
-    let cellSide: CGFloat = 80.0
+    var cellSide: CGFloat = 80.0
+    /*
+ 
+     (123, 234) x = 123, y = 234
+     (col = ?, row = ?)
+     
+     x = 440
+     col = 4
+     
+     
+     x = 751.2
+     col = 7
+     
+     Int(751.2 / cellSide)
+ 
+    */
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let first = touches.first!
+        print(first.location(in: self))
+    }
+    
     
     override func draw(_ rect: CGRect) {
         
-        originX = (bounds.width - cellSide * 8) / 2
-        originY = (bounds.height - cellSide * 8) / 2
+//        originX = (bounds.width - cellSide * 8) / 2
+//        originY = (bounds.height - cellSide * 8) / 2
+        originX = 0
+        originY = 0
+        cellSide = bounds.width / 8
+        print(originX)
+        print(originY)
         
         let  feather = UIBezierPath()
         
@@ -360,3 +386,28 @@ class BoardView: UIView {
         }
     }
 }
+
+/*
+ 
+ ABCDE * 4 = EDCBA
+
+ A = 2
+ E = 8
+ 
+ ABCDE
+ *   4
+-------
+ EDCBA
+ 
+  2BCD8
+  *   4
+ -------
+  8DCB2
+ 
+   21978
+   *   4
+  -------
+   87912
+ 
+ 
+ */
