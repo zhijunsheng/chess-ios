@@ -57,8 +57,24 @@ class BoardView: UIView {
         drawPiecesAt(col: 6, row: 0, pieceName: "knight_chess_b")
         drawPiecesAt(col: 0, row: 0, pieceName: "rook_chess_b")
         drawPiecesAt(col: 7, row: 0, pieceName: "rook_chess_b")
-
+        
+        for i in 0..<8 {
+            drawPiecesAt(col: i, row: 1, pieceName: "pawn_chess_b")
+        }
+        drawPiecesAt(col: 4, row: 7, pieceName: "king_chess_w")
+        drawPiecesAt(col: 3, row: 7, pieceName: "queen_chess_w")
+        drawPiecesAt(col: 2, row: 7, pieceName: "bishop_chess_w")
+        drawPiecesAt(col: 5, row: 7, pieceName: "bishop_chess_w")
+        drawPiecesAt(col: 1, row: 7, pieceName: "knight_chess_w")
+        drawPiecesAt(col: 6, row: 7, pieceName: "knight_chess_w")
+        drawPiecesAt(col: 0, row: 7, pieceName: "rook_chess_w")
+        drawPiecesAt(col: 7, row: 7, pieceName: "rook_chess_w")
+        
+        for i in 0..<8 {
+            drawPiecesAt(col: i, row: 6, pieceName: "pawn_chess_w")
+        }
     }
+    
     func drawPiecesAt(col: Int, row: Int, pieceName: String) {
         let kingB = UIImage(named: pieceName)
         kingB?.draw(in: CGRect(x: cellSide * CGFloat(col), y: cellSide * CGFloat(row), width: 80, height: 80))
