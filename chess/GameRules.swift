@@ -61,23 +61,19 @@ struct GameRules: CustomStringConvertible {
         return false
     }
     func canKingMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        if fromCol + 1 == toCol && fromRow == toRow
+        return fromCol + 1 == toCol && fromRow == toRow
         || fromCol - 1 == toCol && fromRow == toRow
         || fromCol == toCol && fromRow + 1 == toRow
         || fromCol == toCol && fromRow - 1 == toRow
-        {
-            return true
-        }
-        if fromCol + 1 == toCol && fromRow + 1 == toRow
+        || fromCol + 1 == toCol && fromRow + 1 == toRow
         || fromCol - 1 == toCol && fromRow - 1 == toRow
         || fromCol + 1 == toCol && fromRow - 1 == toRow
         || fromCol - 1 == toCol && fromRow + 1 == toRow
-        {
-            return true
-        }
-        return false
     }
     mutating func move(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        if !canMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
+            return
+        }
         guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
             return
         }
@@ -92,14 +88,33 @@ struct GameRules: CustomStringConvertible {
         pieceBox.insert(ChessPiece(col: toCol, row: toRow, rank: movingPiece.rank, isWhite: movingPiece.isWhite, imageName: movingPiece.imageName))
         
     }
-    
+    /*
+     case "K" : desc.append(piece!.isWhite ? " k" : " K")// king
+     case "R" : desc.append(piece!.isWhite ? " r" : " R")// rook
+     case "N" : desc.append(piece!.isWhite ? " n" : " N")// knight
+     case "B" : desc.append(piece!.isWhite ? " b" : " B")// bishop
+     case "Q" : desc.append(piece!.isWhite ? " q" : " Q")// queen
+     case "P" : desc.append(piece!.isWhite ? " p" : " P")// pown
+         
+     */
+    func canMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        let movingPiece = pieceAt(col: fromCol, row: fromRow)
+        
+        if movingPiece?.rank == "K" {
+            return canKingMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        } else if movingPiece?.rank == "N" {
+            return canKnightMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        } else if movingPiece?.rank == "B" {
+            return canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        }
+        return false
+    }
     func pieceAt(col: Int, row: Int) -> ChessPiece? {
         for piece in pieceBox {
             if piece.col == col && piece.row == row {
                 return piece
             }
-        }
-        return nil
+        }; return nil
     }
     
     var description: String {

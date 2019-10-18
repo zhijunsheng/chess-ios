@@ -19,7 +19,26 @@ class PieceGameRulesTests: XCTestCase {
     func testCanBishopMove() {
         let game = GameRules()
         XCTAssertFalse(game.canBishopMove(fromCol: 3, fromRow: 3, toCol: 1, toRow: 2))
-        XCTAssertFalse(game.canBishopMove(fromCol: 2, fromRow: 1, toCol: 6, toRow: 5))// XCTAssertTrue(~)
+        XCTAssertFalse(game.canBishopMove(fromCol: 2, fromRow: 1, toCol: 6, toRow: 5))
+    }
+    /*
+             c o l
+       
+         0 1 2 3 4 5 6 7
+       0 . . . . . . . .
+       1 . . . . . . . .
+    r  2 . . o o o . . .
+    o  3 . . o k o . . .
+    w  4 . . o o o . . .
+       5 . . . . . . . .
+       6 . . . . . . . .
+       7 . . . . . . . .
+       
+       */
+    func testCanKingMove() {
+        let game = GameRules()
+        XCTAssertTrue(game.canKingMove(fromCol: 5, fromRow: 6, toCol: 5, toRow: 7))
+        XCTAssertFalse(game.canKingMove(fromCol: 3, fromRow: 6, toCol: 5, toRow: 7))
     }
     
     /*
@@ -27,20 +46,22 @@ class PieceGameRulesTests: XCTestCase {
      
        0 1 2 3 4 5 6 7
      0 . . . . . . . .
-     1 . . n . . . . .
-  r  2 . . . x o . . .
-  o  3 . . . . . . . .
-  w  4 . . . . . . . .
-     5 . . . . . . . .
-     6 . . . . . . . .
+     1 . . . . . . . .
+  r  2 . . o . o . . .
+  o  3 . o . . . o . .
+  w  4 . . . n . . . .
+     5 . o . . . o . .
+     6 . . o . o . . .
      7 . . . . . . . .
      
      */
     func testCanKnightMove() {
         print("import XCTest")
         let game = GameRules()
-        XCTAssertTrue(game.canKnightMove(fromCol: 2, fromRow: 1, toCol: 4, toRow: 2))
         XCTAssertFalse(game.canKnightMove(fromCol: 2, fromRow: 1, toCol: 3, toRow: 2))
+        
+        XCTAssertTrue(game.canKnightMove(fromCol: 2, fromRow: 1, toCol: 4, toRow: 2))
+        
     }
 
     func testPrintingBoard() {
