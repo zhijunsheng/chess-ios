@@ -39,7 +39,6 @@ class ChessBoardTests: XCTestCase {
         XCTAssertTrue(board.canKnightMove(fromCol: 3, fromRow: 3, toCol: 1, toRow: 4))
         XCTAssertTrue(board.canKnightMove(fromCol: 3, fromRow: 3, toCol: 2, toRow: 1))
         XCTAssertTrue(board.canKnightMove(fromCol: 3, fromRow: 3, toCol: 4, toRow: 1))
-        
         XCTAssertTrue(board.canKnightMove(fromCol: 3, fromRow: 3, toCol: 1, toRow: 2))
     }
     
