@@ -24,10 +24,17 @@ class BoardView: UIView {
     
     func whitePieceRoom() {
         drawPiece(string: "Rook-white", x: 0, y: 0)
+        drawPiece(string: "Rook-white", x: 7, y: 0)
         
         drawPiece(string: "Knight-white", x: 1, y: 0)
-        
+        drawPiece(string: "Knight-white", x: 6, y: 0)
+
         drawPiece(string: "Bishop-white", x: 2, y: 0)
+        drawPiece(string: "Bishop-white", x: 5, y: 0)
+
+        drawPiece(string: "Queen-white", x: 4, y: 0)
+        
+        drawPiece(string: "King-white", x: 3, y: 0)
         
         // white pawn corner
         drawPiece(string: "Pawn-white", x: 0, y: 1)
@@ -42,10 +49,17 @@ class BoardView: UIView {
     
     func blackPieceRoom() {
         drawPiece(string: "Rook-black", x: 0, y: 7)
+        drawPiece(string: "Rook-black", x: 7, y: 7)
         
         drawPiece(string: "Knight-black", x: 1, y: 7)
-        
+        drawPiece(string: "Knight-black", x: 6, y: 7)
+
         drawPiece(string: "Bishop-black", x: 2, y: 7)
+        drawPiece(string: "Bishop-black", x: 5, y: 7)
+
+        drawPiece(string: "Queen-black", x: 4, y: 7)
+        
+        drawPiece(string: "King-black", x: 3, y: 7)
         
         // white pawn corner
         drawPiece(string: "Pawn-black", x: 0, y: 6)
