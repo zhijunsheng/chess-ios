@@ -1,6 +1,27 @@
 import XCTest
 @testable import chess
 class PieceGameRulesTests: XCTestCase {
+    /*
+             c o l
+       
+         0 1 2 3 4 5 6 7
+       0 . . . . . . . .
+       1 . . . p . . . .
+    r  2 . . o O o . . .
+    o  3 . . . . . . . .
+    w  4 . . . . . . . .
+       5 . . o O o . . .
+       6 . . . P . . . .
+       7 . . . . . . . .
+       
+       */
+    
+    func testCanPawnMove() {
+        var game = GameRules()
+        game.pieceBox.insert(ChessPiece(col: 6, row: 7, rank: "P", isWhite: false, imageName: ""))
+        XCTAssertTrue(game.canPawnMove(fromCol: 6, fromRow: 7, toCol: 7, toRow: 6))
+        XCTAssertFalse(game.canPawnMove(fromCol: 6, fromRow: 7, toCol: 3, toRow: 2))
+    }
     
       /*
              c o l

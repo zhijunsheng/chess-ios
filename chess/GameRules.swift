@@ -42,7 +42,25 @@ struct GameRules: CustomStringConvertible {
         }
         return false
     }
-    
+    func canPawnMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        let movingPiece = pieceAt(col: fromCol, row: fromRow)
+        if movingPiece?.isWhite == true {
+            if fromRow + 1 == toRow && fromCol == toCol
+            || fromRow + 1 == toRow && fromCol + 1 == toCol
+            || fromRow + 1 == toRow && fromCol - 1 == toCol
+            {
+                return true
+            }
+        }else if movingPiece?.isWhite == false {
+            if fromRow - 1 == toRow && fromCol == toCol
+            || fromRow - 1 == toRow && fromCol + 1 == toCol
+            || fromRow - 1 == toRow && fromCol - 1 == toCol
+            {
+                return true
+            }
+        }
+        return false
+    }
       /*
              c o l
        
@@ -58,7 +76,7 @@ struct GameRules: CustomStringConvertible {
      */
     func canBishopMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
 
-        return false
+        return true
     }
     func canKingMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         return fromCol + 1 == toCol && fromRow == toRow
@@ -107,7 +125,7 @@ struct GameRules: CustomStringConvertible {
         } else if movingPiece?.rank == "B" {
             return canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         }
-        return false
+        return true
     }
     func pieceAt(col: Int, row: Int) -> ChessPiece? {
         for piece in pieceBox {
