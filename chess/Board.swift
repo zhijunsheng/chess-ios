@@ -170,6 +170,39 @@ struct Board: CustomStringConvertible {
         return nil
     }
     
+    func isBeingAttacked(candidate: Piece) -> Bool {
+        for piece in pieces {
+            switch piece.rank {
+            case .pawn:
+                    if canPawnMove(fromCol: piece.col, fromRow: piece.row, toCol: candidate.col, toRow: candidate.row, isWhite: piece.isWhite) == true {
+                return true
+                }
+            case .knight:
+                if canKnightMove(fromCol: piece.col, fromRow: piece.row, toCol: candidate.col, toRow: candidate.row) == true {
+                    return true
+                }
+            case .bishop:
+                if canBishopMove(fromCol: piece.col, fromRow: piece.row, toCol: candidate.col, toRow: candidate.row) == true {
+                    return true
+                }
+            case .rook:
+                if canRookMove(fromCol: piece.col, fromRow: piece.row, toCol: candidate.col, toRow: candidate.row) == true {
+                    return true
+                }
+            case .queen:
+                if canQueenMove(fromCol: piece.col, fromRow: piece.row, toCol: candidate.col, toRow: candidate.row) == true {
+                    return true
+                }
+            case .king:
+                if canKingMove(fromCol: piece.col, fromRow: piece.row, toCol: candidate.col, toRow: candidate.row) == true {
+                    return true
+                }
+            }
+            
+            return false
+        }
+        return false
+    }
     
     /*
      
@@ -220,7 +253,9 @@ struct Board: CustomStringConvertible {
          7 . . . . . . . .
          
          */
-        
+        if fromCol == 0 && fromRow == 0 && toCol == 0 && toRow == 0 {
+            return 0
+        }
         
         // 0 + 1...1 - 1
         // 1 + 1...2 - 1

@@ -11,14 +11,35 @@ import XCTest
 
 class BoardTests: XCTestCase {
     
+    /*
+       0 1 2 3 4 5 6 7
+     0 . . . . . . . .
+     1 . . . . . o . . <= hw: write a func to check if a point is under attack
+     2 . . . . . . . .
+     3 . . . . . . . .
+     4 . . . . . . . .
+     5 . . . . . . . .
+     6 . . . . . . . .
+     7 . . . . . . . .
+     */
+    
+    
     func testPrintBoard() {
         let board = Board()
         print(board)
     }
     
-    
+    func testIsBeingAttacked() {
+        var board = Board()
+        board.pieces = [Piece(col: 0, row: 0, imageName: "bb", isWhite: false, rank: .bishop),
+        Piece(col: 7, row: 7, imageName: "wb", isWhite: true, rank: .bishop)
+        ]
+        XCTAssertTrue(board.isBeingAttacked(candidate: board.pieceOn(col: 0, row: 0)!))
+    }
     
     func testPiecesBetween() {
+        
+        
         /*
           0 1 2 3 4 5 6 7
         0 p . . . . . . .
@@ -58,6 +79,8 @@ class BoardTests: XCTestCase {
         ]
         
         XCTAssertEqual(board.numPiecesInBetween(fromRow: 0, fromCol: 0, toCol: 0, toRow: 7), 1)
+        
+        XCTAssertEqual(board.numPiecesInBetween(fromRow: 0, fromCol: 0, toCol: 0, toRow: 0), 0)
     }
     
     func testPiecesBetweenD() {
@@ -137,6 +160,17 @@ class BoardTests: XCTestCase {
         }
         XCTAssertEqual(32, board.pieces.count)
         print(board)
+    }
+    
+    func testK() {
+        var board = Board()
+        XCTAssertTrue(board.canKingMove(fromCol: 7, fromRow: 7, toCol: 6, toRow: 7))
+        XCTAssertTrue(board.canKingMove(fromCol: 7, fromRow: 7, toCol: 6, toRow: 6))
+    }
+    
+    func testQ() {
+        let board = Board()
+        XCTAssertFalse(board.canQueenMove(fromCol: 0, fromRow: 0, toCol: 1, toRow: 3))
     }
     
     func testB() {
