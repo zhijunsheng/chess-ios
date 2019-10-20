@@ -30,11 +30,25 @@ class BoardTests: XCTestCase {
     }
     
     func testIsBeingAttacked() {
+        /*
+           0 1 2 3 4 5 6 7
+         0 b < . . . . . .
+         1 ^ . . . . . . .
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 . . . . . . . .
+         7 . . . . . . . B
+         */
         var board = Board()
-        board.pieces = [Piece(col: 0, row: 0, imageName: "bb", isWhite: false, rank: .bishop),
-        Piece(col: 7, row: 7, imageName: "wb", isWhite: true, rank: .bishop)
+        board.pieces = [
+//            Piece(col: 0, row: 0, imageName: "bb", isWhite: false, rank: .bishop),
+            Piece(col: 7, row: 7, imageName: "wb", isWhite: true, rank: .bishop)
         ]
-        XCTAssertTrue(board.isBeingAttacked(candidate: board.pieceOn(col: 0, row: 0)!))
+        XCTAssertTrue(board.isBeingAttackedAt(col: 0, row: 0))
+        
+        
     }
     
     func testPiecesBetween() {

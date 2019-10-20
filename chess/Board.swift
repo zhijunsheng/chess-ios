@@ -170,31 +170,31 @@ struct Board: CustomStringConvertible {
         return nil
     }
     
-    func isBeingAttacked(candidate: Piece) -> Bool {
+    func isBeingAttackedAt(col: Int, row: Int) -> Bool {
         for piece in pieces {
             switch piece.rank {
             case .pawn:
-                    if canPawnMove(fromCol: piece.col, fromRow: piece.row, toCol: candidate.col, toRow: candidate.row, isWhite: piece.isWhite) == true {
+                if canPawnMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row, isWhite: piece.isWhite) == true {
                 return true
                 }
             case .knight:
-                if canKnightMove(fromCol: piece.col, fromRow: piece.row, toCol: candidate.col, toRow: candidate.row) == true {
+                if canKnightMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) == true {
                     return true
                 }
             case .bishop:
-                if canBishopMove(fromCol: piece.col, fromRow: piece.row, toCol: candidate.col, toRow: candidate.row) == true {
+                if canBishopMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) == true {
                     return true
                 }
             case .rook:
-                if canRookMove(fromCol: piece.col, fromRow: piece.row, toCol: candidate.col, toRow: candidate.row) == true {
+                if canRookMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) == true {
                     return true
                 }
             case .queen:
-                if canQueenMove(fromCol: piece.col, fromRow: piece.row, toCol: candidate.col, toRow: candidate.row) == true {
+                if canQueenMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) == true {
                     return true
                 }
             case .king:
-                if canKingMove(fromCol: piece.col, fromRow: piece.row, toCol: candidate.col, toRow: candidate.row) == true {
+                if canKingMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) == true {
                     return true
                 }
             }
