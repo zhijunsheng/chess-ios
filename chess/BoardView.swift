@@ -7,6 +7,12 @@ class BoardView: UIView {
     var originY: CGFloat = 100.0
     var cellSide: CGFloat = 0.0
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        let fingerLocation = touch.location(in: self)
+        print(fingerLocation.x)
+    }
+    
     override func draw(_ rect: CGRect) {
         cellSide = (bounds.width * 0.90) / 8
         originX = (bounds.width - cellSide * 8) / 2
