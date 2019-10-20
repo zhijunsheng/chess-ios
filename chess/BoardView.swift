@@ -17,6 +17,7 @@ class BoardView: UIView {
     
     func drawPieces()  {
         
+        
         for p in 0..<2 {
             drawPiece(col: p * 5 + 1, row: 0, imageName: "knight_chess_b")
             drawPiece(col: p * 5 + 1, row: 7, imageName: "knight_chess_w")
