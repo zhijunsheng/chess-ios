@@ -27,6 +27,9 @@ class GameViewController: UIViewController, ChessDelegate { // C of MVC
         boardView.pieces = board.pieces
     }
     
+    @IBAction func withdraw(_ sender: UIButton) {
+        print("jghjfdkgfhdjskghfdjskalqwjsdcbnskiueyrgfvcnxmswkeuhfvbncmxksiuehrfgbvnmcxksieurfyghvbncmxkdieurhfgfbvncdkriufhgvbcnksieuyrhfgvbcnxsjudfhgbcjdhgbfcnjfhbnjfkdjhbcndjhfbvfndjkjhfbhjdhbvhfjdhbvhjdhbfhdjsdhbfhdjfbvfdjjdbvfdjdjbvfdjjbvbjdbvfbdjkdjcbjdchbjdkjcfbdjkjfbdjfhvbfjdjbfjwsdbhjfbvhjndbfhnbdjnbvnfdnjnfjdnfjh")
+    }
     
     
     func move(startX: Int, startY: Int, endX: Int, endY: Int) {
