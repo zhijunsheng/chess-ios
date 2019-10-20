@@ -10,6 +10,13 @@ class ViewController: UIViewController, ChessDelegate {
     }
     @IBOutlet weak var boardView: BoardView!
     @IBAction func withdraw(_ sender: Any) {
+
+        game.pieceBox = game.lastPieceBox
+        boardView.shadowPieceBox = game.lastPieceBox
+        boardView.setNeedsDisplay()
+
+
+
         print("(_ sender: Any)")
     }
     

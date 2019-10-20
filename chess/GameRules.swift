@@ -1,5 +1,8 @@
 import Foundation
 struct GameRules: CustomStringConvertible {
+    
+    var lastPieceBox = Set<ChessPiece>()
+    
     var pieceBox = Set<ChessPiece>()
     
       /*
@@ -79,7 +82,7 @@ struct GameRules: CustomStringConvertible {
         return true
     }
     func canKingMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        return fromCol + 1 == toCol && fromRow == toRow
+        if fromCol + 1 == toCol && fromRow == toRow
         || fromCol - 1 == toCol && fromRow == toRow
         || fromCol == toCol && fromRow + 1 == toRow
         || fromCol == toCol && fromRow - 1 == toRow
@@ -87,6 +90,10 @@ struct GameRules: CustomStringConvertible {
         || fromCol - 1 == toCol && fromRow - 1 == toRow
         || fromCol + 1 == toCol && fromRow - 1 == toRow
         || fromCol - 1 == toCol && fromRow + 1 == toRow
+        {
+            return true
+        }
+        return true
     }
     mutating func move(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         if !canMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
@@ -101,9 +108,15 @@ struct GameRules: CustomStringConvertible {
             pieceBox.remove(targetPiece!)
         }
         
+        lastPieceBox = pieceBox
+        
+        
+        
         pieceBox.remove(movingPiece)
         
         pieceBox.insert(ChessPiece(col: toCol, row: toRow, rank: movingPiece.rank, isWhite: movingPiece.isWhite, imageName: movingPiece.imageName))
+        
+        
         
     }
     /*
