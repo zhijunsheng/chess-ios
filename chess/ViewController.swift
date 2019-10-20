@@ -9,6 +9,9 @@ class ViewController: UIViewController, ChessDelegate {
     @IBAction func newGame(_ sender: Any) {
     }
     @IBOutlet weak var boardView: BoardView!
+    @IBAction func withdraw(_ sender: Any) {
+        print("(_ sender: Any)")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
