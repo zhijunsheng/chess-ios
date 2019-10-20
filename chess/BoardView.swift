@@ -2,19 +2,48 @@ import UIKit
 
 class BoardView: UIView {
     
-    var boardOriginX: CGFloat = 33
-    var boardOriginY: CGFloat = 38
-    let cellSide: CGFloat = 80
+    var boardOriginX: CGFloat = 0
+    var boardOriginY: CGFloat = 0
+    var cellSide: CGFloat = 80
+    var xc = 12234
+    var yr = 43221
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        cellSide = bounds.width / 8
+        let touch = touches.first!
+        let touchLocation = touch.location(in: self)
+        print(touchLocation.x)
+        // x
+        xc = Int(touchLocation.x / cellSide)
+        
+        //y
+        yr = Int(touchLocation.y / cellSide)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        cellSide = bounds.width / 8
+        let touch = touches.first!
+        let touchLocation = touch.location(in: self)
+        print(touchLocation.x)
+        // x
+        let xx: Int = Int(touchLocation.x / cellSide)
+        
+        // y
+        let yy: Int = Int(touchLocation.y / cellSide)
+        print("(from: \(xc), \(yr)), (to: \(xx), \(yy))")
+    }
     
     override func draw(_ rect: CGRect) {
+        cellSide = bounds.width / 8
+        print(cellSide)
+
+        //
         boardOriginX = (bounds.width - 8 * cellSide) / 2
         boardOriginY = (bounds.height - 8 * cellSide) / 2
         
         drawChessBoard()
         whitePieceRoom()
         blackPieceRoom()
-        
-        
     }
     
     func drawPiece(string: String, x: Int, y: Int) {
