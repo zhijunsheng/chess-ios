@@ -27,13 +27,24 @@
                                     <constraint firstAttribute="width" secondItem="oWO-Ak-2WI" secondAttribute="height" multiplier="1:1" id="eub-OI-jrb"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SJB-oa-yZg">
+                                <rect key="frame" x="20" y="687" width="374" height="29"/>
+                                <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                <state key="normal" title="Withdraw">
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="SJB-oa-yZg" secondAttribute="bottom" constant="20" id="0Je-Mh-UDN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oWO-Ak-2WI" secondAttribute="trailing" constant="20" id="20t-ZH-mvd"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SJB-oa-yZg" secondAttribute="trailing" constant="20" id="8gH-bo-OjY"/>
                             <constraint firstItem="oWO-Ak-2WI" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="KqN-DT-m0V"/>
                             <constraint firstItem="oWO-Ak-2WI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Z2f-k8-SkJ"/>
+                            <constraint firstItem="SJB-oa-yZg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="wlB-jO-YwZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

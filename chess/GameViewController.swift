@@ -8,13 +8,13 @@
 
 import UIKit
 
-class GameViewController: UIViewController, ChessDelegate {
+class GameViewController: UIViewController, ChessDelegate { // C of MVC
     
     
-    private var board = Board()
+    private var board = Board() // M of MVC design pattern
     private var fromCol: Int? = nil
     private var fromRow: Int? = nil
-    @IBOutlet weak var boardView: BoardView!
+    @IBOutlet weak var boardView: BoardView! // V of MVC
     private var thingImageView: UIImageView? = nil
     
     
@@ -23,32 +23,11 @@ class GameViewController: UIViewController, ChessDelegate {
         
         boardView.chessDelagate = self
         
-        board.pieces.insert(Piece(col: 0, row: 0, imageName: "rook_chess_b", isWhite: false, rank: .rook))
-        board.pieces.insert(Piece(col: 1, row: 0, imageName: "knight_chess_b", isWhite: false, rank: .knight))
-        board.pieces.insert(Piece(col: 2, row: 0, imageName: "bishop_chess_b", isWhite: false, rank: .bishop))
-        board.pieces.insert(Piece(col: 3, row: 0, imageName: "queen_chess_b", isWhite: false, rank: .queen))
-        board.pieces.insert(Piece(col: 4, row: 0, imageName: "king_chess_b", isWhite: false, rank: .king))
-        board.pieces.insert(Piece(col: 5, row: 0, imageName: "bishop_chess_b", isWhite: false, rank: .bishop))
-        board.pieces.insert(Piece(col: 6, row: 0, imageName: "knight_chess_b", isWhite: false, rank: .knight))
-        board.pieces.insert(Piece(col: 7, row: 0, imageName: "rook_chess_b", isWhite: false, rank: .rook))
-        board.pieces.insert(Piece(col: 0, row: 7, imageName: "rook_chess_w", isWhite: true, rank: .rook))
-        board.pieces.insert(Piece(col: 1, row: 7, imageName: "knight_chess_w", isWhite: true, rank: .knight))
-        board.pieces.insert(Piece(col: 2, row: 7, imageName: "bishop_chess_w", isWhite: true, rank: .bishop))
-        board.pieces.insert(Piece(col: 3, row: 7, imageName: "queen_chess_w", isWhite: true, rank: .queen))
-        board.pieces.insert(Piece(col: 4, row: 7, imageName: "king_chess_w", isWhite: true, rank: .king))
-        board.pieces.insert(Piece(col: 5, row: 7, imageName: "bishop_chess_w", isWhite: true, rank: .bishop))
-        board.pieces.insert(Piece(col: 6, row: 7, imageName: "knight_chess_w", isWhite: true, rank: .knight))
-        board.pieces.insert(Piece(col: 7, row: 7, imageName: "rook_chess_w", isWhite: true, rank: .rook))
-        
-        for bpawnNo in 0...7 {
-            board.pieces.insert(Piece(col: bpawnNo, row: 1, imageName: "pawn_chess_b", isWhite: false, rank: .pawn))
-        }
-        for wpawnNo in 0...7 {
-            board.pieces.insert(Piece(col: wpawnNo, row: 6, imageName: "pawn_chess_w", isWhite: true, rank: .pawn))
-        }
-
+        board.initPieces()
         boardView.pieces = board.pieces
     }
+    
+    
     
     func move(startX: Int, startY: Int, endX: Int, endY: Int) {
         board.movePiece(fromCol: startX, fromRow: startY, toCol: endX, toRow: endY)

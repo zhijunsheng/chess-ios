@@ -26,6 +26,33 @@ struct Board: CustomStringConvertible {
     
     var pieces: Set<Piece> = Set<Piece>()
     
+    mutating func initPieces() {
+        pieces.insert(Piece(col: 0, row: 0, imageName: "rook_chess_b", isWhite: false, rank: .rook))
+        pieces.insert(Piece(col: 1, row: 0, imageName: "knight_chess_b", isWhite: false, rank: .knight))
+        pieces.insert(Piece(col: 2, row: 0, imageName: "bishop_chess_b", isWhite: false, rank: .bishop))
+        pieces.insert(Piece(col: 3, row: 0, imageName: "queen_chess_b", isWhite: false, rank: .queen))
+        pieces.insert(Piece(col: 4, row: 0, imageName: "king_chess_b", isWhite: false, rank: .king))
+        pieces.insert(Piece(col: 5, row: 0, imageName: "bishop_chess_b", isWhite: false, rank: .bishop))
+        pieces.insert(Piece(col: 6, row: 0, imageName: "knight_chess_b", isWhite: false, rank: .knight))
+        pieces.insert(Piece(col: 7, row: 0, imageName: "rook_chess_b", isWhite: false, rank: .rook))
+        pieces.insert(Piece(col: 0, row: 7, imageName: "rook_chess_w", isWhite: true, rank: .rook))
+        pieces.insert(Piece(col: 1, row: 7, imageName: "knight_chess_w", isWhite: true, rank: .knight))
+        pieces.insert(Piece(col: 2, row: 7, imageName: "bishop_chess_w", isWhite: true, rank: .bishop))
+        pieces.insert(Piece(col: 3, row: 7, imageName: "queen_chess_w", isWhite: true, rank: .queen))
+        pieces.insert(Piece(col: 4, row: 7, imageName: "king_chess_w", isWhite: true, rank: .king))
+        pieces.insert(Piece(col: 5, row: 7, imageName: "bishop_chess_w", isWhite: true, rank: .bishop))
+        pieces.insert(Piece(col: 6, row: 7, imageName: "knight_chess_w", isWhite: true, rank: .knight))
+        pieces.insert(Piece(col: 7, row: 7, imageName: "rook_chess_w", isWhite: true, rank: .rook))
+        
+        for bpawnNo in 0...7 {
+            pieces.insert(Piece(col: bpawnNo, row: 1, imageName: "pawn_chess_b", isWhite: false, rank: .pawn))
+        }
+        for wpawnNo in 0...7 {
+            pieces.insert(Piece(col: wpawnNo, row: 6, imageName: "pawn_chess_w", isWhite: true, rank: .pawn))
+        }
+
+    }
+    
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         
         guard let piece = pieceOn(col: fromCol, row: fromRow) else {
