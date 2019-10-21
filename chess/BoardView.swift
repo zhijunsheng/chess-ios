@@ -21,8 +21,8 @@ class BoardView: UIView {
         let col: Int = Int(fingerLocation.x/80)
         let row: Int = Int(fingerLocation.y/80)
         print("from: \(col), \(row) ", terminator: "")
-        
     }
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         let fingerLocation = touch.location(in: self)
@@ -30,6 +30,7 @@ class BoardView: UIView {
         let row: Int = Int(fingerLocation.y/80)
         print("to: \(col), \(row)")
     }
+    
     override func draw(_ rect: CGRect) {
         drawBoard()
         drawPieces()
@@ -51,33 +52,29 @@ class BoardView: UIView {
     func drawPieces() {
         drawPiecesAt(col: 4, row: 0, pieceName: "king_chess_b")
         drawPiecesAt(col: 3, row: 0, pieceName: "queen_chess_b")
-        drawPiecesAt(col: 2, row: 0, pieceName: "bishop_chess_b")
-        drawPiecesAt(col: 5, row: 0, pieceName: "bishop_chess_b")
-        drawPiecesAt(col: 1, row: 0, pieceName: "knight_chess_b")
-        drawPiecesAt(col: 6, row: 0, pieceName: "knight_chess_b")
-        drawPiecesAt(col: 0, row: 0, pieceName: "rook_chess_b")
-        drawPiecesAt(col: 7, row: 0, pieceName: "rook_chess_b")
+        drawPiecesAt(col: 4, row: 7, pieceName: "king_chess_w")
+        drawPiecesAt(col: 3, row: 7, pieceName: "queen_chess_w")
+        
+        for i in 0..<2 {
+            drawPiecesAt(col: i * 3 + 2, row: 0, pieceName: "bishop_chess_b")
+            drawPiecesAt(col: i * 3 + 2, row: 7, pieceName: "bishop_chess_w")
+            
+            drawPiecesAt(col: i * 5 + 1, row: 0, pieceName: "knight_chess_b")
+            drawPiecesAt(col: i * 5 + 1, row: 7, pieceName: "knight_chess_w")
+            
+            drawPiecesAt(col: i * 7, row: 0, pieceName: "rook_chess_b")
+            drawPiecesAt(col: i * 7, row: 7, pieceName: "rook_chess_w")
+        }
         
         for i in 0..<8 {
             drawPiecesAt(col: i, row: 1, pieceName: "pawn_chess_b")
-        }
-        drawPiecesAt(col: 4, row: 7, pieceName: "king_chess_w")
-        drawPiecesAt(col: 3, row: 7, pieceName: "queen_chess_w")
-        drawPiecesAt(col: 2, row: 7, pieceName: "bishop_chess_w")
-        drawPiecesAt(col: 5, row: 7, pieceName: "bishop_chess_w")
-        drawPiecesAt(col: 1, row: 7, pieceName: "knight_chess_w")
-        drawPiecesAt(col: 6, row: 7, pieceName: "knight_chess_w")
-        drawPiecesAt(col: 0, row: 7, pieceName: "rook_chess_w")
-        drawPiecesAt(col: 7, row: 7, pieceName: "rook_chess_w")
-        
-        for i in 0..<8 {
             drawPiecesAt(col: i, row: 6, pieceName: "pawn_chess_w")
         }
     }
     
     func drawPiecesAt(col: Int, row: Int, pieceName: String) {
-        let kingB = UIImage(named: pieceName)
-        kingB?.draw(in: CGRect(x: cellSide * CGFloat(col), y: cellSide * CGFloat(row), width: 80, height: 80))
+        let drawPiece = UIImage(named: pieceName)
+        drawPiece?.draw(in: CGRect(x: cellSide * CGFloat(col), y: cellSide * CGFloat(row), width: 80, height: 80))
     }
     
     func drawSquareAt(col:Int, row:Int) {
