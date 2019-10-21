@@ -13,14 +13,14 @@ class BoardView: UIView {
     let originX: CGFloat = 0
     let originY: CGFloat = 0
     let cellSide: CGFloat = 80
+    var fromCol: Int = -45
+    var fromRow: Int = -45
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         let fingerLocation = touch.location(in: self)
-        //print("(\(fingerLocation.x), \(fingerLocation.y))")
-        let col: Int = Int(fingerLocation.x/80)
-        let row: Int = Int(fingerLocation.y/80)
-        print("from: \(col), \(row) ", terminator: "")
+        fromCol = Int(fingerLocation.x/80)
+        fromRow = Int(fingerLocation.y/80)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -28,7 +28,8 @@ class BoardView: UIView {
         let fingerLocation = touch.location(in: self)
         let col: Int = Int(fingerLocation.x/80)
         let row: Int = Int(fingerLocation.y/80)
-        print("to: \(col), \(row)")
+        
+        print("from: (\(fromCol), \(fromRow)), to: (\(col), \(row))")
     }
     
     override func draw(_ rect: CGRect) {
