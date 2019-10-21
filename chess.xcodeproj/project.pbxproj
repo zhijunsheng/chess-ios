@@ -13,6 +13,8 @@
 		07FDE4392018140A00A674FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07FDE4382018140A00A674FE /* Assets.xcassets */; };
 		07FDE43C2018140A00A674FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07FDE43A2018140A00A674FE /* LaunchScreen.storyboard */; };
 		A306DB4C233D586E00B82E02 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A306DB4B233D586E00B82E02 /* BoardView.swift */; };
+		A3F7E1B5235D3AB8002FEA96 /* ChessBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F7E1B4235D3AB8002FEA96 /* ChessBoard.swift */; };
+		A3F7E1B7235D3BB5002FEA96 /* ChessBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F7E1B6235D3BB5002FEA96 /* ChessBoardTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		36DF8A92201D6D0B00E0E07B /* chessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		36DF8A96201D6D0C00E0E07B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A306DB4B233D586E00B82E02 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		A3F7E1B4235D3AB8002FEA96 /* ChessBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoard.swift; sourceTree = "<group>"; };
+		A3F7E1B6235D3BB5002FEA96 /* ChessBoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,7 @@
 				07FDE4382018140A00A674FE /* Assets.xcassets */,
 				07FDE43A2018140A00A674FE /* LaunchScreen.storyboard */,
 				07FDE43D2018140A00A674FE /* Info.plist */,
+				A3F7E1B4235D3AB8002FEA96 /* ChessBoard.swift */,
 			);
 			path = chess;
 			sourceTree = "<group>";
@@ -92,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				36DF8A96201D6D0C00E0E07B /* Info.plist */,
+				A3F7E1B6235D3BB5002FEA96 /* ChessBoardTests.swift */,
 			);
 			path = chessTests;
 			sourceTree = "<group>";
@@ -150,6 +156,7 @@
 					};
 					36DF8A91201D6D0B00E0E07B = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1030;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 07FDE42D2018140A00A674FE;
 					};
@@ -200,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A306DB4C233D586E00B82E02 /* BoardView.swift in Sources */,
+				A3F7E1B5235D3AB8002FEA96 /* ChessBoard.swift in Sources */,
 				07FDE4342018140A00A674FE /* GameViewController.swift in Sources */,
 				07FDE4322018140A00A674FE /* AppDelegate.swift in Sources */,
 			);
@@ -209,6 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3F7E1B7235D3BB5002FEA96 /* ChessBoardTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,11 +392,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = chessTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.goldthumb.chessTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/chess.app/chess";
@@ -398,6 +409,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = chessTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
