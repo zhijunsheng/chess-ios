@@ -19,10 +19,23 @@ class BoardView: UIView {
         let fingerLocation = touch.location(in: self)
         let row : Int = Int(fingerLocation.y / cellSide)
         let col : Int = Int(fingerLocation.x / cellSide)
-        print("(\(col), \(row))")
-
+        print("from: (\(col), \(row))")
+        
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        let fingerLocation = touch.location(in: self)
+        let row : Int = Int(fingerLocation.y / cellSide)
+        let col : Int = Int(fingerLocation.x / cellSide)
+        print("to: (\(col), \(row))")
     }
     
+    /*
+ 
+     from: (0, 0)
+     to: (4, 5)
+     
+    */
     
     func drawPieces()  {
         
