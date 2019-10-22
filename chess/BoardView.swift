@@ -4,22 +4,25 @@ class BoardView: UIView {
     let cellside101: CGFloat = 0
     
     var originX: CGFloat = 0.0
-    var originY: CGFloat = 100.0
+    var originY: CGFloat = 0.0
     var cellSide: CGFloat = 0.0
+    
+    override func draw(_ rect: CGRect) {
+        print(bounds.width)
+        cellSide = (bounds.width / 8 )
+        drawBoard()
+        drawPieces()
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         let fingerLocation = touch.location(in: self)
-        print(fingerLocation.x)
+        let row : Int = Int(fingerLocation.y / cellSide)
+        let col : Int = Int(fingerLocation.x / cellSide)
+        print("(\(col), \(row))")
+
     }
     
-    override func draw(_ rect: CGRect) {
-        cellSide = (bounds.width * 0.90) / 8
-        originX = (bounds.width - cellSide * 8) / 2
-        
-        drawBoard()
-        drawPieces()
-    }
     
     func drawPieces()  {
         
