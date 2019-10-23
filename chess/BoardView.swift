@@ -7,6 +7,9 @@ class BoardView: UIView {
     var cellSide: CGFloat = 80
     var xc = 12234
     var yr = 43221
+    var chessDelegate: ChessDelegate? = nil
+    var piecesBoxShadow = Set<ChessPiece>()
+
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         cellSide = bounds.width / 8
@@ -31,6 +34,8 @@ class BoardView: UIView {
         // y
         let yy: Int = Int(touchLocation.y / cellSide)
         print("(from: \(xc), \(yr)), (to: \(xx), \(yy))")
+        
+        chessDelegate?.movePiece(frX: xc, frY: yr, toX: xx, toY: yy)
     }
     
     override func draw(_ rect: CGRect) {
@@ -42,8 +47,15 @@ class BoardView: UIView {
         boardOriginY = (bounds.height - 8 * cellSide) / 2
         
         drawChessBoard()
-        whitePieceRoom()
-        blackPieceRoom()
+//        whitePieceRoom()
+//        blackPieceRoom()
+        drawPieces()
+    }
+    
+    func drawPieces() {
+        for piece in piecesBoxShadow {
+            drawPiece(string: piece.imageName, x: piece.x, y: piece.y)
+        }
     }
     
     func drawPiece(string: String, x: Int, y: Int) {

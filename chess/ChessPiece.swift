@@ -1,6 +1,6 @@
 import Foundation
 
-struct ChessPiece {
+struct ChessPiece: Hashable {
     let x: Int
     let y: Int
     let isWhite: Bool

@@ -14,6 +14,8 @@
 		07FDE43C2018140A00A674FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07FDE43A2018140A00A674FE /* LaunchScreen.storyboard */; };
 		E7628967235BF9F600FE367C /* ChessPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7628966235BF9F600FE367C /* ChessPiece.swift */; };
 		E7628969235BFCA300FE367C /* ChessRank.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7628968235BFCA300FE367C /* ChessRank.swift */; };
+		E762896B235F129100FE367C /* ChessBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762896A235F129100FE367C /* ChessBrain.swift */; };
+		E762896D235F18FE00FE367C /* ChessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762896C235F18FE00FE367C /* ChessDelegate.swift */; };
 		E7D1F6BF21BC9E8B00DD7865 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D1F6BE21BC9E8B00DD7865 /* BoardView.swift */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +41,8 @@
 		36DF8A96201D6D0C00E0E07B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7628966235BF9F600FE367C /* ChessPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessPiece.swift; sourceTree = "<group>"; };
 		E7628968235BFCA300FE367C /* ChessRank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessRank.swift; sourceTree = "<group>"; };
+		E762896A235F129100FE367C /* ChessBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBrain.swift; sourceTree = "<group>"; };
+		E762896C235F18FE00FE367C /* ChessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessDelegate.swift; sourceTree = "<group>"; };
 		E7D1F6BE21BC9E8B00DD7865 /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,12 +85,14 @@
 		07FDE4302018140A00A674FE /* chess */ = {
 			isa = PBXGroup;
 			children = (
+				E762896A235F129100FE367C /* ChessBrain.swift */,
+				E762896C235F18FE00FE367C /* ChessDelegate.swift */,
 				E7628966235BF9F600FE367C /* ChessPiece.swift */,
 				E7628968235BFCA300FE367C /* ChessRank.swift */,
+				E7D1F6BE21BC9E8B00DD7865 /* BoardView.swift */,
 				07FDE4312018140A00A674FE /* AppDelegate.swift */,
 				07FDE4332018140A00A674FE /* ViewController.swift */,
 				07FDE4352018140A00A674FE /* Main.storyboard */,
-				E7D1F6BE21BC9E8B00DD7865 /* BoardView.swift */,
 				07FDE4382018140A00A674FE /* Assets.xcassets */,
 				07FDE43A2018140A00A674FE /* LaunchScreen.storyboard */,
 				07FDE43D2018140A00A674FE /* Info.plist */,
@@ -207,7 +213,9 @@
 			files = (
 				07FDE4342018140A00A674FE /* ViewController.swift in Sources */,
 				E7D1F6BF21BC9E8B00DD7865 /* BoardView.swift in Sources */,
+				E762896D235F18FE00FE367C /* ChessDelegate.swift in Sources */,
 				E7628969235BFCA300FE367C /* ChessRank.swift in Sources */,
+				E762896B235F129100FE367C /* ChessBrain.swift in Sources */,
 				07FDE4322018140A00A674FE /* AppDelegate.swift in Sources */,
 				E7628967235BF9F600FE367C /* ChessPiece.swift in Sources */,
 			);
