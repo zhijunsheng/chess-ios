@@ -10,7 +10,7 @@ import UIKit
 
 class GameViewController: UIViewController, ChessDelegate { // C of MVC
     
-    
+    var thing = Board()
     private var board = Board() // M of MVC design pattern
     private var fromCol: Int? = nil
     private var fromRow: Int? = nil
@@ -28,11 +28,14 @@ class GameViewController: UIViewController, ChessDelegate { // C of MVC
     }
     
     @IBAction func withdraw(_ sender: UIButton) {
-        print("jghjfdkgfhdjskghfdjskalqwjsdcbnskiueyrgfvcnxmswkeuhfvbncmxksiuehrfgbvnmcxksieurfyghvbncmxkdieurhfgfbvncdkriufhgvbcnksieuyrhfgvbcnxsjudfhgbcjdhgbfcnjfhbnjfkdjhbcndjhfbvfndjkjhfbhjdhbvhfjdhbvhjdhbfhdjsdhbfhdjfbvfdjjdbvfdjdjbvfdjjbvbjdbvfbdjkdjcbjdchbjdkjcfbdjkjfbdjfhvbfjdjbfjwsdbhjfbvhjndbfhnbdjnbvnfdnjnfjdnfjh")
+        boardView.pieces = thing.pieces
+        board.pieces = thing.pieces
+        boardView.setNeedsDisplay()
     }
     
     
     func move(startX: Int, startY: Int, endX: Int, endY: Int) {
+        thing.pieces = boardView.pieces
         board.movePiece(fromCol: startX, fromRow: startY, toCol: endX, toRow: endY)
         boardView.pieces = board.pieces
         boardView.setNeedsDisplay()
