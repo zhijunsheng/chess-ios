@@ -26,8 +26,17 @@ struct ChessBoard: CustomStringConvertible{
     */
     var description: String {
         var desc: String = ""
+        desc += "  "
+
+        for i in 0..<8 {
+            desc += "\(i) "
+        }
         
+        desc += "\n"
+
         for j in 0..<8 {
+            desc += "\(j) "
+
             for i in 0..<8 {
                 desc += ". "
             }
