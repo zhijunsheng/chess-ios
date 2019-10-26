@@ -4,11 +4,11 @@ class ViewController: UIViewController, ChessDelegate {
     @IBOutlet weak var promoteToQueenButton: UIButton!
     @IBOutlet weak var promoteToRookButton: UIButton!
     @IBOutlet weak var promoteToKnightButton: UIButton!
-    @IBOutlet weak var promoteToBishopButton: UIButton!
     
     @IBOutlet weak var boardView: BoardView!
     
     var chessBrain = ChessBrain()
+    
     
     func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
         print("🌩chess🌩")

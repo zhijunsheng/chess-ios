@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yh4-H4-G34">
-                                <rect key="frame" x="204" y="756" width="176" height="176"/>
+                                <rect key="frame" x="204" y="828" width="176" height="176"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="39"/>
                                 <state key="normal" image="Rook-white"/>
@@ -30,21 +30,21 @@
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="DEX-jJ-XfW"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3dB-qQ-hEf">
-                                <rect key="frame" x="572" y="756" width="176" height="176"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="Bishop-white"/>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrw-dl-q4w">
-                                <rect key="frame" x="388" y="756" width="176" height="176"/>
+                                <rect key="frame" x="388" y="828" width="176" height="176"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Knight-white"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rOr-1T-ZZz">
-                                <rect key="frame" x="20" y="756" width="176" height="176"/>
+                                <rect key="frame" x="20" y="828" width="176" height="176"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="39"/>
                                 <state key="normal" image="Queen-white"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VdQ-Tv-cgS">
+                                <rect key="frame" x="572" y="828" width="176" height="176"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Bishop-white"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.9918310789" green="1" blue="0.31684241699999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -57,7 +57,6 @@
                     </view>
                     <connections>
                         <outlet property="boardView" destination="Kee-CN-hck" id="Ep9-iB-gLJ"/>
-                        <outlet property="promoteToBishopButton" destination="8bC-Xf-vdC" id="Jt6-Ea-CxE"/>
                         <outlet property="promoteToKnightButton" destination="nrw-dl-q4w" id="Hkh-gm-pbi"/>
                         <outlet property="promoteToQueenButton" destination="rOr-1T-ZZz" id="xQo-E0-x0Z"/>
                         <outlet property="promoteToRookButton" destination="yh4-H4-G34" id="Vhm-7Z-pSl"/>
