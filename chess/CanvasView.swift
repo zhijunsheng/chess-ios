@@ -338,49 +338,25 @@ class CanvasView: UIView {
         whiteSquare31.fill()
         whiteSquare31.stroke()       
         
-        // Game Pieces
-        
-        drawPiece(imageName: "knight_chess_w", col: 1, row: 0)
-        drawPiece(imageName: "knight_chess_w", col: 6, row: 0)
-        
-        drawPiece(imageName: "king_chess_w", col: 3, row: 0)
-        
-        drawPiece(imageName: "queen_chess_w", col: 4, row: 0)
-        
-        drawPiece(imageName: "bishop_chess_w", col: 2, row: 0)
-        drawPiece(imageName: "bishop_chess_w", col: 5, row: 0)
-
-        drawPiece(imageName: "rook_chess_w", col: 0, row: 0)
-        drawPiece(imageName: "rook_chess_w", col: 7, row: 0)
-   
-        drawPiece(imageName: "pawn_chess_w", col: 0, row: 1)
-        drawPiece(imageName: "pawn_chess_w", col: 1, row: 1)
-        drawPiece(imageName: "pawn_chess_w", col: 2, row: 1)
-        drawPiece(imageName: "pawn_chess_w", col: 3, row: 1)
-        drawPiece(imageName: "pawn_chess_w", col: 4, row: 1)
-        drawPiece(imageName: "pawn_chess_w", col: 5, row: 1)
-        drawPiece(imageName: "pawn_chess_w", col: 6, row: 1)
-        drawPiece(imageName: "pawn_chess_w", col: 7, row: 1)
-        drawPiece(imageName: "rook_chess_b", col: 0, row: 7)
-        drawPiece(imageName: "rook_chess_b", col: 7, row: 7)
         
         drawPiece(imageName: "king_chess_b", col: 3, row: 7)
-        
         drawPiece(imageName: "queen_chess_b", col: 4, row: 7)
+        drawPiece(imageName: "king_chess_w", col: 3, row: 0)
+        drawPiece(imageName: "queen_chess_w", col: 4, row: 0)
         
-        drawPiece(imageName: "bishop_chess_b", col: 2, row: 7)
-        drawPiece(imageName: "bishop_chess_b", col: 5, row: 7)
-        drawPiece(imageName: "knight_chess_b", col: 1, row: 7)
-        drawPiece(imageName: "knight_chess_b", col: 6, row: 7)
+        for i in 0..<2 {
+            drawPiece(imageName: "rook_chess_w", col: i * 7, row: 0)
+            drawPiece(imageName: "knight_chess_w", col: i * 5 + 1, row: 0)
+            drawPiece(imageName: "bishop_chess_w", col: i * 3 + 2, row: 0)
+            drawPiece(imageName: "rook_chess_b", col: i * 7, row: 7)
+            drawPiece(imageName: "bishop_chess_b", col: i * 3 + 2, row: 7)
+            drawPiece(imageName: "knight_chess_b", col: i * 5 + 1, row: 7)
+        }
         
-        drawPiece(imageName: "pawn_chess_b", col: 0, row: 6)
-        drawPiece(imageName: "pawn_chess_b", col: 1, row: 6)
-        drawPiece(imageName: "pawn_chess_b", col: 2, row: 6)
-        drawPiece(imageName: "pawn_chess_b", col: 3, row: 6)
-        drawPiece(imageName: "pawn_chess_b", col: 4, row: 6)
-        drawPiece(imageName: "pawn_chess_b", col: 5, row: 6)
-        drawPiece(imageName: "pawn_chess_b", col: 6, row: 6)
-        drawPiece(imageName: "pawn_chess_b", col: 7, row: 6)
+        for i in 0..<8 {
+            drawPiece(imageName: "pawn_chess_w", col: i, row: 1)
+            drawPiece(imageName: "pawn_chess_b", col: i, row: 6)
+        }
     }
     
     func drawPiece(imageName: String, col: Int, row: Int) {
