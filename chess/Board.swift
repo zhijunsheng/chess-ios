@@ -22,9 +22,13 @@ struct Board: CustomStringConvertible {
     let cols = 8
     let rows = 8
     var isWhiteTurn: Bool = true
-    
-    
+    var thing = Set<Piece>()
     var pieces: Set<Piece> = Set<Piece>()
+    
+    mutating func withdraw() {
+        pieces = thing
+        isWhiteTurn = !isWhiteTurn
+    }
     
     mutating func initPieces() {
         pieces.insert(Piece(col: 0, row: 0, imageName: "rook_chess_b", isWhite: false, rank: .rook))
@@ -54,7 +58,8 @@ struct Board: CustomStringConvertible {
     }
     
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
-        
+        thing = pieces
+
         guard let piece = pieceOn(col: fromCol, row: fromRow) else {
             return
         }
