@@ -1,45 +1,36 @@
 import UIKit
 
 class BoardView: UIView {
-    let cellside101: CGFloat = 0
     
     var originX: CGFloat = 0.0
     var originY: CGFloat = 0.0
-    var cellSide: CGFloat = 0.0
+    var cellSide: CGFloat = 0
+    
+    var fromCol : Int = 0
+    var fromRow : Int = 0
     
     override func draw(_ rect: CGRect) {
-        print(bounds.width)
-        cellSide = (bounds.width / 8 )
+        cellSide = bounds.width / 8
         drawBoard()
         drawPieces()
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         let fingerLocation = touch.location(in: self)
-        let row : Int = Int(fingerLocation.y / cellSide)
-        let col : Int = Int(fingerLocation.x / cellSide)
-        print("from: (\(col), \(row))")
-        
+        fromCol = Int(fingerLocation.x / cellSide)
+        fromRow = Int(fingerLocation.y / cellSide)
     }
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         let fingerLocation = touch.location(in: self)
         let row : Int = Int(fingerLocation.y / cellSide)
         let col : Int = Int(fingerLocation.x / cellSide)
-        print("to: (\(col), \(row))")
+        print("to: (\(col), \(row)) from: (\(fromCol), \(fromRow))")
     }
-    
-    /*
- 
-     from: (0, 0)
-     to: (4, 5)
-     
-    */
-    
+
     func drawPieces()  {
-        
-        
         for p in 0..<2 {
             drawPiece(col: p * 5 + 1, row: 0, imageName: "knight_chess_b")
             drawPiece(col: p * 5 + 1, row: 7, imageName: "knight_chess_w")
@@ -48,7 +39,7 @@ class BoardView: UIView {
             drawPiece(col: p * 3 + 2, row: 7 , imageName: "bishop_chess_w")
             drawPiece(col: p * 3 + 2, row: 0 , imageName: "bishop_chess_b")
         }
-
+        
         drawPiece(col: 3, row: 0, imageName: "king_chess_b")
         drawPiece(col: 3, row: 7, imageName: "king_chess_w")
         
@@ -109,6 +100,4 @@ class BoardView: UIView {
         pencil.fill()
         pencil.stroke()
     }
-    
 }
-
