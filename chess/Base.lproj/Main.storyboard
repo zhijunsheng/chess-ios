@@ -41,7 +41,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="39"/>
                                 <state key="normal" image="Queen-white"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VdQ-Tv-cgS">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ju2-Z0-iKm">
                                 <rect key="frame" x="572" y="828" width="176" height="176"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Bishop-white"/>
@@ -57,6 +57,7 @@
                     </view>
                     <connections>
                         <outlet property="boardView" destination="Kee-CN-hck" id="Ep9-iB-gLJ"/>
+                        <outlet property="promoteToBishopButton" destination="Ju2-Z0-iKm" id="mfU-wL-JNs"/>
                         <outlet property="promoteToKnightButton" destination="nrw-dl-q4w" id="Hkh-gm-pbi"/>
                         <outlet property="promoteToQueenButton" destination="rOr-1T-ZZz" id="xQo-E0-x0Z"/>
                         <outlet property="promoteToRookButton" destination="yh4-H4-G34" id="Vhm-7Z-pSl"/>
