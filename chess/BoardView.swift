@@ -279,6 +279,8 @@ class BoardView: UIView {
         #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).setFill()
         pencil64.fill()
         
+        drawPiece(col: 3, row: 7, imageName: "king_chess_w")
+        drawPiece(col: 4, row: 7, imageName: "queen_chess_w")
         drawPiece(col: 3, row: 0, imageName: "king_chess_b")
         drawPiece(col: 4, row: 0, imageName: "queen_chess_b")
         
@@ -286,21 +288,18 @@ class BoardView: UIView {
             drawPiece(col: i * 7 + 0, row: 0, imageName: "rook_chess_b")
             drawPiece(col: i * 5 + 1, row: 0, imageName: "knight_chess_b")
             drawPiece(col: i * 3 + 2, row: 0, imageName: "bishop_chess_b")
+            drawPiece(col: i * 7 + 0, row: 7, imageName: "rook_chess_w")
+            drawPiece(col: i * 5 + 1, row: 7, imageName: "knight_chess_w")
+            drawPiece(col: i * 3 + 2, row: 7, imageName: "bishop_chess_w")
+
         }
 
         for i in 0..<8 {
             drawPiece(col: i, row: 6, imageName: "pawn_chess_w")
             drawPiece(col: i, row: 1, imageName: "pawn_chess_b")
         }
+       
         
-        drawPiece(col: 0, row: 7, imageName: "rook_chess_w")
-        drawPiece(col: 7, row: 7, imageName: "rook_chess_w")
-        
-        drawPiece(col: 1, row: 7, imageName: "knight_chess_w")
-        drawPiece(col: 6, row: 7, imageName: "knight_chess_w")
-        drawPiece(col: 2, row: 7, imageName: "bishop_chess_w")
-        drawPiece(col: 5, row: 7, imageName: "bishop_chess_w")
-        drawPiece(col: 3, row: 7, imageName: "king_chess_w")
-        drawPiece(col: 4, row: 7, imageName: "queen_chess_w")
     }
 }
+
