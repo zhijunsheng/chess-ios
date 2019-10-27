@@ -111,7 +111,6 @@ class BoardView: UIView {
         drawPiece(col: 5, row: 7, piece: "bishop_chess_w")
         drawPiece(col: 6, row: 7, piece: "knight_chess_w")
         drawPiece(col: 7, row: 7, piece: "rook_chess_w")
-
     }
     
     func drawPiece(col: Int, row:Int, piece: String) {
