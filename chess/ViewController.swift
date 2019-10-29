@@ -12,6 +12,15 @@ class ViewController: UIViewController, ChessDelegate {
     
     func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
         print("🌩chess🌩")
+        
+        let movingPiece = chessBrain.pieceAt(x: frX, y: frY)
+        
+        
+        if movingPiece?.rank == .pawn {
+            
+        }
+        
+        
         chessBrain.movePiece(frX: frX, frY: frY, toX: toX, toY: toY)
         boardView.piecesBoxShadow = chessBrain.piecesBox
         boardView.setNeedsDisplay()
@@ -34,7 +43,7 @@ class ViewController: UIViewController, ChessDelegate {
         promoteToRookButton.frame.origin.x = bottonGap + 2 * buttonLong
         promoteToRookButton.frame.origin.y = view.frame.height - bottonGap - promoteToRookButton.bounds.height
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         chessBrain.reset()
@@ -44,5 +53,17 @@ class ViewController: UIViewController, ChessDelegate {
         boardView.chessDelegate = self
         
         boardDeploy()
+        
+        togglePromotionButtons(show: false)
     }
+    
+    func togglePromotionButtons(show: Bool) {
+        promoteToKnightButton.isHidden = !show
+        promoteToQueenButton.isHidden = !show
+        promoteToRookButton.isHidden = !show
+        promoteToBishopButton.isHidden = !show
+        
+
+    }
+    
 }

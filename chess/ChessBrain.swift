@@ -55,19 +55,22 @@ struct ChessBrain {
 
     }
     
+    
+    
     mutating func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
-        
-        
-        // capture
-        
-        if let beCapturedPiece = pieceAt(x: toX, y: toY) {
-            piecesBox.remove(beCapturedPiece)
+        let beCapturedPiece = pieceAt(x: toX, y: toY)
+        let movingPiece = pieceAt(x: frX, y: frY)
+        if beCapturedPiece?.isWhite == movingPiece?.isWhite {
+            return
         }
         
-        if let movingPiece = pieceAt(x: frX, y: frY) {
-            piecesBox.remove(movingPiece)
-            piecesBox.insert(ChessPiece(x: toX, y: toY, isWhite: movingPiece.isWhite, rank: movingPiece.rank, imageName: movingPiece.imageName))
-         
+        if let actualBeCapturedPiece = beCapturedPiece {
+            piecesBox.remove(actualBeCapturedPiece)
+        }
+        
+        if let actualMovingPiece = movingPiece {
+            piecesBox.remove(actualMovingPiece)
+            piecesBox.insert(ChessPiece(x: toX, y: toY, isWhite: actualMovingPiece.isWhite, rank: actualMovingPiece.rank, imageName: actualMovingPiece.imageName))
         }
     }
     
