@@ -14,28 +14,26 @@ class CanvasView: UIView {
     override func draw(_ rect: CGRect) {
      
         for i in 0..<4 {
-            drawBlackSquare(col: i * 2 + 1, row: 0)
-            drawBlackSquare(col: i * 2, row: 1)
-            drawBlackSquare(col: i * 2 + 1, row: 2)
-            drawBlackSquare(col: i * 2, row: 3)
-            drawBlackSquare(col: i * 2 + 1, row: 4)
-            drawBlackSquare(col: i * 2, row: 5)
-            drawBlackSquare(col: i * 2 + 1, row: 6)
-            drawBlackSquare(col: i * 2, row: 7)
+            drawSquare(col: i * 2 + 1, row: 0, color: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
+            drawSquare(col: i * 2, row: 1, color: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
+            drawSquare(col: i * 2 + 1, row: 2, color: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
+            drawSquare(col: i * 2, row: 3, color: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
+            drawSquare(col: i * 2 + 1, row: 4, color: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
+            drawSquare(col: i * 2, row: 5, color: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
+            drawSquare(col: i * 2 + 1, row: 6, color: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
+            drawSquare(col: i * 2, row: 7, color: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
         }
 
         for i in 0..<4 {
-            drawSquare(col: i * 2, row: 0)
-            drawSquare(col: i * 2 + 1, row: 1)
-            drawSquare(col: i * 2, row: 2)
-            drawSquare(col: i * 2 + 1, row: 3)
-            drawSquare(col: i * 2, row: 4)
-            drawSquare(col: i * 2 + 1, row: 5)
-            drawSquare(col: i * 2, row: 6)
-            drawSquare(col: i * 2 + 1, row: 7)
+            drawSquare(col: i * 2, row: 0, color: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
+            drawSquare(col: i * 2 + 1, row: 1, color: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
+            drawSquare(col: i * 2, row: 2, color: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
+            drawSquare(col: i * 2 + 1, row: 3, color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+            drawSquare(col: i * 2, row: 4, color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
+            drawSquare(col: i * 2 + 1, row: 5, color: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
+            drawSquare(col: i * 2, row: 6, color: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
+            drawSquare(col: i * 2 + 1, row: 7, color: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
         }
-
-        
 
         drawPiece(imageName: "king_chess_b", col: 3, row: 7)
         drawPiece(imageName: "queen_chess_b", col: 4, row: 7)
@@ -62,22 +60,9 @@ class CanvasView: UIView {
         pieceImage?.draw(in: CGRect(x: 80 * col, y: 80 * row, width: 80, height: 80))
     }
     
-    func drawSquare(col: Int, row: Int) {
+    func drawSquare(col: Int, row: Int, color: UIColor) {
         let whiteSquare = UIBezierPath(rect: CGRect(x: 80 * col, y: 80 * row, width: 80, height: 80))
-        #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).setFill()
-        #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1).setStroke()
+        color.setFill()
         whiteSquare.fill()
-        whiteSquare.stroke()
     }
-    
-    func drawBlackSquare(col: Int, row: Int) {
-        let blackSquare = UIBezierPath(rect: CGRect(x: 80 * col, y: 80 * row, width: 80, height: 80))
-        #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).setFill()
-        blackSquare.fill()
-    }
-
-    
-    
 }
-
-
