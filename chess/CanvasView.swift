@@ -12,7 +12,11 @@ import UIKit
 class CanvasView: UIView {
 
     override func draw(_ rect: CGRect) {
-     
+        drawBoard()
+        drawPieces()
+    }
+    
+    func drawBoard() {
         for i in 0..<4 {
             drawSquare(col: i * 2 + 1, row: 0, color: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
             drawSquare(col: i * 2, row: 1, color: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
@@ -23,7 +27,7 @@ class CanvasView: UIView {
             drawSquare(col: i * 2 + 1, row: 6, color: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
             drawSquare(col: i * 2, row: 7, color: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1))
         }
-
+        
         for i in 0..<4 {
             drawSquare(col: i * 2, row: 0, color: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
             drawSquare(col: i * 2 + 1, row: 1, color: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
@@ -34,7 +38,9 @@ class CanvasView: UIView {
             drawSquare(col: i * 2, row: 6, color: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
             drawSquare(col: i * 2 + 1, row: 7, color: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0))
         }
+    }
 
+    func drawPieces() {
         drawPiece(imageName: "king_chess_b", col: 3, row: 7)
         drawPiece(imageName: "queen_chess_b", col: 4, row: 7)
         drawPiece(imageName: "king_chess_w", col: 3, row: 0)
