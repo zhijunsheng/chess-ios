@@ -30,6 +30,20 @@ struct Board: CustomStringConvertible {
         isWhiteTurn = !isWhiteTurn
     }
     
+    mutating func canPromote(col: Int, row: Int, isWhite: Bool) -> Bool {
+        guard let piece = pieceOn(col: col, row: row) else { return false }
+        if piece.rank == .pawn && piece.isWhite {
+            if row == 0 {
+                return true
+            }
+        } else if piece.rank == .pawn && !piece.isWhite {
+            if row == 7 {
+                return true
+            }
+        }
+        return false
+    }
+    
     mutating func initPieces() {
         pieces.insert(Piece(col: 0, row: 0, imageName: "rook_chess_b", isWhite: false, rank: .rook))
         pieces.insert(Piece(col: 1, row: 0, imageName: "knight_chess_b", isWhite: false, rank: .knight))
@@ -155,26 +169,27 @@ struct Board: CustomStringConvertible {
     }
     
     func canPawnMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
-        guard let candidate = pieceOn(col: fromCol, row: fromRow) else {
-            return false
-        }
-        
-        if isWhite && (pieceOn(col: fromCol, row: fromRow - 1) == nil) {
-            if candidate.row == 6 {
-                return (fromRow - 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) || fromRow - 2 == toRow)
-            } else {
-                return fromRow - 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil)
-            }
-        }
-        
-        if !isWhite && (pieceOn(col: fromCol, row: fromRow + 1) == nil) {
-            if candidate.row == 1 {
-                return fromRow + 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow + 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) || fromRow + 2 == toRow
-            } else {
-                return fromRow + 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow + 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) || fromRow + 2 == toRow
-            }
-        }
-        return false
+//        guard let candidate = pieceOn(col: fromCol, row: fromRow) else {
+//            return false
+//        }
+//
+//        if isWhite && (pieceOn(col: fromCol, row: fromRow - 1) == nil) {
+//            if candidate.row == 6 {
+//                return (fromRow - 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) || fromRow - 2 == toRow)
+//            } else {
+//                return fromRow - 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil)
+//            }
+//        }
+//
+//        if !isWhite && (pieceOn(col: fromCol, row: fromRow + 1) == nil) {
+//            if candidate.row == 1 {
+//                return fromRow + 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow + 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) || fromRow + 2 == toRow
+//            } else {
+//                return fromRow + 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow + 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) || fromRow + 2 == toRow
+//            }
+//        }
+//        return false
+        return true
     }
     
     func canRookMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {

@@ -76,4 +76,34 @@ class StuffTests: XCTestCase {
             }
         }
     }
+    
+    // 张益唐
+    //
+    // Peter's guess: 20
+    // Donald's guess: 30
+    func testTwinPrimes() {
+        var count = 0
+        var temp = 0
+        for i in 2...20 { // (2, 3), (3, 5), (5, 7), (11, 13), (17, 19)
+            if isPrime(num: i) {
+                if i - temp == 2 {
+                    count += 1
+                }
+                temp = i
+            }
+        }
+        
+        print(count)
+    }
+    
+    func isPrime(num: Int) -> Bool {
+        let a = sqrt(Double(num))
+        let c = Int(a)
+        for x in 2...c + 1 {
+            if num % x == 0 {
+                return false
+            }
+        }
+        return true
+    }
 }
