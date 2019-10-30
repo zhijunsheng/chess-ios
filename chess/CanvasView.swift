@@ -143,18 +143,20 @@ class CanvasView: UIView {
         #colorLiteral(red: 0.4143660946, green: 0.4143660946, blue: 0.4143660946, alpha: 1).setFill()
         blackSquare31.fill()
 
-        drawSquare(col: 0, row: 0)
-        drawSquare(col: 2, row: 0)
-        drawSquare(col: 4, row: 0)
-        drawSquare(col: 6, row: 0)
         
-        drawSquare(col: 1, row: 1)
-        drawSquare(col: 3, row: 1)
-        drawSquare(col: 5, row: 1)
-        drawSquare(col: 7, row: 1)
+        for i in 0..<4 {
+            drawSquare(col: i * 2, row: 0)
+            drawSquare(col: i * 2 + 1, row: 1)
+            drawSquare(col: i * 2, row: 2)
+            drawSquare(col: i * 2 + 1, row: 3)
+            drawSquare(col: i * 2, row: 4)
+            drawSquare(col: i * 2 + 1, row: 5)
+            drawSquare(col: i * 2, row: 6)
+            drawSquare(col: i * 2 + 1, row: 7)
+        }
+
         
-        drawSquare(col: 0, row: 2)
-        
+
         drawPiece(imageName: "king_chess_b", col: 3, row: 7)
         drawPiece(imageName: "queen_chess_b", col: 4, row: 7)
         drawPiece(imageName: "king_chess_w", col: 3, row: 0)
