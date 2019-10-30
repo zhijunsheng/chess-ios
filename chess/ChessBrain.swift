@@ -15,44 +15,35 @@ struct ChessBrain {
     
     mutating func reset() {
         piecesBox.insert(ChessPiece(x: 0, y: 0, isWhite: true, rank: .rook, imageName: "Rook-white"))
-        piecesBox.insert(ChessPiece(x: 1, y: 0, isWhite: true, rank: .rook, imageName: "Knight-white"))
-        piecesBox.insert(ChessPiece(x: 2, y: 0, isWhite: true, rank: .rook, imageName: "Bishop-white"))
-        piecesBox.insert(ChessPiece(x: 3, y: 0, isWhite: true, rank: .rook, imageName: "Queen-white"))
-        piecesBox.insert(ChessPiece(x: 4, y: 0, isWhite: true, rank: .rook, imageName: "King-white"))
-        piecesBox.insert(ChessPiece(x: 5, y: 0, isWhite: true, rank: .rook, imageName: "Bishop-white"))
-        piecesBox.insert(ChessPiece(x: 6, y: 0, isWhite: true, rank: .rook, imageName: "Knight-white"))
+        piecesBox.insert(ChessPiece(x: 1, y: 0, isWhite: true, rank: .knight, imageName: "Knight-white"))
+        piecesBox.insert(ChessPiece(x: 2, y: 0, isWhite: true, rank: .bishop, imageName: "Bishop-white"))
+        piecesBox.insert(ChessPiece(x: 3, y: 0, isWhite: true, rank: .queen, imageName: "Queen-white"))
+        piecesBox.insert(ChessPiece(x: 4, y: 0, isWhite: true, rank: .king, imageName: "King-white"))
+        piecesBox.insert(ChessPiece(x: 5, y: 0, isWhite: true, rank: .bishop, imageName: "Bishop-white"))
+        piecesBox.insert(ChessPiece(x: 6, y: 0, isWhite: true, rank: .knight, imageName: "Knight-white"))
         piecesBox.insert(ChessPiece(x: 7, y: 0, isWhite: true, rank: .rook, imageName: "Rook-white"))
                                     // white pawn corner
-        piecesBox.insert(ChessPiece(x: 0, y: 1, isWhite: true, rank: .pawn, imageName: "Pawn-white"))
-        piecesBox.insert(ChessPiece(x: 1, y: 1, isWhite: true, rank: .pawn, imageName: "Pawn-white"))
-        piecesBox.insert(ChessPiece(x: 2, y: 1, isWhite: true, rank: .pawn, imageName: "Pawn-white"))
-        piecesBox.insert(ChessPiece(x: 3, y: 1, isWhite: true, rank: .pawn, imageName: "Pawn-white"))
-        piecesBox.insert(ChessPiece(x: 4, y: 1, isWhite: true, rank: .pawn, imageName: "Pawn-white"))
-        piecesBox.insert(ChessPiece(x: 5, y: 1, isWhite: true, rank: .pawn, imageName: "Pawn-white"))
-        piecesBox.insert(ChessPiece(x: 6, y: 1, isWhite: true, rank: .pawn, imageName: "Pawn-white"))
-        piecesBox.insert(ChessPiece(x: 7, y: 1, isWhite: true, rank: .pawn, imageName: "Pawn-white"))
         
         
+        for i in 0..<8 {
+            piecesBox.insert(ChessPiece(x: i, y: 1, isWhite: true, rank: .pawn, imageName: "Pawn-white"))
+        }
         
         piecesBox.insert(ChessPiece(x: 0, y: 7, isWhite: false, rank: .rook, imageName: "Rook-black"))
-        piecesBox.insert(ChessPiece(x: 1, y: 7, isWhite: false, rank: .rook, imageName: "Knight-black"))
-        piecesBox.insert(ChessPiece(x: 2, y: 7, isWhite: false, rank: .rook, imageName: "Bishop-black"))
-        piecesBox.insert(ChessPiece(x: 3, y: 7, isWhite: false, rank: .rook, imageName: "Queen-black"))
-        piecesBox.insert(ChessPiece(x: 4, y: 7, isWhite: false, rank: .rook, imageName: "King-black"))
-        piecesBox.insert(ChessPiece(x: 5, y: 7, isWhite: false, rank: .rook, imageName: "Bishop-black"))
-        piecesBox.insert(ChessPiece(x: 6, y: 7, isWhite: false, rank: .rook, imageName: "Knight-black"))
+        piecesBox.insert(ChessPiece(x: 1, y: 7, isWhite: false, rank: .knight, imageName: "Knight-black"))
+        piecesBox.insert(ChessPiece(x: 2, y: 7, isWhite: false, rank: .bishop, imageName: "Bishop-black"))
+        piecesBox.insert(ChessPiece(x: 3, y: 7, isWhite: false, rank: .queen, imageName: "Queen-black"))
+        piecesBox.insert(ChessPiece(x: 4, y: 7, isWhite: false, rank: .king, imageName: "King-black"))
+        piecesBox.insert(ChessPiece(x: 5, y: 7, isWhite: false, rank: .bishop, imageName: "Bishop-black"))
+        piecesBox.insert(ChessPiece(x: 6, y: 7, isWhite: false, rank: .knight, imageName: "Knight-black"))
         piecesBox.insert(ChessPiece(x: 7, y: 7, isWhite: false, rank: .rook, imageName: "Rook-black"))
                                     // white pawn corner
-        piecesBox.insert(ChessPiece(x: 0, y: 6, isWhite: false, rank: .pawn, imageName: "Pawn-black"))
-        piecesBox.insert(ChessPiece(x: 1, y: 6, isWhite: false, rank: .pawn, imageName: "Pawn-black"))
-        piecesBox.insert(ChessPiece(x: 2, y: 6, isWhite: false, rank: .pawn, imageName: "Pawn-black"))
-        piecesBox.insert(ChessPiece(x: 3, y: 6, isWhite: false, rank: .pawn, imageName: "Pawn-black"))
-        piecesBox.insert(ChessPiece(x: 4, y: 6, isWhite: false, rank: .pawn, imageName: "Pawn-black"))
-        piecesBox.insert(ChessPiece(x: 5, y: 6, isWhite: false, rank: .pawn, imageName: "Pawn-black"))
-        piecesBox.insert(ChessPiece(x: 6, y: 6, isWhite: false, rank: .pawn, imageName: "Pawn-black"))
-        piecesBox.insert(ChessPiece(x: 7, y: 6, isWhite: false, rank: .pawn, imageName: "Pawn-black"))
+        for i in 0..<8 {
+            piecesBox.insert(ChessPiece(x: i, y: 6, isWhite: false, rank: .pawn, imageName: "Pawn-black"))
+        }
+       
 
-
+//
     }
     
     
