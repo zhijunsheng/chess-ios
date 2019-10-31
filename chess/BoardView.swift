@@ -22,37 +22,18 @@ class BoardView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
-        
         drawBoard()
         drawPieces()
-
     }
     
     func drawBoard()  {
-        for i in 0..<4 {
-            drawSquare(col: i * 2, row: 0, color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
-            drawSquare(col: i * 2 + 1, row: 0, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
-            
-            drawSquare(col: i * 2, row: 1, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
-            drawSquare(col: i * 2 + 1, row: 1, color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
-            
-            drawSquare(col: i * 2, row: 2, color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
-            drawSquare(col: i * 2 + 1, row: 2, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
-            
-            drawSquare(col: i * 2, row: 3, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
-            drawSquare(col: i * 2 + 1, row: 3, color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
-            
-            drawSquare(col: i * 2, row: 4, color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
-            drawSquare(col: i * 2 + 1, row: 4, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
-            
-            drawSquare(col: i * 2, row: 5, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
-            drawSquare(col: i * 2 + 1, row: 5, color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
-            
-            drawSquare(col: i * 2, row: 6, color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
-            drawSquare(col: i * 2 + 1, row: 6, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
-            
-            drawSquare(col: i * 2, row: 7, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
-            drawSquare(col: i * 2 + 1, row: 7, color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
+        for col in 0..<4 {
+            for row in 0..<4 {
+                drawSquare(col: col * 2, row: row * 2, color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
+                drawSquare(col: col * 2 + 1, row: row * 2, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
+                drawSquare(col: col * 2 + 1, row: row * 2 + 1, color: #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
+                drawSquare(col: col * 2, row: row * 2 + 1, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
+           }
         }
     }
     
