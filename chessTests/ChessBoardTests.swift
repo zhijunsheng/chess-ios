@@ -26,21 +26,48 @@ class ChessBoardTests: XCTestCase {
         print(result)
     }
     
-    func isPrime(number: Int) -> Bool { // 371, 2,3,4,...,371/2
+    func isPrime(number: Int) -> Bool {
+        if number == 1 || number == 4 {
+            return false
+        }
+        if number == 2 || number == 3 {
+            return true
+        }
+        
         for i in 2..<number / 2 {
-            print("anything")
             if number % i == 0 {
                 return false
             }
-            
         }
         return true
     }
     
+    
+    
     func testIsPrime() {
-        XCTAssertTrue(isPrime(number: 7))
-        XCTAssertFalse(isPrime(number: 14))
-        XCTAssertFalse(isPrime(number: 15))
-        XCTAssertTrue(isPrime(number: 17))
+        
+        XCTAssertTrue(isPrime(number: 31))
+        XCTAssertTrue(isPrime(number: 331))
+        XCTAssertTrue(isPrime(number: 3331))
+        XCTAssertTrue(isPrime(number: 33331))
+        XCTAssertTrue(isPrime(number: 333331))
+        XCTAssertTrue(isPrime(number: 3333331))
+        XCTAssertTrue(isPrime(number: 33_333_331))
+        XCTAssertFalse(isPrime(number: 333333331))
+        XCTAssertFalse(isPrime(number: 3333333331))
+        XCTAssertFalse(isPrime(number: 33333333331))
+    }
+    
+    func testPrintingPrimeNumbersUnder100() {
+        for i in 1...100 {
+            if isPrime(number: i){
+                print(i)
+            }
+        }
+    }
+    
+    func testHugePrimeNumber() {
+        XCTAssertTrue(isPrime(number: 30303030303031))
+ 
     }
 }
