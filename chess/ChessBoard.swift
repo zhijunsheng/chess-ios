@@ -23,12 +23,31 @@ struct ChessBoard: CustomStringConvertible {
     
     var pieces: Set<ChessPiece> = Set<ChessPiece>()
     
+    func canMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        
+        let movingPiece = pieceAt(col: fromCol, row: fromRow)
+        
+        if movingPiece?.isWhite == pieceAt(col: toCol, row: toRow)?.isWhite {
+            return false
+        }
+        
+        if movingPiece?.rank == .knight {
+            return canKnightMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        }
+        return true
+    }
+    
     func canKnightMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         return abs(toCol - fromCol) == 1 && abs(toRow - fromRow) == 2 ||
                abs(toCol - fromCol) == 2 && abs(toRow - fromRow) == 1
     }
     
+    // withdraw
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        
+        if !canMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)  {
+            return
+        }
         
         guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
             return
@@ -40,7 +59,6 @@ struct ChessBoard: CustomStringConvertible {
         
         pieces.remove(movingPiece)
         pieces.insert(ChessPiece(rank: movingPiece.rank, col: toCol, row: toRow, isWhite: movingPiece.isWhite, imgName: movingPiece.imgName))
-        
     }
     
     mutating func initializeBoard() {
