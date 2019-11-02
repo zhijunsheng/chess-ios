@@ -201,6 +201,7 @@ struct Board: CustomStringConvertible {
     }
     
     func canBishopMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        print(numPiecesInBetween(fromRow: fromRow, fromCol: fromCol, toCol: toCol, toRow: toRow))
         return abs(toRow - fromRow) == abs(toCol - fromCol) && numPiecesInBetween(fromRow: fromRow, fromCol: fromCol, toCol: toCol, toRow: toRow) == 0
     }
     
@@ -332,16 +333,40 @@ struct Board: CustomStringConvertible {
                 }
             }
         } else if abs(toCol - fromCol) == abs(toRow - fromRow) {
-            
-            for i in (min(fromCol, toCol)) + 1...(max(fromCol, toCol)) - 1 {
-                for j in (min(fromRow, toRow)) + 1...(max(fromRow, toRow)) - 1{
-                    if pieceOn(col: i, row: j) != nil {
-                        count += 1
-                    }
+            for i in 1...abs(toCol - fromCol) {
+                if toCol > fromCol && toRow > fromRow {
+                    count += pieceOn(col: fromCol + i, row: fromRow + i) != nil ? 1 : 0
+                } else if toCol > fromCol && toRow < fromRow {
+                    count += pieceOn(col: fromCol + i, row: fromRow - i) != nil ? 1 : 0
+                } else if toCol < fromCol && toRow > fromRow {
+                    count += pieceOn(col: fromCol - i, row: fromRow + i) != nil ? 1 : 0
+                } else if toCol < fromCol && toRow < fromRow {
+                    count += pieceOn(col: fromCol - i, row: fromRow - i) != nil ? 1 : 0
                 }
             }
+            
+            // case 1
+            //  >.
+            // .|
+            // + -
+            
+            // case 2
+            //  |.
+            // .<
+            // - +
+            
+            // case 3
+            // .|
+            //  >.
+            // + +
+            
+            // case 4
+            // .<
+            //  |.
+            // - -
+            
+            
         }
-        
         return count
     }
 

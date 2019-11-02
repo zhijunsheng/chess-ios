@@ -177,7 +177,7 @@ class BoardTests: XCTestCase {
     }
     
     func testK() {
-        var board = Board()
+        let board = Board()
         XCTAssertTrue(board.canKingMove(fromCol: 7, fromRow: 7, toCol: 6, toRow: 7))
         XCTAssertTrue(board.canKingMove(fromCol: 7, fromRow: 7, toCol: 6, toRow: 6))
     }
@@ -235,6 +235,23 @@ class BoardTests: XCTestCase {
             Piece(col: 6, row: 4, imageName: "bn", isWhite: false, rank: .knight)
         ]
         XCTAssertFalse(board.canBishopMove(fromCol: 7, fromRow: 5, toCol: 2, toRow: 0))
+        
+        /*
+           0 1 2 3 4 5 6 7
+         0 . . . . . . O .
+         1 . . . . . . . .
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 O . . . . . . .
+         7 . . . . . . . .
+         */
+        
+        board.pieces = []
+        
+        XCTAssertTrue(board.canBishopMove(fromCol: 2, fromRow: 7, toCol: 6, toRow: 3))
+//        XCTAssertTrue(board.canBishopMove(fromCol: 1, fromRow: 7, toCol: 5, toRow: 3))
     }
     
     func testN() {
