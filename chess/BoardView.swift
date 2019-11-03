@@ -9,35 +9,38 @@
 import UIKit
 
 class BoardView: UIView {
-
+    var fingerX: CGFloat = 1234567
+    var fingerY: CGFloat = 1234567
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let first = touches.first!
+        let fingerLocation = first.location(in: self)
+        print("(\(fingerLocation.x), \(fingerLocation.y))") // (234.2, 103.7)
+        fingerX = fingerLocation.x
+        fingerY = fingerLocation.y
+        setNeedsDisplay()
+    }
+    
     override func draw(_ rect: CGRect) {
-        print(bounds.width)
-
-
+        drawBoard()
+        drawPieces()
         
-        
+        let blackRookImage = UIImage(named: "king_chess_b")
+        blackRookImage?.draw(in: CGRect(x: fingerX, y: fingerY, width: 91, height: 91))
+    }
+    
+    func drawBoard() {
         for i in 0..<4 {
-            
-            drawSquare(col: 0, row: i * 2, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
-            drawSquare(col: 1, row: i * 2, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
-            drawSquare(col: 2, row: i * 2, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
-            drawSquare(col: 3, row: i * 2, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
-            drawSquare(col: 4, row: i * 2, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
-            drawSquare(col: 5, row: i * 2, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
-            drawSquare(col: 6, row: i * 2, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
-            drawSquare(col: 7, row: i * 2, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
-            
-            
-            drawSquare(col: 0, row: i * 2 + 1, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
-            drawSquare(col: 1, row: i * 2 + 1, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
-            drawSquare(col: 2, row: i * 2 + 1, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
-            drawSquare(col: 3, row: i * 2 + 1, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
-            drawSquare(col: 4, row: i * 2 + 1, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
-            drawSquare(col: 5, row: i * 2 + 1, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
-            drawSquare(col: 6, row: i * 2 + 1, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
-            drawSquare(col: 7, row: i * 2 + 1, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
+            for j in 0..<4 {
+                drawSquare(col: j * 2, row: i * 2, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
+                drawSquare(col: j * 2 + 1, row: i * 2, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
+                drawSquare(col: j * 2, row: i * 2 + 1, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
+                drawSquare(col: j * 2 + 1, row: i * 2 + 1, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
+            }
         }
-
+    }
+    
+    func drawPieces() {
         drawPiece(col: 3, row: 0, piece: "king_chess_b")
         drawPiece(col: 4, row: 0, piece: "queen_chess_b")
         drawPiece(col: 3, row: 7, piece: "king_chess_w")
@@ -47,7 +50,7 @@ class BoardView: UIView {
             drawPiece(col: i, row: 1, piece: "pawn_chess_b")
             drawPiece(col: i, row: 6, piece: "pawn_chess_w")
         }
-     
+        
         for i in 0..<2 {
             drawPiece(col: i * 7, row: 0, piece: "rook_chess_b")
             drawPiece(col: i * 5 + 1, row: 0, piece: "knight_chess_b")
@@ -61,7 +64,6 @@ class BoardView: UIView {
     func drawPiece(col: Int, row:Int, piece: String) {
         let blackRookImage = UIImage(named: piece)
         blackRookImage?.draw(in: CGRect(x: 91 * col, y: 91 * row, width: 91, height: 91))
-        
     }
     
     func drawSquare(col: Int, row: Int, color: UIColor)  {
@@ -69,8 +71,4 @@ class BoardView: UIView {
         color.setFill()
         square.fill()
     }
-    
-    
-    
-    
 }
