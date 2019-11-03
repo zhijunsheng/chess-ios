@@ -18,7 +18,7 @@ class BoardView: UIView {
         drawPieces()
         
         let pieceImage = UIImage(named: "queen_chess_w")
-        pieceImage?.draw(at: CGPoint(x: fingerX, y: fingerY))
+        pieceImage?.draw(in: CGRect(x: fingerX - 40, y: fingerY - 40, width: 80, height: 80))
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
