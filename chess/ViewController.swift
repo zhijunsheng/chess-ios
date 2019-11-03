@@ -1,6 +1,8 @@
 import UIKit
 
 class ViewController: UIViewController, ChessDelegate {
+    
+    
     @IBOutlet weak var promoteToQueenButton: UIButton!
     @IBOutlet weak var promoteToRookButton: UIButton!
     @IBOutlet weak var promoteToKnightButton: UIButton!
@@ -24,6 +26,10 @@ class ViewController: UIViewController, ChessDelegate {
         chessBrain.movePiece(frX: frX, frY: frY, toX: toX, toY: toY)
         boardView.piecesBoxShadow = chessBrain.piecesBox
         boardView.setNeedsDisplay()
+    }
+
+    func getMovingPiece(x: Int, y: Int) -> ChessPiece? {
+        return chessBrain.pieceAt(x: x, y: y)
     }
     
     func boardDeploy() {
