@@ -334,37 +334,10 @@ struct Board: CustomStringConvertible {
             }
         } else if abs(toCol - fromCol) == abs(toRow - fromRow) {
             for i in 1...abs(toCol - fromCol) {
-                if toCol > fromCol && toRow > fromRow {
-                    count += pieceOn(col: fromCol + i, row: fromRow + i) != nil ? 1 : 0
-                } else if toCol > fromCol && toRow < fromRow {
-                    count += pieceOn(col: fromCol + i, row: fromRow - i) != nil ? 1 : 0
-                } else if toCol < fromCol && toRow > fromRow {
-                    count += pieceOn(col: fromCol - i, row: fromRow + i) != nil ? 1 : 0
-                } else if toCol < fromCol && toRow < fromRow {
-                    count += pieceOn(col: fromCol - i, row: fromRow - i) != nil ? 1 : 0
-                }
+                let colSign = toCol > fromCol ? 1 : -1
+                let rowSign = toRow > fromRow ? 1 : -1
+                count += pieceOn(col: fromCol + i * colSign, row: fromRow + i * rowSign) != nil ? 1 : 0
             }
-            
-            // case 1
-            //  >.
-            // .|
-            // + -
-            
-            // case 2
-            //  |.
-            // .<
-            // - +
-            
-            // case 3
-            // .|
-            //  >.
-            // + +
-            
-            // case 4
-            // .<
-            //  |.
-            // - -
-            
             
         }
         return count
