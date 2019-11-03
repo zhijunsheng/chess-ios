@@ -9,6 +9,38 @@
 import UIKit
 
 class BoardView: UIView {
+    var fingerX: CGFloat = 20
+    var fingerY: CGFloat = 20
+    
+   
+    override func draw(_ rect: CGRect) {
+        drawBoard()
+        drawPieces()
+        
+        let pieceImage = UIImage(named: "queen_chess_w")
+        pieceImage?.draw(at: CGPoint(x: fingerX, y: fingerY))
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let first = touches.first!
+        let fingerLocation = first.location(in: self)
+        print("\(fingerLocation.x), \(fingerLocation.y)")
+        fingerX = fingerLocation.x
+        fingerY = fingerLocation.y
+        setNeedsDisplay()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let first = touches.first!
+        let fingerLocation = first.location(in: self)
+        print("\(fingerLocation.x), \(fingerLocation.y)")
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        let first = touches.first!
+//        let fingerLocation = first.location(in: self)
+//        print("\(fingerLocation.x), \(fingerLocation.y)")
+    }
     
     func drawPiece(col: Int, row: Int, imageName: String)  {
         let pieceImage = UIImage(named: imageName)
@@ -19,11 +51,6 @@ class BoardView: UIView {
         let square = UIBezierPath(rect: CGRect(x: 80 * col, y: 80 * row, width: 80, height: 80))
         color.setFill()
         square.fill()
-    }
-    
-    override func draw(_ rect: CGRect) {
-        drawBoard()
-        drawPieces()
     }
     
     func drawBoard()  {
