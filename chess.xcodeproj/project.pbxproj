@@ -12,6 +12,9 @@
 		07FDE4372018140A00A674FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07FDE4352018140A00A674FE /* Main.storyboard */; };
 		07FDE4392018140A00A674FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07FDE4382018140A00A674FE /* Assets.xcassets */; };
 		07FDE43C2018140A00A674FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07FDE43A2018140A00A674FE /* LaunchScreen.storyboard */; };
+		B92828F923665B7E0091CC0B /* ChessPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92828F823665B7E0091CC0B /* ChessPiece.swift */; };
+		B92828FB236662640091CC0B /* ChessGameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92828FA236662640091CC0B /* ChessGameEngine.swift */; };
+		B92828FD236663530091CC0B /* ChessGameEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92828FC236663530091CC0B /* ChessGameEngineTests.swift */; };
 		B946BBD5234D50AC007EB19C /* MathProblemsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B946BBD4234D50AC007EB19C /* MathProblemsTests.swift */; };
 		B98337C42238864F00006A8B /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98337C32238864F00006A8B /* BoardView.swift */; };
 		B9E1A22D226FEA8700B26948 /* WhileLoopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1A22C226FEA8700B26948 /* WhileLoopTests.swift */; };
@@ -37,6 +40,9 @@
 		07FDE43D2018140A00A674FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36DF8A92201D6D0B00E0E07B /* chessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		36DF8A96201D6D0C00E0E07B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B92828F823665B7E0091CC0B /* ChessPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessPiece.swift; sourceTree = "<group>"; };
+		B92828FA236662640091CC0B /* ChessGameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessGameEngine.swift; sourceTree = "<group>"; };
+		B92828FC236663530091CC0B /* ChessGameEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessGameEngineTests.swift; sourceTree = "<group>"; };
 		B946BBD4234D50AC007EB19C /* MathProblemsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathProblemsTests.swift; sourceTree = "<group>"; };
 		B98337C32238864F00006A8B /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		B9E1A22B226FEA8600B26948 /* chessTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "chessTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -89,6 +95,8 @@
 				07FDE4382018140A00A674FE /* Assets.xcassets */,
 				07FDE43A2018140A00A674FE /* LaunchScreen.storyboard */,
 				07FDE43D2018140A00A674FE /* Info.plist */,
+				B92828F823665B7E0091CC0B /* ChessPiece.swift */,
+				B92828FA236662640091CC0B /* ChessGameEngine.swift */,
 			);
 			path = chess;
 			sourceTree = "<group>";
@@ -100,6 +108,7 @@
 				B9E1A22C226FEA8700B26948 /* WhileLoopTests.swift */,
 				B9E1A22B226FEA8600B26948 /* chessTests-Bridging-Header.h */,
 				B946BBD4234D50AC007EB19C /* MathProblemsTests.swift */,
+				B92828FC236663530091CC0B /* ChessGameEngineTests.swift */,
 			);
 			path = chessTests;
 			sourceTree = "<group>";
@@ -209,8 +218,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B98337C42238864F00006A8B /* BoardView.swift in Sources */,
+				B92828FB236662640091CC0B /* ChessGameEngine.swift in Sources */,
 				07FDE4342018140A00A674FE /* GameViewController.swift in Sources */,
 				07FDE4322018140A00A674FE /* AppDelegate.swift in Sources */,
+				B92828F923665B7E0091CC0B /* ChessPiece.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9E1A22D226FEA8700B26948 /* WhileLoopTests.swift in Sources */,
+				B92828FD236663530091CC0B /* ChessGameEngineTests.swift in Sources */,
 				B946BBD5234D50AC007EB19C /* MathProblemsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
