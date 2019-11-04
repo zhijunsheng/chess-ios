@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct chessPiece {
+struct ChessPiece: Hashable {
     let imageName: String
     let col: Int
     let row: Int
     let isBlack: Bool
-    let pieceType: String // "Pawn", "P", "1"
+    let pieceType: String // Q = queen, R = rook, B = Bishop, K = king, N = knight, P = pawn
 }
 
 

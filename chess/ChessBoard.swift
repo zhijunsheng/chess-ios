@@ -9,6 +9,7 @@
 import Foundation
 
 struct ChessBoard: CustomStringConvertible{
+    var pieceBox: Set<ChessPiece> = Set<ChessPiece>()
     
     /*
      
@@ -25,6 +26,10 @@ struct ChessBoard: CustomStringConvertible{
      
     */
     var description: String {
+        let singlePiece = pieceBox.first!
+        
+        
+        
         var desc: String = ""
         desc += "  "
 
@@ -34,11 +39,15 @@ struct ChessBoard: CustomStringConvertible{
         
         desc += "\n"
 
-        for j in 0..<8 {
-            desc += "\(j) "
+        for row in 0..<8 {
+            desc += "\(row) "
 
-            for i in 0..<8 {
-                desc += ". "
+            for col in 0..<8 {
+                if col == singlePiece.col && row == singlePiece.row{
+                    desc += "Q "
+                } else {
+                    desc += ". "
+                }
             }
             desc += "\n"
         }

@@ -10,8 +10,28 @@ import XCTest
 @testable import chess
 
 class ChessBoardTests: XCTestCase {
-
+    
+    /*
+     
+       0 1 2 3 4 5 6 7
+     0 . . . . . . . .
+     1 . . . . . . . .
+     2 . . . . . . . .
+     3 . . . Q . . . .
+     4 . . . . . . . .
+     5 . . . . . . . .
+     6 . . . . . . . .
+     7 . . . . . . . .
+ 
+    */
     func testPrintingChessBoard() {
+        var chessBoard = ChessBoard()
+        let piece = ChessPiece(imageName:"chess_queen_b", col: 3, row: 3, isBlack: true, pieceType:"Q")
+        chessBoard.pieceBox.insert(piece)
+        print(chessBoard)
+    }
+    
+    func testPrintingEmptyChessBoard() {
         let chessBoard = ChessBoard()
         print(chessBoard)
     }

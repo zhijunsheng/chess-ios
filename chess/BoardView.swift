@@ -39,7 +39,6 @@ class BoardView: UIView {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         let fingerLocation = touch.location(in: self)
-        print(fingerLocation)
         fingerX = fingerLocation.x
         fingerY = fingerLocation.y
         setNeedsDisplay()
@@ -50,7 +49,7 @@ class BoardView: UIView {
         drawPieces()
         
         let drawPiece = UIImage(named: "king_chess_b")
-        drawPiece?.draw(in: CGRect(x: fingerX, y: fingerY, width: 80, height: 80))
+        drawPiece?.draw(in: CGRect(x: fingerX - 40, y: fingerY - 40, width: 80, height: 80))
     }
     
     func drawBoard() {
