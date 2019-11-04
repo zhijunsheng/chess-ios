@@ -42,6 +42,22 @@ class ChessBoardTests: XCTestCase {
         return true
     }
     
+    func isPrimeBigNumber(number: Int) -> Bool {
+        if number == 1 || number == 4 {
+            return false
+        }
+        if number == 2 || number == 3 {
+            return true
+        }
+        
+        for i in 2..<Int(sqrt(Double(number))) {
+            if number % i == 0 {
+                return false
+            }
+        }
+        return true
+    }
+    
     
     
     func testIsPrime() {
@@ -67,7 +83,7 @@ class ChessBoardTests: XCTestCase {
     }
     
     func testHugePrimeNumber() {
-        XCTAssertTrue(isPrime(number: 30303030303031))
- 
+        XCTAssertTrue(isPrimeBigNumber(number: 30303030303031))
+        print(sqrt(30303030303031))
     }
 }
