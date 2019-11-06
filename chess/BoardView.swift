@@ -9,8 +9,11 @@
 import UIKit
 
 class BoardView: UIView {
-    var fingerX: CGFloat = 1234567
-    var fingerY: CGFloat = 1234567
+    var cellSide: CGFloat = -34567788
+    
+    
+    var fingerX: CGFloat = -78790909
+    var fingerY: CGFloat = -7878781314
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let first = touches.first!
@@ -22,11 +25,13 @@ class BoardView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
+        print(bounds.width)
+        cellSide = bounds.width / 8
         drawBoard()
         drawPieces()
         
         let blackRookImage = UIImage(named: "king_chess_b")
-        blackRookImage?.draw(in: CGRect(x: fingerX, y: fingerY, width: 91, height: 91))
+        blackRookImage?.draw(in: CGRect(x: fingerX -  cellSide/2 ,y: fingerY -  cellSide / 2 , width: cellSide, height:  cellSide))
     }
     
     func drawBoard() {
@@ -63,11 +68,11 @@ class BoardView: UIView {
     
     func drawPiece(col: Int, row:Int, piece: String) {
         let blackRookImage = UIImage(named: piece)
-        blackRookImage?.draw(in: CGRect(x: 91 * col, y: 91 * row, width: 91, height: 91))
+        blackRookImage?.draw(in: CGRect(x: cellSide * CGFloat(col), y: cellSide * CGFloat(row), width: cellSide, height: cellSide))
     }
     
-    func drawSquare(col: Int, row: Int, color: UIColor)  {
-        let square = UIBezierPath(rect: CGRect(x: 91 * col, y: 91 * row, width: 91, height:91 ))
+    func drawSquare(col: Int, row: Int, color: UIColor) {
+        let square = UIBezierPath(rect: CGRect(x: cellSide * CGFloat(col), y: cellSide * CGFloat(row), width: cellSide, height: cellSide))
         color.setFill()
         square.fill()
     }
