@@ -5,14 +5,22 @@ class BoardView: UIView {
     var originX: CGFloat = 0.0
     var originY: CGFloat = 0.0
     var cellSide: CGFloat = 0
+    var fingerX: CGFloat = 34
+    var fingerY: CGFloat = 354
+    
     
     var fromCol : Int = 0
     var fromRow : Int = 0
     
+    
     override func draw(_ rect: CGRect) {
         cellSide = bounds.width / 8
+         print(bounds.width)
         drawBoard()
         drawPieces()
+        
+        let image = UIImage(named: "queen_chess_b")
+        image?.draw(in: CGRect(x: fingerX - cellSide / 2, y: fingerY - cellSide / 2  , width: cellSide, height: cellSide))
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -20,6 +28,16 @@ class BoardView: UIView {
         let fingerLocation = touch.location(in: self)
         fromCol = Int(fingerLocation.x / cellSide)
         fromRow = Int(fingerLocation.y / cellSide)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        let fingerLocation = touch.location(in: self)
+        print(" (\(fingerLocation.x), \(fingerLocation.y))")
+        fingerX = fingerLocation.x
+        fingerY = fingerLocation.y
+        setNeedsDisplay()
+        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
