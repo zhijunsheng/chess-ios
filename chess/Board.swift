@@ -169,27 +169,26 @@ struct Board: CustomStringConvertible {
     }
     
     func canPawnMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
-//        guard let candidate = pieceOn(col: fromCol, row: fromRow) else {
-//            return false
-//        }
-//
-//        if isWhite && (pieceOn(col: fromCol, row: fromRow - 1) == nil) {
-//            if candidate.row == 6 {
-//                return (fromRow - 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) || fromRow - 2 == toRow)
-//            } else {
-//                return fromRow - 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil)
-//            }
-//        }
-//
-//        if !isWhite && (pieceOn(col: fromCol, row: fromRow + 1) == nil) {
-//            if candidate.row == 1 {
-//                return fromRow + 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow + 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) || fromRow + 2 == toRow
-//            } else {
-//                return fromRow + 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow + 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) || fromRow + 2 == toRow
-//            }
-//        }
-//        return false
-        return true
+        guard let candidate = pieceOn(col: fromCol, row: fromRow) else {
+            return false
+        }
+
+        if isWhite && (pieceOn(col: fromCol, row: fromRow - 1) == nil) {
+            if candidate.row == 6 {
+                return (fromRow - 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) || fromRow - 2 == toRow)
+            } else {
+                return fromRow - 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil)
+            }
+        }
+
+        if !isWhite && (pieceOn(col: fromCol, row: fromRow + 1) == nil) {
+            if candidate.row == 1 {
+                return fromRow + 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow + 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) || fromRow + 2 == toRow
+            } else {
+                return fromRow + 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow + 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) || fromRow + 2 == toRow
+            }
+        }
+        return false
     }
     
     func canRookMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
@@ -221,33 +220,21 @@ struct Board: CustomStringConvertible {
     func isBeingAttackedAt(col: Int, row: Int) -> Bool {
         for piece in pieces {
             switch piece.rank {
-            case .pawn:
-                if canPawnMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row, isWhite: piece.isWhite) == true {
+            case .pawn where canPawnMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row, isWhite: piece.isWhite):
                 return true
-                }
-            case .knight:
-                if canKnightMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) == true {
-                    return true
-                }
-            case .bishop:
-                if canBishopMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) == true {
-                    return true
-                }
-            case .rook:
-                if canRookMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) == true {
-                    return true
-                }
-            case .queen:
-                if canQueenMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) == true {
-                    return true
-                }
-            case .king:
-                if canKingMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) == true {
-                    return true
-                }
+            case .knight where canKnightMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row):
+                return true
+            case .bishop where canBishopMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row):
+                return true
+            case .rook where canRookMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row):
+                return true
+            case .queen where canQueenMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row):
+                return true
+            case .king where canKingMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row):
+                return true
+            default:
+                continue
             }
-            
-            return false
         }
         return false
     }
