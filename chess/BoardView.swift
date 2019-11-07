@@ -54,14 +54,10 @@ class BoardView: UIView {
     
     func drawBoard() {
         for i in 0..<4 {
-            drawSquareAt(col: 1, row: i + i)
-            drawSquareAt(col: 3, row: i + i)
-            drawSquareAt(col: 5, row: i + i)
-            drawSquareAt(col: 7, row: i + i)
-            drawSquareAt(col: 0, row: i * 2 + 1)
-            drawSquareAt(col: 2, row: i * 2 + 1)
-            drawSquareAt(col: 4, row: i * 2 + 1)
-            drawSquareAt(col: 6, row: i * 2 + 1)
+            for j in 0..<4 {
+                drawSquareAt(col: j * 2 + 1, row: i * 2)
+                drawSquareAt(col: j * 2, row: i * 2 + 1)
+            }
         }
     }
     
