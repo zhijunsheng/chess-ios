@@ -37,7 +37,7 @@ class BoardView: UIView {
     func drawBoard() {
         for i in 0..<4 {
             for j in 0..<4 {
-                drawSquare(col: j * 2, row: i * 2, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
+                drawSquare(col: j * 2, row: i * 2, color:     #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
                 drawSquare(col: j * 2 + 1, row: i * 2, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
                 drawSquare(col: j * 2, row: i * 2 + 1, color: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
                 drawSquare(col: j * 2 + 1, row: i * 2 + 1, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))
