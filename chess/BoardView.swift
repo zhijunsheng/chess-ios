@@ -28,12 +28,15 @@ class BoardView: UIView {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         let touch = touches.first!
         let touchLocation = touch.location(in: self)
         fingerX = touchLocation.x
         fingerY = touchLocation.y
         
         setNeedsDisplay()
+        
+        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -49,6 +52,9 @@ class BoardView: UIView {
         print("(from: \(xc), \(yr)), (to: \(xx), \(yy))")
         
         chessDelegate?.movePiece(frX: xc, frY: yr, toX: xx, toY: yy)
+        
+        movingPiece = nil
+        
     }
     
     override func draw(_ rect: CGRect) {
@@ -64,6 +70,8 @@ class BoardView: UIView {
         if movingPiece != nil {
             let movingPieceImage = UIImage(named: movingPiece!.imageName)
             movingPieceImage?.draw(in: CGRect(x: fingerX - cellSide / 2, y: fingerY - cellSide / 2, width: cellSide, height: cellSide))
+            
+            
         }
         
         
@@ -72,6 +80,10 @@ class BoardView: UIView {
     func drawPieces() {
         for piece in piecesBoxShadow {
             drawPiece(string: piece.imageName, x: piece.x, y: piece.y)
+            
+            if movingPiece == piece {
+                continue
+            }
         }
     }
     
