@@ -15,17 +15,28 @@ class ViewController: UIViewController, ChessDelegate {
     func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
         print("🌩chess🌩")
         
-        let movingPiece = chessBrain.pieceAt(x: frX, y: frY)
-        
-        
-        if movingPiece?.rank == .pawn {
-            
+        guard let movingPiece = chessBrain.pieceAt(x: frX, y: frY) else {
+            return
         }
-        
         
         chessBrain.movePiece(frX: frX, frY: frY, toX: toX, toY: toY)
         boardView.piecesBoxShadow = chessBrain.piecesBox
         boardView.setNeedsDisplay()
+        
+        if movingPiece.rank == .pawn {
+            if movingPiece.isWhite {
+                if movingPiece.y == 7 {
+                    togglePromotionButtons(show: true)
+                    boardView.isUserInteractionEnabled = false
+                }
+                
+            } else if movingPiece.isWhite == false {
+               if movingPiece.y == 0 {
+                    togglePromotionButtons(show: true)
+                    boardView.isUserInteractionEnabled = false
+                }
+            }
+        }
     }
 
     func getMovingPiece(x: Int, y: Int) -> ChessPiece? {
@@ -53,9 +64,9 @@ class ViewController: UIViewController, ChessDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         chessBrain.reset()
+        
         boardView.piecesBoxShadow = chessBrain.piecesBox
         boardView.setNeedsDisplay()
-        
         boardView.chessDelegate = self
         
         boardDeploy()
@@ -68,8 +79,5 @@ class ViewController: UIViewController, ChessDelegate {
         promoteToQueenButton.isHidden = !show
         promoteToRookButton.isHidden = !show
         promoteToBishopButton.isHidden = !show
-        
-
     }
-    
 }
