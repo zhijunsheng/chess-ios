@@ -15,16 +15,21 @@ class BoardView: UIView {
     var fingerX: CGFloat = -78790909
     var fingerY: CGFloat = -7878781314
     
+    var shadowPieceBox: Set<ChessPiece> = Set<ChessPiece>()
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let first = touches.first!
-        let fingerLocation = first.location(in: self)
-        print("(\(fingerLocation.x), \(fingerLocation.y))") // (234.2, 103.7)
-        fingerX = fingerLocation.x
-        fingerY = fingerLocation.y
-        setNeedsDisplay()
+//        let first = touches.first!
+//        let fingerLocation = first.location(in: self)
+//        print("(\(fingerLocation.x), \(fingerLocation.y))") // (234.2, 103.7)
+//        fingerX = fingerLocation.x
+//        fingerY = fingerLocation.y
+//        setNeedsDisplay()
     }
     
     override func draw(_ rect: CGRect) {
+        shadowPieceBox.insert(ChessPiece(col: 2, row: 2, rank: "pawn", isBlack: true, imageName: "pawn_chess_b"))
+        shadowPieceBox.insert(ChessPiece(col: 7, row: 7, rank: "king", isBlack: false, imageName: "king_chess_w"))
+        
         print(bounds.width)
         cellSide = bounds.width / 8
         drawBoard()
@@ -46,23 +51,9 @@ class BoardView: UIView {
     }
     
     func drawPieces() {
-        drawPiece(col: 3, row: 0, piece: "king_chess_b")
-        drawPiece(col: 4, row: 0, piece: "queen_chess_b")
-        drawPiece(col: 3, row: 7, piece: "king_chess_w")
-        drawPiece(col: 4, row: 7, piece: "queen_chess_w")
-        
-        for i in 0..<8 { // column
-            drawPiece(col: i, row: 1, piece: "pawn_chess_b")
-            drawPiece(col: i, row: 6, piece: "pawn_chess_w")
-        }
-        
-        for i in 0..<2 {
-            drawPiece(col: i * 7, row: 0, piece: "rook_chess_b")
-            drawPiece(col: i * 5 + 1, row: 0, piece: "knight_chess_b")
-            drawPiece(col: i * 3 + 2, row: 0, piece: "bishop_chess_b")
-            drawPiece(col: i * 7, row: 7, piece: "rook_chess_w")
-            drawPiece(col: i * 5 + 1, row: 7, piece: "knight_chess_w")
-            drawPiece(col: i * 3 + 2, row: 7, piece: "bishop_chess_w")
+        for chessPiece in shadowPieceBox {
+            print("\(chessPiece.col), \(chessPiece.row), \(chessPiece.rank), \(chessPiece.isBlack)")
+            drawPiece(col: chessPiece.col, row: chessPiece.row, piece: chessPiece.imageName)
         }
     }
     

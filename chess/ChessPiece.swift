@@ -8,9 +8,11 @@
 
 import Foundation
 
-struct ChessPiece {
+struct ChessPiece: Hashable {
     let col: Int // 0 1 2 3 4 5 6 7
     let row: Int // 0 1 2 3 4 5 6 7
     let rank: String // "rook", "knight", "pawn", "bishop", "king", "queen"
     let isBlack: Bool // true, false
+    let imageName: String 
+    
 }
