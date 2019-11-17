@@ -60,7 +60,23 @@ class ViewController: UIViewController, ChessDelegate {
         promoteToRookButton.frame.origin.x = bottonGap + 2 * buttonLong
         promoteToRookButton.frame.origin.y = view.frame.height - bottonGap - promoteToRookButton.bounds.height
     }
-
+    
+    @IBAction func queenPressed(_ sender: UIButton) {
+        print("q u e e n")
+    }
+    
+    @IBAction func rookPressed(_ sender: UIButton) {
+        print("r o o k")
+    }
+    
+    @IBAction func knightPressed(_ sender: UIButton) {
+        print("k n i g h t")
+    }
+    
+    @IBAction func bishopPressed(_ sender: UIButton) {
+        print("b i s h o p")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         chessBrain.reset()

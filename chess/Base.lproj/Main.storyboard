@@ -21,6 +21,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="39"/>
                                 <state key="normal" image="Rook-white"/>
+                                <connections>
+                                    <action selector="rookPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Uw-Xp-aZh"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kee-CN-hck" customClass="BoardView" customModule="chess" customModuleProvider="target">
                                 <rect key="frame" x="20" y="20" width="728" height="728"/>
@@ -34,17 +37,26 @@
                                 <rect key="frame" x="388" y="828" width="176" height="176"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Knight-white"/>
+                                <connections>
+                                    <action selector="knightPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="w8L-BF-C1j"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rOr-1T-ZZz">
                                 <rect key="frame" x="20" y="828" width="176" height="176"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="39"/>
                                 <state key="normal" image="Queen-white"/>
+                                <connections>
+                                    <action selector="queenPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ngh-zM-MaT"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ju2-Z0-iKm">
                                 <rect key="frame" x="572" y="828" width="176" height="176"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Bishop-white"/>
+                                <connections>
+                                    <action selector="bishopPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nlg-e9-PmC"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.9918310789" green="1" blue="0.31684241699999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
