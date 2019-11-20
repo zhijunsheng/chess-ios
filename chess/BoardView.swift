@@ -12,17 +12,59 @@ class BoardView: UIView {
     var fromCol : Int = 0
     var fromRow : Int = 0
     
+    var copyCatBox: Set<ChessPiece> = Set<ChessPiece>()
+    
     
     override func draw(_ rect: CGRect) {
+        copyCatBox.insert(ChessPiece(rank: "rook", isWhite: true, col: 0, row: 7, imageName: "rook_chess_w"))
+        copyCatBox.insert(ChessPiece(rank: "horse", isWhite: true, col: 1, row: 7, imageName: "knight_chess_w"))
+        
+        copyCatBox.insert(ChessPiece(rank: "bishop", isWhite: true, col: 2, row: 7, imageName: "bishop_chess_w"))
+        
+        copyCatBox.insert(ChessPiece(rank: "queen", isWhite: true, col: 3, row: 7, imageName: "queen_chess_w"))
+        copyCatBox.insert(ChessPiece(rank: "king", isWhite: true, col: 4, row: 7, imageName: "king_chess_w"))
+        
+        copyCatBox.insert(ChessPiece(rank: "bishop", isWhite: true, col: 5, row: 7, imageName: "bishop_chess_w"))
+        
+        copyCatBox.insert(ChessPiece(rank: "horse", isWhite: true, col: 6, row: 7, imageName: "knight_chess_w"))
+        
+        copyCatBox.insert(ChessPiece(rank: "rook", isWhite: true, col: 7, row: 7, imageName: "rook_chess_w"))
+        // black
+        copyCatBox.insert(ChessPiece(rank: "rook", isWhite: false, col: 0, row: 0, imageName: "rook_chess_b"))
+        
+        copyCatBox.insert(ChessPiece(rank: "horse", isWhite: false, col: 1, row: 0, imageName: "knight_chess_b"))
+        
+        copyCatBox.insert(ChessPiece(rank: "bishop", isWhite: false, col: 2, row: 0, imageName: "bishop_chess_b"))
+        
+        copyCatBox.insert(ChessPiece(rank: "queen", isWhite: false, col: 3, row: 0, imageName: "queen_chess_b"))
+        
+        copyCatBox.insert(ChessPiece(rank: "king", isWhite: false, col: 4, row: 0, imageName: "king_chess_b"))
+        
+        copyCatBox.insert(ChessPiece(rank: "bishop", isWhite: false, col: 5, row: 0, imageName: "bishop_chess_b"))
+        
+        copyCatBox.insert(ChessPiece(rank: "horse", isWhite: false, col: 6, row: 0, imageName: "knight_chess_b"))
+        
+        copyCatBox.insert(ChessPiece(rank: "queen", isWhite: false, col: 7, row: 0, imageName: "rook_chess_b"))
+        // Pawns
+        for q in 0...7 {
+            copyCatBox.insert(ChessPiece(rank: "pawn", isWhite: false, col: 0 + q, row: 1, imageName: "pawn_chess_b"))
+        }
+        for w in 0...7 {
+            copyCatBox.insert(ChessPiece(rank: "pawn", isWhite: true, col: 0 + w, row: 6, imageName: "pawn_chess_w"))
+        }
+
+
+       
+      
         cellSide = bounds.width / 8
-         print(bounds.width)
+        print(bounds.width)
         drawBoard()
         drawPieces()
         
         let image = UIImage(named: "queen_chess_b")
         image?.draw(in: CGRect(x: fingerX - cellSide / 2, y: fingerY - cellSide / 2  , width: cellSide, height: cellSide))
     }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         let fingerLocation = touch.location(in: self)
@@ -47,26 +89,10 @@ class BoardView: UIView {
         let col : Int = Int(fingerLocation.x / cellSide)
         print("to: (\(col), \(row)) from: (\(fromCol), \(fromRow))")
     }
-
+    
     func drawPieces()  {
-        for p in 0..<2 {
-            drawPiece(col: p * 5 + 1, row: 0, imageName: "knight_chess_b")
-            drawPiece(col: p * 5 + 1, row: 7, imageName: "knight_chess_w")
-            drawPiece(col: p * 7, row: 0, imageName: "rook_chess_b")
-            drawPiece(col: p * 7, row: 7, imageName: "rook_chess_w")
-            drawPiece(col: p * 3 + 2, row: 7 , imageName: "bishop_chess_w")
-            drawPiece(col: p * 3 + 2, row: 0 , imageName: "bishop_chess_b")
-        }
-        
-        drawPiece(col: 3, row: 0, imageName: "king_chess_b")
-        drawPiece(col: 3, row: 7, imageName: "king_chess_w")
-        
-        drawPiece(col: 4, row: 0, imageName: "queen_chess_b")
-        drawPiece(col: 4, row: 7, imageName: "queen_chess_w")
-        
-        for y in 0...7 {
-            drawPiece(col: 0 + y, row: 6, imageName: "pawn_chess_w")
-            drawPiece(col: 0 + y, row: 1, imageName: "pawn_chess_b")
+        for element in copyCatBox {
+            drawPiece(col: element.col, row: element.row, imageName: element.imageName)
         }
     }
     

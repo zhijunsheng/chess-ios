@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct ChessPiece {
-    let rank: String
+struct ChessPiece: Hashable {
+    let rank: String //,"queen", "king", "pawn", "bishop" , "rook", "knight"
     let isWhite: Bool
-    let col: Int
+    let col: Int// 
     let row: Int
     let imageName: String
 }

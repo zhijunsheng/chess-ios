@@ -10,6 +10,11 @@ import Foundation
 
 struct ChessGameEngine: CustomStringConvertible {
     
+    var box: Set<ChessPiece> = Set<ChessPiece>()
+    
+    // Set<Int>
+    // [4, 5, 77]
+    
     /*
      
        0 1 2 3 4 5 6 7

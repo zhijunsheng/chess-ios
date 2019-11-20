@@ -11,7 +11,10 @@ import XCTest
 
 class ChessGameEngineTests: XCTestCase {
     func testPrintingChessBoard() {
-        let engine = ChessGameEngine()
+        var engine = ChessGameEngine()
         print(engine)
+        let queenW = ChessPiece(rank: "queen", isWhite: true, col: 4, row: 7, imageName:
+            "queen_chess_w")
+        engine.box.insert(queenW);        print(engine.box.count)
     }
 }
