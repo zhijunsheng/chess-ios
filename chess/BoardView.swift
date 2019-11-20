@@ -16,46 +16,25 @@ class BoardView: UIView {
     
     
     override func draw(_ rect: CGRect) {
-        copyCatBox.insert(ChessPiece(rank: "rook", isWhite: true, col: 0, row: 7, imageName: "rook_chess_w"))
-        copyCatBox.insert(ChessPiece(rank: "horse", isWhite: true, col: 1, row: 7, imageName: "knight_chess_w"))
-        
-        copyCatBox.insert(ChessPiece(rank: "bishop", isWhite: true, col: 2, row: 7, imageName: "bishop_chess_w"))
-        
         copyCatBox.insert(ChessPiece(rank: "queen", isWhite: true, col: 3, row: 7, imageName: "queen_chess_w"))
         copyCatBox.insert(ChessPiece(rank: "king", isWhite: true, col: 4, row: 7, imageName: "king_chess_w"))
         
-        copyCatBox.insert(ChessPiece(rank: "bishop", isWhite: true, col: 5, row: 7, imageName: "bishop_chess_w"))
-        
-        copyCatBox.insert(ChessPiece(rank: "horse", isWhite: true, col: 6, row: 7, imageName: "knight_chess_w"))
-        
-        copyCatBox.insert(ChessPiece(rank: "rook", isWhite: true, col: 7, row: 7, imageName: "rook_chess_w"))
-        // black
-        copyCatBox.insert(ChessPiece(rank: "rook", isWhite: false, col: 0, row: 0, imageName: "rook_chess_b"))
-        
-        copyCatBox.insert(ChessPiece(rank: "horse", isWhite: false, col: 1, row: 0, imageName: "knight_chess_b"))
-        
-        copyCatBox.insert(ChessPiece(rank: "bishop", isWhite: false, col: 2, row: 0, imageName: "bishop_chess_b"))
-        
         copyCatBox.insert(ChessPiece(rank: "queen", isWhite: false, col: 3, row: 0, imageName: "queen_chess_b"))
-        
         copyCatBox.insert(ChessPiece(rank: "king", isWhite: false, col: 4, row: 0, imageName: "king_chess_b"))
         
-        copyCatBox.insert(ChessPiece(rank: "bishop", isWhite: false, col: 5, row: 0, imageName: "bishop_chess_b"))
-        
-        copyCatBox.insert(ChessPiece(rank: "horse", isWhite: false, col: 6, row: 0, imageName: "knight_chess_b"))
-        
-        copyCatBox.insert(ChessPiece(rank: "queen", isWhite: false, col: 7, row: 0, imageName: "rook_chess_b"))
-        // Pawns
+        for i in 0..<2 {
+            copyCatBox.insert(ChessPiece(rank: "rook", isWhite: true, col: i * 7, row: 7, imageName: "rook_chess_w"))
+            copyCatBox.insert(ChessPiece(rank: "bishop", isWhite: true, col: i * 3 + 2, row: 7, imageName: "bishop_chess_w"))
+            copyCatBox.insert(ChessPiece(rank: "horse", isWhite: true, col: i * 5 + 1, row: 7, imageName: "knight_chess_w"))
+            
+            copyCatBox.insert(ChessPiece(rank: "rook", isWhite: false, col: i * 7, row: 0, imageName: "rook_chess_b"))
+            copyCatBox.insert(ChessPiece(rank: "bishop", isWhite: false, col: i * 3 + 2, row: 0, imageName: "bishop_chess_b"))
+            copyCatBox.insert(ChessPiece(rank: "horse", isWhite: false, col: i * 5 + 1, row: 0, imageName: "knight_chess_b"))
+        }
         for q in 0...7 {
-            copyCatBox.insert(ChessPiece(rank: "pawn", isWhite: false, col: 0 + q, row: 1, imageName: "pawn_chess_b"))
+            copyCatBox.insert(ChessPiece(rank: "pawn", isWhite: false, col: q, row: 1, imageName: "pawn_chess_b"))
+            copyCatBox.insert(ChessPiece(rank: "pawn", isWhite: true, col: q, row: 6, imageName: "pawn_chess_w"))
         }
-        for w in 0...7 {
-            copyCatBox.insert(ChessPiece(rank: "pawn", isWhite: true, col: 0 + w, row: 6, imageName: "pawn_chess_w"))
-        }
-
-
-       
-      
         cellSide = bounds.width / 8
         print(bounds.width)
         drawBoard()
