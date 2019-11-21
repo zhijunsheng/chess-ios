@@ -27,10 +27,13 @@
                         <color key="backgroundColor" red="0.0" green="1" blue="0.95169038667863859" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="boardView" destination="p9i-Sw-fcs" id="GGd-R3-jIk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-10" y="116"/>
+            <point key="canvasLocation" x="91" y="110"/>
         </scene>
     </scenes>
 </document>

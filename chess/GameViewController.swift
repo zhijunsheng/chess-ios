@@ -9,9 +9,17 @@
 import UIKit
 
 class GameViewController: UIViewController {
+    
+    var chessBoard = ChessBoard()
+    
 
+    @IBOutlet weak var boardView: BoardView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        chessBoard.reset()
+        boardView.pieceBoxShadow = chessBoard.pieceBox
         
         
     }

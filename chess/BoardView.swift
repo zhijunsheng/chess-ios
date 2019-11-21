@@ -18,7 +18,7 @@ class BoardView: UIView {
     var fingerX: CGFloat = 67
     var fingerY: CGFloat = 70
     
-    
+    var pieceBoxShadow: Set<ChessPiece> = Set<ChessPiece>()
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
@@ -45,11 +45,13 @@ class BoardView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
+
+        
         drawBoard()
         drawPieces()
         
-        let drawPiece = UIImage(named: "king_chess_b")
-        drawPiece?.draw(in: CGRect(x: fingerX - 40, y: fingerY - 40, width: 80, height: 80))
+//        let drawPiece = UIImage(named: "king_chess_b")
+//        drawPiece?.draw(in: CGRect(x: fingerX - 40, y: fingerY - 40, width: 80, height: 80))
     }
     
     func drawBoard() {
@@ -62,25 +64,8 @@ class BoardView: UIView {
     }
     
     func drawPieces() {
-        drawPieceAt(col: 4, row: 0, pieceName: "king_chess_b")
-        drawPieceAt(col: 3, row: 0, pieceName: "queen_chess_b")
-        drawPieceAt(col: 4, row: 7, pieceName: "king_chess_w")
-        drawPieceAt(col: 3, row: 7, pieceName: "queen_chess_w")
-        
-        for i in 0..<2 {
-            drawPieceAt(col: i * 3 + 2, row: 0, pieceName: "bishop_chess_b")
-            drawPieceAt(col: i * 3 + 2, row: 7, pieceName: "bishop_chess_w")
-            
-            drawPieceAt(col: i * 5 + 1, row: 0, pieceName: "knight_chess_b")
-            drawPieceAt(col: i * 5 + 1, row: 7, pieceName: "knight_chess_w")
-            
-            drawPieceAt(col: i * 7, row: 0, pieceName: "rook_chess_b")
-            drawPieceAt(col: i * 7, row: 7, pieceName: "rook_chess_w")
-        }
-        
-        for i in 0..<8 {
-            drawPieceAt(col: i, row: 1, pieceName: "pawn_chess_b")
-            drawPieceAt(col: i, row: 6, pieceName: "pawn_chess_w")
+        for piece in pieceBoxShadow {
+            drawPieceAt(col: piece.col, row: piece.row, pieceName: piece.imageName)
         }
     }
     
