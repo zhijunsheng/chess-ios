@@ -34,7 +34,10 @@ class BoardView: UIView {
             shadowPieceBox.insert(ChessPiece(col: 1 + i * 5, row: 7, rank: "knghit", isBlack: false, imageName: "knight_chess_w"))
             shadowPieceBox.insert(ChessPiece(col: 2 + i * 3, row: 7, rank: "bishop", isBlack: false, imageName: "bishop_chess_w"))
         }
-        shadowPieceBox.insert(ChessPiece(col: 3, row: 0, rank: "king", isBlack: true, imageName: "king_chess_b"))
+        
+        let  bK = ChessPiece(col: 3, row: 0, rank: "king", isBlack: true, imageName: "king_chess_b")
+        shadowPieceBox.insert(bK)
+        
         shadowPieceBox.insert(ChessPiece(col: 4, row: 0, rank: "queen", isBlack: true, imageName: "queen_chess_b"))
         shadowPieceBox.insert(ChessPiece(col: 3, row: 7, rank: "king", isBlack: false, imageName: "king_chess_w"))
         shadowPieceBox.insert(ChessPiece(col: 4, row: 7, rank: "queen", isBlack: false, imageName: "queen_chess_w"))

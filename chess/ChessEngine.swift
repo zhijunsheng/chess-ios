@@ -9,6 +9,6 @@
 import Foundation
 
 struct ChessEngine {
-    let pieceBox: Set<ChessPiece> = Set<ChessPiece>()
+    var pieceBox: Set<ChessPiece> = Set<ChessPiece>()
     
 }
