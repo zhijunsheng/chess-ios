@@ -19,6 +19,7 @@ class BoardView: UIView {
     var fingerY: CGFloat = 70
     
     var pieceBoxShadow: Set<ChessPiece> = Set<ChessPiece>()
+    var chessDelegate: ChessDelegate? = nil
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
@@ -34,6 +35,8 @@ class BoardView: UIView {
         let row: Int = Int(fingerLocation.y/80)
         
         print("from: (\(fromCol), \(fromRow)), to: (\(col), \(row))")
+        
+        chessDelegate?.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: col, toRow: row)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {

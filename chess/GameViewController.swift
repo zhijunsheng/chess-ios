@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, ChessDelegate {
     
     var chessBoard = ChessBoard()
     
@@ -21,8 +21,13 @@ class GameViewController: UIViewController {
         chessBoard.reset()
         boardView.pieceBoxShadow = chessBoard.pieceBox
         
-        
+        boardView.chessDelegate = self
     }
-
+    
+    func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        chessBoard.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        boardView.pieceBoxShadow = chessBoard.pieceBox
+        boardView.setNeedsDisplay()
+    }
 }
-
+    

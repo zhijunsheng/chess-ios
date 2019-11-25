@@ -34,6 +34,28 @@ struct ChessBoard: CustomStringConvertible{
         }
     }
     
+    mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        print(fromCol)
+        print(fromRow)
+        
+        guard let movingPiece = pieceAt(locationX: fromCol, locationY: fromRow) else {
+            return
+        }
+        
+        pieceBox.remove(movingPiece)
+        pieceBox.insert(ChessPiece(imageName: movingPiece.imageName, col: toCol, row: toRow, isBlack: movingPiece.isBlack, pieceType: movingPiece.pieceType))
+        
+    }
+    
+    func pieceAt(locationX: Int, locationY: Int) -> ChessPiece? {
+        for piece in pieceBox {
+            if locationX == piece.col && locationY == piece.row {
+                return piece
+            }
+        }
+        return nil
+    }
+    
     /*
      
 

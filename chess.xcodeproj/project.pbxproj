@@ -16,6 +16,7 @@
 		A3A84C02236B4714008F0BC5 /* ChessPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A84C01236B4714008F0BC5 /* ChessPiece.swift */; };
 		A3F7E1B5235D3AB8002FEA96 /* ChessBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F7E1B4235D3AB8002FEA96 /* ChessBoard.swift */; };
 		A3F7E1B7235D3BB5002FEA96 /* ChessBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F7E1B6235D3BB5002FEA96 /* ChessBoardTests.swift */; };
+		A3FD5054238744CA0019BBDD /* ChessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FD5053238744CA0019BBDD /* ChessDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		A3A84C01236B4714008F0BC5 /* ChessPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessPiece.swift; sourceTree = "<group>"; };
 		A3F7E1B4235D3AB8002FEA96 /* ChessBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoard.swift; sourceTree = "<group>"; };
 		A3F7E1B6235D3BB5002FEA96 /* ChessBoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardTests.swift; sourceTree = "<group>"; };
+		A3FD5053238744CA0019BBDD /* ChessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				07FDE4312018140A00A674FE /* AppDelegate.swift */,
 				A306DB4B233D586E00B82E02 /* BoardView.swift */,
 				07FDE4332018140A00A674FE /* GameViewController.swift */,
+				A3FD5053238744CA0019BBDD /* ChessDelegate.swift */,
 				07FDE4352018140A00A674FE /* Main.storyboard */,
 				07FDE4382018140A00A674FE /* Assets.xcassets */,
 				07FDE43A2018140A00A674FE /* LaunchScreen.storyboard */,
@@ -210,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A306DB4C233D586E00B82E02 /* BoardView.swift in Sources */,
+				A3FD5054238744CA0019BBDD /* ChessDelegate.swift in Sources */,
 				A3F7E1B5235D3AB8002FEA96 /* ChessBoard.swift in Sources */,
 				07FDE4342018140A00A674FE /* GameViewController.swift in Sources */,
 				A3A84C02236B4714008F0BC5 /* ChessPiece.swift in Sources */,
