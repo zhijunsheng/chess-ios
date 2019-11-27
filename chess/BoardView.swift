@@ -13,35 +13,19 @@ class BoardView: UIView {
     var fromRow : Int = 0
     
     var copyCatBox: Set<ChessPiece> = Set<ChessPiece>()
+   
+    var chessDelegate: ChessDelegate? = nil
     
     
     override func draw(_ rect: CGRect) {
-        copyCatBox.insert(ChessPiece(rank: "queen", isWhite: true, col: 3, row: 7, imageName: "queen_chess_w"))
-        copyCatBox.insert(ChessPiece(rank: "king", isWhite: true, col: 4, row: 7, imageName: "king_chess_w"))
-        
-        copyCatBox.insert(ChessPiece(rank: "queen", isWhite: false, col: 3, row: 0, imageName: "queen_chess_b"))
-        copyCatBox.insert(ChessPiece(rank: "king", isWhite: false, col: 4, row: 0, imageName: "king_chess_b"))
-        
-        for i in 0..<2 {
-            copyCatBox.insert(ChessPiece(rank: "rook", isWhite: true, col: i * 7, row: 7, imageName: "rook_chess_w"))
-            copyCatBox.insert(ChessPiece(rank: "bishop", isWhite: true, col: i * 3 + 2, row: 7, imageName: "bishop_chess_w"))
-            copyCatBox.insert(ChessPiece(rank: "horse", isWhite: true, col: i * 5 + 1, row: 7, imageName: "knight_chess_w"))
-            
-            copyCatBox.insert(ChessPiece(rank: "rook", isWhite: false, col: i * 7, row: 0, imageName: "rook_chess_b"))
-            copyCatBox.insert(ChessPiece(rank: "bishop", isWhite: false, col: i * 3 + 2, row: 0, imageName: "bishop_chess_b"))
-            copyCatBox.insert(ChessPiece(rank: "horse", isWhite: false, col: i * 5 + 1, row: 0, imageName: "knight_chess_b"))
-        }
-        for q in 0...7 {
-            copyCatBox.insert(ChessPiece(rank: "pawn", isWhite: false, col: q, row: 1, imageName: "pawn_chess_b"))
-            copyCatBox.insert(ChessPiece(rank: "pawn", isWhite: true, col: q, row: 6, imageName: "pawn_chess_w"))
-        }
+   
         cellSide = bounds.width / 8
-        print(bounds.width)
+//        print(bounds.width)
         drawBoard()
         drawPieces()
         
-        let image = UIImage(named: "queen_chess_b")
-        image?.draw(in: CGRect(x: fingerX - cellSide / 2, y: fingerY - cellSide / 2  , width: cellSide, height: cellSide))
+//        let image = UIImage(named: "queen_chess_b")
+//        image?.draw(in: CGRect(x: fingerX - cellSide / 2, y: fingerY - cellSide / 2  , width: cellSide, height: cellSide))
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -54,7 +38,7 @@ class BoardView: UIView {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         let fingerLocation = touch.location(in: self)
-        print(" (\(fingerLocation.x), \(fingerLocation.y))")
+//        print(" (\(fingerLocation.x), \(fingerLocation.y))")
         fingerX = fingerLocation.x
         fingerY = fingerLocation.y
         setNeedsDisplay()
@@ -66,12 +50,15 @@ class BoardView: UIView {
         let fingerLocation = touch.location(in: self)
         let row : Int = Int(fingerLocation.y / cellSide)
         let col : Int = Int(fingerLocation.x / cellSide)
-        print("to: (\(col), \(row)) from: (\(fromCol), \(fromRow))")
+//        print("to: (\(col), \(row)) from: (\(fromCol), \(fromRow))")
+        
+        chessDelegate?.movePiece(startingCol: fromCol, startingRow: fromRow , endingCol: col, endingRow: row)
     }
     
     func drawPieces()  {
         for element in copyCatBox {
-            drawPiece(col: element.col, row: element.row, imageName: element.imageName)
+            drawPiece(col: element.col, row:
+                element.row, imageName: element.imageName)
         }
     }
     

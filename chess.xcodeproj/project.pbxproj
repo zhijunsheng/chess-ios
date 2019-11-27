@@ -17,6 +17,7 @@
 		B92828FD236663530091CC0B /* ChessGameEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B92828FC236663530091CC0B /* ChessGameEngineTests.swift */; };
 		B946BBD5234D50AC007EB19C /* MathProblemsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B946BBD4234D50AC007EB19C /* MathProblemsTests.swift */; };
 		B98337C42238864F00006A8B /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98337C32238864F00006A8B /* BoardView.swift */; };
+		B9A636F3238B58B400776FEE /* ChessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A636F2238B58B400776FEE /* ChessDelegate.swift */; };
 		B9E1A22D226FEA8700B26948 /* WhileLoopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1A22C226FEA8700B26948 /* WhileLoopTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		B92828FC236663530091CC0B /* ChessGameEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessGameEngineTests.swift; sourceTree = "<group>"; };
 		B946BBD4234D50AC007EB19C /* MathProblemsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathProblemsTests.swift; sourceTree = "<group>"; };
 		B98337C32238864F00006A8B /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		B9A636F2238B58B400776FEE /* ChessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessDelegate.swift; sourceTree = "<group>"; };
 		B9E1A22B226FEA8600B26948 /* chessTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "chessTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		B9E1A22C226FEA8700B26948 /* WhileLoopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhileLoopTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,6 +99,7 @@
 				07FDE43D2018140A00A674FE /* Info.plist */,
 				B92828F823665B7E0091CC0B /* ChessPiece.swift */,
 				B92828FA236662640091CC0B /* ChessGameEngine.swift */,
+				B9A636F2238B58B400776FEE /* ChessDelegate.swift */,
 			);
 			path = chess;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B98337C42238864F00006A8B /* BoardView.swift in Sources */,
+				B9A636F3238B58B400776FEE /* ChessDelegate.swift in Sources */,
 				B92828FB236662640091CC0B /* ChessGameEngine.swift in Sources */,
 				07FDE4342018140A00A674FE /* GameViewController.swift in Sources */,
 				07FDE4322018140A00A674FE /* AppDelegate.swift in Sources */,
