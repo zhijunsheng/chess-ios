@@ -11,9 +11,34 @@ import XCTest
 
 class SetTests: XCTestCase {
     
+    func testCapture() {
+        var chessEngine: ChessEngine = ChessEngine()
+        
+        let movingPiece = ChessPiece(col: 4, row: 6, rank: "queen", isBlack: false, imageName: "queen_chess_w")
+        chessEngine.pieceBox.insert(movingPiece)
+        
+        let targetPiece = ChessPiece(col: 7, row: 4, rank: "bishop", isBlack: true, imageName:"bishop_chess_b" )
+        chessEngine.pieceBox.insert(targetPiece)
+        
+        for piece in chessEngine.pieceBox {
+            print("ChessPiece(col: \(piece.col), row: \(piece.row), rank: \(piece.rank), isblack: \(piece.isBlack), imageName: \(piece.imageName))")
+        }
+        
+        //==================================================
+        
+        chessEngine.pieceBox.remove(movingPiece)
+        chessEngine.pieceBox.remove(targetPiece)
+          
+        chessEngine.pieceBox.insert(ChessPiece(col: targetPiece.col, row: targetPiece.row, rank: movingPiece.rank, isBlack: movingPiece.isBlack, imageName: movingPiece.imageName))
+        
+        for piece in chessEngine.pieceBox {
+            print("ChessPiece(col: \(piece.col), row: \(piece.row), rank: \(piece.rank), isblack: \(piece.isBlack), imageName: \(piece.imageName))")
+        }
+    }
+    
     func testPiecesBox() {
         var chessEngine: ChessEngine = ChessEngine()
-        let movingPiece = ChessPiece(col: 7, row: 7, rank: "rook", isBlack: false, imageName: "rook_chess_b")
+        let movingPiece = ChessPiece(col: 7, row: 7, rank: "rook", isBlack: true, imageName: "rook_chess_b")
         
         chessEngine.pieceBox.insert(movingPiece)
      
@@ -53,3 +78,4 @@ class SetTests: XCTestCase {
         }
     }
 }
+
