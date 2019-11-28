@@ -5,10 +5,34 @@ class BoardView: UIView {
     var originX: CGFloat = 123_456_789_123_456_789.0
     var originY: CGFloat = 173_738_383_838_839_498.0
     var cellSide: CGFloat = 80.0
+    var fingerX: CGFloat = 123_456_789_123_456_789.0
+    var fingerY: CGFloat = 173_738_383_838_839_498.0
     
+    /*
+     Began col: 7
+     Began row: 0
+     
+     Began col: 7, row: 0
+     
+     */
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let first = touches.first!
-        print(first.location(in: self))
+        let finger = touches.first!
+        let fingerLocation = finger.location(in: self)
+        print("\(fingerLocation.x), \(fingerLocation.y)")
+        let col = Int(fingerLocation.x / cellSide)
+        print("Began col: \(col)")
+        let row = Int(fingerLocation.y / cellSide)
+        print("Began row: \(row)")
+    }
+
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let finger = touches.first!
+        let fingerLocation = finger.location(in: self)
+        print("\(fingerLocation.x), \(fingerLocation.y)")
+        let col = Int(fingerLocation.x / cellSide)
+        print("Ended col: \(col)")
+        let row = Int(fingerLocation.y / cellSide)
+        print("Ended row: \(row)")
     }
     
     override func draw(_ rect: CGRect) {
@@ -18,8 +42,13 @@ class BoardView: UIView {
         cellSide = bounds.width / 8
         
         drawBoard()
-        drawPieces()
+//        drawPieces()
+        
+//        let king_chess_bImg = UIImage(named: "king_chess_b")
+//        king_chess_bImg?.draw(in: CGRect(x: fingerX - 60, y: fingerY - 60, width: cellSide, height: cellSide))
     }
+    
+    
     
     func drawPiece(col: Int, row: Int, imageName: String) {
         let king_chess_bImg = UIImage(named: imageName)
@@ -31,6 +60,8 @@ class BoardView: UIView {
         color.setFill()
         pen.fill()
     }
+    
+    // (x = 234, 56) col = ? , row = ?
     
     func drawBoard() {
         for i in 0..<4 {
@@ -63,5 +94,6 @@ class BoardView: UIView {
             drawPiece(col: i, row: 6, imageName: "pawn_chess_b")
             drawPiece(col: i, row: 1, imageName: "pawn_chess_w")
         }
+        
     }
 }
