@@ -7,6 +7,9 @@ class BoardView: UIView {
     var originY: CGFloat = 50
     var chessPieces: Set<ChessPiece> = Set<ChessPiece>()
     var touchBeganLocation: CGPoint = CGPoint(x: -1, y: -2)
+    var fingerX: CGFloat = -2
+    var fingerY: CGFloat = -1
+    
     
     var chessDelegate: ChessDelegate?
     
@@ -31,6 +34,14 @@ class BoardView: UIView {
         chessDelegate?.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
     }
     
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        let touchLocation = touch.location(in: self)
+        fingerX = touchLocation.x
+        fingerY = touchLocation.y
+        setNeedsDisplay()
+    }
+    
     override func draw(_ rect: CGRect) {
         cellSide = bounds.width * boardWidthPercent / 8
         originX = bounds.width * (1 - boardWidthPercent) / 2
@@ -38,6 +49,9 @@ class BoardView: UIView {
         
         drawBoard()
         drawPieces()
+        
+        let image = UIImage(named: "king_chess_b")
+        image?.draw(in: CGRect(x: fingerX - cellSide / 2 , y: fingerY - cellSide / 2, width: cellSide, height: cellSide))
     }
     
     func drawPieces() {
