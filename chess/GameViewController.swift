@@ -22,6 +22,13 @@ class GameViewController: UIViewController, ChessDelegate {
         boardView.chessDelegate = self
     }
     
+    @IBAction func newGame(_ sender: UIButton) {
+        chessBoard.initializeBoard()
+        boardView.chessPieces = chessBoard.pieces
+        boardView.setNeedsDisplay()
+    }
+    
+    
     func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         chessBoard.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         boardView.chessPieces = chessBoard.pieces

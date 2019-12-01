@@ -60,6 +60,8 @@ struct ChessBoard: CustomStringConvertible {
     }
     
     mutating func initializeBoard() {
+        pieces.removeAll()
+        
         for i in 0 ..< 8 {
             pieces.insert(ChessPiece(rank: .pawn, col: i, row: 1, isWhite: false, imgName: "pawn_chess_b"))
             pieces.insert(ChessPiece(rank: .pawn, col: i, row: 6, isWhite: true, imgName: "pawn_chess_w"))
