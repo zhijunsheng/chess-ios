@@ -6,32 +6,35 @@ class BoardView: UIView {
     var originX: CGFloat = 40
     var originY: CGFloat = 50
     var chessPieces: Set<ChessPiece> = Set<ChessPiece>()
-    var touchBeganLocation: CGPoint = CGPoint(x: -1, y: -2)
     var fingerX: CGFloat = -2
     var fingerY: CGFloat = -1
     
+    var fromCol: Int = -1
+    var fromRow: Int = -2
     
     var chessDelegate: ChessDelegate?
     
+    var movingPiece: ChessPiece? = nil
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
-        touchBeganLocation = touch.location(in: self)
+        let touchBeganLocation = touch.location(in: self)
+        
+        fromCol = Int((touchBeganLocation.x - originX) / cellSide)
+        fromRow = Int((touchBeganLocation.y - originY) / cellSide)
+    
+        movingPiece = chessDelegate?.pieceAt(col: fromCol, row: fromRow)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         let touchEndedLocation = touch.location(in: self)
-        print("from: (\(touchBeganLocation.x), \(touchBeganLocation.y)) to: (\(touchEndedLocation.x), \(touchEndedLocation.y))")
-        
-        let fromCol: Int = Int((touchBeganLocation.x - originX) / cellSide)
-        let fromRow: Int = Int((touchBeganLocation.y - originY) / cellSide)
         
         let toCol: Int = Int((touchEndedLocation.x - originX) / cellSide)
         let toRow: Int = Int((touchEndedLocation.y - originY) / cellSide)
         
-        print("from: (\(fromCol), \(fromRow)) to: (\(toCol), \(toRow))")
-        
         chessDelegate?.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        movingPiece = nil
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -50,13 +53,17 @@ class BoardView: UIView {
         drawBoard()
         drawPieces()
         
-        let image = UIImage(named: "king_chess_b")
-        image?.draw(in: CGRect(x: fingerX - cellSide / 2 , y: fingerY - cellSide / 2, width: cellSide, height: cellSide))
+        if let movingPiece = movingPiece {
+            let image = UIImage(named: movingPiece.imgName)
+            image?.draw(in: CGRect(x: fingerX - cellSide / 2 , y: fingerY - cellSide / 2, width: cellSide, height: cellSide))
+        }
     }
     
     func drawPieces() {
         for piece in chessPieces {
-            drawPiece(x: piece.col, y: piece.row, name: piece.imgName)
+            if piece != movingPiece {
+                drawPiece(x: piece.col, y: piece.row, name: piece.imgName)
+            }
         }
     }
     
@@ -86,4 +93,3 @@ class BoardView: UIView {
         pen.fill()
     }
 }
-

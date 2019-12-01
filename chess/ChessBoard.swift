@@ -19,8 +19,6 @@ import Foundation
  */
 struct ChessBoard: CustomStringConvertible {
     
-    // capture a piece, eat
-    
     var pieces: Set<ChessPiece> = Set<ChessPiece>()
     
     func canMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {

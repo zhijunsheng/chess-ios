@@ -27,4 +27,8 @@ class GameViewController: UIViewController, ChessDelegate {
         boardView.chessPieces = chessBoard.pieces
         boardView.setNeedsDisplay()
     }
+    
+    func pieceAt(col: Int, row: Int) -> ChessPiece? {
+        return chessBoard.pieceAt(col: col, row: row)
+    }
 }
