@@ -28,6 +28,10 @@ class GameViewController: UIViewController, ChessDelegate {
         boardView.setNeedsDisplay()
     }
     
+    @IBAction func withdraw(_ sender: UIButton) {
+        
+    }
+    
     
     func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         chessBoard.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)

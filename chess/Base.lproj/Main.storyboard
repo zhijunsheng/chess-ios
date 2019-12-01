@@ -26,12 +26,21 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Naf-cZ-0Hl">
-                                <rect key="frame" x="263" y="829" width="243" height="101"/>
+                                <rect key="frame" x="20" y="832" width="243" height="101"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="New Game"/>
                                 <connections>
                                     <action selector="newGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0ez-3v-L8p"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WhU-Mc-cyI">
+                                <rect key="frame" x="569" y="852" width="165" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <state key="normal" title="Withdraw"/>
+                                <connections>
+                                    <action selector="withdraw:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eYa-rH-ZvX"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -49,7 +58,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139.56834532374103" y="132.66331658291458"/>
+            <point key="canvasLocation" x="139.0625" y="132.421875"/>
         </scene>
     </scenes>
 </document>
