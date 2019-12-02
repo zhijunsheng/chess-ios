@@ -34,7 +34,6 @@ struct ChessBoard: CustomStringConvertible{
         }
     }
     
-    // HW: implement capture
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         print(fromCol)
         print(fromRow)
@@ -43,19 +42,15 @@ struct ChessBoard: CustomStringConvertible{
             return
         }
         
-        let targetPiece = pieceAt(locationX: toCol, locationY: toRow)
-        
-        if targetPiece?.isBlack == movingPiece.isBlack {
-            return
+        if let targetPiece = pieceAt(locationX: toCol, locationY: toRow) {
+            if targetPiece.isBlack == movingPiece.isBlack {
+                return
+            }
+            pieceBox.remove(targetPiece)
         }
-        if targetPiece != nil {
-            pieceBox.remove(targetPiece!)
-        }
-        
         
         pieceBox.remove(movingPiece)
         pieceBox.insert(ChessPiece(imageName: movingPiece.imageName, col: toCol, row: toRow, isBlack: movingPiece.isBlack, pieceType: movingPiece.pieceType))
-        
     }
     
     func pieceAt(locationX: Int, locationY: Int) -> ChessPiece? {
