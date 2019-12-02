@@ -13,16 +13,17 @@ struct ChessGameEngine: CustomStringConvertible {
     var box: Set<ChessPiece> = Set<ChessPiece>()
     
     mutating func movePiece(startingCol: Int, startingRow: Int, endingCol: Int, endingRow: Int) {
-         print(startingRow)
-         print(startingCol)
-         print(endingCol)
-         print(endingRow)
-        
         guard let movingPiece = pieceAt(col: startingCol, row: startingRow) else {
             return
         }
         
-         print(movingPiece.imageName)
+        if let targetPiece = pieceAt(col: endingCol, row: endingRow) {
+            if movingPiece.isWhite == targetPiece.isWhite {
+                return
+            } else {
+                box.remove(targetPiece)
+            }
+        }
         
         box.remove(movingPiece)
         
