@@ -12,15 +12,38 @@ class BoardView: UIView {
     var cellSide: CGFloat = -34567788
     var fingerX: CGFloat = -78790909
     var fingerY: CGFloat = -7878781314
+    var a : Int = -222222222
+    var b : Int = -111111111
     var shadowPieceBox: Set<ChessPiece> = Set<ChessPiece>()
+         
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let first = touches.first!
+        let fingerLocation = first.location(in: self)
+        a = Int(fingerLocation.x / cellSide)
+        b = Int(fingerLocation.y / cellSide)
+
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let first = touches.first!
+        let fingerLocation = first.location(in: self)
+        let col = Int(fingerLocation.x / cellSide)
+        let row = Int(fingerLocation.y / cellSide)
+        
+        print("from (\(a), \(b)) to (\(col), \(row))")
+        
+    }
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let first = touches.first!
         let fingerLocation = first.location(in: self)
-        print("(\(fingerLocation.x), \(fingerLocation.y))") // (234.2, 103.7)
+//        print("(\(fingerLocation.x), \(fingerLocation.y))") // (234.2, 103.7)
         fingerX = fingerLocation.x
         fingerY = fingerLocation.y
-        setNeedsDisplay()
+//        setNeedsDisplay()
     }
+    
     override func draw(_ rect: CGRect) {
         for i in 0..<8 {
             shadowPieceBox.insert(ChessPiece(col: 1 * i, row: 1, rank: "pawn", isBlack: true, imageName: "pawn_chess_b"))
@@ -48,8 +71,9 @@ class BoardView: UIView {
         drawPieces()
         
         let blackRookImage = UIImage(named: "king_chess_b")
-        blackRookImage?.draw(in: CGRect(x: fingerX -  cellSide/2 ,y: fingerY -  cellSide / 2 , width: cellSide, height:  cellSide))
+//        blackRookImage?.draw(in: CGRect(x: fingerX -  cellSide/2 ,y: fingerY -  cellSide / 2 , width: cellSide, height:  cellSide))
     }
+    
     func drawBoard() {
         for i in 0..<4 {
             for j in 0..<4 {
@@ -63,7 +87,7 @@ class BoardView: UIView {
     
     func drawPieces() {
         for chessPiece in shadowPieceBox {
-            print("\(chessPiece.col), \(chessPiece.row), \(chessPiece.rank), \(chessPiece.isBlack)")
+//            print("\(chessPiece.col), \(chessPiece.row), \(chessPiece.rank), \(chessPiece.isBlack)")
             drawPiece(col: chessPiece.col, row: chessPiece.row, piece: chessPiece.imageName)
         }
     }
@@ -78,4 +102,6 @@ class BoardView: UIView {
         color.setFill()
         square.fill()
     }
+
 }
+
