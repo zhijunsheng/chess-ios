@@ -8,11 +8,14 @@
 
 import UIKit
 
+// design pattern called MVC
+// M: model
+// V: view
+// C: controller
+
 class GameViewController: UIViewController, ChessDelegate {
-    
     var chessBoard = ChessBoard()
     
-
     @IBOutlet weak var boardView: BoardView!
     
     override func viewDidLoad() {
@@ -28,6 +31,10 @@ class GameViewController: UIViewController, ChessDelegate {
         chessBoard.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         boardView.pieceBoxShadow = chessBoard.pieceBox
         boardView.setNeedsDisplay()
+    }
+    
+    func pieceAt(locationX: Int, locationY: Int) -> ChessPiece? {
+        return chessBoard.pieceAt(locationX: locationX, locationY: locationY)
     }
 }
     
