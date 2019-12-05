@@ -34,7 +34,7 @@ class BoardView: UIView {
         let fingerLocation = touch.location(in: self)
         let col: Int = Int(fingerLocation.x/80)
         let row: Int = Int(fingerLocation.y/80)
-        
+        movingPiece = nil
         chessDelegate?.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: col, toRow: row)
     }
     
@@ -52,6 +52,7 @@ class BoardView: UIView {
         if let movingPiece = movingPiece {
             let movingPieceImage = UIImage(named: movingPiece.imageName)
             movingPieceImage?.draw(in: CGRect(x: fingerX - 40, y: fingerY - 40, width: 80, height: 80))
+            
         }
     }
     
