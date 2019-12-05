@@ -11,7 +11,7 @@ import XCTest
 class RecursionTests: XCTestCase {
     
     // 5!
-    
+    //
     // to calculate 5!, 4! * 5
     // to calculate 4!, 3! * 4
     // to calculate 3!, 2! * 3
@@ -49,10 +49,33 @@ class RecursionTests: XCTestCase {
         return gcd(n: m, m: n % m)
     }
     
+    // Write a recursive algorithm to print all of the subsets for the set of the first positive integers.
+    
+    // f(0)   f(1)    f(2)    f(3)    f(4)    f(5)    f(6)  f(7)
+    // 0      1       1       2       3       5       8     13
+    
+    func fibbonaci(n: Int) -> Int {
+        if n == 0 || n == 1 {
+            return n
+        }
+        
+        return fibbonaci(n: n - 1) + fibbonaci(n: n - 2)
+    }
+    
+    func add(n: Int) -> Int {
+        if n == 1 {
+            return 1
+        }
+        
+        return add(n: n - 1) + n
+    }
+    
     func testThing() {
-        print(factorial(n: 5))
-        print(gcd(n: 95, m: 120))
-        print(gcd(n: 79, m: 97))
+        XCTAssertEqual(factorial(n: 5), 120)
+        XCTAssertEqual(gcd(n: 95, m: 120), 5)
+        XCTAssertEqual(gcd(n: 79, m: 97), 1)
+        XCTAssertEqual(fibbonaci(n: 7), 13)
+        XCTAssertEqual(add(n: 10), 55)
     }
     
     
