@@ -12,6 +12,8 @@ struct ChessBoard: CustomStringConvertible{
     var pieceBox: Set<ChessPiece> = Set<ChessPiece>()
     
     mutating func reset() {
+        pieceBox.removeAll()
+        
         pieceBox.insert(ChessPiece(imageName:"queen_chess_b", col: 3, row: 0, isBlack: true, pieceType:"Q"))
         pieceBox.insert(ChessPiece(imageName:"queen_chess_w", col: 3, row: 7, isBlack: false, pieceType:"Q"))
         for i in 0..<8 {

@@ -20,11 +20,15 @@ class GameViewController: UIViewController, ChessDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         chessBoard.reset()
         boardView.pieceBoxShadow = chessBoard.pieceBox
-        
         boardView.chessDelegate = self
+    }
+    
+    @IBAction func newGame(_ sender: Any) {
+        chessBoard.reset()
+        boardView.pieceBoxShadow = chessBoard.pieceBox
+        boardView.setNeedsDisplay()
     }
     
     func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
