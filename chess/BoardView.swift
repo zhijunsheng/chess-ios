@@ -27,6 +27,7 @@ class BoardView: UIView {
         fromCol = Int(fingerLocation.x/80)
         fromRow = Int(fingerLocation.y/80)
         movingPiece = chessDelegate?.pieceAt(locationX: fromCol, locationY: fromRow)
+        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -67,7 +68,9 @@ class BoardView: UIView {
     
     func drawPieces() {
         for piece in pieceBoxShadow {
-            drawPieceAt(col: piece.col, row: piece.row, pieceName: piece.imageName)
+            if movingPiece != piece {
+                drawPieceAt(col: piece.col, row: piece.row, pieceName: piece.imageName)
+            }
         }
     }
     
