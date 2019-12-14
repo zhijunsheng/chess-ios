@@ -13,6 +13,7 @@
 		0E34763423A52A2600AED161 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E34763323A52A2600AED161 /* Assets.xcassets */; };
 		0E34763723A52A2600AED161 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E34763523A52A2600AED161 /* LaunchScreen.storyboard */; };
 		0E34764223A52A2600AED161 /* chessTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34764123A52A2600AED161 /* chessTests.swift */; };
+		0E34764D23A52CC400AED161 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E34764C23A52CC400AED161 /* BoardView.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		0E34763D23A52A2600AED161 /* chessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E34764123A52A2600AED161 /* chessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chessTests.swift; sourceTree = "<group>"; };
 		0E34764323A52A2600AED161 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0E34764C23A52CC400AED161 /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				0E34763323A52A2600AED161 /* Assets.xcassets */,
 				0E34763523A52A2600AED161 /* LaunchScreen.storyboard */,
 				0E34763823A52A2600AED161 /* Info.plist */,
+				0E34764C23A52CC400AED161 /* BoardView.swift */,
 			);
 			path = chess;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E34764D23A52CC400AED161 /* BoardView.swift in Sources */,
 				0E34762F23A52A2500AED161 /* ViewController.swift in Sources */,
 				0E34762D23A52A2500AED161 /* AppDelegate.swift in Sources */,
 			);
@@ -387,6 +391,7 @@
 				0E34764823A52A2600AED161 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0E34764923A52A2600AED161 /* Build configuration list for PBXNativeTarget "chessTests" */ = {
 			isa = XCConfigurationList;
@@ -395,6 +400,7 @@
 				0E34764B23A52A2600AED161 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
