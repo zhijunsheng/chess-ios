@@ -2,16 +2,6 @@
   "images" : [
     {
       "idiom" : "iphone",
-      "size" : "20x20",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "iphone",
-      "size" : "20x20",
-      "scale" : "3x"
-    },
-    {
-      "idiom" : "iphone",
       "size" : "29x29",
       "scale" : "2x"
     },
@@ -31,26 +21,14 @@
       "scale" : "3x"
     },
     {
-      "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "Icon-App-60x60@2x.png",
+      "size" : "60x60",
       "scale" : "2x"
     },
     {
-      "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "Icon-App-60x60@3x.png",
+      "size" : "60x60",
       "scale" : "3x"
-    },
-    {
-      "idiom" : "ipad",
-      "size" : "20x20",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "ipad",
-      "size" : "20x20",
-      "scale" : "2x"
     },
     {
       "idiom" : "ipad",
@@ -78,22 +56,9 @@
       "scale" : "1x"
     },
     {
+      "idiom" : "ipad",
       "size" : "76x76",
-      "idiom" : "ipad",
-      "filename" : "Icon-App-76x76@2x.png",
       "scale" : "2x"
-    },
-    {
-      "size" : "83.5x83.5",
-      "idiom" : "ipad",
-      "filename" : "Icon-App-83.5x83.5@2x.png",
-      "scale" : "2x"
-    },
-    {
-      "size" : "1024x1024",
-      "idiom" : "ios-marketing",
-      "filename" : "iTunesArtwork@2x.png",
-      "scale" : "1x"
     }
   ],
   "info" : {
