@@ -17,9 +17,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nrh-9F-Vwh" customClass="BoardView" customModule="chess" customModuleProvider="target">
-                                <rect key="frame" x="20" y="28" width="358" height="342"/>
+                                <rect key="frame" x="0.0" y="28" width="334" height="390"/>
                                 <animations/>
-                                <color key="backgroundColor" red="0.4521994755329739" green="0.98899145817712286" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.54679487179487174" green="0.23825758100816821" blue="0.076489241744583658" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
                         <animations/>
