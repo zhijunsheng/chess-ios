@@ -32,17 +32,12 @@ class GameViewController: UIViewController, ChessDelegate {
     }
     
     @IBAction func goBack(_ sender: Any) {
-        chessBoard.movePiece(fromCol: chessBoard.toCol!, fromRow: chessBoard.toRow!, toCol: chessBoard.fromCol!, toRow: chessBoard.fromRow!)
-        if chessBoard.capturedPiece != nil {
-            print("normal move shouldn't go here")
-            chessBoard.pieceBox.insert(chessBoard.capturedPiece!)
-        }
+        chessBoard.goBack()
         boardView.pieceBoxShadow = chessBoard.pieceBox
         boardView.setNeedsDisplay()
     }
 
     func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
-        chessBoard.capturedPiece = nil
         chessBoard.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         boardView.pieceBoxShadow = chessBoard.pieceBox
         boardView.setNeedsDisplay()

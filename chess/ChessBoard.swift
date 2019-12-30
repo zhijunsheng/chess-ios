@@ -10,15 +10,14 @@ import Foundation
 
 struct ChessBoard: CustomStringConvertible{
     var pieceBox: Set<ChessPiece> = Set<ChessPiece>()
-    var fromCol: Int? = nil
-    var fromRow: Int? = nil
-    var toCol: Int? = nil
-    var toRow: Int? = nil
-    var capturedPiece: ChessPiece? = nil
-
     
+    private var backupBox: Set<ChessPiece> = Set<ChessPiece>()
+    private var fromCol: Int? = nil
+    private var fromRow: Int? = nil
+    private var toCol: Int? = nil
+    private var toRow: Int? = nil
+
     mutating func reset() {
-        capturedPiece = nil
         pieceBox.removeAll()
         
         pieceBox.insert(ChessPiece(imageName:"queen_chess_b", col: 3, row: 0, isBlack: true, pieceType:"Q"))
@@ -44,10 +43,7 @@ struct ChessBoard: CustomStringConvertible{
     }
     
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
-        print(fromCol)
-        print(fromRow)
-        print(pieceBox.count)
-
+        backupBox = pieceBox
         self.fromCol = fromCol
         self.fromRow = fromRow
         self.toCol = toCol
@@ -62,11 +58,13 @@ struct ChessBoard: CustomStringConvertible{
                 return
             }
             pieceBox.remove(targetPiece)
-            capturedPiece = targetPiece
         }
-        
         pieceBox.remove(movingPiece)
         pieceBox.insert(ChessPiece(imageName: movingPiece.imageName, col: toCol, row: toRow, isBlack: movingPiece.isBlack, pieceType: movingPiece.pieceType))
+    }
+    
+    mutating func goBack() {
+        pieceBox = backupBox
     }
     
     func pieceAt(locationX: Int, locationY: Int) -> ChessPiece? {
@@ -78,15 +76,7 @@ struct ChessBoard: CustomStringConvertible{
         return nil
     }
     
-    mutating func moveBack() {
-        if fromCol == nil && fromRow == nil && toCol == nil && toRow == nil {
-            return
-        }
-        movePiece(fromCol: fromCol!, fromRow: fromRow!, toCol: toCol!, toRow: toRow!)
-        
-    }
     /*
-     
      0 1 2 3 4 5 6 7
    0 . . . . . . . .
    1 . . . . . . . .
@@ -96,12 +86,9 @@ struct ChessBoard: CustomStringConvertible{
    5 . . . . . . . .
    6 . . . . . . . .
    7 . . . . . . . .
-     
     */
     var description: String {
         let singlePiece = pieceBox.first!
-        
-        
         
         var desc: String = ""
         desc += "  "
@@ -124,13 +111,8 @@ struct ChessBoard: CustomStringConvertible{
             }
             desc += "\n"
         }
-        
-        
-        
         return desc
     }
-    
-    
 }
 
 
