@@ -40,8 +40,27 @@ class ViewController: UIViewController, ChessDelegate, MCSessionDelegate, MCBrow
     @IBOutlet weak var boardView: BoardView!
     
     var chessBrain = ChessBrain()
-    
-    
+    var peerID: MCPeerID!
+    var session: MCSession!
+    var advertiserAssistant: MCAdvertiserAssistant!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        peerID = MCPeerID(displayName: UIDevice.current.name)
+        session = MCSession(peer: peerID)
+        session.delegate = self
+        
+        chessBrain.reset()
+        
+        boardView.piecesBoxShadow = chessBrain.piecesBox
+        boardView.setNeedsDisplay()
+        boardView.chessDelegate = self
+        
+        boardDeploy()
+        
+        togglePromotionButtons(show: false)
+    }
     
     func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
         
@@ -111,18 +130,7 @@ class ViewController: UIViewController, ChessDelegate, MCSessionDelegate, MCBrow
         chessBrain.promote(rank: .bishop)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        chessBrain.reset()
-        
-        boardView.piecesBoxShadow = chessBrain.piecesBox
-        boardView.setNeedsDisplay()
-        boardView.chessDelegate = self
-        
-        boardDeploy()
-        
-        togglePromotionButtons(show: false)
-    }
+    
     
     func togglePromotionButtons(show: Bool) {
         promoteToKnightButton.isHidden = !show
