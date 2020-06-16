@@ -12,8 +12,9 @@ class ViewController: UIViewController, ChessDelegate {
     
     var chessBrain = ChessBrain()
     
+    
+    
     func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
-        print("🌩chess🌩")
         
         guard let movingPiece = chessBrain.pieceAt(x: frX, y: frY) else {
             return
@@ -63,18 +64,22 @@ class ViewController: UIViewController, ChessDelegate {
     
     @IBAction func queenPressed(_ sender: UIButton) {
         print("q u e e n")
+        chessBrain.promote(rank: .queen)
     }
     
     @IBAction func rookPressed(_ sender: UIButton) {
         print("r o o k")
+        chessBrain.promote(rank: .rook)
     }
     
     @IBAction func knightPressed(_ sender: UIButton) {
         print("k n i g h t")
+        chessBrain.promote(rank: .knight)
     }
     
     @IBAction func bishopPressed(_ sender: UIButton) {
         print("b i s h o p")
+        chessBrain.promote(rank: .bishop)
     }
     
     override func viewDidLoad() {

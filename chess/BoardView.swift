@@ -59,7 +59,6 @@ class BoardView: UIView {
     
     override func draw(_ rect: CGRect) {
         cellSide = bounds.width / 8
-        print(cellSide)
 
         boardOriginX = (bounds.width - 8 * cellSide) / 2
         boardOriginY = (bounds.height - 8 * cellSide) / 2
@@ -76,6 +75,8 @@ class BoardView: UIView {
         
         
     }
+    
+    
     
     func drawPieces() {
         for piece in piecesBoxShadow {
