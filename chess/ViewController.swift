@@ -1,7 +1,15 @@
 import UIKit
 import MultipeerConnectivity
 
-class ViewController: UIViewController, ChessDelegate, MCSessionDelegate {
+class ViewController: UIViewController, ChessDelegate, MCSessionDelegate, MCBrowserViewControllerDelegate {
+    func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
+        
+    }
+    
+    func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
+        
+    }
+    
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         
     }
@@ -23,9 +31,9 @@ class ViewController: UIViewController, ChessDelegate, MCSessionDelegate {
     }
     
     var game = GameRules()
-    
-    
-    
+    var peerID: MCPeerID!
+    var session: MCSession!
+    var advertiserAssistant: MCAdvertiserAssistant!
     @IBOutlet weak var isWhiteTurnLabel: UILabel!
     
     @IBAction func newGame(_ sender: Any) {
@@ -45,6 +53,10 @@ class ViewController: UIViewController, ChessDelegate, MCSessionDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        peerID = MCPeerID(displayName: UIDevice.current.name)
+        session = MCSession(peer: peerID)
+        session.delegate = self
         
         boardView.delegate = self
         
