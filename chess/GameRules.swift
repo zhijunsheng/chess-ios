@@ -5,31 +5,7 @@ struct GameRules: CustomStringConvertible {
     
     var pieceBox = Set<ChessPiece>()
     
-      /*
-             c o l
-       
-         0 1 2 3 4 5 6 7
-       0 . . . . . . . .
-       1 . . n . . . . .
-    r  2 . . . x o . . .
-    o  3 . . . . . . . .
-    w  4 . . . . . . . .
-       5 . . . . . . . .
-       6 . . . . . . . .
-       7 . . . . . . . .
-              c o l
-     
-          0 1 2 3 4 5 6 7
-        0 . . . . . . . .
-        1 . . . . . . . .
-     r  2 . . o . o . . .
-     o  3 . o . . . o . .
-     w  4 . . . n . . . .
-        5 . o . . . o . .
-        6 . . o . o . . .
-        7 . . . . . . . .
-       
-       */
+      
     func canKnightMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         if fromCol + 1 == toCol && fromRow + 2 == toRow
         || fromCol - 1 == toCol && fromRow - 2 == toRow

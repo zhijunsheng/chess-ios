@@ -3,10 +3,12 @@ import UIKit
 class ViewController: UIViewController, ChessDelegate {
     var game = GameRules()
     
+    
+    
     @IBOutlet weak var isWhiteTurnLabel: UILabel!
     
-    
     @IBAction func newGame(_ sender: Any) {
+        
     }
     @IBOutlet weak var boardView: BoardView!
     @IBAction func withdraw(_ sender: Any) {
