@@ -160,7 +160,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
 				LastUpgradeCheck = 1150;
-				ORGANIZATIONNAME = "Zhijun Sheng";
+				ORGANIZATIONNAME = "Gold Thumb Inc.";
 				TargetAttributes = {
 					07298BB224887E0200D154D2 = {
 						CreatedOnToolsVersion = 11.5;
