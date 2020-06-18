@@ -8,8 +8,9 @@
 
 import UIKit
 import AVFoundation
+import MultipeerConnectivity
 
-class ViewController: UIViewController, ChessDelegate {
+class ViewController: UIViewController {
 
     var chessEngine: ChessEngine = ChessEngine()
     
@@ -18,8 +19,16 @@ class ViewController: UIViewController, ChessDelegate {
     
     var audioPlayer: AVAudioPlayer!
     
+    var peerID: MCPeerID!
+    var session: MCSession!
+    var nearbyServiceAdvertiser: MCNearbyServiceAdvertiser!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        peerID = MCPeerID(displayName: UIDevice.current.name)
+        session = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
+        session.delegate = self
         
         let url = Bundle.main.url(forResource: "drop", withExtension: "wav")!
         audioPlayer = try? AVAudioPlayer(contentsOf: url)
@@ -30,7 +39,63 @@ class ViewController: UIViewController, ChessDelegate {
         boardView.shadowPieces = chessEngine.pieces
         boardView.setNeedsDisplay()
     }
+    
+    @IBAction func reset(_ sender: Any) {
+        chessEngine.initializeGame()
+        boardView.shadowPieces = chessEngine.pieces
+        boardView.setNeedsDisplay()
+        infoLabel.text = "White"
+    }
+}
 
+extension ViewController: MCNearbyServiceAdvertiserDelegate {
+    func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
+        invitationHandler(true, session)
+    }
+}
+
+extension ViewController: MCBrowserViewControllerDelegate {
+    func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
+        dismiss(animated: true)
+    }
+    
+    func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
+        dismiss(animated: true)
+    }
+}
+
+extension ViewController: MCSessionDelegate {
+    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+        switch state {
+        case .connected:
+            print("connected: \(peerID.displayName)")
+        case .connecting:
+            print("connecting: \(peerID.displayName)")
+        case .notConnected:
+            print("not connected: \(peerID.displayName)")
+        @unknown default:
+            fatalError()
+        }
+    }
+    
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        print("received data: \(data)")
+    }
+    
+    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
+        
+    }
+    
+    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
+        
+    }
+    
+    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
+        
+    }
+}
+
+extension ViewController: ChessDelegate {
     func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         chessEngine.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         boardView.shadowPieces = chessEngine.pieces
@@ -48,12 +113,4 @@ class ViewController: UIViewController, ChessDelegate {
     func pieceAt(col: Int, row: Int) -> ChessPiece? {
         return chessEngine.pieceAt(col: col, row: row)
     }
-    
-    @IBAction func reset(_ sender: Any) {
-        chessEngine.initializeGame()
-        boardView.shadowPieces = chessEngine.pieces
-        boardView.setNeedsDisplay()
-        infoLabel.text = "White"
-    }
 }
-
