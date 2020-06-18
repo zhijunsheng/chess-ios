@@ -20,7 +20,7 @@ struct ChessEngine {
         }
         
         pieces.remove(candidate)
-        pieces.insert(ChessPiece(col: toCol, row: toRow, imageName: candidate.imageName))
+        pieces.insert(ChessPiece(col: toCol, row: toRow, imageName: candidate.imageName, isWhite: candidate.isWhite))
     }
     
     func pieceAt(col: Int, row: Int) -> ChessPiece? {
@@ -41,22 +41,22 @@ struct ChessEngine {
          1 => 5
          */
         for i in 0..<2 {
-            pieces.insert(ChessPiece(col: i * 7, row: 0, imageName: "Rook-black"))
-            pieces.insert(ChessPiece(col: i * 7, row: 7, imageName: "Rook-white"))
-            pieces.insert(ChessPiece(col: 1 + i * 5, row: 0, imageName: "Knight-black"))
-            pieces.insert(ChessPiece(col: 1 + i * 5, row: 7, imageName: "Knight-white"))
-            pieces.insert(ChessPiece(col: 2 + i * 3, row: 0, imageName: "Bishop-black"))
-            pieces.insert(ChessPiece(col: 2 + i * 3, row: 7, imageName: "Bishop-white"))
+            pieces.insert(ChessPiece(col: i * 7, row: 0, imageName: "Rook-black", isWhite: false))
+            pieces.insert(ChessPiece(col: i * 7, row: 7, imageName: "Rook-white", isWhite: true))
+            pieces.insert(ChessPiece(col: 1 + i * 5, row: 0, imageName: "Knight-black", isWhite: false))
+            pieces.insert(ChessPiece(col: 1 + i * 5, row: 7, imageName: "Knight-white", isWhite: true))
+            pieces.insert(ChessPiece(col: 2 + i * 3, row: 0, imageName: "Bishop-black", isWhite: false))
+            pieces.insert(ChessPiece(col: 2 + i * 3, row: 7, imageName: "Bishop-white", isWhite: true))
         }
         
-        pieces.insert(ChessPiece(col: 3, row: 0, imageName: "Queen-black"))
-        pieces.insert(ChessPiece(col: 3, row: 7, imageName: "Queen-white"))
-        pieces.insert(ChessPiece(col: 4, row: 0, imageName: "King-black"))
-        pieces.insert(ChessPiece(col: 4, row: 7, imageName: "King-white"))
+        pieces.insert(ChessPiece(col: 3, row: 0, imageName: "Queen-black", isWhite: false))
+        pieces.insert(ChessPiece(col: 3, row: 7, imageName: "Queen-white", isWhite: true))
+        pieces.insert(ChessPiece(col: 4, row: 0, imageName: "King-black", isWhite: false))
+        pieces.insert(ChessPiece(col: 4, row: 7, imageName: "King-white", isWhite: true))
         
         for col in 0..<8 {
-            pieces.insert(ChessPiece(col: col, row: 1, imageName: "Pawn-black"))
-            pieces.insert(ChessPiece(col: col, row: 6, imageName: "Pawn-white"))
+            pieces.insert(ChessPiece(col: col, row: 1, imageName: "Pawn-black", isWhite: false))
+            pieces.insert(ChessPiece(col: col, row: 6, imageName: "Pawn-white", isWhite: true))
         }
     }
 }
