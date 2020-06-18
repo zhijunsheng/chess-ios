@@ -10,6 +10,7 @@ import Foundation
 
 struct ChessEngine {
     var pieces: Set<ChessPiece> = Set<ChessPiece>()
+    var whitesTurn: Bool = true
     
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         if !canMovePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
@@ -29,10 +30,20 @@ struct ChessEngine {
         
         pieces.remove(candidate)
         pieces.insert(ChessPiece(col: toCol, row: toRow, imageName: candidate.imageName, isWhite: candidate.isWhite))
+        
+        whitesTurn = !whitesTurn
     }
     
     func canMovePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         if fromCol == toCol && fromRow == toRow {
+            return false
+        }
+        
+        guard let candidate = pieceAt(col: fromCol, row: fromRow) else {
+            return false
+        }
+        
+        if candidate.isWhite != whitesTurn {
             return false
         }
         
@@ -49,13 +60,10 @@ struct ChessEngine {
     }
     
     mutating func initializeGame() {
+        whitesTurn = true
+        
         pieces.removeAll()
         
-        /*
-         i => 2 + i * 3
-         0 => 2
-         1 => 5
-         */
         for i in 0..<2 {
             pieces.insert(ChessPiece(col: i * 7, row: 0, imageName: "Rook-black", isWhite: false))
             pieces.insert(ChessPiece(col: i * 7, row: 7, imageName: "Rook-white", isWhite: true))

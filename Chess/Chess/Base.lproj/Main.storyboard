@@ -22,22 +22,43 @@
                                     <constraint firstAttribute="width" secondItem="dKl-gE-s19" secondAttribute="height" multiplier="1:1" id="SUh-Rn-4Vy"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="White" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9A6-fZ-ZNZ">
+                                <rect key="frame" x="20" y="756" width="728" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3T-Sq-hZQ">
+                                <rect key="frame" x="20" y="793" width="728" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Reset"/>
+                                <connections>
+                                    <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="g98-Z2-p1N"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="S3T-Sq-hZQ" firstAttribute="top" secondItem="9A6-fZ-ZNZ" secondAttribute="bottom" constant="8" id="3wJ-Rf-2z2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9A6-fZ-ZNZ" secondAttribute="trailing" constant="20" id="JKF-1Z-3A8"/>
                             <constraint firstItem="dKl-gE-s19" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Qip-DM-tXD"/>
+                            <constraint firstItem="S3T-Sq-hZQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Zj9-hx-3yB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dKl-gE-s19" secondAttribute="trailing" constant="20" id="dDW-YP-kKw"/>
+                            <constraint firstItem="9A6-fZ-ZNZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="dW7-HF-zRP"/>
+                            <constraint firstItem="9A6-fZ-ZNZ" firstAttribute="top" secondItem="dKl-gE-s19" secondAttribute="bottom" constant="8" id="f2A-fp-FY0"/>
                             <constraint firstItem="dKl-gE-s19" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="mPA-aF-VV9"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="S3T-Sq-hZQ" secondAttribute="trailing" constant="20" id="zEY-u0-pEK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="boardView" destination="dKl-gE-s19" id="8fu-Po-7MD"/>
+                        <outlet property="infoLabel" destination="9A6-fZ-ZNZ" id="UdU-Bh-tc8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-488" y="101"/>
+            <point key="canvasLocation" x="-488.28125" y="100.78125"/>
         </scene>
     </scenes>
 </document>
