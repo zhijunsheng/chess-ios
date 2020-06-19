@@ -92,6 +92,14 @@ extension ViewController: MCSessionDelegate {
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print("received data: \(data)")
+        if let move = String(data: data, encoding: .utf8) {
+            let moveArr = move.components(separatedBy: ":")
+            if let fromCol = Int(moveArr[0]), let fromRow = Int(moveArr[1]), let toCol = Int(moveArr[2]), let toRow = Int(moveArr[3]) {
+                DispatchQueue.main.async {
+                    self.updateMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+                }
+            }
+        }
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
@@ -109,6 +117,15 @@ extension ViewController: MCSessionDelegate {
 
 extension ViewController: ChessDelegate {
     func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        updateMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        
+        let move: String = "\(fromCol):\(fromRow):\(toCol):\(toRow)"
+        if let data = move.data(using: .utf8) {
+            try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
+        }
+    }
+    
+    func updateMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         chessEngine.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         boardView.shadowPieces = chessEngine.pieces
         boardView.setNeedsDisplay()
