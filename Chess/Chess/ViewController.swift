@@ -40,6 +40,18 @@ class ViewController: UIViewController {
         boardView.setNeedsDisplay()
     }
     
+    @IBAction func advertise(_ sender: Any) {
+        nearbyServiceAdvertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: nil, serviceType: "gt-chess")
+        nearbyServiceAdvertiser.delegate = self
+        nearbyServiceAdvertiser.startAdvertisingPeer()
+    }
+    
+    @IBAction func join(_ sender: Any) {
+        let browser = MCBrowserViewController(serviceType: "gt-chess", session: session)
+        browser.delegate = self
+        present(browser, animated: true)
+    }
+    
     @IBAction func reset(_ sender: Any) {
         chessEngine.initializeGame()
         boardView.shadowPieces = chessEngine.pieces
