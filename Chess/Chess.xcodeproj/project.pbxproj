@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0728497F24929E7400B7AEBC /* drop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0728497E24929E7400B7AEBC /* drop.wav */; };
 		07298BB724887E0300D154D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07298BB624887E0300D154D2 /* AppDelegate.swift */; };
-		07298BB924887E0300D154D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07298BB824887E0300D154D2 /* SceneDelegate.swift */; };
 		07298BBB24887E0300D154D2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07298BBA24887E0300D154D2 /* ViewController.swift */; };
 		07298BBE24887E0300D154D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07298BBC24887E0300D154D2 /* Main.storyboard */; };
 		07298BC024887E0300D154D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07298BBF24887E0300D154D2 /* Assets.xcassets */; };
@@ -36,7 +35,6 @@
 		0728497E24929E7400B7AEBC /* drop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = drop.wav; sourceTree = "<group>"; };
 		07298BB324887E0300D154D2 /* Chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07298BB624887E0300D154D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		07298BB824887E0300D154D2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		07298BBA24887E0300D154D2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		07298BBD24887E0300D154D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		07298BBF24887E0300D154D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -93,7 +91,6 @@
 			children = (
 				07298BB624887E0300D154D2 /* AppDelegate.swift */,
 				07A48E7924893BB6000D1C6B /* ChessDelegate.swift */,
-				07298BB824887E0300D154D2 /* SceneDelegate.swift */,
 				07298BD824887E2D00D154D2 /* BoardView.swift */,
 				07298BDA248898E100D154D2 /* ChessPiece.swift */,
 				07298BDC2488998000D154D2 /* ChessEngine.swift */,
@@ -226,7 +223,6 @@
 				07298BD924887E2D00D154D2 /* BoardView.swift in Sources */,
 				07298BB724887E0300D154D2 /* AppDelegate.swift in Sources */,
 				07298BDB248898E100D154D2 /* ChessPiece.swift in Sources */,
-				07298BB924887E0300D154D2 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,7 +314,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -372,7 +368,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
