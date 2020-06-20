@@ -18,6 +18,7 @@
 		07298BD924887E2D00D154D2 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07298BD824887E2D00D154D2 /* BoardView.swift */; };
 		07298BDB248898E100D154D2 /* ChessPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07298BDA248898E100D154D2 /* ChessPiece.swift */; };
 		07298BDD2488998000D154D2 /* ChessEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07298BDC2488998000D154D2 /* ChessEngine.swift */; };
+		073496E3249D419500C3AAB0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 073496E2249D419500C3AAB0 /* InfoPlist.strings */; };
 		07A48E7A24893BB6000D1C6B /* ChessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A48E7924893BB6000D1C6B /* ChessDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		07298BD824887E2D00D154D2 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		07298BDA248898E100D154D2 /* ChessPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessPiece.swift; sourceTree = "<group>"; };
 		07298BDC2488998000D154D2 /* ChessEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessEngine.swift; sourceTree = "<group>"; };
+		073496E2249D419500C3AAB0 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		07A48E7924893BB6000D1C6B /* ChessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,6 +103,7 @@
 				0728497E24929E7400B7AEBC /* drop.wav */,
 				07298BC124887E0300D154D2 /* LaunchScreen.storyboard */,
 				07298BC424887E0300D154D2 /* Info.plist */,
+				073496E2249D419500C3AAB0 /* InfoPlist.strings */,
 			);
 			path = Chess;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 				0728497F24929E7400B7AEBC /* drop.wav in Resources */,
 				07298BC024887E0300D154D2 /* Assets.xcassets in Resources */,
 				07298BBE24887E0300D154D2 /* Main.storyboard in Resources */,
+				073496E3249D419500C3AAB0 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

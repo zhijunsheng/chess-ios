@@ -23,13 +23,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="White" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9A6-fZ-ZNZ">
-                                <rect key="frame" x="20" y="363" width="335" height="29"/>
+                                <rect key="frame" x="20" y="375" width="335" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3T-Sq-hZQ">
-                                <rect key="frame" x="20" y="400" width="335" height="41"/>
+                                <rect key="frame" x="20" y="412" width="335" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Reset"/>
                                 <connections>
@@ -37,7 +37,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWc-QY-6sO">
-                                <rect key="frame" x="20" y="449" width="335" height="41"/>
+                                <rect key="frame" x="20" y="461" width="335" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Advertise"/>
                                 <connections>
@@ -45,7 +45,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6a-Y8-0dN">
-                                <rect key="frame" x="20" y="498" width="335" height="41"/>
+                                <rect key="frame" x="20" y="510" width="335" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Join"/>
                                 <connections>
@@ -65,7 +65,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VWc-QY-6sO" secondAttribute="trailing" constant="20" id="d7W-SF-hda"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dKl-gE-s19" secondAttribute="trailing" constant="20" id="dDW-YP-kKw"/>
                             <constraint firstItem="9A6-fZ-ZNZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="dW7-HF-zRP"/>
-                            <constraint firstItem="9A6-fZ-ZNZ" firstAttribute="top" secondItem="dKl-gE-s19" secondAttribute="bottom" constant="8" id="f2A-fp-FY0"/>
+                            <constraint firstItem="9A6-fZ-ZNZ" firstAttribute="top" secondItem="dKl-gE-s19" secondAttribute="bottom" constant="20" id="f2A-fp-FY0"/>
                             <constraint firstItem="dKl-gE-s19" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="mPA-aF-VV9"/>
                             <constraint firstItem="VWc-QY-6sO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="ncA-0n-brz"/>
                             <constraint firstItem="VWc-QY-6sO" firstAttribute="top" secondItem="S3T-Sq-hZQ" secondAttribute="bottom" constant="8" id="sMh-2P-udd"/>
