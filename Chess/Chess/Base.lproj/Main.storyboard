@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,20 +17,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dKl-gE-s19" customClass="BoardView" customModule="Chess" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="335" height="335"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                 <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="dKl-gE-s19" secondAttribute="height" multiplier="1:1" id="SUh-Rn-4Vy"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="White" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9A6-fZ-ZNZ">
-                                <rect key="frame" x="20" y="375" width="335" height="29"/>
+                                <rect key="frame" x="20" y="395" width="335" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3T-Sq-hZQ">
-                                <rect key="frame" x="20" y="412" width="335" height="41"/>
+                                <rect key="frame" x="20" y="432" width="335" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Reset"/>
                                 <connections>
@@ -37,7 +38,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWc-QY-6sO">
-                                <rect key="frame" x="20" y="461" width="335" height="41"/>
+                                <rect key="frame" x="20" y="481" width="335" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Advertise"/>
                                 <connections>
@@ -45,7 +46,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6a-Y8-0dN">
-                                <rect key="frame" x="20" y="510" width="335" height="41"/>
+                                <rect key="frame" x="20" y="530" width="335" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Join"/>
                                 <connections>
@@ -59,14 +60,14 @@
                             <constraint firstItem="r6a-Y8-0dN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="ARE-sj-miC"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9A6-fZ-ZNZ" secondAttribute="trailing" constant="20" id="JKF-1Z-3A8"/>
                             <constraint firstItem="r6a-Y8-0dN" firstAttribute="top" secondItem="VWc-QY-6sO" secondAttribute="bottom" constant="8" id="PTb-QF-tDr"/>
-                            <constraint firstItem="dKl-gE-s19" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Qip-DM-tXD"/>
+                            <constraint firstItem="dKl-gE-s19" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Qip-DM-tXD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="r6a-Y8-0dN" secondAttribute="trailing" constant="20" id="Z7S-nG-87E"/>
                             <constraint firstItem="S3T-Sq-hZQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Zj9-hx-3yB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="VWc-QY-6sO" secondAttribute="trailing" constant="20" id="d7W-SF-hda"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dKl-gE-s19" secondAttribute="trailing" constant="20" id="dDW-YP-kKw"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dKl-gE-s19" secondAttribute="trailing" id="dDW-YP-kKw"/>
                             <constraint firstItem="9A6-fZ-ZNZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="dW7-HF-zRP"/>
                             <constraint firstItem="9A6-fZ-ZNZ" firstAttribute="top" secondItem="dKl-gE-s19" secondAttribute="bottom" constant="20" id="f2A-fp-FY0"/>
-                            <constraint firstItem="dKl-gE-s19" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="mPA-aF-VV9"/>
+                            <constraint firstItem="dKl-gE-s19" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mPA-aF-VV9"/>
                             <constraint firstItem="VWc-QY-6sO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="ncA-0n-brz"/>
                             <constraint firstItem="VWc-QY-6sO" firstAttribute="top" secondItem="S3T-Sq-hZQ" secondAttribute="bottom" constant="8" id="sMh-2P-udd"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="S3T-Sq-hZQ" secondAttribute="trailing" constant="20" id="zEY-u0-pEK"/>
