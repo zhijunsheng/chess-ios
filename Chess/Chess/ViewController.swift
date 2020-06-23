@@ -58,6 +58,7 @@ class ViewController: UIViewController {
     @IBAction func reset(_ sender: Any) {
         chessEngine.initializeGame()
         boardView.shadowPieces = chessEngine.pieces
+        boardView.blackAtTop = true
         boardView.setNeedsDisplay()
         infoLabel.text = "White"
     }
