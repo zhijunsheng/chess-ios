@@ -33,7 +33,7 @@
 
 /* Begin PBXFileReference section */
 		0728497E24929E7400B7AEBC /* drop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = drop.wav; sourceTree = "<group>"; };
-		07298BB324887E0300D154D2 /* Chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chess.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		07298BB324887E0300D154D2 /* GT Chess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GT Chess.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		07298BB624887E0300D154D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07298BBA24887E0300D154D2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		07298BBD24887E0300D154D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -46,6 +46,7 @@
 		07298BD824887E2D00D154D2 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		07298BDA248898E100D154D2 /* ChessPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessPiece.swift; sourceTree = "<group>"; };
 		07298BDC2488998000D154D2 /* ChessEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessEngine.swift; sourceTree = "<group>"; };
+		07306EAA24A18ED100DEEA63 /* GT ChessRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GT ChessRelease.entitlements"; sourceTree = "<group>"; };
 		073496E2249D419500C3AAB0 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		07A48E7924893BB6000D1C6B /* ChessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -80,7 +81,7 @@
 		07298BB424887E0300D154D2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				07298BB324887E0300D154D2 /* Chess.app */,
+				07298BB324887E0300D154D2 /* GT Chess.app */,
 				07298BC924887E0300D154D2 /* ChessTests.xctest */,
 			);
 			name = Products;
@@ -89,6 +90,7 @@
 		07298BB524887E0300D154D2 /* Chess */ = {
 			isa = PBXGroup;
 			children = (
+				07306EAA24A18ED100DEEA63 /* GT ChessRelease.entitlements */,
 				07298BB624887E0300D154D2 /* AppDelegate.swift */,
 				07A48E7924893BB6000D1C6B /* ChessDelegate.swift */,
 				07298BD824887E2D00D154D2 /* BoardView.swift */,
@@ -131,7 +133,7 @@
 			);
 			name = Chess;
 			productName = Chess;
-			productReference = 07298BB324887E0300D154D2 /* Chess.app */;
+			productReference = 07298BB324887E0300D154D2 /* GT Chess.app */;
 			productType = "com.apple.product-type.application";
 		};
 		07298BC824887E0300D154D2 /* ChessTests */ = {
@@ -390,7 +392,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.goldthumb.Chess;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "GT Chess";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -400,6 +402,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Chess/GT ChessRelease.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J8B74FCZCC;
 				INFOPLIST_FILE = Chess/Info.plist;
@@ -408,7 +411,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.goldthumb.Chess;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "GT Chess";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
