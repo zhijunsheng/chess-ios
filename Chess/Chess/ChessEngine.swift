@@ -84,3 +84,20 @@ struct ChessEngine {
         }
     }
 }
+
+extension ChessEngine: CustomStringConvertible {
+    var description: String {
+        var desc = ""
+        
+        desc += "  0 1 2 3 4 5 6 7\n"
+        for row in 0..<8 {
+            desc += "\(row)"
+            for col in 0..<8 {
+                desc += " ."
+            }
+            desc += "\n"
+        }
+        
+        return desc
+    }
+}

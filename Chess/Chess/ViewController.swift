@@ -134,7 +134,9 @@ extension ViewController: ChessDelegate {
         boardView.shadowPieces = chessEngine.pieces
         boardView.setNeedsDisplay()
         
-        audioPlayer.play()
+        #if !targetEnvironment(simulator)
+            audioPlayer.play()
+        #endif
         
         if chessEngine.whitesTurn {
             infoLabel.text = "White"
