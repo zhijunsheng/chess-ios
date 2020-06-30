@@ -25,4 +25,10 @@ class ChessEngineTests: XCTestCase {
         XCTAssertFalse(game.canMovePiece(fromCol: 0, fromRow: 7, toCol: 0, toRow: 8))
         XCTAssertFalse(game.canMovePiece(fromCol: 0, fromRow: 7, toCol: 0, toRow: -1))
     }
+    
+    func testAvoidCapturingOwnPieces() {
+        var game = ChessEngine()
+        game.initializeGame()
+        XCTAssertFalse(game.canMovePiece(fromCol: 0, fromRow: 7, toCol: 0, toRow: 6))
+    }
 }

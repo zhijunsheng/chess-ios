@@ -22,9 +22,6 @@ struct ChessEngine {
         }
         
         if let target = pieceAt(col: toCol, row: toRow) {
-            if target.isWhite == movingPiece.isWhite {
-                return
-            }
             pieces.remove(target)
         }
         
@@ -43,11 +40,15 @@ struct ChessEngine {
             return false
         }
         
-        guard let candidate = pieceAt(col: fromCol, row: fromRow) else {
+        guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
             return false
         }
         
-        if candidate.isWhite != whitesTurn {
+        if let target = pieceAt(col: toCol, row: toRow), target.isWhite == movingPiece.isWhite  {
+            return false
+        }
+        
+        if movingPiece.isWhite != whitesTurn {
             return false
         }
         
