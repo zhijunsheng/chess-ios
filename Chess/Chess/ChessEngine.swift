@@ -35,6 +35,10 @@ struct ChessEngine {
     }
     
     func canMovePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        if toCol < 0 || toCol > 7 || toRow < 0 || toRow > 7 {
+            return false
+        }
+        
         if fromCol == toCol && fromRow == toRow {
             return false
         }
