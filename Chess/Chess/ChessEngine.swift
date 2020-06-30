@@ -52,7 +52,18 @@ struct ChessEngine {
             return false
         }
         
-        return true
+        switch movingPiece.rank {
+        case .knight:
+            return canMoveKnight(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        default:
+            return true
+        }
+        
+//        return true
+    }
+    
+    func canMoveKnight(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        return abs(fromCol - toCol) == 1 && abs(fromRow - toRow) == 2 || abs(fromRow - toRow) == 1 && abs(fromCol - toCol) == 2
     }
     
     func pieceAt(col: Int, row: Int) -> ChessPiece? {
@@ -123,3 +134,4 @@ extension ChessEngine: CustomStringConvertible {
         return desc
     }
 }
+
