@@ -130,6 +130,9 @@ extension ViewController: ChessDelegate {
     }
     
     func updateMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        guard chessEngine.canMovePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) else {
+            return
+        }
         chessEngine.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         boardView.shadowPieces = chessEngine.pieces
         boardView.setNeedsDisplay()
