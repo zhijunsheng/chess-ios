@@ -53,6 +53,8 @@ struct ChessEngine {
             return canMoveKnight(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .rook:
             return canMoveRook(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        case .bishop:
+            return canMoveBishop(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         default:
             return true
         }
@@ -69,8 +71,15 @@ struct ChessEngine {
         return fromCol == toCol || fromRow == toRow
     }
     
+    func canMoveBishop(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        guard emptyBetween(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) else {
+            return false
+        }
+        return abs(fromCol - toCol) == abs(fromRow - toRow)
+    }
+    
     func emptyBetween(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        if fromRow == toRow {
+        if fromRow == toRow { // horizontal
             let minCol = min(fromCol, toCol)
             let maxCol = max(fromCol, toCol)
             if maxCol - minCol < 2   {
@@ -82,7 +91,7 @@ struct ChessEngine {
                 }
             }
             return true
-        } else if fromCol == toCol {
+        } else if fromCol == toCol { // vertical
             let minRow = min(fromRow, toRow)
             let maxRow = max(fromRow, toRow)
             if maxRow - minRow < 2   {
@@ -94,6 +103,33 @@ struct ChessEngine {
                 }
             }
             return true
+        } else if abs(fromCol - toCol) == abs(fromRow - toRow) { // diagonal
+            let minCol = min(fromCol, toCol)
+            let maxCol = max(fromCol, toCol)
+            let minRow = min(fromRow, toRow)
+            let maxRow = max(fromRow, toRow)
+            
+            if fromRow - toRow == fromCol - toCol { // top left to bottom right \
+                if maxCol - minCol < 2   {
+                    return true
+                }
+                for i in 1..<abs(fromCol - toCol) {
+                    if pieceAt(col: minCol + i, row: minRow + i) != nil {
+                        return false
+                    }
+                }
+                return true
+            } else { // bottom left to top right /
+                if maxCol - minCol < 2   {
+                    return true
+                }
+                for i in 1..<abs(fromCol - toCol) {
+                    if pieceAt(col: minCol + i, row: maxRow - i) != nil {
+                        return false
+                    }
+                }
+                return true
+            }
         }
         
         return false
