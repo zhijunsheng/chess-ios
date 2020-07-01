@@ -213,7 +213,7 @@ class ChessEngineTests: XCTestCase {
          2 . . . . . . . .
          3 . . . . . . . .
          4 . . . . . . . .
-         5 . . . . x  . .
+         5 . . . . x . . .
          6 . . . . . . . .
          7 . . . q . . . .
          */
@@ -240,6 +240,25 @@ class ChessEngineTests: XCTestCase {
         XCTAssertFalse(game.canMovePiece(fromCol: 3, fromRow: 3, toCol: 6, toRow: 0))
         XCTAssertFalse(game.canMovePiece(fromCol: 3, fromRow: 3, toCol: 7, toRow: 7))
         XCTAssertFalse(game.canMovePiece(fromCol: 3, fromRow: 3, toCol: 0, toRow: 6))
-        
+    }
+    
+    func testKingRules() {
+        /*
+           0 1 2 3 4 5 6 7
+         0 . . . . . . . .
+         1 . . . . x . . .
+         2 . . . . . . . .
+         3 . . . k o x . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 . . . . . . . .
+         7 . . . . . . . .
+         */
+        var game = ChessEngine()
+        game.pieces.insert(ChessPiece(col: 3, row: 3, imageName: "", isWhite: true, rank: .king))
+        XCTAssertFalse(game.canMovePiece(fromCol: 3, fromRow: 3, toCol: 3, toRow: 3))
+        XCTAssertFalse(game.canMovePiece(fromCol: 3, fromRow: 3, toCol: 5, toRow: 3))
+        XCTAssertTrue(game.canMovePiece(fromCol: 3, fromRow: 3, toCol: 4, toRow: 3))
+        XCTAssertFalse(game.canMovePiece(fromCol: 3, fromRow: 3, toCol: 4, toRow: 1))
     }
 }

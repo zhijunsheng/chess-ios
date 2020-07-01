@@ -57,6 +57,8 @@ struct ChessEngine {
             return canMoveBishop(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .queen:
             return canMoveQueen(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        case .king:
+            return canMoveKing(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         default:
             return true
         }
@@ -82,6 +84,12 @@ struct ChessEngine {
     
     func canMoveQueen(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         return canMoveRook(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) || canMoveBishop(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+    }
+    
+    func canMoveKing(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        let deltaCol = abs(fromCol - toCol)
+        let deltaRow = abs(fromRow - toRow)
+        return (deltaCol == 1 || deltaRow == 1) && deltaCol + deltaRow < 3
     }
     
     func emptyBetween(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
