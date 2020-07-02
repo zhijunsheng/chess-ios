@@ -356,6 +356,21 @@ class ChessEngineTests: XCTestCase {
            0 1 2 3 4 5 6 7
          0 . . . . . . . .
          1 . . . . . . . .
+         2 . . . . . x . .
+         3 . . . . . . . .
+         4 . . . . . p . .
+         5 . . . . . . . .
+         6 . . . . . . . .
+         7 . . . . . . . .
+         */
+        game = ChessEngine()
+        game.pieces.insert(ChessPiece(col: 5, row: 4, imageName: "", isWhite: true, rank: .pawn))
+        XCTAssertFalse(game.canMovePiece(fromCol: 5, fromRow: 4, toCol: 5, toRow: 2))
+        
+        /*
+           0 1 2 3 4 5 6 7
+         0 . . . . . . . .
+         1 . . . . . . . .
          2 . . . . . . . .
          3 . . . . N . N .
          4 . . . . . p . .

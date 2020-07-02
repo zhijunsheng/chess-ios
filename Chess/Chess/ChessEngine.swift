@@ -109,7 +109,9 @@ struct ChessEngine {
         } else if toCol == fromCol {
             if pieceAt(col: fromCol, row: fromRow + (movingPawn.isWhite ? -1 : 1)) == nil {
                 return toRow == fromRow + (movingPawn.isWhite ? -1 : 1) ||
-                    toRow == fromRow + (movingPawn.isWhite ? -2 : 2) && pieceAt(col: fromCol, row: toRow) == nil
+                    toRow == fromRow + (movingPawn.isWhite ? -2 : 2) &&
+                    pieceAt(col: fromCol, row: toRow) == nil &&
+                    fromRow == (movingPawn.isWhite ? 6 : 1)
             }
         }
         
