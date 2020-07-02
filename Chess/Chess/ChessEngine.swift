@@ -97,22 +97,16 @@ struct ChessEngine {
             return false
         }
         
-        if movingPawn.isWhite {
-            if fromRow == 6 {
-                if pieceAt(col: fromCol, row: 5) == nil && toCol == fromCol {
-                    return toRow == 5 || toRow == 4 && pieceAt(col: fromCol, row: 4) == nil
-                }
-            } else if fromRow < 6 {
-                if fromCol == toCol && toRow == fromRow - 1 {
-                    return pieceAt(col: fromCol, row: toRow) == nil
-                } else if let piece = pieceAt(col: toCol, row: toRow), !piece.isWhite {
-                    return toRow == fromRow - 1 && abs(toCol - fromCol) == 1 
-                }
+        if let target = pieceAt(col: toCol, row: toRow), target.isWhite != movingPawn.isWhite {
+            return toRow == fromRow + (movingPawn.isWhite ? -1 : 1) && abs(toCol - fromCol) == 1
+        } else if toCol == fromCol {
+            if pieceAt(col: fromCol, row: fromRow + (movingPawn.isWhite ? -1 : 1)) == nil {
+                return toRow == fromRow + (movingPawn.isWhite ? -1 : 1) ||
+                    toRow == fromRow + (movingPawn.isWhite ? -2 : 2) && pieceAt(col: fromCol, row: toRow) == nil
             }
-            return false
-        } else {
-            return true
         }
+
+        return false
     }
     
     func emptyBetween(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
