@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
 class GameViewController: UIViewController, ChessDelegate { // C of MVC
     
@@ -15,6 +16,9 @@ class GameViewController: UIViewController, ChessDelegate { // C of MVC
     private var fromRow: Int? = nil
     @IBOutlet weak var boardView: BoardView! // V of MVC
     private var thingImageView: UIImageView? = nil
+    var peerID: MCPeerID!
+    var session: MCSession!
+    var nearbyServiceAdvertizer: MCNearbyServiceAdvertiser!
     
     
     override func viewDidLoad() {
@@ -102,5 +106,43 @@ class GameViewController: UIViewController, ChessDelegate { // C of MVC
         let pieceImageView: UIImageView = UIImageView(frame: CGRect(x: boardView.originX + boardView.side * (CGFloat(col) - 0.5), y: boardView.originY + boardView.side * (CGFloat(row) - 0.5), width: boardView.side, height: boardView.side))
         pieceImageView.image = pieceImage
         view.addSubview(pieceImageView)
+    }
+}
+
+extension GameViewController: MCSessionDelegate {
+    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+        
+    }
+    
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        
+    }
+    
+    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
+        
+    }
+    
+    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
+        
+    }
+    
+    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
+        
+    }
+}
+
+extension GameViewController: MCNearbyServiceAdvertiserDelegate {
+    func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
+        invitationHandler(true, session)
+    }
+}
+
+extension GameViewController: MCBrowserViewControllerDelegate {
+    func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
+        dismiss(animated: true)
+    }
+    
+    func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
+        dismiss(animated: true)
     }
 }
