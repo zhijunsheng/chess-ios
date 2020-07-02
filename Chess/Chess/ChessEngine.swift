@@ -24,6 +24,11 @@ struct ChessEngine {
         
         pieces.remove(movingPiece)
         pieces.insert(ChessPiece(col: toCol, row: toRow, imageName: movingPiece.imageName, isWhite: movingPiece.isWhite, rank: movingPiece.rank))
+
+        if let lastMove = lastMove, let lastMovedPawn = pieceAt(col: lastMove.toCol, row: lastMove.toRow), lastMovedPawn.isWhite != movingPiece.isWhite, movingPiece.rank == .pawn, lastMovedPawn.rank == .pawn, abs(fromCol - toCol) == 1 && abs(fromRow - toRow) == 1 {
+            pieces.remove(lastMovedPawn)
+        }
+        
         lastMove = ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         
         whitesTurn = !whitesTurn

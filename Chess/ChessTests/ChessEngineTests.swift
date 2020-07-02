@@ -520,5 +520,106 @@ class ChessEngineTests: XCTestCase {
         game.pieces.insert(ChessPiece(col: 4, row: 3, imageName: "", isWhite: false, rank: .pawn))
         game.lastMove = ChessMove(fromCol: 4, fromRow: 1, toCol: 4, toRow: 3)
         XCTAssertTrue(game.canMovePiece(fromCol: 5, fromRow: 3, toCol: 4, toRow: 2))
+        
+        XCTAssertNotNil(game.pieceAt(col: 4, row: 3))
+        game.movePiece(fromCol: 5, fromRow: 3, toCol: 4, toRow: 2)
+        XCTAssertNil(game.pieceAt(col: 4, row: 3))
+        XCTAssertNotNil(game.pieceAt(col: 4, row: 2))
+        
+        /*
+
+           0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P P P P P P P P
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . p . .
+         5 . . . . . . . .
+         6 p p p p p . p p
+         7 r n b q k b n r
+         
+           0 1 2 3 4 5 6 7
+         0 R . B Q K B N R
+         1 P P P P P P P P
+         2 N . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . p . .
+         5 . . . . . . . .
+         6 p p p p p . p p
+         7 r n b q k b n r
+         
+           0 1 2 3 4 5 6 7
+         0 R . B Q K B N R
+         1 P P P P P P P P
+         2 N . . . . . . .
+         3 . . . . . p . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 p p p p p . p p
+         7 r n b q k b n r
+         
+        */
+        game = ChessEngine()
+        game.initializeGame()
+        
+        game.movePiece(fromCol: 5, fromRow: 6, toCol: 5, toRow: 4)
+        game.movePiece(fromCol: 1, fromRow: 0, toCol: 0, toRow: 2)
+        game.movePiece(fromCol: 5, fromRow: 4, toCol: 5, toRow: 3)
+        
+        XCTAssertNotNil(game.pieceAt(col: 0, row: 2))
+        
+        /*
+
+           0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P P P P P P P P
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . p . .
+         5 . . . . . . . .
+         6 p p p p p . p p
+         7 r n b q k b n r
+         
+           0 1 2 3 4 5 6 7
+         0 R . B Q K B N R
+         1 P P P P P P P P
+         2 N . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . p . .
+         5 . . . . . . . .
+         6 p p p p p . p p
+         7 r n b q k b n r
+         
+           0 1 2 3 4 5 6 7
+         0 R . B Q K B N R
+         1 P P P P P P P P
+         2 N . . . . . . .
+         3 . . . . . p . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 p p p p p . p p
+         7 r n b q k b n r
+         
+           0 1 2 3 4 5 6 7
+         0 R . B Q K B N R
+         1 P P P P . P P P
+         2 N . . . . . . .
+         3 . . . . P p . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 p p p p p . p p
+         7 r n b q k b n r
+         
+        */
+        game = ChessEngine()
+        game.initializeGame()
+        
+        game.movePiece(fromCol: 5, fromRow: 6, toCol: 5, toRow: 4)
+        game.movePiece(fromCol: 1, fromRow: 0, toCol: 0, toRow: 2)
+        game.movePiece(fromCol: 5, fromRow: 4, toCol: 5, toRow: 3)
+        game.movePiece(fromCol: 4, fromRow: 1, toCol: 4, toRow: 3)
+        
+        XCTAssertNotNil(game.pieceAt(col: 0, row: 2))
+        XCTAssertNotNil(game.pieceAt(col: 5, row: 3))
     }
 }
