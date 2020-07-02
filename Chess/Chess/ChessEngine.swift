@@ -11,6 +11,7 @@ import Foundation
 struct ChessEngine {
     var pieces: Set<ChessPiece> = Set<ChessPiece>()
     var whitesTurn: Bool = true
+    var lastMove: ChessMove?
     
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
@@ -23,6 +24,7 @@ struct ChessEngine {
         
         pieces.remove(movingPiece)
         pieces.insert(ChessPiece(col: toCol, row: toRow, imageName: movingPiece.imageName, isWhite: movingPiece.isWhite, rank: movingPiece.rank))
+        lastMove = ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         
         whitesTurn = !whitesTurn
     }
@@ -103,6 +105,14 @@ struct ChessEngine {
             if pieceAt(col: fromCol, row: fromRow + (movingPawn.isWhite ? -1 : 1)) == nil {
                 return toRow == fromRow + (movingPawn.isWhite ? -1 : 1) ||
                     toRow == fromRow + (movingPawn.isWhite ? -2 : 2) && pieceAt(col: fromCol, row: toRow) == nil
+            }
+        }
+        
+        if movingPawn.isWhite {
+            if let lastMove = lastMove, let enemyPawn = pieceAt(col: lastMove.toCol, row: lastMove.toRow), lastMove.fromRow == 1 {
+                if fromRow == 3 && toRow == 2 && abs(toCol - fromCol) == 1 {
+                    return enemyPawn.rank == .pawn && enemyPawn.isWhite != movingPawn.isWhite && enemyPawn.row == fromRow && enemyPawn.col == toCol
+                }
             }
         }
 

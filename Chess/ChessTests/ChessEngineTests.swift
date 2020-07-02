@@ -502,4 +502,23 @@ class ChessEngineTests: XCTestCase {
         game.pieces.insert(ChessPiece(col: 3, row: 2, imageName: "", isWhite: true, rank: .pawn))
         XCTAssertTrue(game.canMovePiece(fromCol: 2, fromRow: 1, toCol: 3, toRow: 2))
     }
+    
+    func testWhiteEnPassant() {
+        /*
+          0 1 2 3 4 5 6 7
+        0 . . . . . . . .
+        1 . . . . . . . .
+        2 . . . . o . . .
+        3 . . . . P p . .
+        4 . . . . . . . .
+        5 . . . . . . . .
+        6 . . . . . . . .
+        7 . . . . . . . .
+        */
+        var game = ChessEngine()
+        game.pieces.insert(ChessPiece(col: 5, row: 3, imageName: "", isWhite: true, rank: .pawn))
+        game.pieces.insert(ChessPiece(col: 4, row: 3, imageName: "", isWhite: false, rank: .pawn))
+        game.lastMove = ChessMove(fromCol: 4, fromRow: 1, toCol: 4, toRow: 3)
+        XCTAssertTrue(game.canMovePiece(fromCol: 5, fromRow: 3, toCol: 4, toRow: 2))
+    }
 }

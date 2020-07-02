@@ -20,6 +20,7 @@
 		07A48E7A24893BB6000D1C6B /* ChessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A48E7924893BB6000D1C6B /* ChessDelegate.swift */; };
 		07F4C02224AB79F600E2E9BB /* ChessEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4C02124AB79F600E2E9BB /* ChessEngineTests.swift */; };
 		07F4C02424AB86FF00E2E9BB /* ChessRank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4C02324AB86FF00E2E9BB /* ChessRank.swift */; };
+		07F4C02624AE835700E2E9BB /* ChessMove.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F4C02524AE835700E2E9BB /* ChessMove.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		07A48E7924893BB6000D1C6B /* ChessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessDelegate.swift; sourceTree = "<group>"; };
 		07F4C02124AB79F600E2E9BB /* ChessEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessEngineTests.swift; sourceTree = "<group>"; };
 		07F4C02324AB86FF00E2E9BB /* ChessRank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessRank.swift; sourceTree = "<group>"; };
+		07F4C02524AE835700E2E9BB /* ChessMove.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessMove.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				07A48E7924893BB6000D1C6B /* ChessDelegate.swift */,
 				07298BD824887E2D00D154D2 /* BoardView.swift */,
 				07298BDA248898E100D154D2 /* ChessPiece.swift */,
+				07F4C02524AE835700E2E9BB /* ChessMove.swift */,
 				07F4C02324AB86FF00E2E9BB /* ChessRank.swift */,
 				07298BDC2488998000D154D2 /* ChessEngine.swift */,
 				07298BBA24887E0300D154D2 /* ViewController.swift */,
@@ -229,6 +232,7 @@
 				07298BD924887E2D00D154D2 /* BoardView.swift in Sources */,
 				07298BB724887E0300D154D2 /* AppDelegate.swift in Sources */,
 				07298BDB248898E100D154D2 /* ChessPiece.swift in Sources */,
+				07F4C02624AE835700E2E9BB /* ChessMove.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
