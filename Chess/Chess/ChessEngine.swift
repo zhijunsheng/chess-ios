@@ -98,9 +98,15 @@ struct ChessEngine {
         }
         
         if movingPawn.isWhite {
-            if fromRow == 6 && toCol == fromCol {
-                if pieceAt(col: fromCol, row: 5) == nil {
+            if fromRow == 6 {
+                if pieceAt(col: fromCol, row: 5) == nil && toCol == fromCol {
                     return toRow == 5 || toRow == 4 && pieceAt(col: fromCol, row: 4) == nil
+                }
+            } else if fromRow < 6 {
+                if fromCol == toCol && toRow == fromRow - 1 {
+                    return pieceAt(col: fromCol, row: toRow) == nil
+                } else if let piece = pieceAt(col: toCol, row: toRow), !piece.isWhite {
+                    return toRow == fromRow - 1 && abs(toCol - fromCol) == 1 
                 }
             }
             return false
