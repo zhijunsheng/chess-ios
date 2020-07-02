@@ -261,4 +261,70 @@ class ChessEngineTests: XCTestCase {
         XCTAssertTrue(game.canMovePiece(fromCol: 3, fromRow: 3, toCol: 4, toRow: 3))
         XCTAssertFalse(game.canMovePiece(fromCol: 3, fromRow: 3, toCol: 4, toRow: 1))
     }
+    
+    func testPawnRules() {
+        /*
+           0 1 2 3 4 5 6 7
+         0 . . . . . . . .
+         1 . . . . . . . .
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . o . .
+         5 . . . . x o x .
+         6 . . . . x p x .
+         7 . . . . . . . .
+         */
+        var game = ChessEngine()
+        game.pieces.insert(ChessPiece(col: 5, row: 6, imageName: "", isWhite: true, rank: .pawn))
+        XCTAssertFalse(game.canMovePiece(fromCol: 5, fromRow: 6, toCol: 6, toRow: 5))
+        XCTAssertTrue(game.canMovePiece(fromCol: 5, fromRow: 6, toCol: 5, toRow: 5))
+        XCTAssertTrue(game.canMovePiece(fromCol: 5, fromRow: 6, toCol: 5, toRow: 4))
+        
+        /*
+           0 1 2 3 4 5 6 7
+         0 . . . . . . . .
+         1 . . . . . . . .
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . x . .
+         5 . . . . . N . .
+         6 . . . . . p . .
+         7 . . . . . . . .
+         */
+        game = ChessEngine()
+        game.pieces.insert(ChessPiece(col: 5, row: 6, imageName: "", isWhite: true, rank: .pawn))
+        game.pieces.insert(ChessPiece(col: 5, row: 5, imageName: "", isWhite: false, rank: .knight))
+        XCTAssertFalse(game.canMovePiece(fromCol: 5, fromRow: 6, toCol: 5, toRow: 5))
+        XCTAssertFalse(game.canMovePiece(fromCol: 5, fromRow: 6, toCol: 5, toRow: 4))
+        
+        /*
+           0 1 2 3 4 5 6 7
+         0 . . . . . . . .
+         1 . . . . . . . .
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . N . .
+         5 . . . . . . . .
+         6 . . . . . p . .
+         7 . . . . . . . .
+         */
+        game = ChessEngine()
+        game.pieces.insert(ChessPiece(col: 5, row: 6, imageName: "", isWhite: true, rank: .pawn))
+        game.pieces.insert(ChessPiece(col: 5, row: 4, imageName: "", isWhite: false, rank: .knight))
+        XCTAssertTrue(game.canMovePiece(fromCol: 5, fromRow: 6, toCol: 5, toRow: 5))
+        XCTAssertFalse(game.canMovePiece(fromCol: 5, fromRow: 6, toCol: 5, toRow: 4))
+        
+        
+        /*
+           0 1 2 3 4 5 6 7
+         0 . . . . . . . .
+         1 P . . . . . . .
+         2 ? . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . ? . .
+         5 . . . . . ? ? .
+         6 . . . . . p . .
+         7 . . . . . . . .
+         */
+    }
 }
