@@ -34,6 +34,15 @@ struct ChessEngine {
         whitesTurn = !whitesTurn
     }
     
+    func underThreatAt(col: Int, row: Int) -> Bool {
+        for piece in pieces where piece.isWhite == whitesTurn {
+            if canMovePiece(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) {
+                return true
+            }
+        }
+        return false
+    }
+    
     func canMovePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         if toCol < 0 || toCol > 7 || toRow < 0 || toRow > 7 {
             return false
