@@ -113,13 +113,11 @@ struct ChessEngine {
                     pieceAt(col: fromCol, row: toRow) == nil &&
                     fromRow == (movingPawn.isWhite ? 6 : 1)
             }
-        }
-        
-        if movingPawn.isWhite {
-            if let lastMove = lastMove, let enemyPawn = pieceAt(col: lastMove.toCol, row: lastMove.toRow), lastMove.fromRow == 1 {
-                if fromRow == 3 && toRow == 2 && abs(toCol - fromCol) == 1 {
-                    return enemyPawn.rank == .pawn && enemyPawn.isWhite != movingPawn.isWhite && enemyPawn.row == fromRow && enemyPawn.col == toCol
-                }
+        } else if let lastMove = lastMove, let enemyPawn = pieceAt(col: lastMove.toCol, row: lastMove.toRow), enemyPawn.rank == .pawn && enemyPawn.isWhite != movingPawn.isWhite && enemyPawn.row == fromRow && enemyPawn.col == toCol, abs(toCol - fromCol) == 1 {
+            if movingPawn.isWhite {
+                return fromRow == 3 && toRow == 2 && lastMove.fromRow == 1
+            } else {
+                return fromRow == 4 && toRow == 5 && lastMove.fromRow == 6
             }
         }
 

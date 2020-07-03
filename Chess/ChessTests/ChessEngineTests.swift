@@ -637,4 +637,29 @@ class ChessEngineTests: XCTestCase {
         XCTAssertNotNil(game.pieceAt(col: 0, row: 2))
         XCTAssertNotNil(game.pieceAt(col: 5, row: 3))
     }
+    
+    func testBlackEnPassant() {
+        /*
+          0 1 2 3 4 5 6 7
+        0 . . . . . . . .
+        1 . . . . . . . .
+        2 . . . . . . . .
+        3 . . . . . . . .
+        4 . . . . . P p .
+        5 . . . . . . o .
+        6 . . . . . . . .
+        7 . . . . . . . .
+        */
+        var game = ChessEngine()
+        game.pieces.insert(ChessPiece(col: 5, row: 4, imageName: "", isWhite: false, rank: .pawn))
+        game.pieces.insert(ChessPiece(col: 6, row: 4, imageName: "", isWhite: true, rank: .pawn))
+        game.lastMove = ChessMove(fromCol: 6, fromRow: 6, toCol: 6, toRow: 4)
+        game.whitesTurn = false
+        XCTAssertTrue(game.canMovePiece(fromCol: 5, fromRow: 4, toCol: 6, toRow: 5))
+        
+        XCTAssertNotNil(game.pieceAt(col: 6, row: 4))
+        game.movePiece(fromCol: 5, fromRow: 4, toCol: 6, toRow: 5)
+        XCTAssertNil(game.pieceAt(col: 6, row: 4))
+        XCTAssertNotNil(game.pieceAt(col: 6, row: 5))
+    }
 }
