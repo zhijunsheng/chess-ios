@@ -12,6 +12,8 @@ struct ChessEngine {
     var pieces: Set<ChessPiece> = Set<ChessPiece>()
     var whitesTurn: Bool = true
     var lastMove: ChessMove?
+    var whiteKingSideRookMoved = false
+    var whiteKingMoved = false
     
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
@@ -24,6 +26,21 @@ struct ChessEngine {
         
         pieces.remove(movingPiece)
         pieces.insert(ChessPiece(col: toCol, row: toRow, imageName: movingPiece.imageName, isWhite: movingPiece.isWhite, rank: movingPiece.rank))
+        
+        if fromCol == 4 && fromRow == 7 {
+            whiteKingMoved = true
+        }
+        
+        if fromCol == 7 && fromRow == 7 {
+            whiteKingSideRookMoved = true
+        }
+        
+        if fromCol == 4 && fromRow == 7 && toCol == 6 && toRow == 7 {
+            if let rook = pieceAt(col: 7, row: 7) {
+                pieces.remove(rook)
+                pieces.insert(ChessPiece(col: 5, row: 7, imageName: rook.imageName, isWhite: rook.isWhite, rank: rook.rank))
+            }
+        }
 
         if let lastMove = lastMove, let lastMovedPawn = pieceAt(col: lastMove.toCol, row: lastMove.toRow), lastMovedPawn.isWhite != movingPiece.isWhite, movingPiece.rank == .pawn, lastMovedPawn.rank == .pawn, abs(fromCol - toCol) == 1 && abs(fromRow - toRow) == 1 {
             pieces.remove(lastMovedPawn)
@@ -34,8 +51,8 @@ struct ChessEngine {
         whitesTurn = !whitesTurn
     }
     
-    func underThreatAt(col: Int, row: Int) -> Bool {
-        for piece in pieces where piece.isWhite == whitesTurn {
+    func underThreatAt(col: Int, row: Int, fromWhite: Bool) -> Bool {
+        for piece in pieces where piece.isWhite == fromWhite {
             if canMovePiece(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) {
                 return true
             }
@@ -103,9 +120,26 @@ struct ChessEngine {
     }
     
     func canMoveKing(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        if canCastle(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
+            return true
+        }
         let deltaCol = abs(fromCol - toCol)
         let deltaRow = abs(fromRow - toRow)
         return (deltaCol == 1 || deltaRow == 1) && deltaCol + deltaRow < 3
+    }
+    
+    func canCastle(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        guard let movingKing = pieceAt(col: fromCol, row: fromRow) else {
+            return false
+        }
+        
+        if movingKing.isWhite {
+            if !whiteKingSideRookMoved && !whiteKingMoved && pieceAt(col: 5, row: fromRow) == nil && pieceAt(col: 6, row: fromRow) == nil {
+                return movingKing.col == 4 && movingKing.row == 7 && !underThreatAt(col: 5, row: fromRow, fromWhite: !whitesTurn) && !underThreatAt(col: 6, row: fromRow, fromWhite: !whitesTurn)
+            }
+        }
+        
+        return false
     }
     
     func canMovePawn(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
@@ -243,7 +277,7 @@ extension ChessEngine: CustomStringConvertible {
     var description: String {
         var desc = ""
         
-        desc += "  0 1 2 3 4 5 6 7\n"
+        desc += "+ 0 1 2 3 4 5 6 7\n"
         for row in 0..<8 {
             desc += "\(row)"
             for col in 0..<8 {
