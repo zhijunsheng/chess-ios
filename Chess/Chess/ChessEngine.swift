@@ -12,8 +12,12 @@ struct ChessEngine {
     var pieces: Set<ChessPiece> = Set<ChessPiece>()
     var whitesTurn: Bool = true
     var lastMove: ChessMove?
+    
     var whiteKingSideRookMoved = false
     var whiteKingMoved = false
+    
+    var blackKingSideRookMoved = false
+    var blackKingMoved = false
     
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
@@ -35,10 +39,23 @@ struct ChessEngine {
             whiteKingSideRookMoved = true
         }
         
+        if fromCol == 4 && fromRow == 0 {
+            blackKingMoved = true
+        }
+        
+        if fromCol == 7 && fromRow == 0 {
+            blackKingSideRookMoved = true
+        }
+        
         if fromCol == 4 && fromRow == 7 && toCol == 6 && toRow == 7 {
             if let rook = pieceAt(col: 7, row: 7) {
                 pieces.remove(rook)
                 pieces.insert(ChessPiece(col: 5, row: 7, imageName: rook.imageName, isWhite: rook.isWhite, rank: rook.rank))
+            }
+        } else if fromCol == 4 && fromRow == 0 && toCol == 6 && toRow == 0 {
+            if let rook = pieceAt(col: 7, row: 0) {
+                pieces.remove(rook)
+                pieces.insert(ChessPiece(col: 5, row: 0, imageName: rook.imageName, isWhite: rook.isWhite, rank: rook.rank))
             }
         }
 
@@ -120,7 +137,7 @@ struct ChessEngine {
     }
     
     func canMoveKing(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        if canCastle(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
+        if canCastle(toCol: toCol, toRow: toRow) {
             return true
         }
         let deltaCol = abs(fromCol - toCol)
@@ -128,14 +145,22 @@ struct ChessEngine {
         return (deltaCol == 1 || deltaRow == 1) && deltaCol + deltaRow < 3
     }
     
-    func canCastle(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        guard let movingKing = pieceAt(col: fromCol, row: fromRow) else {
-            return false
-        }
-        
-        if movingKing.isWhite {
-            if !whiteKingSideRookMoved && !whiteKingMoved && pieceAt(col: 5, row: fromRow) == nil && pieceAt(col: 6, row: fromRow) == nil {
-                return movingKing.col == 4 && movingKing.row == 7 && !underThreatAt(col: 5, row: fromRow, fromWhite: !whitesTurn) && !underThreatAt(col: 6, row: fromRow, fromWhite: !whitesTurn)
+    func canCastle(toCol: Int, toRow: Int) -> Bool {
+        if toRow == 7 {
+            guard let movingKing = pieceAt(col: 4, row: 7) else {
+                return false
+            }
+            
+            if !whiteKingSideRookMoved && !whiteKingMoved && pieceAt(col: 5, row: 7) == nil && pieceAt(col: 6, row: 7) == nil {
+                return movingKing.col == 4 && movingKing.row == 7 && !underThreatAt(col: 5, row: 7, fromWhite: !whitesTurn) && !underThreatAt(col: 6, row: 7, fromWhite: !whitesTurn)
+            }
+        } else {
+            guard let movingKing = pieceAt(col: 4, row: 0) else {
+                return false
+            }
+            
+            if !blackKingSideRookMoved && !blackKingMoved && pieceAt(col: 5, row: 0) == nil && pieceAt(col: 6, row: 0) == nil {
+                return movingKing.col == 4 && movingKing.row == 0 && !underThreatAt(col: 5, row: 0, fromWhite: !whitesTurn) && !underThreatAt(col: 6, row: 0, fromWhite: !whitesTurn)
             }
         }
         
