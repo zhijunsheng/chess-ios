@@ -47,15 +47,13 @@ struct ChessEngine {
             blackKingSideRookMoved = true
         }
         
-        if fromCol == 4 && fromRow == 7 && toCol == 6 && toRow == 7 {
-            if let rook = pieceAt(col: 7, row: 7) {
-                pieces.remove(rook)
-                pieces.insert(ChessPiece(col: 5, row: 7, imageName: rook.imageName, isWhite: rook.isWhite, rank: rook.rank))
-            }
-        } else if fromCol == 4 && fromRow == 0 && toCol == 6 && toRow == 0 {
-            if let rook = pieceAt(col: 7, row: 0) {
-                pieces.remove(rook)
-                pieces.insert(ChessPiece(col: 5, row: 0, imageName: rook.imageName, isWhite: rook.isWhite, rank: rook.rank))
+        if movingPiece.rank == .king && fromCol == 4 {
+            if toCol == 6 {
+                let row = movingPiece.isWhite ? 7 : 0
+                if let rook = pieceAt(col: 7, row: row) {
+                    pieces.remove(rook)
+                    pieces.insert(ChessPiece(col: 5, row: row, imageName: rook.imageName, isWhite: rook.isWhite, rank: rook.rank))
+                }
             }
         }
 
