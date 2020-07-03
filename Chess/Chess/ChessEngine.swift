@@ -144,22 +144,14 @@ struct ChessEngine {
     }
     
     func canCastle(toCol: Int, toRow: Int) -> Bool {
-        if toRow == 7 {
-            guard let movingKing = pieceAt(col: 4, row: 7) else {
-                return false
-            }
-            
-            if !whiteKingSideRookMoved && !whiteKingMoved && pieceAt(col: 5, row: 7) == nil && pieceAt(col: 6, row: 7) == nil {
-                return movingKing.col == 4 && movingKing.row == 7 && !underThreatAt(col: 5, row: 7, fromWhite: !whitesTurn) && !underThreatAt(col: 6, row: 7, fromWhite: !whitesTurn)
-            }
-        } else {
-            guard let movingKing = pieceAt(col: 4, row: 0) else {
-                return false
-            }
-            
-            if !blackKingSideRookMoved && !blackKingMoved && pieceAt(col: 5, row: 0) == nil && pieceAt(col: 6, row: 0) == nil {
-                return movingKing.col == 4 && movingKing.row == 0 && !underThreatAt(col: 5, row: 0, fromWhite: !whitesTurn) && !underThreatAt(col: 6, row: 0, fromWhite: !whitesTurn)
-            }
+        guard let movingKing = pieceAt(col: 4, row: toRow) else {
+            return false
+        }
+        
+        let row = whitesTurn ? 7 : 0
+        
+        if pieceAt(col: 6, row: row) == nil && movingKing.col == 4 && movingKing.row == row && !underThreatAt(col: 5, row: row, fromWhite: !whitesTurn) && !underThreatAt(col: 6, row: row, fromWhite: !whitesTurn) {
+            return whitesTurn ? !(whiteKingSideRookMoved || whiteKingMoved) : !(blackKingSideRookMoved || blackKingMoved)
         }
         
         return false
