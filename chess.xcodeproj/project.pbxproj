@@ -16,6 +16,7 @@
 		E7628969235BFCA300FE367C /* ChessRank.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7628968235BFCA300FE367C /* ChessRank.swift */; };
 		E762896B235F129100FE367C /* ChessBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762896A235F129100FE367C /* ChessBrain.swift */; };
 		E762896D235F18FE00FE367C /* ChessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762896C235F18FE00FE367C /* ChessDelegate.swift */; };
+		E7C859692498E39900520545 /* AgreementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C859682498E39900520545 /* AgreementTests.swift */; };
 		E7D1F6BF21BC9E8B00DD7865 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D1F6BE21BC9E8B00DD7865 /* BoardView.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		E7628968235BFCA300FE367C /* ChessRank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessRank.swift; sourceTree = "<group>"; };
 		E762896A235F129100FE367C /* ChessBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBrain.swift; sourceTree = "<group>"; };
 		E762896C235F18FE00FE367C /* ChessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessDelegate.swift; sourceTree = "<group>"; };
+		E7C859682498E39900520545 /* AgreementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementTests.swift; sourceTree = "<group>"; };
 		E7D1F6BE21BC9E8B00DD7865 /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				36DF8A96201D6D0C00E0E07B /* Info.plist */,
+				E7C859682498E39900520545 /* AgreementTests.swift */,
 			);
 			path = chessTests;
 			sourceTree = "<group>";
@@ -162,6 +165,7 @@
 					};
 					36DF8A91201D6D0B00E0E07B = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1120;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 07FDE42D2018140A00A674FE;
 					};
@@ -225,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7C859692498E39900520545 /* AgreementTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,10 +375,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J8B74FCZCC;
+				DEVELOPMENT_TEAM = 93CA9U5VXN;
 				INFOPLIST_FILE = chess/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.goldthumb.chess;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dabao.chess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -385,10 +390,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J8B74FCZCC;
+				DEVELOPMENT_TEAM = 93CA9U5VXN;
 				INFOPLIST_FILE = chess/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.goldthumb.chess;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dabao.chess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -399,11 +404,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 93CA9U5VXN;
 				INFOPLIST_FILE = chessTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.goldthumb.chessTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/chess.app/chess";
@@ -414,7 +422,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 93CA9U5VXN;
 				INFOPLIST_FILE = chessTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.goldthumb.chessTests;

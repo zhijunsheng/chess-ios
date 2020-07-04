@@ -1,34 +1,10 @@
 import UIKit
 import MultipeerConnectivity
 
-class ViewController: UIViewController, ChessDelegate, MCSessionDelegate, MCBrowserViewControllerDelegate {
-    func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
-        
-    }
+class ViewController: UIViewController, ChessDelegate {
     
-    func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
-        
-    }
     
-    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        
-    }
     
-    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        
-    }
-    
-    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-        
-    }
-    
-    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
-        
-    }
-    
-    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
-        
-    }
     
     
     
@@ -39,11 +15,14 @@ class ViewController: UIViewController, ChessDelegate, MCSessionDelegate, MCBrow
     
     @IBOutlet weak var boardView: BoardView!
     
+    
     var chessBrain = ChessBrain()
     var peerID: MCPeerID!
     var session: MCSession!
-    var advertiserAssistant: MCAdvertiserAssistant!
-
+//    var advertiserAssistant: MCAdvertiserAssistant!
+    var nearbyServiceAdvertiser: MCNearbyServiceAdvertiser!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,6 +39,18 @@ class ViewController: UIViewController, ChessDelegate, MCSessionDelegate, MCBrow
         boardDeploy()
         
         togglePromotionButtons(show: false)
+    }
+    
+    @IBAction func advertise(_ sender: Any) {
+        nearbyServiceAdvertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: nil, serviceType: "dabaos-chess")
+        nearbyServiceAdvertiser.delegate = self
+        nearbyServiceAdvertiser.startAdvertisingPeer()
+    }
+    
+    @IBAction func join(_ sender: Any) {
+        let browser = MCBrowserViewController(serviceType: "dabaos-chess", session: session)
+        browser.delegate = self
+        present(browser, animated: true)
     }
     
     func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
@@ -138,4 +129,51 @@ class ViewController: UIViewController, ChessDelegate, MCSessionDelegate, MCBrow
         promoteToRookButton.isHidden = !show
         promoteToBishopButton.isHidden = !show
     }
+}
+
+extension ViewController: MCSessionDelegate {
+    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+        switch state {
+        case .connected:
+            print("connected: \(peerID.displayName)")
+        case .connecting:
+            print("connecting:  \(peerID.displayName)...")
+        case .notConnected:
+            print("not-connected! (\(peerID.displayName))")
+        }
+    }
+    
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        
+    }
+    
+    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
+        
+    }
+    
+    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
+        
+    }
+    
+    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
+        
+    }
+}
+
+extension ViewController: MCBrowserViewControllerDelegate {
+    func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
+        
+    }
+    
+    func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
+        
+    }
+}
+
+extension ViewController: MCNearbyServiceAdvertiserDelegate {
+    func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
+        invitationHandler(true, session)
+    }
+    
+    
 }
