@@ -21,6 +21,8 @@ class GameViewController: UIViewController, ChessDelegate { // C of MVC
     var nearbyServiceAdvertizer: MCNearbyServiceAdvertiser!
     
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,6 +30,27 @@ class GameViewController: UIViewController, ChessDelegate { // C of MVC
         
         board.initPieces()
         boardView.pieces = board.pieces
+        
+        peerID = MCPeerID(displayName: UIDevice.current.name)
+        session = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
+        session.delegate = self
+        
+        let message = boardView.messageStr
+        if let messageData = message.data(using: .utf8) {
+            try? session.send(messageData, toPeers: session.connectedPeers, with: .reliable)
+        }
+    }
+    
+    @IBAction func advertise(_ sender: UIButton) {
+        nearbyServiceAdvertizer = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: nil, serviceType: "Chess")
+        nearbyServiceAdvertizer.delegate = self
+        nearbyServiceAdvertizer.startAdvertisingPeer()
+    }
+    
+    @IBAction func invite(_ sender: UIButton) {
+        let browser = MCBrowserViewController(serviceType: "Chess", session: session)
+        browser.delegate = self
+        present(browser, animated: true)
     }
     
     @IBAction func withdraw(_ sender: UIButton) {
@@ -111,11 +134,26 @@ class GameViewController: UIViewController, ChessDelegate { // C of MVC
 
 extension GameViewController: MCSessionDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        
+        switch state {
+        case .connected:
+            print("YAYYYYY!!! \(peerID.displayName) has connected!!! 😇")
+        case .connecting:
+            print("~Jeapordy music plays~ \(peerID.displayName) is connecting 😗")
+        case .notConnected:
+            print("Sadness. \(peerID.displayName) has left the connection 😔")
+        }
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        
+        print(data)
+        if let msg = String(data: data, encoding: .utf8) {
+            let msga: [String.SubSequence] = msg.split(separator: ",")
+            if let col1 = Int(msga[0]), let row1 = Int(msga[1]), let col2 = Int(msga[2]), let row2 = Int(msga[3]) {
+                DispatchQueue.main.async {
+                    self.move(startX: col1, startY: row1, endX: col2, endY: row2)
+                }
+            }
+        }
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {

@@ -30,7 +30,7 @@ class BoardView: UIView {
     var thingy2: Int = Int.min
     public var movingPiece: Piece? = nil
     var chessDelagate: ChessDelegate? = nil
-    
+    var messageStr: String = ""
     
     override func draw(_ rect: CGRect) {
         side = bounds.width * boardSize / 8
@@ -58,7 +58,8 @@ class BoardView: UIView {
         print("from(\(thingy1), \(thingy2)) to (\(thing1), \(thing2)).")
         
         chessDelagate?.move(startX: thingy1, startY: thingy2, endX: thing1, endY: thing2)
-
+        
+        messageStr = "\(thingy1),\(thingy2),\(thing1),\(thing2)"
         // print out sth like From (3, 2) To (4, 5)
     }
     
