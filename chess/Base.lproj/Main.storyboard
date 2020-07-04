@@ -16,15 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yh4-H4-G34">
-                                <rect key="frame" x="204" y="828" width="176" height="176"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="39"/>
-                                <state key="normal" image="Rook-white"/>
-                                <connections>
-                                    <action selector="rookPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Uw-Xp-aZh"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kee-CN-hck" customClass="BoardView" customModule="chess" customModuleProvider="target">
                                 <rect key="frame" x="20" y="20" width="728" height="728"/>
                                 <color key="backgroundColor" red="0.83103681409999997" green="0.37355242220000001" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
@@ -33,44 +24,17 @@
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="DEX-jJ-XfW"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrw-dl-q4w">
-                                <rect key="frame" x="388" y="828" width="176" height="176"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="Knight-white"/>
-                                <connections>
-                                    <action selector="knightPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="w8L-BF-C1j"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rOr-1T-ZZz">
-                                <rect key="frame" x="20" y="828" width="176" height="176"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="39"/>
-                                <state key="normal" image="Queen-white"/>
-                                <connections>
-                                    <action selector="queenPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ngh-zM-MaT"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ju2-Z0-iKm">
-                                <rect key="frame" x="572" y="828" width="176" height="176"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="Bishop-white"/>
-                                <connections>
-                                    <action selector="bishopPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nlg-e9-PmC"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ6-Fl-BIG">
-                                <rect key="frame" x="20" y="756" width="360" height="64"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Zapfino" family="Zapfino" pointSize="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ6-Fl-BIG">
+                                <rect key="frame" x="20" y="756" width="728" height="80"/>
+                                <fontDescription key="fontDescription" name="Zapfino" family="Zapfino" pointSize="20"/>
                                 <state key="normal" title="Advertise"/>
                                 <connections>
                                     <action selector="advertise:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bAH-Ro-Rfu"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hve-YU-VUf">
-                                <rect key="frame" x="388" y="756" width="360" height="58"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="Zapfino" family="Zapfino" pointSize="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hve-YU-VUf">
+                                <rect key="frame" x="20" y="844" width="728" height="80"/>
+                                <fontDescription key="fontDescription" name="Zapfino" family="Zapfino" pointSize="20"/>
                                 <state key="normal" title="Join"/>
                                 <connections>
                                     <action selector="join:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GcQ-9o-VVp"/>
@@ -79,18 +43,20 @@
                         </subviews>
                         <color key="backgroundColor" red="0.9918310789" green="1" blue="0.31684241699999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="ZJ6-Fl-BIG" firstAttribute="top" secondItem="Kee-CN-hck" secondAttribute="bottom" constant="8" symbolic="YES" id="1EC-id-ka1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Kee-CN-hck" secondAttribute="trailing" constant="20" id="6ML-VP-hDh"/>
+                            <constraint firstItem="hve-YU-VUf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Gta-OV-z0u"/>
+                            <constraint firstItem="hve-YU-VUf" firstAttribute="top" secondItem="ZJ6-Fl-BIG" secondAttribute="bottom" constant="8" id="PZB-cF-z9b"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hve-YU-VUf" secondAttribute="trailing" constant="20" id="h1j-ES-h3s"/>
                             <constraint firstItem="Kee-CN-hck" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="h8V-xr-J9f"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ZJ6-Fl-BIG" secondAttribute="trailing" constant="20" id="hHz-yH-uaD"/>
                             <constraint firstItem="Kee-CN-hck" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="kYn-fd-Hbg"/>
+                            <constraint firstItem="ZJ6-Fl-BIG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="qho-W5-cIC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="boardView" destination="Kee-CN-hck" id="Ep9-iB-gLJ"/>
-                        <outlet property="promoteToBishopButton" destination="Ju2-Z0-iKm" id="mfU-wL-JNs"/>
-                        <outlet property="promoteToKnightButton" destination="nrw-dl-q4w" id="Hkh-gm-pbi"/>
-                        <outlet property="promoteToQueenButton" destination="rOr-1T-ZZz" id="xQo-E0-x0Z"/>
-                        <outlet property="promoteToRookButton" destination="yh4-H4-G34" id="Vhm-7Z-pSl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -98,10 +64,4 @@
             <point key="canvasLocation" x="139.84375" y="132.421875"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Bishop-white" width="256" height="256"/>
-        <image name="Knight-white" width="158.66667175292969" height="174.33332824707031"/>
-        <image name="Queen-white" width="256" height="256"/>
-        <image name="Rook-white" width="256" height="256"/>
-    </resources>
 </document>
