@@ -35,10 +35,7 @@ class GameViewController: UIViewController, ChessDelegate { // C of MVC
         session = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
         session.delegate = self
         
-        let message = boardView.messageStr
-        if let messageData = message.data(using: .utf8) {
-            try? session.send(messageData, toPeers: session.connectedPeers, with: .reliable)
-        }
+        
     }
     
     @IBAction func advertise(_ sender: UIButton) {
@@ -104,7 +101,10 @@ class GameViewController: UIViewController, ChessDelegate { // C of MVC
         }
         boardView.pieces = board.pieces
         boardView.setNeedsDisplay()
-        
+        let message = "\(startX),\(startY),\(endX),\(endY)"
+        if let messageData = message.data(using: .utf8) {
+            try? session.send(messageData, toPeers: session.connectedPeers, with: .reliable)
+        }
         
     }
     
