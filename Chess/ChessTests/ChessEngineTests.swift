@@ -364,6 +364,34 @@ class ChessEngineTests: XCTestCase {
         XCTAssertFalse(game.canCastle(toCol: 6, toRow: 7))
     }
     
+    func testWhiteQueenSideCastling() {
+        var game = ChessEngine()
+        game.initializeGame()
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 . . . . . P P P
+         2 P P P P P . . .
+         3 . . . . . . . .
+         4 . . p . .  . .
+         5 n q . p . . . .
+         6 p p . b p p p p
+         7 r . . . k b n r
+         */
+        game.movePiece(fromCol: 2, fromRow: 6, toCol: 2, toRow: 4) // white pawn
+        game.movePiece(fromCol: 0, fromRow: 1, toCol: 0, toRow: 2) // black pawn
+        game.movePiece(fromCol: 3, fromRow: 7, toCol: 1, toRow: 5) // white queen
+        game.movePiece(fromCol: 1, fromRow: 1, toCol: 1, toRow: 2) // black pawn
+        game.movePiece(fromCol: 1, fromRow: 7, toCol: 0, toRow: 5) // white knight
+        game.movePiece(fromCol: 2, fromRow: 1, toCol: 2, toRow: 2) // black pawn
+        game.movePiece(fromCol: 3, fromRow: 6, toCol: 3, toRow: 5) // white pawn
+        game.movePiece(fromCol: 3, fromRow: 1, toCol: 3, toRow: 2) // black pawn
+        game.movePiece(fromCol: 2, fromRow: 7, toCol: 3, toRow: 6) // white bishop
+        game.movePiece(fromCol: 4, fromRow: 1, toCol: 4, toRow: 2) // black pawn
+        XCTAssertTrue(game.canCastle(toCol: 1, toRow: 7))
+    }
+    
     func testWhiteKingSideCastling() {
         var game = ChessEngine()
         game.initializeGame()
