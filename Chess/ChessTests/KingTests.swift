@@ -36,7 +36,7 @@ class KingTests: XCTestCase {
          1 P P P P P P P P
          2 . . . . . . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . . . . .
          6 p p p p p p p p
          7 r n b q k b n r
@@ -56,7 +56,7 @@ class KingTests: XCTestCase {
          1 P P P P P P P P
          2 . . . . . . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p . . .
          6 p p p p . p p p
          7 r n b q k b n r
@@ -69,7 +69,7 @@ class KingTests: XCTestCase {
          1 . P P P P P P P
          2 P . . . . . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p . . .
          6 p p p p . p p p
          7 r n b q k b n r
@@ -82,7 +82,7 @@ class KingTests: XCTestCase {
          1 . P P P P P P P
          2 P . . . . . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p . . .
          6 p p p p b p p p
          7 r n b q k . n r
@@ -95,7 +95,7 @@ class KingTests: XCTestCase {
          1 . . P P P P P P
          2 P P . . . . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p . . .
          6 p p p p b p p p
          7 r n b q k . n r
@@ -108,7 +108,7 @@ class KingTests: XCTestCase {
          1 . . P P P P P P
          2 P P . . . . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p . . n
          6 p p p p b p p p
          7 r n b q k . . r
@@ -121,7 +121,7 @@ class KingTests: XCTestCase {
          1 . . . P P P P P
          2 P P P . . . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p . . n
          6 p p p p b p p p
          7 r n b q k . . r
@@ -135,7 +135,7 @@ class KingTests: XCTestCase {
          1 . . . . . P P P
          2 P P P P P . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p . . n
          6 p p p p b p p p
          7 r n b q k . . r
@@ -209,7 +209,7 @@ class KingTests: XCTestCase {
          1 P P P P P P P P
          2 . . . . . . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p . . .
          6 p p p p . p p p
          7 r n b q k b n r
@@ -222,7 +222,7 @@ class KingTests: XCTestCase {
          1 . P P P P P P P
          2 P . . . . . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p . . .
          6 p p p p . p p p
          7 r n b q k b n r
@@ -235,7 +235,7 @@ class KingTests: XCTestCase {
          1 . P P P P P P P
          2 P . . . . . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p . . .
          6 p p p p b p p p
          7 r n b q k . n r
@@ -248,7 +248,7 @@ class KingTests: XCTestCase {
          1 . . P P P P P P
          2 P P . . . . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p . . .
          6 p p p p b p p p
          7 r n b q k . n r
@@ -261,7 +261,7 @@ class KingTests: XCTestCase {
          1 . . P P P P P P
          2 P P . . . . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p . . n
          6 p p p p b p p p
          7 r n b q k . . r
@@ -274,7 +274,7 @@ class KingTests: XCTestCase {
          1 . . . P P P P P
          2 P P P . . . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p . . n
          6 p p p p b p p p
          7 r n b q k . . r
@@ -288,7 +288,7 @@ class KingTests: XCTestCase {
          1 . . . . . P P P
          2 P P P P P . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p . . n
          6 p p p p b p p p
          7 r n b q k . . r
@@ -307,7 +307,7 @@ class KingTests: XCTestCase {
          1 . . . P P P P P
          2 P P P . . . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p . . n
          6 p p p p b p p p
          7 r n b q . r k .
@@ -326,7 +326,7 @@ class KingTests: XCTestCase {
          1 . . . . . . P P
          2 P P P P P P . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . p . n p b
          6 p p p k p p . p
          7 r n b . q . . r
@@ -366,7 +366,7 @@ class KingTests: XCTestCase {
          1 P P P P P P P P
          2 . . . . . . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p . . .
          6 p p p p . p p p
          7 r n b q k b n r
@@ -379,7 +379,7 @@ class KingTests: XCTestCase {
          1 P P P P . P P P
          2 . . . . P . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . . . . .
          6 p p p p p p p p
          7 r n b q k b n r
@@ -392,7 +392,7 @@ class KingTests: XCTestCase {
          1 P P P P . P P P
          2 . . . . P . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p p . .
          6 p p p p . . p p
          7 r n b q k b n r
@@ -405,7 +405,7 @@ class KingTests: XCTestCase {
          1 P P P P B P P P
          2 . . . . P . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p p . .
          6 p p p p . . p p
          7 r n b q k b n r
@@ -418,7 +418,7 @@ class KingTests: XCTestCase {
          1 P P P P B P P P
          2 . . . . P . . .
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p p p .
          6 p p p p . . . p
          7 r n b q k b n r
@@ -431,7 +431,7 @@ class KingTests: XCTestCase {
          1 P P P P B P P P
          2 . . . . P . . N
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p p p .
          6 p p p p . . . p
          7 r n b q k b n r
@@ -444,7 +444,7 @@ class KingTests: XCTestCase {
          1 P P P P B P P P
          2 . . . . P . . N
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p p p p
          6 p p p p . . . .
          7 r n b q k b n r
@@ -458,7 +458,7 @@ class KingTests: XCTestCase {
          1 P P P P B P P P
          2 . . . . P . . N
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . p p p p p p
          6 p p . . . . . .
          7 r n b q k b n r
@@ -475,7 +475,7 @@ class KingTests: XCTestCase {
          1 P P P P B P P P
          2 . . . . P . . N
          3 . . . . . . . .
-         4 . . . . .  . .
+         4 . . . . . . . .
          5 . . . . p p p p
          6 p p p p . . . .
          7 r n b q k b n r
@@ -487,5 +487,74 @@ class KingTests: XCTestCase {
         XCTAssertNotNil(game.pieceAt(col: 6, row: 0))
         XCTAssertNil(game.pieceAt(col: 7, row: 0))
         XCTAssertNotNil(game.pieceAt(col: 5, row: 0))
+    }
+    
+    func testKingThreatenedByPawn() {
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P P P P P P P P
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 p p p p p p p p
+         7 r n b q k b n r
+         */
+        var game = ChessEngine()
+        game.initializeGame()
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P P P P P P P P
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . p . . .
+         5 . . . . . . . .
+         6 p p p p . p p p
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 4, fromRow: 6, toCol: 4, toRow: 4)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P P P P P . P P
+         2 . . . . . . . .
+         3 . . . . . P . .
+         4 . . . . p . . .
+         5 . . . . . . . .
+         6 p p p p . p p p
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 5, fromRow: 1, toCol: 5, toRow: 3)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P P P P P . P P
+         2 . . . . . . . .
+         3 . . . . . P . .
+         4 . . . . p . . .
+         5 . . . . . . . .
+         6 p p p p k p p p
+         7 r n b q . b n r
+         */
+        game.movePiece(fromCol: 4, fromRow: 7, toCol: 4, toRow: 6)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P P P P P . P P
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . p P . .
+         5 . . . . . . . .
+         6 p p p p k p p p
+         7 r n b q . b n r
+         */
+        game.movePiece(fromCol: 5, fromRow: 3, toCol: 5, toRow: 4)
+//        XCTAssertFalse(game.canMovePiece(fromCol: 4, fromRow: 6, toCol: 4, toRow: 5, isWhite: true))
     }
 }

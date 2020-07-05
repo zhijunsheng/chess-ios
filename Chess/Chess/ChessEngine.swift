@@ -122,7 +122,7 @@ struct ChessEngine {
         case .king:
             return false // never happens
         case .pawn:
-            return canMovePawn(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+            return canPawnMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         }
     }
     
@@ -208,7 +208,7 @@ struct ChessEngine {
         return true
     }
     
-    func canMovePawn(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+    func canPawnMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         guard let movingPawn = pieceAt(col: fromCol, row: fromRow) else {
             return false
         }
@@ -230,6 +230,10 @@ struct ChessEngine {
             }
         }
 
+        return false
+    }
+    
+    func canPawnAttack(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         return false
     }
     
