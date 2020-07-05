@@ -214,7 +214,7 @@ struct ChessEngine {
         }
         
         if let target = pieceAt(col: toCol, row: toRow), target.isWhite != movingPawn.isWhite {
-            return toRow == fromRow + (movingPawn.isWhite ? -1 : 1) && abs(toCol - fromCol) == 1
+            return canPawnAttack(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         } else if toCol == fromCol {
             if pieceAt(col: fromCol, row: fromRow + (movingPawn.isWhite ? -1 : 1)) == nil {
                 return toRow == fromRow + (movingPawn.isWhite ? -1 : 1) ||
@@ -234,7 +234,10 @@ struct ChessEngine {
     }
     
     func canPawnAttack(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        return false
+        guard let movingPawn = pieceAt(col: fromCol, row: fromRow) else {
+            return false
+        }
+        return toRow == fromRow + (movingPawn.isWhite ? -1 : 1) && abs(toCol - fromCol) == 1
     }
     
     func emptyBetween(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
