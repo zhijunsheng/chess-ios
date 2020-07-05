@@ -35,8 +35,6 @@ class ViewController: UIViewController, ChessDelegate {
         boardView.piecesBoxShadow = chessBrain.piecesBox
         boardView.setNeedsDisplay()
         boardView.chessDelegate = self
-        
-        boardDeploy()
     }
     
     @IBAction func advertise(_ sender: Any) {
@@ -52,23 +50,22 @@ class ViewController: UIViewController, ChessDelegate {
     }
     
     func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
-        
-        guard let movingPiece = chessBrain.pieceAt(x: frX, y: frY) else {
+        guard chessBrain.pieceAt(x: frX, y: frY) != nil else {
             return
         }
         
         chessBrain.movePiece(frX: frX, frY: frY, toX: toX, toY: toY)
         boardView.piecesBoxShadow = chessBrain.piecesBox
         boardView.setNeedsDisplay()
+        
+        let message: String = "(\(frX),\(frY)) -> (\(toX),\(toY))"
+        if let data = message.data(using: .utf8) {
+            try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
+        }
     }
 
     func getMovingPiece(x: Int, y: Int) -> ChessPiece? {
         return chessBrain.pieceAt(x: x, y: y)
-    }
-    
-    func boardDeploy() {
-        let bottonGap: CGFloat = 20
-        let buttonLong: CGFloat = 176
     }
 }
 
@@ -85,7 +82,9 @@ extension ViewController: MCSessionDelegate {
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        
+        if let str = String(data: data, encoding: .utf8) {
+            print(str)
+        }
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
@@ -115,6 +114,4 @@ extension ViewController: MCNearbyServiceAdvertiserDelegate {
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         invitationHandler(true, session)
     }
-    
-    
 }
