@@ -79,7 +79,7 @@ struct ChessEngine {
     
     func underThreatAt(col: Int, row: Int, whiteEnemy: Bool) -> Bool {
         for piece in pieces where piece.isWhite == whiteEnemy {
-            if canMoveNonKingPiece(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row, isWhite: whiteEnemy) {
+            if canMoveNonKingPiece(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row, isWhite: whiteEnemy) || canPawnAttack(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row)  {
                 return true
             }
         }
@@ -95,7 +95,7 @@ struct ChessEngine {
         }
         
         if movingPiece.rank == .king {
-            return canMoveKing(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+            return canKingMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         } else {
             return canMoveNonKingPiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow, isWhite: isWhite)
         }
@@ -148,7 +148,7 @@ struct ChessEngine {
         return canMoveRook(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) || canMoveBishop(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
     }
     
-    func canMoveKing(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+    func canKingMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         guard !underThreatAt(col: toCol, row: toRow, whiteEnemy: !whitesTurn) else {
             return false
         }

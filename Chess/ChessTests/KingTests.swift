@@ -555,6 +555,6 @@ class KingTests: XCTestCase {
          7 r n b q . b n r
          */
         game.movePiece(fromCol: 5, fromRow: 3, toCol: 5, toRow: 4)
-//        XCTAssertFalse(game.canMovePiece(fromCol: 4, fromRow: 6, toCol: 4, toRow: 5, isWhite: true))
+        XCTAssertFalse(game.canMovePiece(fromCol: 4, fromRow: 6, toCol: 4, toRow: 5, isWhite: true))
     }
 }

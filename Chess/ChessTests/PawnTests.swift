@@ -402,4 +402,24 @@ class PawnTests: XCTestCase {
         XCTAssertTrue(game.canMovePiece(fromCol: 5, fromRow: 4, toCol: 4, toRow: 3, isWhite: true))
         XCTAssertTrue(game.canMovePiece(fromCol: 5, fromRow: 4, toCol: 6, toRow: 3, isWhite: true))
     }
+    
+    func testCanPawnAttach() {
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P P P P P P P P
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 p p p p p p p p
+         7 r n b q k b n r
+         */
+        var game = ChessEngine()
+        game.initializeGame()
+        XCTAssertTrue(game.canPawnAttack(fromCol: 0, fromRow: 6, toCol: 1, toRow: 5))
+        XCTAssertFalse(game.canPawnAttack(fromCol: 0, fromRow: 6, toCol: 0, toRow: 5))
+        XCTAssertTrue(game.canPawnAttack(fromCol: 7, fromRow: 1, toCol: 6, toRow: 2))
+        XCTAssertFalse(game.canPawnAttack(fromCol: 7, fromRow: 1, toCol: 7, toRow: 2))
+    }
 }
