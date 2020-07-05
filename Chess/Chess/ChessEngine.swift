@@ -154,6 +154,9 @@ struct ChessEngine {
     }
     
     func canMoveKing(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        guard !underThreatAt(col: toCol, row: toRow, whiteEnemy: !whitesTurn) else {
+            return false
+        }
         if canCastle(toCol: toCol, toRow: toRow) {
             return true
         }
