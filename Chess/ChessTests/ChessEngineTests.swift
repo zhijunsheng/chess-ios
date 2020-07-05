@@ -389,7 +389,30 @@ class ChessEngineTests: XCTestCase {
         game.movePiece(fromCol: 3, fromRow: 1, toCol: 3, toRow: 2) // black pawn
         game.movePiece(fromCol: 2, fromRow: 7, toCol: 3, toRow: 6) // white bishop
         game.movePiece(fromCol: 4, fromRow: 1, toCol: 4, toRow: 2) // black pawn
-        XCTAssertTrue(game.canCastle(toCol: 1, toRow: 7))
+        XCTAssertTrue(game.canCastle(toCol: 2, toRow: 7))
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 . . . . . P P P
+         2 P P P P P . . .
+         3 . . . . . . . .
+         4 . . p . .  . .
+         5 n q . p . . . .
+         6 p p . b p p p p
+         7 r . . . k b n r
+         */
+        XCTAssertNil(game.pieceAt(col: 1, row: 7))
+        XCTAssertNil(game.pieceAt(col: 2, row: 7))
+        XCTAssertNil(game.pieceAt(col: 3, row: 7))
+        XCTAssertNotNil(game.pieceAt(col: 0, row: 7))
+        XCTAssertNotNil(game.pieceAt(col: 4, row: 7))
+        game.movePiece(fromCol: 4, fromRow: 7, toCol: 2, toRow: 7)
+        XCTAssertNil(game.pieceAt(col: 1, row: 7))
+        XCTAssertNotNil(game.pieceAt(col: 2, row: 7)) // king
+        XCTAssertNotNil(game.pieceAt(col: 3, row: 7)) // rook
+        XCTAssertNil(game.pieceAt(col: 0, row: 7))
+        XCTAssertNil(game.pieceAt(col: 4, row: 7))
     }
     
     func testWhiteKingSideCastling() {

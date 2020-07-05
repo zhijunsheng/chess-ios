@@ -54,11 +54,16 @@ struct ChessEngine {
         }
         
         if movingPiece.rank == .king && fromCol == 4 {
+            let row = movingPiece.isWhite ? 7 : 0
             if toCol == 6 {
-                let row = movingPiece.isWhite ? 7 : 0
                 if let rook = pieceAt(col: 7, row: row) {
                     pieces.remove(rook)
                     pieces.insert(ChessPiece(col: 5, row: row, imageName: rook.imageName, isWhite: rook.isWhite, rank: rook.rank))
+                }
+            } else if toCol == 2 {
+                if let rook = pieceAt(col: 0, row: row) {
+                    pieces.remove(rook)
+                    pieces.insert(ChessPiece(col: 3, row: row, imageName: rook.imageName, isWhite: rook.isWhite, rank: rook.rank))
                 }
             }
         }
@@ -150,7 +155,11 @@ struct ChessEngine {
     }
     
     func canCastle(toCol: Int, toRow: Int) -> Bool {
-        guard let piece = pieceAt(col: 4, row: toRow), piece.rank == .king, piece.isWhite == whitesTurn else {
+        guard
+            let piece = pieceAt(col: 4, row: toRow),
+            piece.rank == .king,
+            piece.isWhite == whitesTurn,
+            toRow == (piece.isWhite ? 7 : 0) else {
             return false
         }
         
@@ -158,7 +167,7 @@ struct ChessEngine {
         let row = piece.isWhite ? 7 : 0
         let cols = kingSide ? 5...6 : 1...3
         
-        guard emptyAndSafe(row: row, cols: cols) else {
+        guard emptyAndSafe(row: row, cols: cols), toCol == (kingSide ? 6 : 2) else {
             return false
         }
         
