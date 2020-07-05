@@ -87,7 +87,10 @@ struct ChessEngine {
     }
     
     func canMovePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
-        guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
+        guard
+            toCol >= 0 && toCol <= 7 && toRow >= 0 && toRow <= 7,
+            (fromCol != toCol || fromRow != toRow),
+            let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
             return false
         }
         
@@ -99,14 +102,6 @@ struct ChessEngine {
     }
     
     func canMoveNonKingPiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
-        if toCol < 0 || toCol > 7 || toRow < 0 || toRow > 7 {
-            return false
-        }
-        
-        if fromCol == toCol && fromRow == toRow {
-            return false
-        }
-        
         guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
             return false
         }

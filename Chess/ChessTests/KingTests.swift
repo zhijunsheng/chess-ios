@@ -29,6 +29,21 @@ class KingTests: XCTestCase {
         XCTAssertFalse(game.canMovePiece(fromCol: 3, fromRow: 3, toCol: 5, toRow: 3, isWhite: true))
         XCTAssertTrue(game.canMovePiece(fromCol: 3, fromRow: 3, toCol: 4, toRow: 3, isWhite: true))
         XCTAssertFalse(game.canMovePiece(fromCol: 3, fromRow: 3, toCol: 4, toRow: 1, isWhite: true))
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P P P P P P P P
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . .  . .
+         5 . . . . . . . .
+         6 p p p p p p p p
+         7 r n b q k b n r
+         */
+        game = ChessEngine()
+        game.initializeGame()
+        XCTAssertFalse(game.canMovePiece(fromCol: 4, fromRow: 7, toCol: 4, toRow: 8, isWhite: true))
     }
     
     func testWhiteKingSideCanCastle() {
