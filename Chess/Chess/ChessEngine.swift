@@ -10,7 +10,7 @@ import Foundation
 
 struct ChessEngine {
     var pieces: Set<ChessPiece> = Set<ChessPiece>()
-    var whitesTurn: Bool = true
+    private(set) var whitesTurn: Bool = true
     var lastMove: ChessMove?
     
     var whiteKingSideRookMoved = false
@@ -77,16 +77,28 @@ struct ChessEngine {
         whitesTurn = !whitesTurn
     }
     
-    func underThreatAt(col: Int, row: Int, fromWhite: Bool) -> Bool {
-        for piece in pieces where piece.isWhite == fromWhite {
-            if canMovePiece(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) {
+    func underThreatAt(col: Int, row: Int, whiteEnemy: Bool) -> Bool {
+        for piece in pieces where piece.isWhite == whiteEnemy {
+            if canMoveNonKingPiece(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row, isWhite: whiteEnemy) {
                 return true
             }
         }
         return false
     }
     
-    func canMovePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+    func canMovePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
+        guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
+            return false
+        }
+        
+        if movingPiece.rank == .king {
+            return canMoveKing(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        } else {
+            return canMoveNonKingPiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow, isWhite: isWhite)
+        }
+    }
+    
+    func canMoveNonKingPiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
         if toCol < 0 || toCol > 7 || toRow < 0 || toRow > 7 {
             return false
         }
@@ -103,10 +115,6 @@ struct ChessEngine {
             return false
         }
         
-        if movingPiece.isWhite != whitesTurn {
-            return false
-        }
-        
         switch movingPiece.rank {
         case .knight:
             return canMoveKnight(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
@@ -117,7 +125,7 @@ struct ChessEngine {
         case .queen:
             return canMoveQueen(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .king:
-            return canMoveKing(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+            return false // never happens
         case .pawn:
             return canMovePawn(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         }
@@ -167,7 +175,7 @@ struct ChessEngine {
         let row = piece.isWhite ? 7 : 0
         let cols = kingSide ? 5...6 : 1...3
         
-        guard emptyAndSafe(row: row, cols: cols), toCol == (kingSide ? 6 : 2) else {
+        guard emptyAndSafe(row: row, cols: cols, whiteEnemy: !whitesTurn), toCol == (kingSide ? 6 : 2) else {
             return false
         }
         
@@ -180,9 +188,22 @@ struct ChessEngine {
         return false
     }
     
-    func emptyAndSafe(row: Int, cols: ClosedRange<Int>) -> Bool {
+    func emptyAndSafe(row: Int, cols: ClosedRange<Int>, whiteEnemy: Bool) -> Bool {
+        return emptyAt(row: row, cols: cols) && safeAt(row: row, cols: cols, whiteEnemy: whiteEnemy)
+    }
+    
+    func safeAt(row: Int, cols: ClosedRange<Int>, whiteEnemy: Bool) -> Bool {
         for col in cols {
-            if pieceAt(col: col, row: row) != nil || underThreatAt(col: col, row: row, fromWhite: !whitesTurn) {
+            if underThreatAt(col: col, row: row, whiteEnemy: whiteEnemy) {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func emptyAt(row: Int, cols: ClosedRange<Int>) -> Bool {
+        for col in cols {
+            if pieceAt(col: col, row: row) != nil {
                 return false
             }
         }
