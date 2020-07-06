@@ -75,9 +75,7 @@ class ViewController: UIViewController {
         boardView.shadowPieces = chessEngine.pieces
         boardView.setNeedsDisplay()
         
-        #if !targetEnvironment(simulator)
-            audioPlayer.play()
-        #endif
+        audioPlayer.play()
         
         if chessEngine.whitesTurn {
             infoLabel.text = "White"
