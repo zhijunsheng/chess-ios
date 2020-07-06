@@ -79,14 +79,14 @@ struct ChessEngine {
     
     func underThreatAt(col: Int, row: Int, whiteEnemy: Bool) -> Bool {
         for piece in pieces where piece.isWhite == whiteEnemy {
-            if canMoveNonKingPiece(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row, isWhite: whiteEnemy) || canPawnAttack(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row)  {
+            if canPieceAttack(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) {
                 return true
             }
         }
         return false
     }
     
-    func canMovePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
+    func canPieceMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
         guard
             toCol >= 0 && toCol <= 7 && toRow >= 0 && toRow <= 7,
             (fromCol != toCol || fromRow != toRow),
@@ -94,14 +94,27 @@ struct ChessEngine {
             return false
         }
         
-        if movingPiece.rank == .king {
+        if let target = pieceAt(col: toCol, row: toRow), target.isWhite == movingPiece.isWhite  {
+            return false
+        }
+        
+        switch movingPiece.rank {
+        case .knight:
+            return canKnightMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        case .rook:
+            return canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        case .bishop:
+            return canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        case .queen:
+            return canQueenMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        case .king:
             return canKingMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
-        } else {
-            return canMoveNonKingPiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow, isWhite: isWhite)
+        case .pawn:
+            return canPawnMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         }
     }
     
-    func canMoveNonKingPiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
+    func canPieceAttack(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
             return false
         }
@@ -112,40 +125,40 @@ struct ChessEngine {
         
         switch movingPiece.rank {
         case .knight:
-            return canMoveKnight(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+            return canKnightMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .rook:
-            return canMoveRook(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+            return canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .bishop:
-            return canMoveBishop(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+            return canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .queen:
-            return canMoveQueen(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+            return canQueenMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .king:
-            return false // never happens
+            return false // never happens TODO: king can also attack
         case .pawn:
-            return canPawnMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+            return canPawnAttack(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         }
     }
     
-    func canMoveKnight(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+    func canKnightMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         return abs(fromCol - toCol) == 1 && abs(fromRow - toRow) == 2 || abs(fromRow - toRow) == 1 && abs(fromCol - toCol) == 2
     }
     
-    func canMoveRook(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+    func canRookMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         guard emptyBetween(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) else {
             return false
         }
         return fromCol == toCol || fromRow == toRow
     }
     
-    func canMoveBishop(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+    func canBishopMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         guard emptyBetween(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) else {
             return false
         }
         return abs(fromCol - toCol) == abs(fromRow - toRow)
     }
     
-    func canMoveQueen(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        return canMoveRook(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) || canMoveBishop(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+    func canQueenMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        return canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) || canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
     }
     
     func canKingMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {

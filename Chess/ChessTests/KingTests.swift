@@ -25,10 +25,10 @@ class KingTests: XCTestCase {
          */
         var game = ChessEngine()
         game.pieces.insert(ChessPiece(col: 3, row: 3, imageName: "", isWhite: true, rank: .king))
-        XCTAssertFalse(game.canMovePiece(fromCol: 3, fromRow: 3, toCol: 3, toRow: 3, isWhite: true))
-        XCTAssertFalse(game.canMovePiece(fromCol: 3, fromRow: 3, toCol: 5, toRow: 3, isWhite: true))
-        XCTAssertTrue(game.canMovePiece(fromCol: 3, fromRow: 3, toCol: 4, toRow: 3, isWhite: true))
-        XCTAssertFalse(game.canMovePiece(fromCol: 3, fromRow: 3, toCol: 4, toRow: 1, isWhite: true))
+        XCTAssertFalse(game.canPieceMove(fromCol: 3, fromRow: 3, toCol: 3, toRow: 3, isWhite: true))
+        XCTAssertFalse(game.canPieceMove(fromCol: 3, fromRow: 3, toCol: 5, toRow: 3, isWhite: true))
+        XCTAssertTrue(game.canPieceMove(fromCol: 3, fromRow: 3, toCol: 4, toRow: 3, isWhite: true))
+        XCTAssertFalse(game.canPieceMove(fromCol: 3, fromRow: 3, toCol: 4, toRow: 1, isWhite: true))
         
         /*
          + 0 1 2 3 4 5 6 7
@@ -43,7 +43,7 @@ class KingTests: XCTestCase {
          */
         game = ChessEngine()
         game.initializeGame()
-        XCTAssertFalse(game.canMovePiece(fromCol: 4, fromRow: 7, toCol: 4, toRow: 8, isWhite: true))
+        XCTAssertFalse(game.canPieceMove(fromCol: 4, fromRow: 7, toCol: 4, toRow: 8, isWhite: true))
     }
     
     func testWhiteKingSideCanCastle() {
@@ -555,6 +555,7 @@ class KingTests: XCTestCase {
          7 r n b q . b n r
          */
         game.movePiece(fromCol: 5, fromRow: 3, toCol: 5, toRow: 4)
-        XCTAssertFalse(game.canMovePiece(fromCol: 4, fromRow: 6, toCol: 4, toRow: 5, isWhite: true))
+        XCTAssertFalse(game.canPieceMove(fromCol: 4, fromRow: 6, toCol: 4, toRow: 5, isWhite: true))
+        XCTAssertTrue(game.canPieceMove(fromCol: 4, fromRow: 6, toCol: 5, toRow: 5, isWhite: true))
     }
 }
