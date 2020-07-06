@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     var session: MCSession!
     var nearbyServiceAdvertiser: MCNearbyServiceAdvertiser!
     
+    var rankPromotedTo: String = "q"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,27 +70,6 @@ class ViewController: UIViewController {
             return
         }
         chessEngine.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
-        
-        if chessEngine.needsPromotion() {
-            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            
-            let queenAction = UIAlertAction(title: "Queen", style: .default) { _ in
-                self.chessEngine.promoteTo(rank: .queen)
-                self.boardView.shadowPieces = self.chessEngine.pieces
-                self.boardView.setNeedsDisplay()
-            }
-            alertController.addAction(queenAction)
-            
-            let knightAction = UIAlertAction(title: "Knight", style: .default) { _ in
-                self.chessEngine.promoteTo(rank: .knight)
-                self.boardView.shadowPieces = self.chessEngine.pieces
-                self.boardView.setNeedsDisplay()
-            }
-            alertController.addAction(knightAction)
-            
-            present(alertController, animated: true, completion: nil)
-        }
-        
         boardView.shadowPieces = chessEngine.pieces
         boardView.setNeedsDisplay()
         
@@ -100,6 +81,42 @@ class ViewController: UIViewController {
             infoLabel.text = "White"
         } else {
             infoLabel.text = "Black"
+        }
+    }
+    
+    func sendLastMove() {
+        let promotionPostfix = chessEngine.needsPromotion() ? ":\(rankPromotedTo)" : ""
+        if let lastMove = chessEngine.lastMove {
+            let move = "\(lastMove.fromCol):\(lastMove.fromRow):\(lastMove.toCol):\(lastMove.toRow)\(promotionPostfix)"
+            if let data = move.data(using: .utf8) {
+                try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
+            }
+        }
+    }
+    
+    func promptPromotionOptions() {
+        if chessEngine.needsPromotion() {
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            
+            let queenAction = UIAlertAction(title: "Queen", style: .default) { _ in
+                self.chessEngine.promoteTo(rank: .queen)
+                self.boardView.shadowPieces = self.chessEngine.pieces
+                self.boardView.setNeedsDisplay()
+                self.rankPromotedTo = "q"
+                self.sendLastMove()
+            }
+            alertController.addAction(queenAction)
+            
+            let knightAction = UIAlertAction(title: "Knight", style: .default) { _ in
+                self.chessEngine.promoteTo(rank: .knight)
+                self.boardView.shadowPieces = self.chessEngine.pieces
+                self.boardView.setNeedsDisplay()
+                self.rankPromotedTo = "n"
+                self.sendLastMove()
+            }
+            alertController.addAction(knightAction)
+            
+            present(alertController, animated: true, completion: nil)
         }
     }
 }
@@ -138,9 +155,23 @@ extension ViewController: MCSessionDelegate {
         print("received data: \(data)")
         if let move = String(data: data, encoding: .utf8) {
             let moveArr = move.components(separatedBy: ":")
+            print(moveArr)
             if let fromCol = Int(moveArr[0]), let fromRow = Int(moveArr[1]), let toCol = Int(moveArr[2]), let toRow = Int(moveArr[3]) {
                 DispatchQueue.main.async {
                     self.updateMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+                    if moveArr.count == 5 {
+                        let rankPromotedTo = moveArr[4]
+                        switch rankPromotedTo {
+                        case "q":
+                            self.chessEngine.promoteTo(rank: .queen)
+                        case "n":
+                            self.chessEngine.promoteTo(rank: .knight)
+                        default:
+                            break
+                        }
+                        self.boardView.shadowPieces = self.chessEngine.pieces
+                        self.boardView.setNeedsDisplay()
+                    }
                 }
             }
         }
@@ -163,9 +194,10 @@ extension ViewController: ChessDelegate {
     func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         updateMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         
-        let move: String = "\(fromCol):\(fromRow):\(toCol):\(toRow)"
-        if let data = move.data(using: .utf8) {
-            try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
+        if chessEngine.needsPromotion() {
+            promptPromotionOptions()
+        } else {
+            sendLastMove()
         }
     }
     
