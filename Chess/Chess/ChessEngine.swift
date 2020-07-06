@@ -133,7 +133,7 @@ struct ChessEngine {
         case .queen:
             return canQueenMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .king:
-            return false // never happens TODO: king can also attack
+            return canKingAttack(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .pawn:
             return canPawnAttack(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         }
@@ -168,6 +168,10 @@ struct ChessEngine {
         if canCastle(toCol: toCol, toRow: toRow) {
             return true
         }
+        return canKingAttack(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+    }
+    
+    func canKingAttack(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         let deltaCol = abs(fromCol - toCol)
         let deltaRow = abs(fromRow - toRow)
         return (deltaCol == 1 || deltaRow == 1) && deltaCol + deltaRow < 3
