@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     var nearbyServiceAdvertiser: MCNearbyServiceAdvertiser!
     
     var rankPromotedTo: String = "q"
+    var isWhiteDevice = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +49,7 @@ class ViewController: UIViewController {
         nearbyServiceAdvertiser.startAdvertisingPeer()
         
         boardView.blackAtTop = false
+        isWhiteDevice = false
         boardView.setNeedsDisplay()
     }
     
@@ -192,6 +194,16 @@ extension ViewController: MCSessionDelegate {
 
 extension ViewController: ChessDelegate {
     func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        if let movingPiece = chessEngine.pieceAt(col: fromCol, row: fromRow) {
+            if movingPiece.isWhite != chessEngine.whitesTurn {
+                return
+            }
+        }
+        
+        if session.connectedPeers.count > 0 && isWhiteDevice != chessEngine.whitesTurn {
+            return
+        }
+        
         updateMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         
         if chessEngine.needsPromotion() {
