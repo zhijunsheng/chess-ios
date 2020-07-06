@@ -21,6 +21,28 @@ struct ChessEngine {
     var blackQueenSideRookMoved = false
     var blackKingMoved = false
     
+    func needsPromotion() -> Bool {
+        if let lastMove = lastMove, let piece = pieceAt(col: lastMove.toCol, row: lastMove.toRow) {
+            return piece.isWhite && piece.row == 0 || !piece.isWhite && piece.row == 7
+        }
+        return false
+    }
+    
+    mutating func promoteTo(rank: ChessRank) {
+        guard let lastMove = lastMove, let pawn = pieceAt(col: lastMove.toCol, row: lastMove.toRow) else {
+            return
+        }
+        
+        pieces.remove(pawn)
+        var imageName: String
+        if rank == .queen {
+            imageName = pawn.isWhite ? "Queen-white" : "Queen-black"
+        } else {
+            imageName = pawn.isWhite ? "Knight-white" : "Knight-black"
+        }
+        pieces.insert(ChessPiece(col: pawn.col, row: pawn.row, imageName: imageName, isWhite: pawn.isWhite, rank: rank))
+    }
+    
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
             return

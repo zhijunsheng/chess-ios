@@ -62,6 +62,46 @@ class ViewController: UIViewController {
         boardView.setNeedsDisplay()
         infoLabel.text = "White"
     }
+    
+    func updateMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        guard chessEngine.canPieceMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow, isWhite: chessEngine.whitesTurn) else {
+            return
+        }
+        chessEngine.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        
+        if chessEngine.needsPromotion() {
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            
+            let queenAction = UIAlertAction(title: "Queen", style: .default) { _ in
+                self.chessEngine.promoteTo(rank: .queen)
+                self.boardView.shadowPieces = self.chessEngine.pieces
+                self.boardView.setNeedsDisplay()
+            }
+            alertController.addAction(queenAction)
+            
+            let knightAction = UIAlertAction(title: "Knight", style: .default) { _ in
+                self.chessEngine.promoteTo(rank: .knight)
+                self.boardView.shadowPieces = self.chessEngine.pieces
+                self.boardView.setNeedsDisplay()
+            }
+            alertController.addAction(knightAction)
+            
+            present(alertController, animated: true, completion: nil)
+        }
+        
+        boardView.shadowPieces = chessEngine.pieces
+        boardView.setNeedsDisplay()
+        
+        #if !targetEnvironment(simulator)
+            audioPlayer.play()
+        #endif
+        
+        if chessEngine.whitesTurn {
+            infoLabel.text = "White"
+        } else {
+            infoLabel.text = "Black"
+        }
+    }
 }
 
 extension ViewController: MCNearbyServiceAdvertiserDelegate {
@@ -126,25 +166,6 @@ extension ViewController: ChessDelegate {
         let move: String = "\(fromCol):\(fromRow):\(toCol):\(toRow)"
         if let data = move.data(using: .utf8) {
             try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
-        }
-    }
-    
-    func updateMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
-        guard chessEngine.canPieceMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow, isWhite: chessEngine.whitesTurn) else {
-            return
-        }
-        chessEngine.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
-        boardView.shadowPieces = chessEngine.pieces
-        boardView.setNeedsDisplay()
-        
-        #if !targetEnvironment(simulator)
-            audioPlayer.play()
-        #endif
-        
-        if chessEngine.whitesTurn {
-            infoLabel.text = "White"
-        } else {
-            infoLabel.text = "Black"
         }
     }
     
