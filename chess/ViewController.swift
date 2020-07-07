@@ -58,6 +58,8 @@ class ViewController: UIViewController, ChessDelegate {
         if let data = message.data(using: .utf8) {
             try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
         }
+        
+        
     }
 
     func getMovingPiece(x: Int, y: Int) -> ChessPiece? {

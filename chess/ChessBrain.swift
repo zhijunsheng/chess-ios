@@ -103,6 +103,10 @@ struct ChessBrain {
     
     
     mutating func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
+        if toX > 7 || toX < 0 || toY > 7 || toY < 0 {
+            return
+        }
+        
         let beCapturedPiece = pieceAt(x: toX, y: toY)
         guard let movingPiece = pieceAt(x: frX, y: frY) else {
             return
