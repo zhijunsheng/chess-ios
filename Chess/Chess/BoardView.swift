@@ -76,7 +76,13 @@ class BoardView: UIView {
             let pieceImage = UIImage(named: piece.imageName)
             pieceImage?.draw(in: CGRect(x: originX + CGFloat(p2p(piece.col)) * cellSide, y: originY + CGFloat(p2p(piece.row)) * cellSide, width: cellSide, height: cellSide))
         }
-        movingImage?.draw(in: CGRect(x: movingPieceX - cellSide/2, y: movingPieceY - cellSide/2, width: cellSide, height: cellSide))
+        if let movingImage = movingImage {
+            movingImage.draw(in: CGRect(x: movingPieceX - cellSide/2, y: movingPieceY - cellSide/2, width: cellSide, height: cellSide))
+            #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1).setStroke()
+            let circle = UIBezierPath(arcCenter: CGPoint(x: movingPieceX, y: movingPieceY), radius: 1.5 * cellSide, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
+            circle.lineWidth = 3
+            circle.stroke()
+        }
     }
     
     func drawBoard() {
