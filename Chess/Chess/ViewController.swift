@@ -63,6 +63,7 @@ class ViewController: UIViewController {
         chessEngine.initializeGame()
         boardView.shadowPieces = chessEngine.pieces
         boardView.blackAtTop = true
+        boardView.sharingDevice = false
         boardView.setNeedsDisplay()
         infoLabel.text = "White"
     }

@@ -9,6 +9,34 @@
 import UIKit
 
 class BoardView: UIView {
+    static let kingWhite = "King-white"
+    static let queenWhite = "Queen-white"
+    static let bishopWhite = "Bishop-white"
+    static let knightWhite = "Knight-white"
+    static let rookWhite = "Rook-white"
+    static let pawnWhite = "Pawn-white"
+    static let kingBlack = "King-black"
+    static let queenBlack = "Queen-black"
+    static let bishopBlack = "Bishop-black"
+    static let knightBlack = "Knight-black"
+    static let rookBlack = "Rook-black"
+    static let pawnBlack = "Pawn-black"
+    
+    // for cropping each piece image out of 6x2 big image
+    private let tupleByName: [String: (Int, Int)] = [
+        kingWhite : (0, 0),
+        queenWhite : (1, 0),
+        bishopWhite : (2, 0),
+        knightWhite : (3, 0),
+        rookWhite : (4, 0),
+        pawnWhite : (5, 0),
+        kingBlack : (0, 1),
+        queenBlack : (1, 1),
+        bishopBlack : (2, 1),
+        knightBlack : (3, 1),
+        rookBlack : (4, 1),
+        pawnBlack : (5, 1),
+    ]
     
     let ratio: CGFloat = 1.0
     var originX: CGFloat = -10
@@ -28,7 +56,7 @@ class BoardView: UIView {
     var blackAtTop = true
     
     var imageByName: [String: UIImage] = [:]
-    var deviceShared = false
+    var sharingDevice = true
 
     override func draw(_ rect: CGRect) {
         cellSide = bounds.width * ratio / 8
@@ -76,19 +104,7 @@ class BoardView: UIView {
     
     func drawPieces() {
         for piece in shadowPieces where fromCol != piece.col || fromRow != piece.row {
-            guard let img = image(named: piece.imageName) else {
-                return
-            }
-            
-            guard var pieceImage = image(named: piece.imageName) else {
-                return
-            }
-            
-            if deviceShared, let cgImg = img.cgImage {
-                pieceImage = UIImage(cgImage: cgImg, scale: 1.0, orientation: .downMirrored)
-            }
-            
-            pieceImage.draw(in: CGRect(x: originX + CGFloat(p2p(piece.col)) * cellSide, y: originY + CGFloat(p2p(piece.row)) * cellSide, width: cellSide, height: cellSide))
+            image(named: piece.imageName)?.draw(in: CGRect(x: originX + CGFloat(p2p(piece.col)) * cellSide, y: originY + CGFloat(p2p(piece.row)) * cellSide, width: cellSide, height: cellSide))
         }
         
         if let movingImage = movingImage {
@@ -122,34 +138,29 @@ class BoardView: UIView {
         return blackAtTop ? coordinate : 7 - coordinate
     }
     
-    func image(named name: String) -> UIImage? {
+    private func image(named name: String) -> UIImage? {
         if let stored = imageByName[name] {
             return stored
         }
         
-        let tupleByName: [String: (Int, Int)] = [
-            "King-white" : (0, 0),
-            "Queen-white" : (1, 0),
-            "Bishop-white" : (2, 0),
-            "Knight-white" : (3, 0),
-            "Rook-white" : (4, 0),
-            "Pawn-white" : (5, 0),
-            "King-black" : (0, 1),
-            "Queen-black" : (1, 1),
-            "Bishop-black" : (2, 1),
-            "Knight-black" : (3, 1),
-            "Rook-black" : (4, 1),
-            "Pawn-black" : (5, 1),
-        ]
-        
-        guard let piecesImg = UIImage(named: "pieces_333"), let tuple = tupleByName[name] else {
+        if !sharingDevice {
+            let img = UIImage(named: name)
+            imageByName[name] = img
+            return img
+        }
+
+        guard let twelvePieces = UIImage(named: "twelve_pieces"), let tuple = tupleByName[name] else {
             return nil
         }
+        
         let col = tuple.0
         let row = tuple.1
         UIGraphicsBeginImageContext(CGSize(width: cellSide, height: cellSide))
-        piecesImg.draw(in: CGRect(x: CGFloat(-col) * cellSide, y: CGFloat(-row) * cellSide, width: 6 * cellSide, height: 2 * cellSide))
-        let img = UIGraphicsGetImageFromCurrentImageContext()
+        twelvePieces.draw(in: CGRect(x: CGFloat(-col) * cellSide, y: CGFloat(-row) * cellSide, width: 6 * cellSide, height: 2 * cellSide))
+        var img = UIGraphicsGetImageFromCurrentImageContext()
+        if row == 1, let actualImg = img, let cgImg = actualImg.cgImage {
+            img = UIImage(cgImage: cgImg, scale: 1.0, orientation: .downMirrored)
+        }
         UIGraphicsEndImageContext()
         imageByName[name] = img
         return img

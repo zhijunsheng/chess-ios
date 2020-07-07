@@ -36,9 +36,9 @@ struct ChessEngine {
         pieces.remove(pawn)
         var imageName: String
         if rank == .queen {
-            imageName = pawn.isWhite ? "Queen-white" : "Queen-black"
+            imageName = pawn.isWhite ? BoardView.queenWhite : BoardView.queenBlack
         } else {
-            imageName = pawn.isWhite ? "Knight-white" : "Knight-black"
+            imageName = pawn.isWhite ? BoardView.knightWhite : BoardView.knightBlack
         }
         pieces.insert(ChessPiece(col: pawn.col, row: pawn.row, imageName: imageName, isWhite: pawn.isWhite, rank: rank))
     }
@@ -401,22 +401,22 @@ struct ChessEngine {
         blackKingMoved = false
         
         for i in 0..<2 {
-            pieces.insert(ChessPiece(col: i * 7, row: 0, imageName: "Rook-black", isWhite: false, rank: .rook))
-            pieces.insert(ChessPiece(col: i * 7, row: 7, imageName: "Rook-white", isWhite: true, rank: .rook))
-            pieces.insert(ChessPiece(col: 1 + i * 5, row: 0, imageName: "Knight-black", isWhite: false, rank: .knight))
-            pieces.insert(ChessPiece(col: 1 + i * 5, row: 7, imageName: "Knight-white", isWhite: true, rank: .knight))
-            pieces.insert(ChessPiece(col: 2 + i * 3, row: 0, imageName: "Bishop-black", isWhite: false, rank: .bishop))
-            pieces.insert(ChessPiece(col: 2 + i * 3, row: 7, imageName: "Bishop-white", isWhite: true, rank: .bishop))
+            pieces.insert(ChessPiece(col: i * 7, row: 0, imageName: BoardView.rookBlack, isWhite: false, rank: .rook))
+            pieces.insert(ChessPiece(col: i * 7, row: 7, imageName: BoardView.rookWhite, isWhite: true, rank: .rook))
+            pieces.insert(ChessPiece(col: 1 + i * 5, row: 0, imageName: BoardView.knightBlack, isWhite: false, rank: .knight))
+            pieces.insert(ChessPiece(col: 1 + i * 5, row: 7, imageName: BoardView.knightWhite, isWhite: true, rank: .knight))
+            pieces.insert(ChessPiece(col: 2 + i * 3, row: 0, imageName: BoardView.bishopBlack, isWhite: false, rank: .bishop))
+            pieces.insert(ChessPiece(col: 2 + i * 3, row: 7, imageName: BoardView.bishopWhite, isWhite: true, rank: .bishop))
         }
         
-        pieces.insert(ChessPiece(col: 3, row: 0, imageName: "Queen-black", isWhite: false, rank: .queen))
-        pieces.insert(ChessPiece(col: 3, row: 7, imageName: "Queen-white", isWhite: true, rank: .queen))
-        pieces.insert(ChessPiece(col: 4, row: 0, imageName: "King-black", isWhite: false, rank: .king))
-        pieces.insert(ChessPiece(col: 4, row: 7, imageName: "King-white", isWhite: true, rank: .king))
+        pieces.insert(ChessPiece(col: 3, row: 0, imageName: BoardView.queenBlack, isWhite: false, rank: .queen))
+        pieces.insert(ChessPiece(col: 3, row: 7, imageName: BoardView.queenWhite, isWhite: true, rank: .queen))
+        pieces.insert(ChessPiece(col: 4, row: 0, imageName: BoardView.kingBlack, isWhite: false, rank: .king))
+        pieces.insert(ChessPiece(col: 4, row: 7, imageName: BoardView.kingWhite, isWhite: true, rank: .king))
         
         for col in 0..<8 {
-            pieces.insert(ChessPiece(col: col, row: 1, imageName: "Pawn-black", isWhite: false, rank: .pawn))
-            pieces.insert(ChessPiece(col: col, row: 6, imageName: "Pawn-white", isWhite: true, rank: .pawn))
+            pieces.insert(ChessPiece(col: col, row: 1, imageName: BoardView.pawnBlack, isWhite: false, rank: .pawn))
+            pieces.insert(ChessPiece(col: col, row: 6, imageName: BoardView.pawnWhite, isWhite: true, rank: .pawn))
         }
     }
 }
