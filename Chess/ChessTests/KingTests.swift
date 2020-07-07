@@ -810,4 +810,68 @@ class KingTests: XCTestCase {
         game.movePiece(fromCol: 6, fromRow: 3, toCol: 6, toRow: 4)
         XCTAssertFalse(game.canPieceMove(fromCol: 5, fromRow: 5, toCol: 5, toRow: 4, isWhite: true))
     }
+    
+    func testKingChecked() {
+        var game = ChessEngine()
+        game.initializeGame()
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P P P P P P P P
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . p . .
+         5 . . . . . . . .
+         6 p p p p p . p p
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 5, fromRow: 6, toCol: 5, toRow: 4)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P P P P . P P P
+         2 . . . . P . . .
+         3 . . . . . . . .
+         4 . . . . . p . .
+         5 . . . . . . . .
+         6 p p p p p . p p
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 4, fromRow: 1, toCol: 4, toRow: 2)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P P P P . P P P
+         2 . . . . P . . .
+         3 . . . . . . . .
+         4 . . . . . p . .
+         5 . . . . . n . .
+         6 p p p p p . p p
+         7 r n b q k b . r
+         */
+        game.movePiece(fromCol: 6, fromRow: 7, toCol: 5, toRow: 5)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B . K B N R
+         1 P P P P . P P P
+         2 . . . . P . . .
+         3 . . . . . . . .
+         4 . . . . . p . Q
+         5 . . . . . n . .
+         6 p p p p p . p p
+         7 r n b q k b . r
+         */
+        game.movePiece(fromCol: 3, fromRow: 0, toCol: 7, toRow: 4)
+        XCTAssertTrue(game.checked(isWhite: true))
+        XCTAssertFalse(game.checked(isWhite: false))
+        print(game)
+        XCTAssertTrue(game.canRescueCheck(move: ChessMove(fromCol: 6, fromRow: 6, toCol: 6, toRow: 5), isWhite: true))
+        XCTAssertTrue(game.canPieceMove(fromCol: 6, fromRow: 6, toCol: 6, toRow: 5, isWhite: true))
+        XCTAssertFalse(game.canPieceMove(fromCol: 7, fromRow: 6, toCol: 7, toRow: 5, isWhite: true))
+        XCTAssertTrue(game.canPieceMove(fromCol: 5, fromRow: 5, toCol: 7, toRow: 4, isWhite: true))
+    }
 }

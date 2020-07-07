@@ -120,10 +120,14 @@ struct ChessEngine {
             return false
         }
         
+        if canRescueCheck(move: ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow), isWhite: isWhite) {
+            return true
+        }
+        
         if let king = pieces.filter({ $0.isWhite == isWhite && $0.rank == .king }).first {
             var gameCopy = self
             gameCopy.pieces.remove(movingPiece)
-            if gameCopy.underThreatAt(col: king.col, row: king.row, whiteEnemy: !king.isWhite) {
+            if gameCopy.checked(isWhite: king.isWhite) {
                 return false
             }
         }
@@ -142,6 +146,30 @@ struct ChessEngine {
         case .pawn:
             return canPawnMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         }
+    }
+    
+    func checked(isWhite: Bool) -> Bool {
+        if let king = pieces.filter({ $0.isWhite == isWhite && $0.rank == .king }).first {
+            return underThreatAt(col: king.col, row: king.row, whiteEnemy: !isWhite)
+        }
+        return false
+    }
+    
+    func canRescueCheck(move: ChessMove, isWhite: Bool) -> Bool {
+        guard
+            let movingPiece = pieceAt(col: move.fromCol, row: move.fromRow),
+            let king = pieces.filter({ $0.isWhite == isWhite && $0.rank == .king }).first,
+            movingPiece != king,
+            checked(isWhite: isWhite) else {
+            return false
+        }
+        var gameCopy = self
+        gameCopy.pieces.remove(movingPiece)
+        if let target = gameCopy.pieceAt(col: move.toCol, row: move.toRow) {
+            gameCopy.pieces.remove(target)
+        }
+        gameCopy.pieces.insert(ChessPiece(col: move.toCol, row: move.toRow, imageName: movingPiece.imageName, isWhite: movingPiece.isWhite, rank: movingPiece.rank))
+        return !gameCopy.checked(isWhite: isWhite)
     }
     
     func canPieceAttack(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
