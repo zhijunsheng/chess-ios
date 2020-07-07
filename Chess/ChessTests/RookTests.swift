@@ -14,7 +14,7 @@ class RookTests: XCTestCase {
     func testRookRules() {
         var game = ChessEngine()
         game.pieces.insert(ChessPiece(col: 0, row: 7, imageName: "", isWhite: true, rank: .rook))
-        print(game)
+
         /*
          + 0 1 2 3 4 5 6 7
          0 . . . . . . . .

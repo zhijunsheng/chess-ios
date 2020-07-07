@@ -140,11 +140,7 @@ struct ChessEngine {
         guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
             return false
         }
-        
-        if let target = pieceAt(col: toCol, row: toRow), target.isWhite == movingPiece.isWhite  {
-            return false
-        }
-        
+
         switch movingPiece.rank {
         case .knight:
             return canKnightMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)

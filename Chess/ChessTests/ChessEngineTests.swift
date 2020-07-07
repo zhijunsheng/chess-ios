@@ -14,7 +14,6 @@ class ChessEngineTests: XCTestCase {
     func testPrintingEmptyGameBoard() {
         var game = ChessEngine()
         game.initializeGame()
-        print(game)
     }
     
     func testPieceNotAllowedToGoOutOfBoard() {
