@@ -26,6 +26,9 @@ class BoardView: UIView {
     var movingPieceY: CGFloat = -1
     
     var blackAtTop = true
+    
+    var imageByName: [String: UIImage] = [:]
+    var deviceShared = false
 
     override func draw(_ rect: CGRect) {
         cellSide = bounds.width * ratio / 8
@@ -43,7 +46,7 @@ class BoardView: UIView {
         fromRow = p2p(Int((fingerLocation.y - originY) / cellSide))
         
         if let fromCol = fromCol, let fromRow = fromRow, let movingPiece = chessDelegate?.pieceAt(col: fromCol, row: fromRow) {
-            movingImage = UIImage(named: movingPiece.imageName)
+            movingImage = image(named: movingPiece.imageName)
         }
     }
     
@@ -73,9 +76,21 @@ class BoardView: UIView {
     
     func drawPieces() {
         for piece in shadowPieces where fromCol != piece.col || fromRow != piece.row {
-            let pieceImage = UIImage(named: piece.imageName)
-            pieceImage?.draw(in: CGRect(x: originX + CGFloat(p2p(piece.col)) * cellSide, y: originY + CGFloat(p2p(piece.row)) * cellSide, width: cellSide, height: cellSide))
+            guard let img = image(named: piece.imageName) else {
+                return
+            }
+            
+            guard var pieceImage = image(named: piece.imageName) else {
+                return
+            }
+            
+            if deviceShared, let cgImg = img.cgImage {
+                pieceImage = UIImage(cgImage: cgImg, scale: 1.0, orientation: .downMirrored)
+            }
+            
+            pieceImage.draw(in: CGRect(x: originX + CGFloat(p2p(piece.col)) * cellSide, y: originY + CGFloat(p2p(piece.row)) * cellSide, width: cellSide, height: cellSide))
         }
+        
         if let movingImage = movingImage {
             let side = 1.2 * cellSide
             movingImage.draw(in: CGRect(x: movingPieceX - side/2, y: movingPieceY - side/2, width: side, height: side))
@@ -90,8 +105,8 @@ class BoardView: UIView {
         for row in 0..<4 {
             for col in 0..<4 {
                 drawSquare(col: col * 2, row: row * 2, color: UIColor.white)
-                drawSquare(col: 1 + col * 2, row: row * 2, color: UIColor.lightGray)
-                drawSquare(col: col * 2, row: 1 + row * 2, color: UIColor.lightGray)
+                drawSquare(col: 1 + col * 2, row: row * 2, color: #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1))
+                drawSquare(col: col * 2, row: 1 + row * 2, color: #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1))
                 drawSquare(col: 1 + col * 2, row: 1 + row * 2, color: UIColor.white)
             }
         }
@@ -105,5 +120,38 @@ class BoardView: UIView {
     
     func p2p(_ coordinate: Int) -> Int { // p2p: peer 2 peer
         return blackAtTop ? coordinate : 7 - coordinate
+    }
+    
+    func image(named name: String) -> UIImage? {
+        if let stored = imageByName[name] {
+            return stored
+        }
+        
+        let tupleByName: [String: (Int, Int)] = [
+            "King-white" : (0, 0),
+            "Queen-white" : (1, 0),
+            "Bishop-white" : (2, 0),
+            "Knight-white" : (3, 0),
+            "Rook-white" : (4, 0),
+            "Pawn-white" : (5, 0),
+            "King-black" : (0, 1),
+            "Queen-black" : (1, 1),
+            "Bishop-black" : (2, 1),
+            "Knight-black" : (3, 1),
+            "Rook-black" : (4, 1),
+            "Pawn-black" : (5, 1),
+        ]
+        
+        guard let piecesImg = UIImage(named: "pieces_333"), let tuple = tupleByName[name] else {
+            return nil
+        }
+        let col = tuple.0
+        let row = tuple.1
+        UIGraphicsBeginImageContext(CGSize(width: cellSide, height: cellSide))
+        piecesImg.draw(in: CGRect(x: CGFloat(-col) * cellSide, y: CGFloat(-row) * cellSide, width: 6 * cellSide, height: 2 * cellSide))
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        imageByName[name] = img
+        return img
     }
 }
