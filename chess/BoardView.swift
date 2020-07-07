@@ -69,14 +69,8 @@ class BoardView: UIView {
         if movingPiece != nil {
             let movingPieceImage = UIImage(named: movingPiece!.imageName)
             movingPieceImage?.draw(in: CGRect(x: fingerX - cellSide / 2, y: fingerY - cellSide / 2, width: cellSide, height: cellSide))
-            
-            
         }
-        
-        
     }
-    
-    
     
     func drawPieces() {
         for piece in piecesBoxShadow {

@@ -3,11 +3,6 @@ import MultipeerConnectivity
 
 class ViewController: UIViewController, ChessDelegate {
     
-    
-    
-    
-    
-    
     @IBOutlet weak var promoteToQueenButton: UIButton!
     @IBOutlet weak var promoteToRookButton: UIButton!
     @IBOutlet weak var promoteToKnightButton: UIButton!
@@ -15,13 +10,10 @@ class ViewController: UIViewController, ChessDelegate {
     
     @IBOutlet weak var boardView: BoardView!
     
-    
     var chessBrain = ChessBrain()
     var peerID: MCPeerID!
     var session: MCSession!
-//    var advertiserAssistant: MCAdvertiserAssistant!
     var nearbyServiceAdvertiser: MCNearbyServiceAdvertiser!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +27,10 @@ class ViewController: UIViewController, ChessDelegate {
         boardView.piecesBoxShadow = chessBrain.piecesBox
         boardView.setNeedsDisplay()
         boardView.chessDelegate = self
+        
+//        let str = "123:45:700"
+//        let subStringArray = str.components(separatedBy: ":")
+//        subStringArray[2]
     }
     
     @IBAction func advertise(_ sender: Any) {
@@ -58,7 +54,7 @@ class ViewController: UIViewController, ChessDelegate {
         boardView.piecesBoxShadow = chessBrain.piecesBox
         boardView.setNeedsDisplay()
         
-        let message: String = "(\(frX),\(frY)) -> (\(toX),\(toY))"
+        let message: String = "\(frX) \(frY) \(toX) \(toY)"
         if let data = message.data(using: .utf8) {
             try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
         }
@@ -84,6 +80,17 @@ extension ViewController: MCSessionDelegate {
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         if let str = String(data: data, encoding: .utf8) {
             print(str)
+            let components = str.components(separatedBy: " ")
+            print("(\(components[0]),\(components[1])) -> (\(components[2]),\(components[3]))")
+            if let fC = Int(components[0]), let fR = Int(components[1]), let tC = Int(components[2]), let tR = Int(components[3]) {
+                
+                DispatchQueue.main.async {
+                    self.chessBrain.movePiece(frX: fC, frY: fR, toX: tC, toY: tR)
+                    self.boardView.piecesBoxShadow = self.chessBrain.piecesBox
+                    self.boardView.setNeedsDisplay()
+                }
+                
+            }
         }
     }
     
