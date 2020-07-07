@@ -156,11 +156,7 @@ struct ChessEngine {
     }
     
     func canRescueCheck(move: ChessMove, isWhite: Bool) -> Bool {
-        guard
-            let movingPiece = pieceAt(col: move.fromCol, row: move.fromRow),
-            let king = pieces.filter({ $0.isWhite == isWhite && $0.rank == .king }).first,
-            movingPiece != king,
-            checked(isWhite: isWhite) else {
+        guard let movingPiece = pieceAt(col: move.fromCol, row: move.fromRow), checked(isWhite: isWhite) else {
             return false
         }
         var gameCopy = self
