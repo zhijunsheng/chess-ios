@@ -120,6 +120,14 @@ struct ChessEngine {
             return false
         }
         
+        if let king = pieces.filter({ $0.isWhite == isWhite && $0.rank == .king }).first {
+            var gameCopy = self
+            gameCopy.pieces.remove(movingPiece)
+            if gameCopy.underThreatAt(col: king.col, row: king.row, whiteEnemy: !king.isWhite) {
+                return false
+            }
+        }
+        
         switch movingPiece.rank {
         case .knight:
             return canKnightMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
