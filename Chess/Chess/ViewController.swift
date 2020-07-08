@@ -59,7 +59,8 @@ class ViewController: UIViewController {
         present(browser, animated: true)
     }
     
-    @IBAction func reset(_ sender: Any) {
+    
+    @IBAction func reset(_ sender: UIBarButtonItem) {
         chessEngine.initializeGame()
         boardView.shadowPieces = chessEngine.pieces
         boardView.blackAtTop = true
