@@ -24,8 +24,8 @@ class PawnTests: XCTestCase {
          */
         var game = ChessEngine()
         game.pieces.insert(ChessPiece(col: 5, row: 1, imageName: "", isWhite: false, rank: .pawn))
-//        game.pieces.insert(ChessPiece(col: 0, row: 6, imageName: "", isWhite: true, rank: .pawn))
-//        game.movePiece(fromCol: 0, fromRow: 6, toCol: 0, toRow: 5)
+        game.pieces.insert(ChessPiece(col: 0, row: 6, imageName: "", isWhite: true, rank: .pawn))
+        game.movePiece(fromCol: 0, fromRow: 6, toCol: 0, toRow: 5)
         XCTAssertFalse(game.canPieceMove(fromCol: 5, fromRow: 1, toCol: 6, toRow: 2, isWhite: false))
         XCTAssertTrue(game.canPieceMove(fromCol: 5, fromRow: 1, toCol: 5, toRow: 2, isWhite: false))
         XCTAssertTrue(game.canPieceMove(fromCol: 5, fromRow: 1, toCol: 5, toRow: 3, isWhite: false))
@@ -423,5 +423,29 @@ class PawnTests: XCTestCase {
         XCTAssertFalse(game.canPawnAttack(fromCol: 0, fromRow: 6, toCol: 0, toRow: 5))
         XCTAssertTrue(game.canPawnAttack(fromCol: 7, fromRow: 1, toCol: 6, toRow: 2))
         XCTAssertFalse(game.canPawnAttack(fromCol: 7, fromRow: 1, toCol: 7, toRow: 2))
+    }
+    
+    func testKnightPromotion() {
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P P P P P P P P
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 p p p p p p p p
+         7 r n b q k b n r
+         */
+        var game = ChessEngine()
+        game.initializeGame()
+        game.movePiece(fromCol: 6, fromRow: 7, toCol: 7, toRow: 5)
+        game.movePiece(fromCol: 0, fromRow: 1, toCol: 0, toRow: 2)
+        game.movePiece(fromCol: 7, fromRow: 5, toCol: 6, toRow: 3)
+        game.movePiece(fromCol: 0, fromRow: 2, toCol: 0, toRow: 3)
+        game.movePiece(fromCol: 6, fromRow: 3, toCol: 7, toRow: 1)
+        game.movePiece(fromCol: 0, fromRow: 3, toCol: 0, toRow: 4)
+        game.movePiece(fromCol: 7, fromRow: 1, toCol: 5, toRow: 0)
+        XCTAssertFalse(game.needsPromotion())
     }
 }

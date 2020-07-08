@@ -56,7 +56,7 @@ class BoardView: UIView {
     var blackAtTop = true
     
     var imageByName: [String: UIImage] = [:]
-    var sharingDevice = true
+    var sharingDevice = false
 
     override func draw(_ rect: CGRect) {
         cellSide = bounds.width * ratio / 8

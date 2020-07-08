@@ -22,7 +22,7 @@ struct ChessEngine {
     var blackKingMoved = false
     
     func needsPromotion() -> Bool {
-        if let lastMove = lastMove, let piece = pieceAt(col: lastMove.toCol, row: lastMove.toRow) {
+        if let lastMove = lastMove, let piece = pieceAt(col: lastMove.toCol, row: lastMove.toRow), piece.rank == .pawn {
             return piece.isWhite && piece.row == 0 || !piece.isWhite && piece.row == 7
         }
         return false
