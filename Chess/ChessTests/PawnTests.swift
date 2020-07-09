@@ -10,6 +10,78 @@ import XCTest
 @testable import GT_Chess
 
 class PawnTests: XCTestCase {
+    
+    func testPawnKilledWrongly() {
+        var game = ChessEngine()
+        game.initializeGame()
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P P P P P P P P
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . p . . . . . .
+         5 . . . . . . . .
+         6 p . p p p p p p
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 1, fromRow: 6, toCol: 1, toRow: 4)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R . B Q K B N R
+         1 P P P P P P P P
+         2 . . N . . . . .
+         3 . . . . . . . .
+         4 . p . . . . . .
+         5 . . . . . . . .
+         6 p . p p p p p p
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 1, fromRow: 0, toCol: 2, toRow: 2)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R . B Q K B N R
+         1 P P P P P P P P
+         2 . . N . . . . .
+         3 . p . . . . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 p . p p p p p p
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 1, fromRow: 4, toCol: 1, toRow: 3)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R . B Q K B N R
+         1 P P P P P P P .
+         2 . . N . . . . P
+         3 . p . . . . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 p . p p p p p p
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 7, fromRow: 1, toCol: 7, toRow: 2)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R . B Q K B N R
+         1 P P P P P P P .
+         2 . . p . . . . P
+         3 . . . . . . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 p . p p p p p p
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 1, fromRow: 3, toCol: 2, toRow: 2)
+        XCTAssertNotNil(game.pieceAt(col: 7, row: 2))
+    }
+    
     func testBlackPawnRules() {
         /*
          + 0 1 2 3 4 5 6 7

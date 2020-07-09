@@ -48,6 +48,14 @@ struct ChessEngine {
             return
         }
         
+        if let lastMove = lastMove,
+           movingPiece.rank == .pawn,
+           pieceAt(col: toCol, row: toRow) == nil,
+           let lastMovedPiece = pieceAt(col: lastMove.toCol, row: lastMove.toRow),
+           abs(fromCol - toCol) == 1 && abs(fromRow - toRow) == 1 {
+            pieces.remove(lastMovedPiece)
+        }
+        
         if let target = pieceAt(col: toCol, row: toRow) {
             pieces.remove(target)
         }
@@ -88,10 +96,6 @@ struct ChessEngine {
                     pieces.insert(ChessPiece(col: 3, row: row, imageName: rook.imageName, isWhite: rook.isWhite, rank: rook.rank))
                 }
             }
-        }
-
-        if let lastMove = lastMove, let lastMovedPawn = pieceAt(col: lastMove.toCol, row: lastMove.toRow), lastMovedPawn.isWhite != movingPiece.isWhite, movingPiece.rank == .pawn, lastMovedPawn.rank == .pawn, abs(fromCol - toCol) == 1 && abs(fromRow - toRow) == 1 {
-            pieces.remove(lastMovedPawn)
         }
         
         lastMove = ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
