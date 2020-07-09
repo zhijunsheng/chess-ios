@@ -644,4 +644,131 @@ class PawnTests: XCTestCase {
         XCTAssertTrue(game.needsPromotion())
         XCTAssertEqual(game.pieceAt(col: 7, row: 0)?.rank, .pawn)
     }
+    
+    func testAlreadyPromoted() {
+        var game = ChessEngine()
+        game.initializeGame()
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P P P P P P P P
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . . . p
+         5 . . . . . . . .
+         6 p p p p p p p .
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 7, fromRow: 6, toCol: 7, toRow: 4)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 . P P P P P P P
+         2 P . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . . . p
+         5 . . . . . . . .
+         6 p p p p p p p .
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 0, fromRow: 1, toCol: 0, toRow: 2)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 . P P P P P P P
+         2 P . . . . . . .
+         3 . . . . . . . p
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 p p p p p p p .
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 7, fromRow: 4, toCol: 7, toRow: 3)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 . P P P P P P P
+         2 . . . . . . . .
+         3 P . . . . . . p
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 p p p p p p p .
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 0, fromRow: 2, toCol: 0, toRow: 3)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 . P P P P P P P
+         2 . . . . . . . p
+         3 P . . . . . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 p p p p p p p .
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 7, fromRow: 3, toCol: 7, toRow: 2)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 . P P P P P P P
+         2 . . . . . . . p
+         3 . . . . . . . .
+         4 P . . . . . . .
+         5 . . . . . . . .
+         6 p p p p p p p .
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 0, fromRow: 3, toCol: 0, toRow: 4)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 . P P P P P p P
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 P . . . . . . .
+         5 . . . . . . . .
+         6 p p p p p p p .
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 7, fromRow: 2, toCol: 6, toRow: 1)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 . P P P P P p P
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . . . .
+         5 P . . . . . . .
+         6 p p p p p p p .
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 0, fromRow: 4, toCol: 0, toRow: 5)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N p
+         1 . P P P P P . P
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 . . . . . . . .
+         5 P . . . . . . .
+         6 p p p p p p p .
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 6, fromRow: 1, toCol: 7, toRow: 0)
+        XCTAssertTrue(game.needsPromotion())
+        XCTAssertEqual(game.pieceAt(col: 7, row: 0)?.rank, .pawn)
+        
+        game.promoteTo(rank: .knight)
+        XCTAssertFalse(game.needsPromotion())
+    }
 }
