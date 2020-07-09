@@ -98,7 +98,7 @@ class BoardView: UIView {
         let toRow: Int = p2p(Int((fingerLocation.y - originY) / cellSide))
         
         if let fromCol = fromCol, let fromRow = fromRow, fromCol != toCol || fromRow != toRow {
-            chessDelegate?.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+            chessDelegate?.play(with: ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow))
         }
         movingImage = nil
         fromCol = nil

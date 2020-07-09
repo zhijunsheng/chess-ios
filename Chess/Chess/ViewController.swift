@@ -114,21 +114,19 @@ class ViewController: UIViewController {
         whoseTurnView.backgroundColor = whoseTurnColor
     }
     
-    func sendLastMove() {
+    func send(move: ChessMove) {
         print("chessEngine.needsPromotion() \(chessEngine.needsPromotion())")
         print("rankPromotedTo \(rankPromotedTo)")
         
         let promotionPostfix = chessEngine.needsPromotion() ? ":\(rankPromotedTo)" : ""
-        if let lastMove = chessEngine.lastMove {
-            let move = "\(lastMove.fromCol):\(lastMove.fromRow):\(lastMove.toCol):\(lastMove.toRow)\(promotionPostfix)"
-            print("sending move: \(move)")
-            if let data = move.data(using: .utf8), let session = session {
-                try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
-            }
+        let move = "\(move.fromCol):\(move.fromRow):\(move.toCol):\(move.toRow)\(promotionPostfix)"
+        print("sending move: \(move)")
+        if let data = move.data(using: .utf8), let session = session {
+            try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
         }
     }
     
-    func promptPromotionOptions() {
+    func promptPromotionOptions(with move: ChessMove) {
         if chessEngine.needsPromotion() {
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
@@ -137,7 +135,7 @@ class ViewController: UIViewController {
                 self.boardView.shadowPieces = self.chessEngine.pieces
                 self.boardView.setNeedsDisplay()
                 self.rankPromotedTo = "q"
-                self.sendLastMove()
+                self.send(move: move)
             }
             alertController.addAction(queenAction)
             
@@ -146,7 +144,7 @@ class ViewController: UIViewController {
                 self.boardView.shadowPieces = self.chessEngine.pieces
                 self.boardView.setNeedsDisplay()
                 self.rankPromotedTo = "n"
-                self.sendLastMove()
+                self.send(move: move)
             }
             alertController.addAction(knightAction)
             
@@ -230,8 +228,8 @@ extension ViewController: MCSessionDelegate {
 }
 
 extension ViewController: ChessDelegate {
-    func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
-        if let movingPiece = chessEngine.pieceAt(col: fromCol, row: fromRow) {
+    func play(with move: ChessMove) {
+        if let movingPiece = chessEngine.pieceAt(col: move.fromCol, row: move.fromRow) {
             if movingPiece.isWhite != chessEngine.whitesTurn {
                 return
             }
@@ -241,12 +239,12 @@ extension ViewController: ChessDelegate {
             return
         }
         
-        updateMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        updateMove(fromCol: move.fromCol, fromRow: move.fromRow, toCol: move.toCol, toRow: move.toRow)
         
         if chessEngine.needsPromotion() {
-            promptPromotionOptions()
+            promptPromotionOptions(with: move)
         } else {
-            sendLastMove()
+            send(move: move)
         }
     }
     

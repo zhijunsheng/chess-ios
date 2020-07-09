@@ -11,7 +11,7 @@ import Foundation
 struct ChessEngine {
     var pieces: Set<ChessPiece> = Set<ChessPiece>()
     private(set) var whitesTurn: Bool = true
-    private(set) var lastMove: ChessMove?
+    private(set) var lastMovedPiece: ChessPiece?
     
     var whiteKingSideRookMoved = false
     var whiteQueenSideRookMoved = false
@@ -22,25 +22,26 @@ struct ChessEngine {
     var blackKingMoved = false
     
     func needsPromotion() -> Bool {
-        if let lastMove = lastMove, let piece = pieceAt(col: lastMove.toCol, row: lastMove.toRow), piece.rank == .pawn {
-            return piece.isWhite && piece.row == 0 || !piece.isWhite && piece.row == 7
+        if let lastMovedPiece = lastMovedPiece, lastMovedPiece.rank == .pawn {
+            return lastMovedPiece.row == (lastMovedPiece.isWhite ? 0 : 7)
+//            return lastMovedPiece.isWhite && lastMovedPiece.row == 0 || !lastMovedPiece.isWhite && lastMovedPiece.row == 7
         }
         return false
     }
     
     mutating func promoteTo(rank: ChessRank) {
-        guard let lastMove = lastMove, let pawn = pieceAt(col: lastMove.toCol, row: lastMove.toRow) else {
+        guard let lastMovedPiece = lastMovedPiece else {
             return
         }
         
-        pieces.remove(pawn)
+        pieces.remove(lastMovedPiece)
         var imageName: String
         if rank == .queen {
-            imageName = pawn.isWhite ? BoardView.queenWhite : BoardView.queenBlack
+            imageName = lastMovedPiece.isWhite ? BoardView.queenWhite : BoardView.queenBlack
         } else {
-            imageName = pawn.isWhite ? BoardView.knightWhite : BoardView.knightBlack
+            imageName = lastMovedPiece.isWhite ? BoardView.knightWhite : BoardView.knightBlack
         }
-        pieces.insert(ChessPiece(col: pawn.col, row: pawn.row, imageName: imageName, isWhite: pawn.isWhite, rank: rank))
+        pieces.insert(ChessPiece(col: lastMovedPiece.col, row: lastMovedPiece.row, imageName: imageName, isWhite: lastMovedPiece.isWhite, rank: rank))
     }
     
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
@@ -48,10 +49,9 @@ struct ChessEngine {
             return
         }
         
-        if let lastMove = lastMove,
+        if let lastMovedPiece = lastMovedPiece,
            movingPiece.rank == .pawn,
            pieceAt(col: toCol, row: toRow) == nil,
-           let lastMovedPiece = pieceAt(col: lastMove.toCol, row: lastMove.toRow),
            abs(fromCol - toCol) == 1 && abs(fromRow - toRow) == 1 {
             pieces.remove(lastMovedPiece)
         }
@@ -98,7 +98,7 @@ struct ChessEngine {
             }
         }
         
-        lastMove = ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        lastMovedPiece = ChessPiece(col: toCol, row: toRow, imageName: movingPiece.imageName, isWhite: movingPiece.isWhite, rank: movingPiece.rank)
         
         whitesTurn = !whitesTurn
     }
@@ -293,11 +293,16 @@ struct ChessEngine {
                     pieceAt(col: fromCol, row: toRow) == nil &&
                     fromRow == (movingPawn.isWhite ? 6 : 1)
             }
-        } else if let lastMove = lastMove, let enemyPawn = pieceAt(col: lastMove.toCol, row: lastMove.toRow), enemyPawn.rank == .pawn && enemyPawn.isWhite != movingPawn.isWhite && enemyPawn.row == fromRow && enemyPawn.col == toCol, abs(toCol - fromCol) == 1 {
+        } else if let lastMovedPiece = lastMovedPiece,
+                  lastMovedPiece.rank == .pawn,
+                  lastMovedPiece.isWhite != movingPawn.isWhite,
+                  lastMovedPiece.row == fromRow,
+                  lastMovedPiece.col == toCol,
+                  abs(toCol - fromCol) == 1 {
             if movingPawn.isWhite {
-                return fromRow == 3 && toRow == 2 && lastMove.fromRow == 1
+                return fromRow == 3 && toRow == 2 // && lastMove.fromRow == 1
             } else {
-                return fromRow == 4 && toRow == 5 && lastMove.fromRow == 6
+                return fromRow == 4 && toRow == 5 // && lastMove.fromRow == 6
             }
         }
 
@@ -394,7 +399,7 @@ struct ChessEngine {
     mutating func initializeGame() {
         pieces.removeAll()
         whitesTurn = true
-        lastMove = nil
+        lastMovedPiece = nil
         
         whiteKingSideRookMoved = false
         whiteQueenSideRookMoved = false
