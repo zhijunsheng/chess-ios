@@ -26,7 +26,7 @@ class RookTests: XCTestCase {
          6 . x . . . . . .
          7 r . . . . . . .
          */
-        XCTAssertFalse(game.canPieceMove(fromCol: 0, fromRow: 7, toCol: 1, toRow: 6, isWhite: true))
+        XCTAssertFalse(game.isValid(fromCol: 0, fromRow: 7, toCol: 1, toRow: 6, isWhite: true))
         
         /*
          + 0 1 2 3 4 5 6 7
@@ -39,7 +39,7 @@ class RookTests: XCTestCase {
          6 . . . . . . . .
          7 r . . . . . . .
          */
-        XCTAssertTrue(game.canPieceMove(fromCol: 0, fromRow: 7, toCol: 0, toRow: 5, isWhite: true))
+        XCTAssertTrue(game.isValid(fromCol: 0, fromRow: 7, toCol: 0, toRow: 5, isWhite: true))
     }
 
 }

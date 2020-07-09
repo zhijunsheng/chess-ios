@@ -118,7 +118,7 @@ struct ChessEngine {
         return false
     }
     
-    func canPieceMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
+    func isValid(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
         guard
             toCol >= 0 && toCol <= 7 && toRow >= 0 && toRow <= 7,
             (fromCol != toCol || fromRow != toRow),

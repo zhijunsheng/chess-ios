@@ -19,16 +19,16 @@ class ChessEngineTests: XCTestCase {
     func testPieceNotAllowedToGoOutOfBoard() {
         var game = ChessEngine()
         game.initializeGame()
-        XCTAssertFalse(game.canPieceMove(fromCol: 0, fromRow: 7, toCol: -1, toRow: 7, isWhite: true))
-        XCTAssertFalse(game.canPieceMove(fromCol: 0, fromRow: 7, toCol: 8, toRow: 7, isWhite: true))
-        XCTAssertFalse(game.canPieceMove(fromCol: 0, fromRow: 7, toCol: 0, toRow: 8, isWhite: true))
-        XCTAssertFalse(game.canPieceMove(fromCol: 0, fromRow: 7, toCol: 0, toRow: -1, isWhite: true))
+        XCTAssertFalse(game.isValid(fromCol: 0, fromRow: 7, toCol: -1, toRow: 7, isWhite: true))
+        XCTAssertFalse(game.isValid(fromCol: 0, fromRow: 7, toCol: 8, toRow: 7, isWhite: true))
+        XCTAssertFalse(game.isValid(fromCol: 0, fromRow: 7, toCol: 0, toRow: 8, isWhite: true))
+        XCTAssertFalse(game.isValid(fromCol: 0, fromRow: 7, toCol: 0, toRow: -1, isWhite: true))
     }
     
     func testAvoidCapturingOwnPieces() {
         var game = ChessEngine()
         game.initializeGame()
-        XCTAssertFalse(game.canPieceMove(fromCol: 0, fromRow: 7, toCol: 0, toRow: 6, isWhite: true))
+        XCTAssertFalse(game.isValid(fromCol: 0, fromRow: 7, toCol: 0, toRow: 6, isWhite: true))
     }
     
     func testThreat() {
