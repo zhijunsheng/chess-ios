@@ -21,19 +21,15 @@ class ViewController: UIViewController {
     
     var audioPlayer: AVAudioPlayer!
     
-    var peerID: MCPeerID!
-    var session: MCSession!
-    var nearbyServiceAdvertiser: MCNearbyServiceAdvertiser!
+    var peerID: MCPeerID?
+    var session: MCSession?
+    var nearbyServiceAdvertiser: MCNearbyServiceAdvertiser?
     
     var rankPromotedTo: String = "q"
     var isWhiteDevice = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        peerID = MCPeerID(displayName: UIDevice.current.name)
-        session = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
-        session.delegate = self
         
         let url = Bundle.main.url(forResource: "drop", withExtension: "wav")!
         audioPlayer = try? AVAudioPlayer(contentsOf: url)
@@ -48,16 +44,31 @@ class ViewController: UIViewController {
     }
     
     @IBAction func advertise(_ sender: Any) {
+        peerID = MCPeerID(displayName: UIDevice.current.name)
+        guard let peerID = peerID else { return }
+        session = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
+        guard let session = session else { return }
+        session.delegate = self
+        
         nearbyServiceAdvertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: nil, serviceType: "gt-chess")
+        guard let nearbyServiceAdvertiser = nearbyServiceAdvertiser else { return }
         nearbyServiceAdvertiser.delegate = self
         nearbyServiceAdvertiser.startAdvertisingPeer()
         
         boardView.blackAtTop = false
         isWhiteDevice = false
+        upperView.backgroundColor = whoseTurnColor
+        lowerView.backgroundColor = .white
         boardView.setNeedsDisplay()
     }
     
     @IBAction func join(_ sender: Any) {
+        peerID = MCPeerID(displayName: UIDevice.current.name)
+        guard let peerID = peerID else { return }
+        session = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
+        guard let session = session else { return }
+        session.delegate = self
+        
         let browser = MCBrowserViewController(serviceType: "gt-chess", session: session)
         browser.delegate = self
         present(browser, animated: true)
@@ -68,9 +79,9 @@ class ViewController: UIViewController {
         boardView.shadowPieces = chessEngine.pieces
         boardView.blackAtTop = true
         boardView.sharingDevice = false
+        isWhiteDevice = true
+        updateWhoseTurnColors()
         boardView.setNeedsDisplay()
-        upperView.backgroundColor = .white
-        lowerView.backgroundColor = whoseTurnColor
     }
     
     @IBAction func togglePieceImages(_ sender: UIBarButtonItem) {
@@ -88,20 +99,26 @@ class ViewController: UIViewController {
         
         audioPlayer.play()
         
-        if chessEngine.whitesTurn {
-            upperView.backgroundColor = .white
-            lowerView.backgroundColor = whoseTurnColor
+        updateWhoseTurnColors()
+    }
+    
+    func updateWhoseTurnColors() {
+        upperView.backgroundColor = .white
+        lowerView.backgroundColor = .white
+        var whoseTurnView: UIView
+        if isWhiteDevice {
+            whoseTurnView = chessEngine.whitesTurn ? lowerView : upperView
         } else {
-            upperView.backgroundColor = whoseTurnColor
-            lowerView.backgroundColor = .white
+            whoseTurnView = chessEngine.whitesTurn ? upperView : lowerView
         }
+        whoseTurnView.backgroundColor = whoseTurnColor
     }
     
     func sendLastMove() {
         let promotionPostfix = chessEngine.needsPromotion() ? ":\(rankPromotedTo)" : ""
         if let lastMove = chessEngine.lastMove {
             let move = "\(lastMove.fromCol):\(lastMove.fromRow):\(lastMove.toCol):\(lastMove.toRow)\(promotionPostfix)"
-            if let data = move.data(using: .utf8) {
+            if let data = move.data(using: .utf8), let session = session {
                 try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
             }
         }
@@ -211,7 +228,7 @@ extension ViewController: ChessDelegate {
             }
         }
         
-        if session.connectedPeers.count > 0 && isWhiteDevice != chessEngine.whitesTurn {
+        if let session = session, session.connectedPeers.count > 0 && isWhiteDevice != chessEngine.whitesTurn {
             return
         }
         
