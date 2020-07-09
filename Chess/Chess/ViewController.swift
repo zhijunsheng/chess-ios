@@ -11,11 +11,13 @@ import AVFoundation
 import MultipeerConnectivity
 
 class ViewController: UIViewController {
+    let whoseTurnColor: UIColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
 
     var chessEngine: ChessEngine = ChessEngine()
     
     @IBOutlet weak var boardView: BoardView!
-    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var upperView: UIView!
+    @IBOutlet weak var lowerView: UIView!
     
     var audioPlayer: AVAudioPlayer!
     
@@ -37,6 +39,8 @@ class ViewController: UIViewController {
         audioPlayer = try? AVAudioPlayer(contentsOf: url)
         
         boardView.chessDelegate = self
+        
+        lowerView.backgroundColor = whoseTurnColor
         
         chessEngine.initializeGame()
         boardView.shadowPieces = chessEngine.pieces
@@ -66,7 +70,8 @@ class ViewController: UIViewController {
         boardView.blackAtTop = true
         boardView.sharingDevice = false
         boardView.setNeedsDisplay()
-        infoLabel.text = "White"
+        upperView.backgroundColor = .white
+        lowerView.backgroundColor = whoseTurnColor
     }
     
     func updateMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
@@ -80,9 +85,11 @@ class ViewController: UIViewController {
         audioPlayer.play()
         
         if chessEngine.whitesTurn {
-            infoLabel.text = "White"
+            upperView.backgroundColor = .white
+            lowerView.backgroundColor = whoseTurnColor
         } else {
-            infoLabel.text = "Black"
+            upperView.backgroundColor = whoseTurnColor
+            lowerView.backgroundColor = .white
         }
     }
     

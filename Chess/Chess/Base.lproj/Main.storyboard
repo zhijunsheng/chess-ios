@@ -47,20 +47,27 @@
                                             <constraint firstAttribute="width" secondItem="dKl-gE-s19" secondAttribute="height" multiplier="1:1" id="SUh-Rn-4Vy"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="White" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9A6-fZ-ZNZ">
-                                        <rect key="frame" x="20" y="599.66666666666663" width="374" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UW7-Hc-U3E">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="177.66666666666666"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D1U-Fg-84X">
+                                        <rect key="frame" x="0.0" y="591.66666666666663" width="414" height="177.33333333333337"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                 <constraints>
                                     <constraint firstItem="dKl-gE-s19" firstAttribute="centerY" secondItem="HTc-Gy-MCg" secondAttribute="centerY" id="4nw-7b-TkX"/>
-                                    <constraint firstItem="9A6-fZ-ZNZ" firstAttribute="leading" secondItem="HTc-Gy-MCg" secondAttribute="leading" constant="20" symbolic="YES" id="K2m-8R-CXX"/>
-                                    <constraint firstAttribute="trailing" secondItem="9A6-fZ-ZNZ" secondAttribute="trailing" constant="20" symbolic="YES" id="S2a-pu-Pnr"/>
-                                    <constraint firstItem="9A6-fZ-ZNZ" firstAttribute="top" secondItem="dKl-gE-s19" secondAttribute="bottom" constant="8" symbolic="YES" id="UEc-1h-eUF"/>
+                                    <constraint firstItem="D1U-Fg-84X" firstAttribute="top" secondItem="dKl-gE-s19" secondAttribute="bottom" id="FcN-xn-Rba"/>
+                                    <constraint firstAttribute="bottom" secondItem="D1U-Fg-84X" secondAttribute="bottom" id="GWN-i3-rqr"/>
+                                    <constraint firstItem="UW7-Hc-U3E" firstAttribute="top" secondItem="HTc-Gy-MCg" secondAttribute="top" id="KLo-Fm-DSm"/>
+                                    <constraint firstAttribute="trailing" secondItem="UW7-Hc-U3E" secondAttribute="trailing" id="MMg-pT-YZV"/>
+                                    <constraint firstAttribute="trailing" secondItem="D1U-Fg-84X" secondAttribute="trailing" id="Og5-Vy-5ha"/>
                                     <constraint firstAttribute="trailing" secondItem="dKl-gE-s19" secondAttribute="trailing" id="VpI-um-Cwe"/>
+                                    <constraint firstItem="dKl-gE-s19" firstAttribute="top" secondItem="UW7-Hc-U3E" secondAttribute="bottom" id="WrN-t7-Lpk"/>
+                                    <constraint firstItem="UW7-Hc-U3E" firstAttribute="leading" secondItem="HTc-Gy-MCg" secondAttribute="leading" id="Y9R-mm-GWS"/>
+                                    <constraint firstItem="D1U-Fg-84X" firstAttribute="leading" secondItem="HTc-Gy-MCg" secondAttribute="leading" id="Yvd-3R-h9d"/>
                                     <constraint firstItem="dKl-gE-s19" firstAttribute="leading" secondItem="HTc-Gy-MCg" secondAttribute="leading" id="qgv-VB-eO5"/>
                                 </constraints>
                             </view>
@@ -79,12 +86,13 @@
                     </view>
                     <connections>
                         <outlet property="boardView" destination="dKl-gE-s19" id="8fu-Po-7MD"/>
-                        <outlet property="infoLabel" destination="9A6-fZ-ZNZ" id="UdU-Bh-tc8"/>
+                        <outlet property="lowerView" destination="D1U-Fg-84X" id="0HF-n8-xht"/>
+                        <outlet property="upperView" destination="UW7-Hc-U3E" id="GSa-rr-hoz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1354" y="36"/>
+            <point key="canvasLocation" x="-1355.072463768116" y="35.491071428571423"/>
         </scene>
     </scenes>
     <resources>
