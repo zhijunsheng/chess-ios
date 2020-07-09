@@ -126,36 +126,45 @@ class ViewController: UIViewController {
         }
     }
     
-    func promptPromotionOptions(with move: ChessMove) {
+    private func promptPromotionOptions(with move: ChessMove) {
         if chessEngine.needsPromotion() {
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
             let queenAction = UIAlertAction(title: "Queen", style: .default) { _ in
-                self.chessEngine.promoteTo(rank: .queen)
-                self.boardView.shadowPieces = self.chessEngine.pieces
-                self.boardView.setNeedsDisplay()
-                self.rankPromotedTo = "q"
-                self.send(move: move)
+                self.alertActionOf(move: move, rank: .queen, letter: "q")
             }
             alertController.addAction(queenAction)
             
             let knightAction = UIAlertAction(title: "Knight", style: .default) { _ in
-                self.chessEngine.promoteTo(rank: .knight)
-                self.boardView.shadowPieces = self.chessEngine.pieces
-                self.boardView.setNeedsDisplay()
-                self.rankPromotedTo = "n"
-                self.send(move: move)
+                self.alertActionOf(move: move, rank: .knight, letter: "n")
             }
             alertController.addAction(knightAction)
+            
+            let rookAction = UIAlertAction(title: "Rook", style: .default) { _ in
+                self.alertActionOf(move: move, rank: .rook, letter: "r")
+            }
+            alertController.addAction(rookAction)
+            
+            let bishopAction = UIAlertAction(title: "Bishop", style: .default) { _ in
+                self.alertActionOf(move: move, rank: .bishop, letter: "b")
+            }
+            alertController.addAction(bishopAction)
             
             if let popoverPresentationController = alertController.popoverPresentationController {
                 popoverPresentationController.permittedArrowDirections = .init(rawValue: 0)
                 popoverPresentationController.sourceView = self.view
                 popoverPresentationController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-
             }
             present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    private func alertActionOf(move: ChessMove, rank: ChessRank, letter: String) {
+        chessEngine.promoteTo(rank: rank)
+        boardView.shadowPieces = chessEngine.pieces
+        boardView.setNeedsDisplay()
+        rankPromotedTo = letter
+        send(move: move)
     }
 }
 
@@ -203,6 +212,10 @@ extension ViewController: MCSessionDelegate {
                             self.chessEngine.promoteTo(rank: .queen)
                         case "n":
                             self.chessEngine.promoteTo(rank: .knight)
+                        case "r":
+                            self.chessEngine.promoteTo(rank: .rook)
+                        case "b":
+                            self.chessEngine.promoteTo(rank: .bishop)
                         default:
                             break
                         }

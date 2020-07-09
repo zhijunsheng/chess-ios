@@ -37,10 +37,15 @@ struct ChessEngine {
         
         pieces.remove(lastMovedPiece)
         var imageName: String
-        if rank == .queen {
-            imageName = lastMovedPiece.isWhite ? BoardView.queenWhite : BoardView.queenBlack
-        } else {
+        switch rank {
+        case .knight:
             imageName = lastMovedPiece.isWhite ? BoardView.knightWhite : BoardView.knightBlack
+        case .rook:
+            imageName = lastMovedPiece.isWhite ? BoardView.rookWhite : BoardView.rookBlack
+        case .bishop:
+            imageName = lastMovedPiece.isWhite ? BoardView.bishopWhite : BoardView.bishopBlack
+        default:
+            imageName = lastMovedPiece.isWhite ? BoardView.queenWhite : BoardView.queenBlack
         }
         pieces.insert(ChessPiece(col: lastMovedPiece.col, row: lastMovedPiece.row, imageName: imageName, isWhite: lastMovedPiece.isWhite, rank: rank))
     }
