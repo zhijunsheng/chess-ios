@@ -115,9 +115,13 @@ class ViewController: UIViewController {
     }
     
     func sendLastMove() {
+        print("chessEngine.needsPromotion() \(chessEngine.needsPromotion())")
+        print("rankPromotedTo \(rankPromotedTo)")
+        
         let promotionPostfix = chessEngine.needsPromotion() ? ":\(rankPromotedTo)" : ""
         if let lastMove = chessEngine.lastMove {
             let move = "\(lastMove.fromCol):\(lastMove.fromRow):\(lastMove.toCol):\(lastMove.toRow)\(promotionPostfix)"
+            print("sending move: \(move)")
             if let data = move.data(using: .utf8), let session = session {
                 try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
             }
@@ -146,6 +150,12 @@ class ViewController: UIViewController {
             }
             alertController.addAction(knightAction)
             
+            if let popoverPresentationController = alertController.popoverPresentationController {
+                popoverPresentationController.permittedArrowDirections = .init(rawValue: 0)
+                popoverPresentationController.sourceView = self.view
+                popoverPresentationController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+
+            }
             present(alertController, animated: true, completion: nil)
         }
     }
@@ -182,10 +192,9 @@ extension ViewController: MCSessionDelegate {
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        print("received data: \(data)")
         if let move = String(data: data, encoding: .utf8) {
+            print("recieved move: \(move)")
             let moveArr = move.components(separatedBy: ":")
-            print(moveArr)
             if let fromCol = Int(moveArr[0]), let fromRow = Int(moveArr[1]), let toCol = Int(moveArr[2]), let toRow = Int(moveArr[3]) {
                 DispatchQueue.main.async {
                     self.updateMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)

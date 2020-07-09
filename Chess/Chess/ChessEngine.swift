@@ -11,7 +11,7 @@ import Foundation
 struct ChessEngine {
     var pieces: Set<ChessPiece> = Set<ChessPiece>()
     private(set) var whitesTurn: Bool = true
-    var lastMove: ChessMove?
+    private(set) var lastMove: ChessMove?
     
     var whiteKingSideRookMoved = false
     var whiteQueenSideRookMoved = false
