@@ -20,19 +20,24 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="new-f3-sg8">
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <items>
-                                    <barButtonItem title="Advertise" id="1qc-F7-KXC">
+                                    <barButtonItem title="Advertise" image="dot.radiowaves.left.and.right" catalog="system" id="1qc-F7-KXC">
                                         <connections>
                                             <action selector="advertise:" destination="BYZ-38-t0r" id="MlM-YF-DSb"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Join" id="frd-Mg-piE">
+                                    <barButtonItem title="Join" image="arrowshape.turn.up.left" catalog="system" id="frd-Mg-piE">
                                         <connections>
                                             <action selector="join:" destination="BYZ-38-t0r" id="JVB-q1-4sR"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Reset" id="eJN-uT-90Y">
+                                    <barButtonItem title="Reset" image="clear" catalog="system" id="eJN-uT-90Y">
                                         <connections>
                                             <action selector="reset:" destination="BYZ-38-t0r" id="5dZ-HM-WTb"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Piece" image="arrow.triangle.swap" catalog="system" id="Vn5-aF-Ym6">
+                                        <connections>
+                                            <action selector="togglePieceImages:" destination="BYZ-38-t0r" id="vvZ-DS-8nT"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -92,10 +97,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1355.072463768116" y="35.491071428571423"/>
+            <point key="canvasLocation" x="-1794" y="-35"/>
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.triangle.swap" catalog="system" width="128" height="100"/>
+        <image name="arrowshape.turn.up.left" catalog="system" width="128" height="104"/>
+        <image name="clear" catalog="system" width="128" height="114"/>
+        <image name="dot.radiowaves.left.and.right" catalog="system" width="128" height="89"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

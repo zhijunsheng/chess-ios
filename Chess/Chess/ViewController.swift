@@ -63,7 +63,6 @@ class ViewController: UIViewController {
         present(browser, animated: true)
     }
     
-    
     @IBAction func reset(_ sender: UIBarButtonItem) {
         chessEngine.initializeGame()
         boardView.shadowPieces = chessEngine.pieces
@@ -72,6 +71,11 @@ class ViewController: UIViewController {
         boardView.setNeedsDisplay()
         upperView.backgroundColor = .white
         lowerView.backgroundColor = whoseTurnColor
+    }
+    
+    @IBAction func togglePieceImages(_ sender: UIBarButtonItem) {
+        boardView.sharingDevice.toggle()
+        boardView.setNeedsDisplay()
     }
     
     func updateMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
