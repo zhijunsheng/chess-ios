@@ -17,19 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dKl-gE-s19" customClass="BoardView" customModule="GT_Chess" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="414"/>
-                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="dKl-gE-s19" secondAttribute="height" multiplier="1:1" id="SUh-Rn-4Vy"/>
-                                </constraints>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="White" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9A6-fZ-ZNZ">
-                                <rect key="frame" x="20" y="478" width="374" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="new-f3-sg8">
                                 <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <items>
@@ -50,18 +37,43 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HTc-Gy-MCg">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dKl-gE-s19" customClass="BoardView" customModule="GT_Chess" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="177.66666666666663" width="414" height="414"/>
+                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="dKl-gE-s19" secondAttribute="height" multiplier="1:1" id="SUh-Rn-4Vy"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="White" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9A6-fZ-ZNZ">
+                                        <rect key="frame" x="20" y="599.66666666666663" width="374" height="29"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                <constraints>
+                                    <constraint firstItem="dKl-gE-s19" firstAttribute="centerY" secondItem="HTc-Gy-MCg" secondAttribute="centerY" id="4nw-7b-TkX"/>
+                                    <constraint firstItem="9A6-fZ-ZNZ" firstAttribute="leading" secondItem="HTc-Gy-MCg" secondAttribute="leading" constant="20" symbolic="YES" id="K2m-8R-CXX"/>
+                                    <constraint firstAttribute="trailing" secondItem="9A6-fZ-ZNZ" secondAttribute="trailing" constant="20" symbolic="YES" id="S2a-pu-Pnr"/>
+                                    <constraint firstItem="9A6-fZ-ZNZ" firstAttribute="top" secondItem="dKl-gE-s19" secondAttribute="bottom" constant="8" symbolic="YES" id="UEc-1h-eUF"/>
+                                    <constraint firstAttribute="trailing" secondItem="dKl-gE-s19" secondAttribute="trailing" id="VpI-um-Cwe"/>
+                                    <constraint firstItem="dKl-gE-s19" firstAttribute="leading" secondItem="HTc-Gy-MCg" secondAttribute="leading" id="qgv-VB-eO5"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9A6-fZ-ZNZ" secondAttribute="trailing" constant="20" id="JKF-1Z-3A8"/>
-                            <constraint firstItem="dKl-gE-s19" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Qip-DM-tXD"/>
+                            <constraint firstItem="HTc-Gy-MCg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="4RV-ZU-IHh"/>
+                            <constraint firstItem="HTc-Gy-MCg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="D3G-Dx-g1c"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HTc-Gy-MCg" secondAttribute="trailing" id="Mo4-ya-Ff5"/>
                             <constraint firstItem="new-f3-sg8" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="VBE-Q2-smM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="new-f3-sg8" secondAttribute="bottom" id="XWR-L5-23B"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dKl-gE-s19" secondAttribute="trailing" id="dDW-YP-kKw"/>
-                            <constraint firstItem="9A6-fZ-ZNZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="dW7-HF-zRP"/>
-                            <constraint firstItem="9A6-fZ-ZNZ" firstAttribute="top" secondItem="dKl-gE-s19" secondAttribute="bottom" constant="20" id="f2A-fp-FY0"/>
-                            <constraint firstItem="dKl-gE-s19" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mPA-aF-VV9"/>
+                            <constraint firstItem="new-f3-sg8" firstAttribute="top" secondItem="HTc-Gy-MCg" secondAttribute="bottom" id="avv-Fp-HkB"/>
                             <constraint firstItem="new-f3-sg8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="tvq-ET-L5n"/>
                         </constraints>
                     </view>
@@ -78,6 +90,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
