@@ -25,7 +25,6 @@ class ViewController: UIViewController {
     var session: MCSession?
     var nearbyServiceAdvertiser: MCNearbyServiceAdvertiser?
     
-    var rankPromotedTo: String = "q"
     var isWhiteDevice = true
     
     override func viewDidLoad() {
@@ -114,11 +113,11 @@ class ViewController: UIViewController {
         whoseTurnView.backgroundColor = whoseTurnColor
     }
     
-    func send(move: ChessMove) {
-        print("chessEngine.needsPromotion() \(chessEngine.needsPromotion())")
-        print("rankPromotedTo \(rankPromotedTo)")
-        
-        let promotionPostfix = chessEngine.needsPromotion() ? ":\(rankPromotedTo)" : ""
+    func send(move: ChessMove, targetRank: Character? = nil) {
+        var promotionPostfix = ""
+        if let targetRank = targetRank {
+            promotionPostfix = ":\(targetRank)"
+        }
         let move = "\(move.fromCol):\(move.fromRow):\(move.toCol):\(move.toRow)\(promotionPostfix)"
         print("sending move: \(move)")
         if let data = move.data(using: .utf8), let session = session {
@@ -131,22 +130,22 @@ class ViewController: UIViewController {
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
             let queenAction = UIAlertAction(title: "Queen", style: .default) { _ in
-                self.alertActionOf(move: move, rank: .queen, letter: "q")
+                self.alertActionOf(move: move, rank: .queen, targetRank: "q")
             }
             alertController.addAction(queenAction)
             
             let knightAction = UIAlertAction(title: "Knight", style: .default) { _ in
-                self.alertActionOf(move: move, rank: .knight, letter: "n")
+                self.alertActionOf(move: move, rank: .knight, targetRank: "n")
             }
             alertController.addAction(knightAction)
             
             let rookAction = UIAlertAction(title: "Rook", style: .default) { _ in
-                self.alertActionOf(move: move, rank: .rook, letter: "r")
+                self.alertActionOf(move: move, rank: .rook, targetRank: "r")
             }
             alertController.addAction(rookAction)
             
             let bishopAction = UIAlertAction(title: "Bishop", style: .default) { _ in
-                self.alertActionOf(move: move, rank: .bishop, letter: "b")
+                self.alertActionOf(move: move, rank: .bishop, targetRank: "b")
             }
             alertController.addAction(bishopAction)
             
@@ -159,12 +158,11 @@ class ViewController: UIViewController {
         }
     }
     
-    private func alertActionOf(move: ChessMove, rank: ChessRank, letter: String) {
+    private func alertActionOf(move: ChessMove, rank: ChessRank, targetRank: Character) {
+        send(move: move, targetRank: targetRank)
         chessEngine.promoteTo(rank: rank)
         boardView.shadowPieces = chessEngine.pieces
         boardView.setNeedsDisplay()
-        rankPromotedTo = letter
-        send(move: move)
     }
 }
 
@@ -206,8 +204,7 @@ extension ViewController: MCSessionDelegate {
                 DispatchQueue.main.async {
                     self.updateMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
                     if moveArr.count == 5 {
-                        let rankPromotedTo = moveArr[4]
-                        switch rankPromotedTo {
+                        switch moveArr[4] {
                         case "q":
                             self.chessEngine.promoteTo(rank: .queen)
                         case "n":
