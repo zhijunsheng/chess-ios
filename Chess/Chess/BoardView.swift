@@ -38,7 +38,9 @@ class BoardView: UIView {
         pawnBlack : (5, 1),
     ]
     
-    let ratio: CGFloat = 1.0
+    private let boardRatio: CGFloat = 1.0
+    private var pieceRatio: CGFloat = 1.0
+    private var movingPieceRatio: CGFloat = 1.3
     var originX: CGFloat = -10
     var originY: CGFloat = -10
     var cellSide: CGFloat = -10
@@ -63,9 +65,17 @@ class BoardView: UIView {
     }
 
     override func draw(_ rect: CGRect) {
-        cellSide = bounds.width * ratio / 8
-        originX = bounds.width * (1 - ratio) / 2
-        originY = bounds.height * (1 - ratio) / 2
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            pieceRatio = 1.1
+            movingPieceRatio = 1.4
+        } else {
+            pieceRatio = 0.9
+            movingPieceRatio = 1.2
+        }
+        
+        cellSide = bounds.width * boardRatio / 8
+        originX = bounds.width * (1 - boardRatio) / 2
+        originY = bounds.height * (1 - boardRatio) / 2
         
         drawBoard()
         drawPieces()
@@ -108,17 +118,30 @@ class BoardView: UIView {
     
     private func drawPieces() {
         for piece in shadowPieces where fromCol != piece.col || fromRow != piece.row {
-            image(named: piece.imageName)?.draw(in: CGRect(x: originX + CGFloat(p2p(piece.col)) * cellSide, y: originY + CGFloat(p2p(piece.row)) * cellSide, width: cellSide, height: cellSide))
+            let normalRect = CGRect(x: originX + CGFloat(p2p(piece.col)) * cellSide, y: originY + CGFloat(p2p(piece.row)) * cellSide, width: cellSide, height: cellSide)
+            let imgRect = imageRect(normalRect: normalRect, ratio: pieceRatio)
+            image(named: piece.imageName)?.draw(in: imgRect)
         }
         
         if let movingImage = movingImage {
-            let side = 1.2 * cellSide
-            movingImage.draw(in: CGRect(x: movingPieceX - side/2, y: movingPieceY - side/2, width: side, height: side))
+            movingImage.draw(in: imageRect(center: CGPoint(x: movingPieceX, y: movingPieceY), normalSize: CGSize(width: cellSide, height: cellSide), ratio: movingPieceRatio))
             #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1).setStroke()
             let circle = UIBezierPath(arcCenter: CGPoint(x: movingPieceX, y: movingPieceY), radius: 1.5 * cellSide, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
             circle.lineWidth = 3
             circle.stroke()
         }
+    }
+    
+    private func imageRect(normalRect: CGRect, ratio: CGFloat) -> CGRect {
+        let center = CGPoint(x: normalRect.midX, y: normalRect.midY)
+        let normalSize = CGSize(width: normalRect.width, height: normalRect.height)
+        return imageRect(center: center, normalSize: normalSize, ratio: ratio)
+    }
+    
+    private func imageRect(center: CGPoint, normalSize: CGSize, ratio: CGFloat) -> CGRect {
+        let w = ratio * normalSize.width
+        let h = ratio * normalSize.height
+        return CGRect(x: center.x - w/2, y: center.y - h/2, width: w, height: h)
     }
     
     private func drawBoard() {
