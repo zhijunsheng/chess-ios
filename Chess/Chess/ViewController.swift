@@ -197,11 +197,33 @@ extension ViewController: MCSessionDelegate {
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        if let move = String(data: data, encoding: .utf8) {
-            print("recieved move: \(move)")
-            let moveArr = move.components(separatedBy: ":")
+        if let moveStr = String(data: data, encoding: .utf8) {
+            print("recieved move: \(moveStr)")
+            let moveArr = moveStr.components(separatedBy: ":")
             if let fromCol = Int(moveArr[0]), let fromRow = Int(moveArr[1]), let toCol = Int(moveArr[2]), let toRow = Int(moveArr[3]) {
                 DispatchQueue.main.async {
+                    let move = ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+                    self.boardView.animate(move: move) { _ in
+                        self.updateMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+                        if moveArr.count == 5 {
+                            switch moveArr[4] {
+                            case "q":
+                                self.chessEngine.promoteTo(rank: .queen)
+                            case "n":
+                                self.chessEngine.promoteTo(rank: .knight)
+                            case "r":
+                                self.chessEngine.promoteTo(rank: .rook)
+                            case "b":
+                                self.chessEngine.promoteTo(rank: .bishop)
+                            default:
+                                break
+                            }
+                            self.boardView.shadowPieces = self.chessEngine.pieces
+                            self.boardView.setNeedsDisplay()
+                        }
+                    }
+                    
+                    /*
                     guard let piece = self.chessEngine.pieceAt(col: fromCol, row: fromRow) else {
                         return
                     }
@@ -232,6 +254,8 @@ extension ViewController: MCSessionDelegate {
                         }
                     }
                     moveAnimator.startAnimation()
+ 
+ */
                 }
             }
         }

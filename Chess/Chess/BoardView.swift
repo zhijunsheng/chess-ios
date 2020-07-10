@@ -116,6 +116,25 @@ class BoardView: UIView {
         setNeedsDisplay()
     }
     
+    func animate(move: ChessMove, _ completion: @escaping (UIViewAnimatingPosition) -> Void) {
+        guard let chessEngine = chessDelegate, let piece = chessEngine.pieceAt(col: move.fromCol, row: move.fromRow) else {
+            return
+        }
+        let pieceImageView = UIImageView(image: image(named: piece.imageName))
+        addSubview(pieceImageView)
+        let normalBeginningFrame = CGRect(x: originX + CGFloat(p2p(piece.col)) * cellSide, y: originY + CGFloat(p2p(piece.row)) * cellSide, width: cellSide, height: cellSide)
+        pieceImageView.frame = imageRect(normalRect: normalBeginningFrame, ratio: pieceRatio)
+        let moveAnimator = UIViewPropertyAnimator(duration: 1.0, curve: .easeInOut) { [self] in
+            let normalEnddingFrame = CGRect(x: originX + CGFloat(p2p(move.toCol)) * cellSide, y: originY + CGFloat(p2p(move.toRow)) * cellSide, width: cellSide, height: cellSide)
+            pieceImageView.frame = imageRect(normalRect: normalEnddingFrame, ratio: movingPieceRatio)
+        }
+        moveAnimator.addCompletion { animPos in
+            pieceImageView.removeFromSuperview()
+            completion(animPos)
+        }
+        moveAnimator.startAnimation()
+    }
+    
     private func drawPieces() {
         for piece in shadowPieces where fromCol != piece.col || fromRow != piece.row {
             let normalRect = CGRect(x: originX + CGFloat(p2p(piece.col)) * cellSide, y: originY + CGFloat(p2p(piece.row)) * cellSide, width: cellSide, height: cellSide)
