@@ -165,7 +165,7 @@ extension ChessViewController: ChessDelegate {
 
 extension ChessViewController: NearbyServiceDelegate {
     func connectedWith(peer: String) {
-        let alertController = UIAlertController(title: "Connected with \(peer)", message: "Whoever moves first becomes white player.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Connected with \(peer)", message: nil, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default))
         
         if let popoverPresentationController = alertController.popoverPresentationController {
