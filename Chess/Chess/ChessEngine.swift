@@ -9,7 +9,8 @@
 import Foundation
 
 struct ChessEngine {
-    var pieces: Set<ChessPiece> = Set<ChessPiece>()
+    var pieces: Set<ChessPiece> = []
+    var previousPieces: Set<ChessPiece> = []
     private(set) var whitesTurn: Bool = true
     private(set) var lastMovedPiece: ChessPiece?
     
@@ -20,6 +21,14 @@ struct ChessEngine {
     var blackKingSideRookMoved = false
     var blackQueenSideRookMoved = false
     var blackKingMoved = false
+    
+    mutating func withdraw() {
+        guard let lastMovedPiece = lastMovedPiece, whitesTurn != lastMovedPiece.isWhite else {
+            return
+        }
+        pieces = previousPieces
+        whitesTurn = lastMovedPiece.isWhite
+    }
     
     func needsPromotion() -> Bool {
         if let lastMovedPiece = lastMovedPiece,
@@ -60,20 +69,55 @@ struct ChessEngine {
             return
         }
         
-        if let lastMovedPiece = lastMovedPiece,
-           movingPiece.rank == .pawn,
-           pieceAt(col: toCol, row: toRow) == nil,
-           abs(fromCol - toCol) == 1 && abs(fromRow - toRow) == 1 {
-            pieces.remove(lastMovedPiece)
+        if movingPiece.rank == .pawn {
+            tryRemovingEnPassantEnemy(fromCol, fromRow, toCol, toRow)
         }
         
         if let target = pieceAt(col: toCol, row: toRow) {
             pieces.remove(target)
         }
         
+        if movingPiece.rank == .king && fromCol == 4 {
+            tryMovingRook(fromRow, toCol, toRow)
+        }
+        
         pieces.remove(movingPiece)
         pieces.insert(ChessPiece(col: toCol, row: toRow, imageName: movingPiece.imageName, isWhite: movingPiece.isWhite, rank: movingPiece.rank))
         
+        updateCastlingPrerequisite(fromCol, fromRow, toCol, toRow)
+        lastMovedPiece = ChessPiece(col: toCol, row: toRow, imageName: movingPiece.imageName, isWhite: movingPiece.isWhite, rank: movingPiece.rank)
+        previousPieces = pieces
+        whitesTurn = !whitesTurn
+    }
+    
+    private mutating func tryRemovingEnPassantEnemy(_ fromCol: Int, _ fromRow: Int, _ toCol: Int, _ toRow: Int) {
+        if let lastMovedPiece = lastMovedPiece,
+           pieceAt(col: toCol, row: toRow) == nil,
+           abs(fromCol - toCol) == 1 && abs(fromRow - toRow) == 1 {
+            pieces.remove(lastMovedPiece)
+        }
+    }
+    
+    private mutating func tryMovingRook(_ fromRow: Int, _ toCol: Int, _ toRow: Int) {
+        guard let king = pieceAt(col: 4, row: fromRow) else {
+            return
+        }
+        
+        let row = king.isWhite ? 7 : 0
+        if toCol == 6 {
+            if let rook = pieceAt(col: 7, row: row) {
+                pieces.remove(rook)
+                pieces.insert(ChessPiece(col: 5, row: row, imageName: rook.imageName, isWhite: rook.isWhite, rank: rook.rank))
+            }
+        } else if toCol == 2 {
+            if let rook = pieceAt(col: 0, row: row) {
+                pieces.remove(rook)
+                pieces.insert(ChessPiece(col: 3, row: row, imageName: rook.imageName, isWhite: rook.isWhite, rank: rook.rank))
+            }
+        }
+    }
+    
+    private mutating func updateCastlingPrerequisite(_ fromCol: Int, _ fromRow: Int, _ toCol: Int, _ toRow: Int) {
         if fromCol == 4 && fromRow == 7 {
             whiteKingMoved = true
         }
@@ -93,25 +137,6 @@ struct ChessEngine {
         if fromCol == 0 && fromRow == 0 {
             blackQueenSideRookMoved = true
         }
-        
-        if movingPiece.rank == .king && fromCol == 4 {
-            let row = movingPiece.isWhite ? 7 : 0
-            if toCol == 6 {
-                if let rook = pieceAt(col: 7, row: row) {
-                    pieces.remove(rook)
-                    pieces.insert(ChessPiece(col: 5, row: row, imageName: rook.imageName, isWhite: rook.isWhite, rank: rook.rank))
-                }
-            } else if toCol == 2 {
-                if let rook = pieceAt(col: 0, row: row) {
-                    pieces.remove(rook)
-                    pieces.insert(ChessPiece(col: 3, row: row, imageName: rook.imageName, isWhite: rook.isWhite, rank: rook.rank))
-                }
-            }
-        }
-        
-        lastMovedPiece = ChessPiece(col: toCol, row: toRow, imageName: movingPiece.imageName, isWhite: movingPiece.isWhite, rank: movingPiece.rank)
-        
-        whitesTurn = !whitesTurn
     }
     
     func underThreatAt(col: Int, row: Int, whiteEnemy: Bool) -> Bool {

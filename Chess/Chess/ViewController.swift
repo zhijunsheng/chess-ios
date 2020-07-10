@@ -119,7 +119,6 @@ class ViewController: UIViewController {
             promotionPostfix = ":\(targetRank)"
         }
         let move = "\(move.fromCol):\(move.fromRow):\(move.toCol):\(move.toRow)\(promotionPostfix)"
-        print("sending move: \(move)")
         if let data = move.data(using: .utf8), let session = session {
             try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
         }
@@ -198,7 +197,6 @@ extension ViewController: MCSessionDelegate {
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         if let moveStr = String(data: data, encoding: .utf8) {
-            print("recieved move: \(moveStr)")
             let moveArr = moveStr.components(separatedBy: ":")
             if let fromCol = Int(moveArr[0]), let fromRow = Int(moveArr[1]), let toCol = Int(moveArr[2]), let toRow = Int(moveArr[3]) {
                 DispatchQueue.main.async {
