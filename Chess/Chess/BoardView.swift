@@ -106,7 +106,7 @@ class BoardView: UIView {
         setNeedsDisplay()
     }
     
-    func drawPieces() {
+    private func drawPieces() {
         for piece in shadowPieces where fromCol != piece.col || fromRow != piece.row {
             image(named: piece.imageName)?.draw(in: CGRect(x: originX + CGFloat(p2p(piece.col)) * cellSide, y: originY + CGFloat(p2p(piece.row)) * cellSide, width: cellSide, height: cellSide))
         }
@@ -121,7 +121,7 @@ class BoardView: UIView {
         }
     }
     
-    func drawBoard() {
+    private func drawBoard() {
         for row in 0..<4 {
             for col in 0..<4 {
                 drawSquare(col: col * 2, row: row * 2, color: UIColor.white)
@@ -132,13 +132,13 @@ class BoardView: UIView {
         }
     }
     
-    func drawSquare(col: Int, row: Int, color: UIColor) {
+    private func drawSquare(col: Int, row: Int, color: UIColor) {
         let path = UIBezierPath(rect: CGRect(x: originX + CGFloat(col) * cellSide, y: originY + CGFloat(row) * cellSide, width: cellSide, height: cellSide))
         color.setFill()
         path.fill()
     }
     
-    func p2p(_ coordinate: Int) -> Int { // p2p: peer 2 peer
+    private func p2p(_ coordinate: Int) -> Int { // p2p: peer 2 peer
         return blackAtTop ? coordinate : 7 - coordinate
     }
     
@@ -147,13 +147,19 @@ class BoardView: UIView {
             return stored
         }
         
-        if !sharingDevice {
-            let img = UIImage(named: name)
-            imageByName[name] = img
-            return img
+        var img: UIImage?
+        if sharingDevice || UIDevice.current.userInterfaceIdiom == .phone {
+            img = flatPieceImage(pieceName: name, blackFlipped: sharingDevice)
+        } else {
+            img = UIImage(named: name)
+            
         }
-
-        guard let twelvePieces = UIImage(named: "twelve_pieces"), let tuple = tupleByName[name] else {
+        imageByName[name] = img
+        return img
+    }
+    
+    private func flatPieceImage(pieceName: String, blackFlipped: Bool) -> UIImage? {
+        guard let twelvePieces = UIImage(named: "twelve_pieces"), let tuple = tupleByName[pieceName] else {
             return nil
         }
         
@@ -163,10 +169,9 @@ class BoardView: UIView {
         twelvePieces.draw(in: CGRect(x: CGFloat(-col) * cellSide, y: CGFloat(-row) * cellSide, width: 6 * cellSide, height: 2 * cellSide))
         var img = UIGraphicsGetImageFromCurrentImageContext()
         if row == 1, let actualImg = img, let cgImg = actualImg.cgImage {
-            img = UIImage(cgImage: cgImg, scale: 1.0, orientation: .downMirrored)
+            img = UIImage(cgImage: cgImg, scale: 1.0, orientation: blackFlipped ? .downMirrored : .up)
         }
         UIGraphicsEndImageContext()
-        imageByName[name] = img
         return img
     }
 }
