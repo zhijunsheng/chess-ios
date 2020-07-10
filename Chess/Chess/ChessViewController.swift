@@ -164,6 +164,18 @@ extension ChessViewController: ChessDelegate {
 }
 
 extension ChessViewController: NearbyServiceDelegate {
+    func connectedWith(peer: String) {
+        let alertController = UIAlertController(title: "Connected with \(peer)", message: "Whoever moves first becomes white player.", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.permittedArrowDirections = .init(rawValue: 0)
+            popoverPresentationController.sourceView = self.view
+            popoverPresentationController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+        }
+        present(alertController, animated: true, completion: nil)
+    }
+    
     func didReceive(msg: String) {
         let moveArr = msg.components(separatedBy: ":")
         if let fromCol = Int(moveArr[0]), let fromRow = Int(moveArr[1]), let toCol = Int(moveArr[2]), let toRow = Int(moveArr[3]) {
