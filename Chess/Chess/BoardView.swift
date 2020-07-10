@@ -165,8 +165,9 @@ class BoardView: UIView {
         
         let col = tuple.0
         let row = tuple.1
-        UIGraphicsBeginImageContext(CGSize(width: cellSide, height: cellSide))
-        twelvePieces.draw(in: CGRect(x: CGFloat(-col) * cellSide, y: CGFloat(-row) * cellSide, width: 6 * cellSide, height: 2 * cellSide))
+        let side: CGFloat = 333
+        UIGraphicsBeginImageContext(CGSize(width: side, height: side))
+        twelvePieces.draw(in: CGRect(x: CGFloat(-col) * side, y: CGFloat(-row) * side, width: 6 * side, height: 2 * side))
         var img = UIGraphicsGetImageFromCurrentImageContext()
         if row == 1, let actualImg = img, let cgImg = actualImg.cgImage {
             img = UIImage(cgImage: cgImg, scale: 1.0, orientation: blackFlipped ? .downMirrored : .up)
