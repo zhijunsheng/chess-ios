@@ -274,13 +274,13 @@ extension ViewController: MCSessionDelegate {
 
 extension ViewController: ChessDelegate {
     func play(with move: ChessMove) {
-//        if let movingPiece = chessEngine.pieceAt(col: move.fromCol, row: move.fromRow) {
-//            if movingPiece.isWhite != chessEngine.whitesTurn {
-//                return
-//            }
-//        }
-        
-        if let session = session, session.connectedPeers.count > 0 && isWhiteDevice != chessEngine.whitesTurn {
+        let isWithdrawing = chessEngine.isWithdrawing(move.fromCol, move.fromRow, move.toCol, move.toRow)
+        guard let movingPiece = chessEngine.pieceAt(col: move.fromCol, row: move.fromRow),
+              isWithdrawing || movingPiece.isWhite == chessEngine.whitesTurn else {
+            return
+        }
+
+        if let session = session, session.connectedPeers.count > 0 && !isWithdrawing && isWhiteDevice != chessEngine.whitesTurn {
             return
         }
         

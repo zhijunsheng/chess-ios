@@ -22,8 +22,16 @@ struct ChessEngine {
     var blackQueenSideRookMoved = false
     var blackKingMoved = false
     
+    func isWithdrawing(_ fromCol: Int, _ fromRow: Int, _ toCol: Int, _ toRow: Int) -> Bool {
+        guard let lastMovedPiece = lastMovedPiece, let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
+            return false
+        }
+        
+        return movingPiece == lastMovedPiece && whitesTurn != movingPiece.isWhite && pieceAt(col: toCol, row: toRow) == nil
+    }
+    
     mutating func withdraw() {
-        guard let lastMovedPiece = lastMovedPiece, whitesTurn != lastMovedPiece.isWhite else {
+        guard let lastMovedPiece = lastMovedPiece else {
             return
         }
         pieces = previousPieces
@@ -69,6 +77,13 @@ struct ChessEngine {
             return
         }
         
+        if isWithdrawing(fromCol, fromRow, toCol, toRow) {
+            withdraw()
+            return
+        }
+        
+        previousPieces = pieces
+        
         if movingPiece.rank == .pawn {
             tryRemovingEnPassantEnemy(fromCol, fromRow, toCol, toRow)
         }
@@ -86,7 +101,6 @@ struct ChessEngine {
         
         updateCastlingPrerequisite(fromCol, fromRow, toCol, toRow)
         lastMovedPiece = ChessPiece(col: toCol, row: toRow, imageName: movingPiece.imageName, isWhite: movingPiece.isWhite, rank: movingPiece.rank)
-        previousPieces = pieces
         whitesTurn = !whitesTurn
     }
     
@@ -154,7 +168,7 @@ struct ChessEngine {
         }
         return lastMovedPiece == nil && !inBoard(move.toCol, move.toRow) && movingPiece.rank != .king
     }
-    
+
     func isValid(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
         guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
             return false
@@ -162,6 +176,10 @@ struct ChessEngine {
         
         guard inBoard(toCol, toRow), !isStandstill(move: ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) else {
             return false
+        }
+        
+        if isWithdrawing(fromCol, fromRow, toCol, toRow) {
+            return true
         }
         
         if let target = pieceAt(col: toCol, row: toRow), target.isWhite == movingPiece.isWhite  {
