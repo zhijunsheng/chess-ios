@@ -89,7 +89,7 @@ class ViewController: UIViewController {
     }
     
     func updateMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
-        guard chessEngine.isValid(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow, isWhite: chessEngine.whitesTurn) else {
+        guard chessEngine.isHandicap(move: ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) || chessEngine.isValid(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow, isWhite: chessEngine.whitesTurn) else {
             return
         }
         chessEngine.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
@@ -239,11 +239,11 @@ extension ViewController: MCSessionDelegate {
 
 extension ViewController: ChessDelegate {
     func play(with move: ChessMove) {
-        if let movingPiece = chessEngine.pieceAt(col: move.fromCol, row: move.fromRow) {
-            if movingPiece.isWhite != chessEngine.whitesTurn {
-                return
-            }
-        }
+//        if let movingPiece = chessEngine.pieceAt(col: move.fromCol, row: move.fromRow) {
+//            if movingPiece.isWhite != chessEngine.whitesTurn {
+//                return
+//            }
+//        }
         
         if let session = session, session.connectedPeers.count > 0 && isWhiteDevice != chessEngine.whitesTurn {
             return

@@ -19,6 +19,7 @@ class ChessEngineTests: XCTestCase {
     func testPieceNotAllowedToGoOutOfBoard() {
         var game = ChessEngine()
         game.initializeGame()
+        game.movePiece(fromCol: 0, fromRow: 1, toCol: 0, toRow: 2)
         XCTAssertFalse(game.isValid(fromCol: 0, fromRow: 7, toCol: -1, toRow: 7, isWhite: true))
         XCTAssertFalse(game.isValid(fromCol: 0, fromRow: 7, toCol: 8, toRow: 7, isWhite: true))
         XCTAssertFalse(game.isValid(fromCol: 0, fromRow: 7, toCol: 0, toRow: 8, isWhite: true))

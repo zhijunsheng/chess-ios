@@ -55,6 +55,11 @@ struct ChessEngine {
             return
         }
         
+        if isHandicap(move: ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) {
+            pieces.remove(movingPiece)
+            return
+        }
+        
         if let lastMovedPiece = lastMovedPiece,
            movingPiece.rank == .pawn,
            pieceAt(col: toCol, row: toRow) == nil,
@@ -118,11 +123,19 @@ struct ChessEngine {
         return false
     }
     
+    func isHandicap(move: ChessMove) -> Bool {
+        guard let movingPiece = pieceAt(col: move.fromCol, row: move.fromRow) else {
+            return false
+        }
+        return lastMovedPiece == nil && !inBoard(move.toCol, move.toRow) && movingPiece.rank != .king
+    }
+    
     func isValid(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
-        guard
-            toCol >= 0 && toCol <= 7 && toRow >= 0 && toRow <= 7,
-            (fromCol != toCol || fromRow != toRow),
-            let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
+        guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
+            return false
+        }
+        
+        guard inBoard(toCol, toRow), fromCol != toCol || fromRow != toRow else {
             return false
         }
         
@@ -433,6 +446,10 @@ struct ChessEngine {
             pieces.insert(ChessPiece(col: col, row: 1, imageName: BoardView.pawnBlack, isWhite: false, rank: .pawn))
             pieces.insert(ChessPiece(col: col, row: 6, imageName: BoardView.pawnWhite, isWhite: true, rank: .pawn))
         }
+    }
+    
+    private func inBoard(_ col: Int, _ row: Int) -> Bool {
+        return col >= 0 && col <= 7 && row >= 0 && row <= 7
     }
 }
 
