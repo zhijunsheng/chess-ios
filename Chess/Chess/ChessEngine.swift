@@ -135,7 +135,7 @@ struct ChessEngine {
             return false
         }
         
-        guard inBoard(toCol, toRow), fromCol != toCol || fromRow != toRow else {
+        guard inBoard(toCol, toRow), !isStandstill(move: ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) else {
             return false
         }
         
@@ -171,6 +171,10 @@ struct ChessEngine {
         }
     }
     
+    private func isStandstill(move: ChessMove) -> Bool {
+        return move.fromCol == move.toCol && move.fromRow == move.toRow
+    }
+    
     func checked(isWhite: Bool) -> Bool {
         if let king = pieces.filter({ $0.isWhite == isWhite && $0.rank == .king }).first {
             return underThreatAt(col: king.col, row: king.row, whiteEnemy: !isWhite)
@@ -192,7 +196,8 @@ struct ChessEngine {
     }
     
     func canPieceAttack(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
+        guard let movingPiece = pieceAt(col: fromCol, row: fromRow),
+              !isStandstill(move: ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) else {
             return false
         }
 

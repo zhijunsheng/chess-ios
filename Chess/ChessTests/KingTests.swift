@@ -927,4 +927,103 @@ class KingTests: XCTestCase {
         XCTAssertTrue(game.checked(isWhite: true))
         XCTAssertTrue(game.canRescueCheck(move: ChessMove(fromCol: 5, fromRow: 6, toCol: 6, toRow: 5), isWhite: true))
     }
+    
+    func testKingCapturingWithoutBeingAttacked() {
+        var game = ChessEngine()
+        game.initializeGame()
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P P P P P P P P
+         2 . . . . . . . .
+         3 . . . . . . . .
+         4 p . . . . . . .
+         5 . . . . . . . .
+         6 . p p p p p p p
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 0, fromRow: 6, toCol: 0, toRow: 4)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P . P P P P P P
+         2 . . . . . . . .
+         3 . P . . . . . .
+         4 p . . . . . . .
+         5 . . . . . . . .
+         6 . p p p p p p p
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 1, fromRow: 1, toCol: 1, toRow: 3)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P . P P P P P P
+         2 . . . . . . . .
+         3 . p . . . . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 . p p p p p p p
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 0, fromRow: 4, toCol: 1, toRow: 3)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P . P P . P P P
+         2 . . . . . . . .
+         3 . p . . P . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 . p p p p p p p
+         7 r n b q k b n r
+         */
+        game.movePiece(fromCol: 4, fromRow: 1, toCol: 4, toRow: 3)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q K B N R
+         1 P . P P . P P P
+         2 r . . . . . . .
+         3 . p . . P . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 . p p p p p p p
+         7 . n b q k b n r
+         */
+        game.movePiece(fromCol: 0, fromRow: 7, toCol: 0, toRow: 2)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q . B N R
+         1 P . P P K P P P
+         2 r . . . . . . .
+         3 . p . . P . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 . p p p p p p p
+         7 . n b q k b n r
+         */
+        game.movePiece(fromCol: 4, fromRow: 0, toCol: 4, toRow: 1)
+        
+        /*
+         + 0 1 2 3 4 5 6 7
+         0 R N B Q . B N R
+         1 P . P P K P P P
+         2 . . . r . . . .
+         3 . p . . P . . .
+         4 . . . . . . . .
+         5 . . . . . . . .
+         6 . p p p p p p p
+         7 . n b q k b n r
+         */
+        game.movePiece(fromCol: 0, fromRow: 2, toCol: 3, toRow: 2)
+        XCTAssertFalse(game.underThreatAt(col: 3, row: 2, whiteEnemy: true))
+        XCTAssertTrue(game.canKingMove(fromCol: 4, fromRow: 1, toCol: 3, toRow: 2))
+        XCTAssertTrue(game.isValid(fromCol: 4, fromRow: 1, toCol: 3, toRow: 2, isWhite: false))
+    }
 }
