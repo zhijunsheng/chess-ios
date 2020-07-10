@@ -31,7 +31,7 @@ class NearbyService: NSObject {
         
         nearbyServiceAdvertiser.delegate = self
         nearbyServiceAdvertiser.startAdvertisingPeer()
-        print("\(peerID.displayName) started advertsing peer...")
+        print("\(peerID.displayName) started advertsing pe¡er...")
         
         nearbyServiceBrowser.delegate = self
         nearbyServiceBrowser.startBrowsingForPeers()
@@ -94,9 +94,9 @@ extension NearbyService: MCNearbyServiceBrowserDelegate {
         print("\(self.peerID.displayName) found and invited \(peerID.displayName)")
         self.nearbyServiceDelegate?.didSendInvitation()
         
-        nearbyServiceAdvertiser.stopAdvertisingPeer()
-        nearbyServiceBrowser.stopBrowsingForPeers()
-        print("\(self.peerID.displayName) stopped advertising peer and browsing for peers")
+//        nearbyServiceAdvertiser.stopAdvertisingPeer()
+//        nearbyServiceBrowser.stopBrowsingForPeers()
+//        print("\(self.peerID.displayName) stopped advertising peer and browsing for peers")
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
@@ -109,8 +109,8 @@ extension NearbyService: MCNearbyServiceAdvertiserDelegate {
         invitationHandler(true, session)
         print("\(self.peerID.displayName) received invatation from \(peerID.displayName)")
         
-        nearbyServiceAdvertiser.stopAdvertisingPeer()
-        nearbyServiceBrowser.stopBrowsingForPeers()
-        print("\(self.peerID.displayName) stopped advertising peer and browsing for peers")
+//        nearbyServiceAdvertiser.stopAdvertisingPeer()
+//        nearbyServiceBrowser.stopBrowsingForPeers()
+//        print("\(self.peerID.displayName) stopped advertising peer and browsing for peers")
     }
 }
