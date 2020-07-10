@@ -10,7 +10,9 @@ import UIKit
 import AVFoundation
 import MultipeerConnectivity
 
-class ViewController: UIViewController {
+class ChessViewController: UIViewController {
+    let nearbyService = NearbyService(serviceType: "gt-chess")
+    
     let whoseTurnColor: UIColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
 
     var chessEngine: ChessEngine = ChessEngine()
@@ -40,6 +42,12 @@ class ViewController: UIViewController {
         chessEngine.initializeGame()
         boardView.shadowPieces = chessEngine.pieces
         boardView.setNeedsDisplay()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+//        nearbyService.nearbyServiceDelegate = self
     }
     
     @IBAction func advertise(_ sender: Any) {
@@ -165,13 +173,13 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: MCNearbyServiceAdvertiserDelegate {
+extension ChessViewController: MCNearbyServiceAdvertiserDelegate {
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         invitationHandler(true, session)
     }
 }
 
-extension ViewController: MCBrowserViewControllerDelegate {
+extension ChessViewController: MCBrowserViewControllerDelegate {
     func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
         dismiss(animated: true)
     }
@@ -181,7 +189,7 @@ extension ViewController: MCBrowserViewControllerDelegate {
     }
 }
 
-extension ViewController: MCSessionDelegate {
+extension ChessViewController: MCSessionDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         switch state {
         case .connected:
@@ -272,7 +280,7 @@ extension ViewController: MCSessionDelegate {
     }
 }
 
-extension ViewController: ChessDelegate {
+extension ChessViewController: ChessDelegate {
     func play(with move: ChessMove) {
         let isWithdrawing = chessEngine.isWithdrawing(move.fromCol, move.fromRow, move.toCol, move.toRow)
         guard let movingPiece = chessEngine.pieceAt(col: move.fromCol, row: move.fromRow),
@@ -297,3 +305,5 @@ extension ViewController: ChessDelegate {
         return chessEngine.pieceAt(col: col, row: row)
     }
 }
+
+
