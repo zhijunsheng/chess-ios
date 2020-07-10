@@ -22,7 +22,8 @@ class ChessViewController: UIViewController {
     
     var audioPlayer: AVAudioPlayer!
     
-    var isWhiteDevice = true
+    private var isWhiteDevice = true
+    private var firstMoveFinished = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +93,7 @@ class ChessViewController: UIViewController {
         }
         let move = "\(move.fromCol):\(move.fromRow):\(move.toCol):\(move.toRow)\(promotionPostfix)"
         nearbyService.send(msg: move)
+        firstMoveFinished = true
     }
     
     private func promptPromotionOptions(with move: ChessMove) {
@@ -162,18 +164,19 @@ extension ChessViewController: ChessDelegate {
 }
 
 extension ChessViewController: NearbyServiceDelegate {
-    func didSendInvitation() {
-        boardView.blackAtTop = false
-        isWhiteDevice = false
-        upperView.backgroundColor = whoseTurnColor
-        lowerView.backgroundColor = .white
-        boardView.setNeedsDisplay()
-    }
-    
     func didReceive(msg: String) {
         let moveArr = msg.components(separatedBy: ":")
         if let fromCol = Int(moveArr[0]), let fromRow = Int(moveArr[1]), let toCol = Int(moveArr[2]), let toRow = Int(moveArr[3]) {
             DispatchQueue.main.async {
+                if !self.firstMoveFinished {
+                    self.firstMoveFinished = true
+                    self.boardView.blackAtTop = false
+                    self.isWhiteDevice = false
+                    self.upperView.backgroundColor = self.whoseTurnColor
+                    self.lowerView.backgroundColor = .white
+                    self.boardView.setNeedsDisplay()
+                }
+                
                 let move = ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
                 self.boardView.animate(move: move) { _ in
                     self.updateMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)

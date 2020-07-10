@@ -31,7 +31,7 @@ class NearbyService: NSObject {
         
         nearbyServiceAdvertiser.delegate = self
         nearbyServiceAdvertiser.startAdvertisingPeer()
-        print("\(peerID.displayName) started advertsing pe¡er...")
+        print("\(peerID.displayName) started advertsing peer...")
         
         nearbyServiceBrowser.delegate = self
         nearbyServiceBrowser.startBrowsingForPeers()
@@ -92,7 +92,6 @@ extension NearbyService: MCNearbyServiceBrowserDelegate {
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         browser.invitePeer(peerID, to: session, withContext: nil, timeout: 60)
         print("\(self.peerID.displayName) found and invited \(peerID.displayName)")
-        self.nearbyServiceDelegate?.didSendInvitation()
         
 //        nearbyServiceAdvertiser.stopAdvertisingPeer()
 //        nearbyServiceBrowser.stopBrowsingForPeers()
