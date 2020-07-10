@@ -17,6 +17,8 @@
 		07298BDB248898E100D154D2 /* ChessPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07298BDA248898E100D154D2 /* ChessPiece.swift */; };
 		07298BDD2488998000D154D2 /* ChessEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07298BDC2488998000D154D2 /* ChessEngine.swift */; };
 		073496E3249D419500C3AAB0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 073496E2249D419500C3AAB0 /* InfoPlist.strings */; };
+		0789A84624B8D93C004D7FD9 /* NearbyServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0789A84524B8D93C004D7FD9 /* NearbyServiceDelegate.swift */; };
+		0789A84824B8D9C2004D7FD9 /* NearbyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0789A84724B8D9C2004D7FD9 /* NearbyService.swift */; };
 		07A24F0324B20C3500C03B9E /* RookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A24F0224B20C3500C03B9E /* RookTests.swift */; };
 		07A24F0524B20C7900C03B9E /* KnightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A24F0424B20C7900C03B9E /* KnightTests.swift */; };
 		07A24F0724B20CAC00C03B9E /* BishopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A24F0624B20CAC00C03B9E /* BishopTests.swift */; };
@@ -55,6 +57,8 @@
 		07298BDC2488998000D154D2 /* ChessEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessEngine.swift; sourceTree = "<group>"; };
 		07306EAA24A18ED100DEEA63 /* GT ChessRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GT ChessRelease.entitlements"; sourceTree = "<group>"; };
 		073496E2249D419500C3AAB0 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		0789A84524B8D93C004D7FD9 /* NearbyServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyServiceDelegate.swift; sourceTree = "<group>"; };
+		0789A84724B8D9C2004D7FD9 /* NearbyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyService.swift; sourceTree = "<group>"; };
 		07A24F0224B20C3500C03B9E /* RookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RookTests.swift; sourceTree = "<group>"; };
 		07A24F0424B20C7900C03B9E /* KnightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnightTests.swift; sourceTree = "<group>"; };
 		07A24F0624B20CAC00C03B9E /* BishopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BishopTests.swift; sourceTree = "<group>"; };
@@ -106,15 +110,17 @@
 		07298BB524887E0300D154D2 /* Chess */ = {
 			isa = PBXGroup;
 			children = (
+				0789A84524B8D93C004D7FD9 /* NearbyServiceDelegate.swift */,
+				0789A84724B8D9C2004D7FD9 /* NearbyService.swift */,
+				07A48E7924893BB6000D1C6B /* ChessDelegate.swift */,
+				07F4C02324AB86FF00E2E9BB /* ChessRank.swift */,
+				07F4C02524AE835700E2E9BB /* ChessMove.swift */,
+				07298BDA248898E100D154D2 /* ChessPiece.swift */,
+				07298BDC2488998000D154D2 /* ChessEngine.swift */,
+				07298BD824887E2D00D154D2 /* BoardView.swift */,
+				07298BBA24887E0300D154D2 /* ViewController.swift */,
 				07306EAA24A18ED100DEEA63 /* GT ChessRelease.entitlements */,
 				07298BB624887E0300D154D2 /* AppDelegate.swift */,
-				07A48E7924893BB6000D1C6B /* ChessDelegate.swift */,
-				07298BD824887E2D00D154D2 /* BoardView.swift */,
-				07298BDA248898E100D154D2 /* ChessPiece.swift */,
-				07F4C02524AE835700E2E9BB /* ChessMove.swift */,
-				07F4C02324AB86FF00E2E9BB /* ChessRank.swift */,
-				07298BDC2488998000D154D2 /* ChessEngine.swift */,
-				07298BBA24887E0300D154D2 /* ViewController.swift */,
 				07298BBC24887E0300D154D2 /* Main.storyboard */,
 				07298BBF24887E0300D154D2 /* Assets.xcassets */,
 				0728497E24929E7400B7AEBC /* drop.wav */,
@@ -244,8 +250,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				07298BDD2488998000D154D2 /* ChessEngine.swift in Sources */,
+				0789A84624B8D93C004D7FD9 /* NearbyServiceDelegate.swift in Sources */,
 				07298BBB24887E0300D154D2 /* ViewController.swift in Sources */,
 				07F4C02424AB86FF00E2E9BB /* ChessRank.swift in Sources */,
+				0789A84824B8D9C2004D7FD9 /* NearbyService.swift in Sources */,
 				07A48E7A24893BB6000D1C6B /* ChessDelegate.swift in Sources */,
 				07298BD924887E2D00D154D2 /* BoardView.swift in Sources */,
 				07298BB724887E0300D154D2 /* AppDelegate.swift in Sources */,
