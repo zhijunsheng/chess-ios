@@ -202,23 +202,36 @@ extension ViewController: MCSessionDelegate {
             let moveArr = move.components(separatedBy: ":")
             if let fromCol = Int(moveArr[0]), let fromRow = Int(moveArr[1]), let toCol = Int(moveArr[2]), let toRow = Int(moveArr[3]) {
                 DispatchQueue.main.async {
-                    self.updateMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
-                    if moveArr.count == 5 {
-                        switch moveArr[4] {
-                        case "q":
-                            self.chessEngine.promoteTo(rank: .queen)
-                        case "n":
-                            self.chessEngine.promoteTo(rank: .knight)
-                        case "r":
-                            self.chessEngine.promoteTo(rank: .rook)
-                        case "b":
-                            self.chessEngine.promoteTo(rank: .bishop)
-                        default:
-                            break
-                        }
-                        self.boardView.shadowPieces = self.chessEngine.pieces
-                        self.boardView.setNeedsDisplay()
+                    guard let piece = self.chessEngine.pieceAt(col: fromCol, row: fromRow) else {
+                        return
                     }
+                    let pieceImageView = UIImageView(image: UIImage(named: piece.imageName))
+                    self.boardView.addSubview(pieceImageView)
+                    pieceImageView.frame = CGRect(x: self.boardView.originX + CGFloat(piece.col) * self.boardView.cellSide, y: self.boardView.originY + CGFloat(piece.row) * self.boardView.cellSide, width: self.boardView.cellSide, height: self.boardView.cellSide)
+                    let moveAnimator = UIViewPropertyAnimator(duration: 1.0, curve: .easeInOut) {
+                        pieceImageView.frame = CGRect(x: self.boardView.originX + CGFloat(toCol) * self.boardView.cellSide, y: self.boardView.originY + CGFloat(toRow) * self.boardView.cellSide, width: self.boardView.cellSide, height: self.boardView.cellSide)
+                    }
+                    moveAnimator.addCompletion { _ in
+                        pieceImageView.removeFromSuperview()
+                        self.updateMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+                        if moveArr.count == 5 {
+                            switch moveArr[4] {
+                            case "q":
+                                self.chessEngine.promoteTo(rank: .queen)
+                            case "n":
+                                self.chessEngine.promoteTo(rank: .knight)
+                            case "r":
+                                self.chessEngine.promoteTo(rank: .rook)
+                            case "b":
+                                self.chessEngine.promoteTo(rank: .bishop)
+                            default:
+                                break
+                            }
+                            self.boardView.shadowPieces = self.chessEngine.pieces
+                            self.boardView.setNeedsDisplay()
+                        }
+                    }
+                    moveAnimator.startAnimation()
                 }
             }
         }
