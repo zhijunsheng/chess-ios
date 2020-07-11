@@ -186,32 +186,43 @@ struct ChessEngine {
             return false
         }
         
+        switch movingPiece.rank {
+        case .knight where !canKnightMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow):
+            return false
+        case .rook where !canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow):
+            return false
+        case .bishop where !canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow):
+            return false
+        case .queen where !canQueenMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow):
+            return false
+        case .king where !canKingMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow):
+            return false
+        case .pawn where !canPawnMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow):
+            return false
+        default:
+            break
+        }
+        
         if canRescueCheck(move: ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow), isWhite: isWhite) {
             return true
         }
+
+        if kingExposedBy(protector: movingPiece) {
+            return false
+        }
         
-        if let king = pieces.filter({ $0.isWhite == isWhite && $0.rank == .king }).first {
+        return true
+    }
+    
+    private func kingExposedBy(protector: ChessPiece) -> Bool {
+        if let king = pieces.filter({ $0.isWhite == protector.isWhite && $0.rank == .king }).first {
             var gameCopy = self
-            gameCopy.pieces.remove(movingPiece)
+            gameCopy.pieces.remove(protector)
             if gameCopy.checked(isWhite: king.isWhite) {
-                return false
+                return true
             }
         }
-        
-        switch movingPiece.rank {
-        case .knight:
-            return canKnightMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
-        case .rook:
-            return canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
-        case .bishop:
-            return canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
-        case .queen:
-            return canQueenMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
-        case .king:
-            return canKingMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
-        case .pawn:
-            return canPawnMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
-        }
+        return false
     }
     
     private func isStandstill(move: ChessMove) -> Bool {
