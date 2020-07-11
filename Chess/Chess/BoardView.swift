@@ -108,7 +108,7 @@ class BoardView: UIView {
         let toRow: Int = p2p(Int((fingerLocation.y - originY) / cellSide))
         
         if let fromCol = fromCol, let fromRow = fromRow, fromCol != toCol || fromRow != toRow {
-            chessDelegate?.play(with: ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow))
+            chessDelegate?.play(with: Move(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow))
         }
         movingImage = nil
         fromCol = nil
@@ -116,7 +116,7 @@ class BoardView: UIView {
         setNeedsDisplay()
     }
     
-    func animate(move: ChessMove, _ completion: @escaping (UIViewAnimatingPosition) -> Void) {
+    func animate(move: Move, _ completion: @escaping (UIViewAnimatingPosition) -> Void) {
         guard let chessEngine = chessDelegate, let piece = chessEngine.pieceAt(col: move.fromCol, row: move.fromRow) else {
             return
         }

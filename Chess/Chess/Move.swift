@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ChessMove {
+struct Move {
     let fromCol: Int
     let fromRow: Int
     let toCol: Int

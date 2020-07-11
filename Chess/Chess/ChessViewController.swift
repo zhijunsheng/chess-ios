@@ -62,7 +62,7 @@ class ChessViewController: UIViewController {
     }
     
     func updateMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
-        guard chessEngine.isHandicap(move: ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) || chessEngine.isValid(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow, isWhite: chessEngine.whitesTurn) else {
+        guard chessEngine.isHandicap(move: Move(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) || chessEngine.isValid(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow, isWhite: chessEngine.whitesTurn) else {
             return
         }
         chessEngine.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
@@ -86,7 +86,7 @@ class ChessViewController: UIViewController {
         whoseTurnView.backgroundColor = whoseTurnColor
     }
     
-    func send(move: ChessMove, targetRank: Character? = nil) {
+    func send(move: Move, targetRank: Character? = nil) {
         var promotionPostfix = ""
         if let targetRank = targetRank {
             promotionPostfix = ":\(targetRank)"
@@ -96,7 +96,7 @@ class ChessViewController: UIViewController {
         firstMoveFinished = true
     }
     
-    private func promptPromotionOptions(with move: ChessMove) {
+    private func promptPromotionOptions(with move: Move) {
         if chessEngine.needsPromotion() {
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
@@ -129,7 +129,7 @@ class ChessViewController: UIViewController {
         }
     }
     
-    private func alertActionOf(move: ChessMove, rank: ChessRank, targetRank: Character) {
+    private func alertActionOf(move: Move, rank: ChessRank, targetRank: Character) {
         send(move: move, targetRank: targetRank)
         chessEngine.promoteTo(rank: rank)
         boardView.shadowPieces = chessEngine.pieces
@@ -138,7 +138,7 @@ class ChessViewController: UIViewController {
 }
 
 extension ChessViewController: ChessDelegate {
-    func play(with move: ChessMove) {
+    func play(with move: Move) {
         let isWithdrawing = chessEngine.isWithdrawing(move.fromCol, move.fromRow, move.toCol, move.toRow)
         guard let movingPiece = chessEngine.pieceAt(col: move.fromCol, row: move.fromRow),
               isWithdrawing || movingPiece.isWhite == chessEngine.whitesTurn else {
@@ -189,7 +189,7 @@ extension ChessViewController: NearbyServiceDelegate {
                     self.boardView.setNeedsDisplay()
                 }
                 
-                let move = ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+                let move = Move(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
                 self.boardView.animate(move: move) { _ in
                     self.updateMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
                     if moveArr.count == 5 {

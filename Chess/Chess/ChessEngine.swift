@@ -72,7 +72,7 @@ struct ChessEngine {
             return
         }
         
-        if isHandicap(move: ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) {
+        if isHandicap(move: Move(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) {
             pieces.remove(movingPiece)
             return
         }
@@ -162,7 +162,7 @@ struct ChessEngine {
         return false
     }
     
-    func isHandicap(move: ChessMove) -> Bool {
+    func isHandicap(move: Move) -> Bool {
         guard let movingPiece = pieceAt(col: move.fromCol, row: move.fromRow) else {
             return false
         }
@@ -174,7 +174,7 @@ struct ChessEngine {
             return false
         }
         
-        guard inBoard(toCol, toRow), !isStandstill(move: ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) else {
+        guard inBoard(toCol, toRow), !isStandstill(move: Move(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) else {
             return false
         }
         
@@ -203,7 +203,7 @@ struct ChessEngine {
             break
         }
         
-        if canRescueCheck(move: ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow), isWhite: isWhite) {
+        if canRescueCheck(move: Move(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow), isWhite: isWhite) {
             return true
         }
 
@@ -225,7 +225,7 @@ struct ChessEngine {
         return false
     }
     
-    private func isStandstill(move: ChessMove) -> Bool {
+    private func isStandstill(move: Move) -> Bool {
         return move.fromCol == move.toCol && move.fromRow == move.toRow
     }
     
@@ -236,7 +236,7 @@ struct ChessEngine {
         return false
     }
     
-    func canRescueCheck(move: ChessMove, isWhite: Bool) -> Bool {
+    func canRescueCheck(move: Move, isWhite: Bool) -> Bool {
         guard let movingPiece = pieceAt(col: move.fromCol, row: move.fromRow), checked(isWhite: isWhite) else {
             return false
         }
@@ -251,7 +251,7 @@ struct ChessEngine {
     
     func canPieceAttack(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         guard let movingPiece = pieceAt(col: fromCol, row: fromRow),
-              !isStandstill(move: ChessMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) else {
+              !isStandstill(move: Move(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) else {
             return false
         }
 
