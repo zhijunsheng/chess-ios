@@ -44,11 +44,37 @@
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UW7-Hc-U3E">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="177.66666666666666"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltv-NM-tuC">
+                                                <rect key="frame" x="0.0" y="68.333333333333329" width="414" height="41"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="ltv-NM-tuC" firstAttribute="leading" secondItem="UW7-Hc-U3E" secondAttribute="leading" id="Fcu-G1-y0f"/>
+                                            <constraint firstItem="ltv-NM-tuC" firstAttribute="centerY" secondItem="UW7-Hc-U3E" secondAttribute="centerY" id="RXr-Ev-Lsr"/>
+                                            <constraint firstAttribute="trailing" secondItem="ltv-NM-tuC" secondAttribute="trailing" id="ZiN-Pv-uZu"/>
+                                        </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D1U-Fg-84X">
                                         <rect key="frame" x="0.0" y="591.66666666666663" width="414" height="177.33333333333337"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w45-1f-xiQ">
+                                                <rect key="frame" x="0.0" y="68" width="414" height="41"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="w45-1f-xiQ" firstAttribute="centerY" secondItem="D1U-Fg-84X" secondAttribute="centerY" id="Iq5-o0-NF1"/>
+                                            <constraint firstItem="w45-1f-xiQ" firstAttribute="leading" secondItem="D1U-Fg-84X" secondAttribute="leading" id="X8X-ZS-1O4"/>
+                                            <constraint firstAttribute="trailing" secondItem="w45-1f-xiQ" secondAttribute="trailing" id="kbJ-rl-CyS"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
@@ -82,7 +108,9 @@
                     <connections>
                         <outlet property="boardView" destination="dKl-gE-s19" id="8fu-Po-7MD"/>
                         <outlet property="lowerView" destination="D1U-Fg-84X" id="0HF-n8-xht"/>
+                        <outlet property="peerLabel" destination="ltv-NM-tuC" id="70d-7t-Lf7"/>
                         <outlet property="upperView" destination="UW7-Hc-U3E" id="GSa-rr-hoz"/>
+                        <outlet property="youLabel" destination="w45-1f-xiQ" id="urp-X6-8SY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -18,7 +18,9 @@ class ChessViewController: UIViewController {
     
     @IBOutlet weak var boardView: BoardView!
     @IBOutlet weak var upperView: UIView!
+    @IBOutlet weak var peerLabel: UILabel!
     @IBOutlet weak var lowerView: UIView!
+    @IBOutlet weak var youLabel: UILabel!
     
     var audioPlayer: AVAudioPlayer!
     
@@ -179,6 +181,9 @@ extension ChessViewController: ChessDelegate {
 
 extension ChessViewController: NearbyServiceDelegate {
     func connectedWith(peer: String) {
+        peerLabel.text = peer
+        youLabel.text = UIDevice.current.name
+        
         let alertController = UIAlertController(title: "Connected with \(peer)", message: nil, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default))
         
