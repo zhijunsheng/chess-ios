@@ -9,8 +9,8 @@
 import Foundation
 
 struct Move {
-    let fromCol: Int
-    let fromRow: Int
-    let toCol: Int
-    let toRow: Int
+    let fC: Int
+    let fR: Int
+    let tC: Int
+    let tR: Int
 }

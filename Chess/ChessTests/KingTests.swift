@@ -914,7 +914,7 @@ class KingTests: XCTestCase {
         game.movePiece(fromCol: 3, fromRow: 0, toCol: 7, toRow: 4)
         XCTAssertTrue(game.checked(isWhite: true))
         XCTAssertFalse(game.checked(isWhite: false))
-        XCTAssertTrue(game.canRescueCheck(move: Move(fromCol: 6, fromRow: 6, toCol: 6, toRow: 5), isWhite: true))
+        XCTAssertTrue(game.canRescueCheck(move: Move(fC: 6, fR: 6, tC: 6, tR: 5), isWhite: true))
         XCTAssertTrue(game.isValid(fromCol: 6, fromRow: 6, toCol: 6, toRow: 5, isWhite: true))
         XCTAssertFalse(game.isValid(fromCol: 7, fromRow: 6, toCol: 7, toRow: 5, isWhite: true))
         XCTAssertTrue(game.isValid(fromCol: 5, fromRow: 5, toCol: 7, toRow: 4, isWhite: true))
@@ -971,7 +971,7 @@ class KingTests: XCTestCase {
          */
         game.movePiece(fromCol: 7, fromRow: 4, toCol: 6, toRow: 5)
         XCTAssertTrue(game.checked(isWhite: true))
-        XCTAssertTrue(game.canRescueCheck(move: Move(fromCol: 5, fromRow: 6, toCol: 6, toRow: 5), isWhite: true))
+        XCTAssertTrue(game.canRescueCheck(move: Move(fC: 5, fR: 6, tC: 6, tR: 5), isWhite: true))
     }
     
     func testKingCapturingWithoutBeingAttacked() {

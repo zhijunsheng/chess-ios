@@ -62,7 +62,7 @@ class ChessViewController: UIViewController {
     }
     
     func updateMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
-        guard chessEngine.isHandicap(move: Move(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) || chessEngine.isValid(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow, isWhite: chessEngine.whitesTurn) else {
+        guard chessEngine.isHandicap(move: Move(fC: fromCol, fR: fromRow, tC: toCol, tR: toRow)) || chessEngine.isValid(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow, isWhite: chessEngine.whitesTurn) else {
             return
         }
         chessEngine.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
@@ -91,7 +91,7 @@ class ChessViewController: UIViewController {
         if let targetRank = targetRank {
             promotionPostfix = ":\(targetRank)"
         }
-        let move = "\(move.fromCol):\(move.fromRow):\(move.toCol):\(move.toRow)\(promotionPostfix)"
+        let move = "\(move.fC):\(move.fR):\(move.tC):\(move.tR)\(promotionPostfix)"
         nearbyService.send(msg: move)
         firstMoveFinished = true
     }
@@ -139,8 +139,8 @@ class ChessViewController: UIViewController {
 
 extension ChessViewController: ChessDelegate {
     func play(with move: Move) {
-        let isWithdrawing = chessEngine.isWithdrawing(move.fromCol, move.fromRow, move.toCol, move.toRow)
-        guard let movingPiece = chessEngine.pieceAt(col: move.fromCol, row: move.fromRow),
+        let isWithdrawing = chessEngine.isWithdrawing(move.fC, move.fR, move.tC, move.tR)
+        guard let movingPiece = chessEngine.pieceAt(col: move.fC, row: move.fR),
               isWithdrawing || movingPiece.isWhite == chessEngine.whitesTurn else {
             return
         }
@@ -149,7 +149,7 @@ extension ChessViewController: ChessDelegate {
 //            return
 //        }
         
-        updateMove(fromCol: move.fromCol, fromRow: move.fromRow, toCol: move.toCol, toRow: move.toRow)
+        updateMove(fromCol: move.fC, fromRow: move.fR, toCol: move.tC, toRow: move.tR)
         
         if chessEngine.needsPromotion() {
             promptPromotionOptions(with: move)
@@ -189,7 +189,7 @@ extension ChessViewController: NearbyServiceDelegate {
                     self.boardView.setNeedsDisplay()
                 }
                 
-                let move = Move(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+                let move = Move(fC: fromCol, fR: fromRow, tC: toCol, tR: toRow)
                 self.boardView.animate(move: move) { _ in
                     self.updateMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
                     if moveArr.count == 5 {

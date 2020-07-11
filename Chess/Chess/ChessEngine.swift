@@ -72,7 +72,7 @@ struct ChessEngine {
             return
         }
         
-        if isHandicap(move: Move(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) {
+        if isHandicap(move: Move(fC: fromCol, fR: fromRow, tC: toCol, tR: toRow)) {
             pieces.remove(movingPiece)
             return
         }
@@ -163,10 +163,10 @@ struct ChessEngine {
     }
     
     func isHandicap(move: Move) -> Bool {
-        guard let movingPiece = pieceAt(col: move.fromCol, row: move.fromRow) else {
+        guard let movingPiece = pieceAt(col: move.fC, row: move.fR) else {
             return false
         }
-        return lastMovedPiece == nil && !inBoard(move.toCol, move.toRow) && movingPiece.rank != .king
+        return lastMovedPiece == nil && !inBoard(move.tC, move.tR) && movingPiece.rank != .king
     }
 
     func isValid(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
@@ -174,7 +174,7 @@ struct ChessEngine {
             return false
         }
         
-        guard inBoard(toCol, toRow), !isStandstill(move: Move(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) else {
+        guard inBoard(toCol, toRow), !isStandstill(move: Move(fC: fromCol, fR: fromRow, tC: toCol, tR: toRow)) else {
             return false
         }
         
@@ -203,7 +203,7 @@ struct ChessEngine {
             break
         }
         
-        if canRescueCheck(move: Move(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow), isWhite: isWhite) {
+        if canRescueCheck(move: Move(fC: fromCol, fR: fromRow, tC: toCol, tR: toRow), isWhite: isWhite) {
             return true
         }
 
@@ -226,7 +226,7 @@ struct ChessEngine {
     }
     
     private func isStandstill(move: Move) -> Bool {
-        return move.fromCol == move.toCol && move.fromRow == move.toRow
+        return move.fC == move.tC && move.fR == move.tR
     }
     
     func checked(isWhite: Bool) -> Bool {
@@ -237,21 +237,21 @@ struct ChessEngine {
     }
     
     func canRescueCheck(move: Move, isWhite: Bool) -> Bool {
-        guard let movingPiece = pieceAt(col: move.fromCol, row: move.fromRow), checked(isWhite: isWhite) else {
+        guard let movingPiece = pieceAt(col: move.fC, row: move.fR), checked(isWhite: isWhite) else {
             return false
         }
         var gameCopy = self
         gameCopy.pieces.remove(movingPiece)
-        if let target = gameCopy.pieceAt(col: move.toCol, row: move.toRow) {
+        if let target = gameCopy.pieceAt(col: move.tC, row: move.tR) {
             gameCopy.pieces.remove(target)
         }
-        gameCopy.pieces.insert(ChessPiece(col: move.toCol, row: move.toRow, imageName: movingPiece.imageName, isWhite: movingPiece.isWhite, rank: movingPiece.rank))
+        gameCopy.pieces.insert(ChessPiece(col: move.tC, row: move.tR, imageName: movingPiece.imageName, isWhite: movingPiece.isWhite, rank: movingPiece.rank))
         return !gameCopy.checked(isWhite: isWhite)
     }
     
     func canPieceAttack(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         guard let movingPiece = pieceAt(col: fromCol, row: fromRow),
-              !isStandstill(move: Move(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)) else {
+              !isStandstill(move: Move(fC: fromCol, fR: fromRow, tC: toCol, tR: toRow)) else {
             return false
         }
 
