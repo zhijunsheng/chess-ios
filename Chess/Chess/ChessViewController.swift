@@ -23,7 +23,7 @@ class ChessViewController: UIViewController {
     var audioPlayer: AVAudioPlayer!
     
     private var isWhiteDevice = true
-    private var firstMoveFinished = false
+    private var firstMoveMade = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +52,7 @@ class ChessViewController: UIViewController {
         boardView.blackAtTop = true
         boardView.sharingDevice = false
         isWhiteDevice = true
+        firstMoveMade = false
         updateWhoseTurnColors()
         boardView.setNeedsDisplay()
     }
@@ -93,7 +94,7 @@ class ChessViewController: UIViewController {
         }
         let move = "\(move.fC):\(move.fR):\(move.tC):\(move.tR)\(promotionPostfix)"
         nearbyService.send(msg: move)
-        firstMoveFinished = true
+        firstMoveMade = true
     }
     
     private func promptPromotionOptions(with move: Move) {
@@ -180,8 +181,8 @@ extension ChessViewController: NearbyServiceDelegate {
         let moveArr = msg.components(separatedBy: ":")
         if let fromCol = Int(moveArr[0]), let fromRow = Int(moveArr[1]), let toCol = Int(moveArr[2]), let toRow = Int(moveArr[3]) {
             DispatchQueue.main.async {
-                if !self.firstMoveFinished {
-                    self.firstMoveFinished = true
+                if !self.firstMoveMade {
+                    self.firstMoveMade = true
                     self.boardView.blackAtTop = false
                     self.isWhiteDevice = false
                     self.upperView.backgroundColor = self.whoseTurnColor
