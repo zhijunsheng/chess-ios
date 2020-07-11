@@ -30,6 +30,9 @@ class BoardView: UIView {
     var thingy2: Int = Int.min
     public var movingPiece: Piece? = nil
     var chessDelagate: ChessDelegate? = nil
+    var movingPic: UIImage? = nil
+    var movingLoc: CGPoint? = nil
+    var pieceImageThing: String? = nil
     
     override func draw(_ rect: CGRect) {
         side = bounds.width * boardSize / 8
@@ -39,6 +42,10 @@ class BoardView: UIView {
     
         drawBoard()
         drawPieces()
+        if let movingLoc = movingLoc {
+            movingPic?.draw(in: CGRect(x: movingLoc.x - side / 2, y: movingLoc.y - side / 2, width: side, height: side))
+
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -46,6 +53,16 @@ class BoardView: UIView {
         let loc = touch.location(in: self)
         thingy1 = Int((loc.x - originX) / side)
         thingy2 = Int((loc.y - originY) / side)
+        if let pieceThing = chessDelagate?.pieceOn(x: thingy1, y: thingy2) {
+            movingPic = UIImage(named: pieceThing.imageName)
+        }
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        movingLoc = touch.location(in: self)
+        self.setNeedsDisplay()
+        print(movingLoc!)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -56,6 +73,7 @@ class BoardView: UIView {
         print("from(\(thingy1), \(thingy2)) to (\(thing1), \(thing2)).")
         
         chessDelagate?.move(startX: thingy1, startY: thingy2, endX: thing1, endY: thing2)
+        movingPic = nil
     }
     
     private func drawSquare(x: CGFloat, y: CGFloat, color: UIColor) {

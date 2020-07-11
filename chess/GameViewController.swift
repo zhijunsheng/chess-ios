@@ -9,7 +9,11 @@
 import UIKit
 import MultipeerConnectivity
 
-class GameViewController: UIViewController, ChessDelegate { // C of MVC
+class GameViewController: UIViewController, ChessDelegate {
+    func pieceOn(x: Int, y: Int) -> Piece? {
+        board.pieceOn(col: x, row: y)
+    }
+    // C of MVC
     
     private var board = Board() // M of MVC design pattern
     private var fromCol: Int? = nil
@@ -58,7 +62,9 @@ class GameViewController: UIViewController, ChessDelegate { // C of MVC
     
     
     func move(startX: Int, startY: Int, endX: Int, endY: Int) {
+        boardView.pieceImageThing = board.pieceOn(col: startX, row: startY)?.imageName
         board.movePiece(fromCol: startX, fromRow: startY, toCol: endX, toRow: endY)
+        
         for piece in board.pieces {
             if board.canPromote(col: piece.col, row: piece.row, isWhite: piece.isWhite) {
                 let alert = UIAlertController(title: "PROMOTION!!!", message: "What do you want to promote into?", preferredStyle: .actionSheet)

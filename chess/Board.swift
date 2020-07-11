@@ -157,8 +157,7 @@ struct Board: CustomStringConvertible {
             if (pieceOn(col: col, row: row) != nil) {
                 return true
             } else {
-                return false
-            }
+                return false            }
         } else {
             return false
         }
@@ -172,23 +171,29 @@ struct Board: CustomStringConvertible {
         guard let candidate = pieceOn(col: fromCol, row: fromRow) else {
             return false
         }
-
+        
         if isWhite && (pieceOn(col: fromCol, row: fromRow - 1) == nil) {
-            if candidate.row == 6 {
-                return (fromRow - 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) || fromRow - 2 == toRow)
+            if candidate.row == 6 && (pieceOn(col: fromCol, row: fromRow - 2) == nil) {
+                return fromRow - 1 == toRow && fromCol == toCol || fromRow - 2 == toRow && fromCol == toCol || (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true
             } else {
-                return fromRow - 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil)
+                return fromRow - 1 == toRow && fromCol == toCol || (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true
             }
         }
 
         if !isWhite && (pieceOn(col: fromCol, row: fromRow + 1) == nil) {
-            if candidate.row == 1 {
-                return fromRow + 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow + 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) || fromRow + 2 == toRow
+            if candidate.row == 1 && (pieceOn(col: fromCol, row: fromRow + 2) == nil) {
+                return fromRow + 1 == toRow && fromCol == toCol || fromRow + 2 == toRow && fromCol == toCol || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol - 1, row: fromRow - 1)?.isWhite != false || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) && pieceOn(col: fromCol - 1, row: fromRow + 1)?.isWhite != false
             } else {
-                return fromRow + 1 == toRow || (pieceOn(col: fromCol + 1, row: fromRow + 1) != nil) || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) || fromRow + 2 == toRow
+                return fromRow + 1 == toRow && fromCol == toCol || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol - 1, row: fromRow - 1)?.isWhite != false || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) && pieceOn(col: fromCol - 1, row: fromRow + 1)?.isWhite != false
             }
         }
-        return false
+
+        if isWhite {
+            return (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true
+        } else {
+            return (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol - 1, row: fromRow - 1)?.isWhite != false || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) && pieceOn(col: fromCol - 1, row: fromRow + 1)?.isWhite != false
+        }
+
     }
     
     func canRookMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
