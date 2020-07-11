@@ -124,9 +124,9 @@ class BoardView: UIView {
         addSubview(pieceImageView)
         let normalBeginningFrame = CGRect(x: originX + CGFloat(p2p(piece.col)) * cellSide, y: originY + CGFloat(p2p(piece.row)) * cellSide, width: cellSide, height: cellSide)
         pieceImageView.frame = imageRect(normalRect: normalBeginningFrame, ratio: pieceRatio)
-        let moveAnimator = UIViewPropertyAnimator(duration: 1.0, curve: .easeInOut) { [self] in
-            let normalEnddingFrame = CGRect(x: originX + CGFloat(p2p(move.tC)) * cellSide, y: originY + CGFloat(p2p(move.tR)) * cellSide, width: cellSide, height: cellSide)
-            pieceImageView.frame = imageRect(normalRect: normalEnddingFrame, ratio: movingPieceRatio)
+        let moveAnimator = UIViewPropertyAnimator(duration: 1.0, curve: .easeInOut) {
+            let normalEnddingFrame = CGRect(x: self.originX + CGFloat(self.p2p(move.tC)) * self.cellSide, y: self.originY + CGFloat(self.p2p(move.tR)) * self.cellSide, width: self.cellSide, height: self.cellSide)
+            pieceImageView.frame = self.imageRect(normalRect: normalEnddingFrame, ratio: self.movingPieceRatio)
         }
         moveAnimator.addCompletion { animPos in
             pieceImageView.removeFromSuperview()
