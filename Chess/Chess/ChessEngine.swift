@@ -82,7 +82,7 @@ struct ChessEngine {
             return
         }
         
-        if isHandicap(move: Move(fC: fromCol, fR: fromRow, tC: toCol, tR: toRow)) {
+        if isHandicap(move: move) {
             pieces.remove(movingPiece)
             return
         }
