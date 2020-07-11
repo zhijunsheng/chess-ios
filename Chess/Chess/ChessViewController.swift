@@ -47,6 +47,14 @@ class ChessViewController: UIViewController {
     }
     
     @IBAction func reset(_ sender: UIBarButtonItem) {
+        let alertController = UIAlertController(title: "Restart?", message: nil, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Yes", style: .destructive) {_ in self.reset() })
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        avoidAlertCrashOnPad(alertController: alertController)
+        present(alertController, animated: true)
+    }
+    
+    func reset() {
         chessEngine.initializeGame()
         boardView.shadowPieces = chessEngine.pieces
         boardView.blackAtTop = true
@@ -121,11 +129,7 @@ class ChessViewController: UIViewController {
             }
             alertController.addAction(bishopAction)
             
-            if let popoverPresentationController = alertController.popoverPresentationController {
-                popoverPresentationController.permittedArrowDirections = .init(rawValue: 0)
-                popoverPresentationController.sourceView = self.view
-                popoverPresentationController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-            }
+            avoidAlertCrashOnPad(alertController: alertController)
             present(alertController, animated: true, completion: nil)
         }
     }
@@ -135,6 +139,14 @@ class ChessViewController: UIViewController {
         chessEngine.promoteTo(rank: rank)
         boardView.shadowPieces = chessEngine.pieces
         boardView.setNeedsDisplay()
+    }
+    
+    func avoidAlertCrashOnPad(alertController: UIAlertController) {
+        if let popoverPresentationController = alertController.popoverPresentationController {
+            popoverPresentationController.permittedArrowDirections = .init(rawValue: 0)
+            popoverPresentationController.sourceView = self.view
+            popoverPresentationController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+        }
     }
 }
 
@@ -146,6 +158,7 @@ extension ChessViewController: ChessDelegate {
             return
         }
 
+        // FIXME: handicap gone
 //        if let session = session, session.connectedPeers.count > 0 && !isWithdrawing && isWhiteDevice != chessEngine.whitesTurn {
 //            return
 //        }
@@ -169,11 +182,7 @@ extension ChessViewController: NearbyServiceDelegate {
         let alertController = UIAlertController(title: "Connected with \(peer)", message: nil, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default))
         
-        if let popoverPresentationController = alertController.popoverPresentationController {
-            popoverPresentationController.permittedArrowDirections = .init(rawValue: 0)
-            popoverPresentationController.sourceView = self.view
-            popoverPresentationController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-        }
+        avoidAlertCrashOnPad(alertController: alertController)
         present(alertController, animated: true, completion: nil)
     }
     
