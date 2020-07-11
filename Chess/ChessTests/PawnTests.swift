@@ -491,10 +491,10 @@ class PawnTests: XCTestCase {
          */
         var game = ChessEngine()
         game.initializeGame()
-        XCTAssertTrue(game.canPawnAttack(fromCol: 0, fromRow: 6, toCol: 1, toRow: 5))
-        XCTAssertFalse(game.canPawnAttack(fromCol: 0, fromRow: 6, toCol: 0, toRow: 5))
-        XCTAssertTrue(game.canPawnAttack(fromCol: 7, fromRow: 1, toCol: 6, toRow: 2))
-        XCTAssertFalse(game.canPawnAttack(fromCol: 7, fromRow: 1, toCol: 7, toRow: 2))
+        XCTAssertTrue(game.canPawnAttack(Move(0, 6, 1, 5)))
+        XCTAssertFalse(game.canPawnAttack(Move(0, 6, 0, 5)))
+        XCTAssertTrue(game.canPawnAttack(Move(7, 1, 6, 2)))
+        XCTAssertFalse(game.canPawnAttack(Move(7, 1, 7, 2)))
     }
     
     func testKnightPromotionForbidden() {

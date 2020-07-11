@@ -10,7 +10,6 @@ import XCTest
 @testable import GT_Chess
 
 class RookTests: XCTestCase {
-
     func testRookRules() {
         var game = ChessEngine()
         game.pieces.insert(ChessPiece(col: 0, row: 7, imageName: "", isWhite: true, rank: .rook))
@@ -41,5 +40,4 @@ class RookTests: XCTestCase {
          */
         XCTAssertTrue(game.isValid(fromCol: 0, fromRow: 7, toCol: 0, toRow: 5, isWhite: true))
     }
-
 }

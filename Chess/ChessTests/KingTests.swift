@@ -714,7 +714,7 @@ class KingTests: XCTestCase {
         game.movePiece(fromCol: 2, fromRow: 3, toCol: 4, toRow: 5)
         XCTAssertTrue(game.whitesTurn)
         XCTAssertTrue(game.underThreatAt(col: 4, row: 5, whiteEnemy: false))
-        XCTAssertFalse(game.canKingMove(fromCol: 4, fromRow: 6, toCol: 4, toRow: 5))
+        XCTAssertFalse(game.canKingMove(Move(4, 6, 4, 5)))
     }
     
     func testProtectorMovingAway() {
@@ -826,7 +826,7 @@ class KingTests: XCTestCase {
         game.movePiece(fromCol: 2, fromRow: 3, toCol: 4, toRow: 5)
         XCTAssertTrue(game.whitesTurn)
         XCTAssertTrue(game.underThreatAt(col: 4, row: 5, whiteEnemy: false))
-        XCTAssertFalse(game.canKingMove(fromCol: 4, fromRow: 6, toCol: 4, toRow: 5))
+        XCTAssertFalse(game.canKingMove(Move(4, 6, 4, 5)))
         XCTAssertFalse(game.isValid(fromCol: 4, fromRow: 6, toCol: 4, toRow: 5, isWhite: true))
         
         /*
@@ -1069,7 +1069,7 @@ class KingTests: XCTestCase {
          */
         game.movePiece(fromCol: 0, fromRow: 2, toCol: 3, toRow: 2)
         XCTAssertFalse(game.underThreatAt(col: 3, row: 2, whiteEnemy: true))
-        XCTAssertTrue(game.canKingMove(fromCol: 4, fromRow: 1, toCol: 3, toRow: 2))
+        XCTAssertTrue(game.canKingMove(Move(4, 1, 3, 2)))
         XCTAssertTrue(game.isValid(fromCol: 4, fromRow: 1, toCol: 3, toRow: 2, isWhite: false))
     }
 }

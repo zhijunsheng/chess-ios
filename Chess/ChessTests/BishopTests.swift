@@ -10,6 +10,7 @@ import XCTest
 @testable import GT_Chess
 
 class BishopTests: XCTestCase {
+    
     func testBishopRules() {
         var game = ChessEngine()
         game.pieces.insert(ChessPiece(col: 2, row: 7, imageName: "", isWhite: true, rank: .bishop))
@@ -102,5 +103,4 @@ class BishopTests: XCTestCase {
         XCTAssertFalse(game.isValid(fromCol: 3, fromRow: 3, toCol: 7, toRow: 7, isWhite: true))
         XCTAssertFalse(game.isValid(fromCol: 3, fromRow: 3, toCol: 0, toRow: 6, isWhite: true))
     }
-
 }

@@ -10,7 +10,6 @@ import XCTest
 @testable import GT_Chess
 
 class KnightTests: XCTestCase {
-
     /*
      
      0 1 2 3 4 5 6 7
@@ -29,5 +28,4 @@ class KnightTests: XCTestCase {
         game.pieces.insert(ChessPiece(col: 1, row: 7, imageName: "", isWhite: true, rank: .knight))
         XCTAssertFalse(game.isValid(fromCol: 1, fromRow: 7, toCol: 1, toRow: 5, isWhite: true))
     }
-
 }

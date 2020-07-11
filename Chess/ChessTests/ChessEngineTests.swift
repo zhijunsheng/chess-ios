@@ -19,17 +19,17 @@ class ChessEngineTests: XCTestCase {
     func testPieceNotAllowedToGoOutOfBoard() {
         var game = ChessEngine()
         game.initializeGame()
-        game.movePiece(fromCol: 0, fromRow: 1, toCol: 0, toRow: 2)
-        XCTAssertFalse(game.isValid(fromCol: 0, fromRow: 7, toCol: -1, toRow: 7, isWhite: true))
-        XCTAssertFalse(game.isValid(fromCol: 0, fromRow: 7, toCol: 8, toRow: 7, isWhite: true))
-        XCTAssertFalse(game.isValid(fromCol: 0, fromRow: 7, toCol: 0, toRow: 8, isWhite: true))
-        XCTAssertFalse(game.isValid(fromCol: 0, fromRow: 7, toCol: 0, toRow: -1, isWhite: true))
+        game.movePiece(move: Move(0, 1, 0, 2))
+        XCTAssertFalse(game.isValid(move: Move(0, 7, -1, 7), isWhite: true))
+        XCTAssertFalse(game.isValid(move: Move(0, 7, 8, 7), isWhite: true))
+        XCTAssertFalse(game.isValid(move: Move(0, 7, 0, 8), isWhite: true))
+        XCTAssertFalse(game.isValid(move: Move(0, 7, 0, -1), isWhite: true))
     }
     
     func testAvoidCapturingOwnPieces() {
         var game = ChessEngine()
         game.initializeGame()
-        XCTAssertFalse(game.isValid(fromCol: 0, fromRow: 7, toCol: 0, toRow: 6, isWhite: true))
+        XCTAssertFalse(game.isValid(move: Move(0, 7, 0, 6), isWhite: true))
     }
     
     func testThreat() {
@@ -48,9 +48,9 @@ class ChessEngineTests: XCTestCase {
         var game = ChessEngine()
         game.initializeGame()
         
-        game.movePiece(fromCol: 5, fromRow: 6, toCol: 5, toRow: 4)
-        game.movePiece(fromCol: 3, fromRow: 1, toCol: 3, toRow: 2)
-        game.movePiece(fromCol: 5, fromRow: 4, toCol: 5, toRow: 3)
+        game.movePiece(move: Move(5, 6, 5, 4))
+        game.movePiece(move: Move(3, 1, 3, 2))
+        game.movePiece(move: Move(5, 4, 5, 3))
         
         XCTAssertTrue(game.underThreatAt(col: 5, row: 3, whiteEnemy: false))
         
@@ -69,9 +69,9 @@ class ChessEngineTests: XCTestCase {
         game = ChessEngine()
         game.initializeGame()
         
-        game.movePiece(fromCol: 5, fromRow: 6, toCol: 5, toRow: 4)
-        game.movePiece(fromCol: 1, fromRow: 0, toCol: 0, toRow: 2)
-        game.movePiece(fromCol: 5, fromRow: 4, toCol: 5, toRow: 3)
+        game.movePiece(move: Move(5, 6, 5, 4))
+        game.movePiece(move: Move(1, 0, 0, 2))
+        game.movePiece(move: Move(5, 4, 5, 3))
         
         XCTAssertFalse(game.underThreatAt(col: 5, row: 3, whiteEnemy: false))
         

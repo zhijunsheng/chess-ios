@@ -11,7 +11,6 @@ import XCTest
 
 class QueenTests: XCTestCase {
 
-    
     func testQueenRules() {
         var game = ChessEngine()
         

@@ -61,11 +61,11 @@ class ChessViewController: UIViewController {
         boardView.setNeedsDisplay()
     }
     
-    func updateMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
-        guard chessEngine.isHandicap(move: Move(fC: fromCol, fR: fromRow, tC: toCol, tR: toRow)) || chessEngine.isValid(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow, isWhite: chessEngine.whitesTurn) else {
+    func updateMove(move: Move) {
+        guard chessEngine.isHandicap(move: move) || chessEngine.isValid(move: move, isWhite: chessEngine.whitesTurn) else {
             return
         }
-        chessEngine.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        chessEngine.movePiece(move: move)
         boardView.shadowPieces = chessEngine.pieces
         boardView.setNeedsDisplay()
         
@@ -149,7 +149,7 @@ extension ChessViewController: ChessDelegate {
 //            return
 //        }
         
-        updateMove(fromCol: move.fC, fromRow: move.fR, toCol: move.tC, toRow: move.tR)
+        updateMove(move: move)
         
         if chessEngine.needsPromotion() {
             promptPromotionOptions(with: move)
@@ -191,7 +191,7 @@ extension ChessViewController: NearbyServiceDelegate {
                 
                 let move = Move(fC: fromCol, fR: fromRow, tC: toCol, tR: toRow)
                 self.boardView.animate(move: move) { _ in
-                    self.updateMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+                    self.updateMove(move: move)
                     if moveArr.count == 5 {
                         switch moveArr[4] {
                         case "q":
