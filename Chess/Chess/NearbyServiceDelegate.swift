@@ -11,5 +11,5 @@ import Foundation
 protocol NearbyServiceDelegate {
     func didReceive(msg: String)
     func connectedWith(peer: String)
-    func disconnectedWith(peer: String)
+    func disconnectedFrom(peer: String)
 }

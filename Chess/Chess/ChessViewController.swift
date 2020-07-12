@@ -217,7 +217,7 @@ extension ChessViewController: ChessDelegate {
 }
 
 extension ChessViewController: NearbyServiceDelegate {
-    func disconnectedWith(peer: String) {
+    func disconnectedFrom(peer: String) {
         boardView.isUserInteractionEnabled = false
         peerLabel.text = peer
         
