@@ -12,15 +12,20 @@ import AVFoundation
 class ChessViewController: UIViewController {
     let nearbyService = NearbyService(serviceType: "gt-chess")
     
-    let whoseTurnColor: UIColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
-
+    let whoseTurnColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
+    let waitingColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+    
     var chessEngine: ChessEngine = ChessEngine()
     
     @IBOutlet weak var boardView: BoardView!
+    
     @IBOutlet weak var upperView: UIView!
     @IBOutlet weak var peerLabel: UILabel!
+    @IBOutlet weak var upperColorView: UIView!
+    
     @IBOutlet weak var lowerView: UIView!
     @IBOutlet weak var youLabel: UILabel!
+    @IBOutlet weak var lowerColorView: UIView!
     
     var audioPlayer: AVAudioPlayer!
     
@@ -35,11 +40,7 @@ class ChessViewController: UIViewController {
         
         boardView.chessDelegate = self
         
-        lowerView.backgroundColor = whoseTurnColor
-        
-        chessEngine.initializeGame()
-        boardView.shadowPieces = chessEngine.pieces
-        boardView.setNeedsDisplay()
+        reset()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -62,6 +63,8 @@ class ChessViewController: UIViewController {
         boardView.blackAtTop = true
         boardView.sharingDevice = false
         isWhiteDevice = true
+        self.upperColorView.backgroundColor = .black
+        self.lowerColorView.backgroundColor = .white
         firstMoveMade = false
         updateWhoseTurnColors()
         boardView.setNeedsDisplay()
@@ -87,8 +90,8 @@ class ChessViewController: UIViewController {
     }
     
     func updateWhoseTurnColors() {
-        upperView.backgroundColor = .white
-        lowerView.backgroundColor = .white
+        upperView.backgroundColor = waitingColor
+        lowerView.backgroundColor = waitingColor
         var whoseTurnView: UIView
         if isWhiteDevice {
             whoseTurnView = chessEngine.whitesTurn ? lowerView : upperView
@@ -161,10 +164,11 @@ extension ChessViewController: ChessDelegate {
             return
         }
 
-        // FIXME: handicap gone
-//        if let session = session, session.connectedPeers.count > 0 && !isWithdrawing && isWhiteDevice != chessEngine.whitesTurn {
-//            return
-//        }
+        if youLabel.text == UIDevice.current.name &&    // two devices connected
+            !isWithdrawing &&                           // can withdraw the last move made by any player
+            isWhiteDevice != chessEngine.whitesTurn {
+            return
+        }
         
         updateMove(move: move)
         
@@ -213,8 +217,10 @@ extension ChessViewController: NearbyServiceDelegate {
                     self.firstMoveMade = true
                     self.boardView.blackAtTop = false
                     self.isWhiteDevice = false
+                    self.upperColorView.backgroundColor = .white
+                    self.lowerColorView.backgroundColor = .black
                     self.upperView.backgroundColor = self.whoseTurnColor
-                    self.lowerView.backgroundColor = .white
+                    self.lowerView.backgroundColor = self.waitingColor
                     self.boardView.setNeedsDisplay()
                 }
                 

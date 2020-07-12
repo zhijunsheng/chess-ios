@@ -127,8 +127,10 @@
                     </view>
                     <connections>
                         <outlet property="boardView" destination="dKl-gE-s19" id="8fu-Po-7MD"/>
+                        <outlet property="lowerColorView" destination="fU9-2w-jnI" id="YPr-ft-wGQ"/>
                         <outlet property="lowerView" destination="D1U-Fg-84X" id="0HF-n8-xht"/>
                         <outlet property="peerLabel" destination="ltv-NM-tuC" id="70d-7t-Lf7"/>
+                        <outlet property="upperColorView" destination="iLw-d9-IaF" id="Dhg-cE-tre"/>
                         <outlet property="upperView" destination="UW7-Hc-U3E" id="GSa-rr-hoz"/>
                         <outlet property="youLabel" destination="w45-1f-xiQ" id="urp-X6-8SY"/>
                     </connections>
