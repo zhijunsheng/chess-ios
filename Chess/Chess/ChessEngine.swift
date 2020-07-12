@@ -22,12 +22,12 @@ struct ChessEngine {
     var blackQueenSideRookMoved = false
     var blackKingMoved = false
     
-    func isWithdrawing(_ fromCol: Int, _ fromRow: Int, _ toCol: Int, _ toRow: Int) -> Bool {
-        guard let lastMovedPiece = lastMovedPiece, let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
+    func isWithdrawing(move: Move) -> Bool {
+        guard let lastMovedPiece = lastMovedPiece, let movingPiece = pieceAt(col: move.fC, row: move.fR) else {
             return false
         }
         
-        return movingPiece == lastMovedPiece && whitesTurn != movingPiece.isWhite && pieceAt(col: toCol, row: toRow) == nil
+        return movingPiece == lastMovedPiece && whitesTurn != movingPiece.isWhite && pieceAt(col: move.tC, row: move.tR) == nil
     }
     
     mutating func withdraw() {
@@ -83,11 +83,13 @@ struct ChessEngine {
         }
         
         if isHandicap(move: move) {
-            pieces.remove(movingPiece)
+            if movingPiece.rank != .king {
+                pieces.remove(movingPiece)
+            }
             return
         }
         
-        if isWithdrawing(fromCol, fromRow, toCol, toRow) {
+        if isWithdrawing(move: move) {
             withdraw()
             return
         }
@@ -176,10 +178,7 @@ struct ChessEngine {
     }
     
     func isHandicap(move: Move) -> Bool {
-        guard let movingPiece = pieceAt(col: move.fC, row: move.fR) else {
-            return false
-        }
-        return lastMovedPiece == nil && !inBoard(move.tC, move.tR) && movingPiece.rank != .king
+        return lastMovedPiece == nil && !inBoard(move.tC, move.tR)
     }
     
     // for unit test only
@@ -201,7 +200,7 @@ struct ChessEngine {
             return false
         }
         
-        if isWithdrawing(fromCol, fromRow, toCol, toRow) {
+        if isWithdrawing(move: move) {
             return true
         }
         

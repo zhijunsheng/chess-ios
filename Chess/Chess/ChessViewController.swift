@@ -80,13 +80,16 @@ class ChessViewController: UIViewController {
         guard chessEngine.isHandicap(move: move) || chessEngine.isValid(move: move, isWhite: chessEngine.whitesTurn) else {
             return
         }
+        
+        if !chessEngine.isHandicap(move: move) {
+            updateWhoseTurnColors()
+        }
+        
         chessEngine.movePiece(move: move)
         boardView.shadowPieces = chessEngine.pieces
         boardView.setNeedsDisplay()
         
         audioPlayer.play()
-        
-        updateWhoseTurnColors()
     }
     
     func updateWhoseTurnColors() {
@@ -106,9 +109,11 @@ class ChessViewController: UIViewController {
         if let targetRank = targetRank {
             promotionPostfix = ":\(targetRank)"
         }
-        let move = "\(move.fC):\(move.fR):\(move.tC):\(move.tR)\(promotionPostfix)"
-        nearbyService.send(msg: move)
-        firstMoveMade = true
+        let msg = "\(move.fC):\(move.fR):\(move.tC):\(move.tR)\(promotionPostfix)"
+        nearbyService.send(msg: msg)
+        if !chessEngine.isHandicap(move: move) {
+            firstMoveMade = true
+        }
     }
     
     private func promptPromotionOptions(with move: Move) {
@@ -158,9 +163,11 @@ class ChessViewController: UIViewController {
 
 extension ChessViewController: ChessDelegate {
     func play(with move: Move) {
-        let isWithdrawing = chessEngine.isWithdrawing(move.fC, move.fR, move.tC, move.tR)
+        let isWithdrawing = chessEngine.isWithdrawing(move: move)
         guard let movingPiece = chessEngine.pieceAt(col: move.fC, row: move.fR),
-              isWithdrawing || movingPiece.isWhite == chessEngine.whitesTurn else {
+              chessEngine.isHandicap(move: move) ||
+                isWithdrawing ||
+                movingPiece.isWhite == chessEngine.whitesTurn else {
             return
         }
 
@@ -190,7 +197,7 @@ extension ChessViewController: NearbyServiceDelegate {
         peerLabel.text = peer
         youLabel.text = UIDevice.current.name
         
-        let alertController = UIAlertController(title: "Disconnected with \(peer)", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "\(peer) disconnected", message: nil, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default))
         
         avoidAlertCrashOnPad(alertController: alertController)
@@ -202,7 +209,8 @@ extension ChessViewController: NearbyServiceDelegate {
         peerLabel.text = peer
         youLabel.text = UIDevice.current.name
         
-        let alertController = UIAlertController(title: "Connected with \(peer)", message: nil, preferredStyle: .alert)
+        let msg = firstMoveMade ? nil : "Whoever moves first becomes white player. For handicap, drag pieces out of board before making the first move."
+        let alertController = UIAlertController(title: "\(peer) connected", message: msg, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default))
         
         avoidAlertCrashOnPad(alertController: alertController)
@@ -213,7 +221,8 @@ extension ChessViewController: NearbyServiceDelegate {
         let moveArr = msg.components(separatedBy: ":")
         if let fromCol = Int(moveArr[0]), let fromRow = Int(moveArr[1]), let toCol = Int(moveArr[2]), let toRow = Int(moveArr[3]) {
             DispatchQueue.main.async {
-                if !self.firstMoveMade {
+                let move = Move(fC: fromCol, fR: fromRow, tC: toCol, tR: toRow)
+                if !self.firstMoveMade && !self.chessEngine.isHandicap(move: move) {
                     self.firstMoveMade = true
                     self.boardView.blackAtTop = false
                     self.isWhiteDevice = false
@@ -224,7 +233,6 @@ extension ChessViewController: NearbyServiceDelegate {
                     self.boardView.setNeedsDisplay()
                 }
                 
-                let move = Move(fC: fromCol, fR: fromRow, tC: toCol, tR: toRow)
                 self.boardView.animate(move: move) { _ in
                     self.updateMove(move: move)
                     if moveArr.count == 5 {
