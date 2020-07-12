@@ -172,6 +172,7 @@ class BoardView: UIView {
                 drawSquare(col: 1 + col * 2, row: 1 + row * 2, color: UIColor.white)
             }
         }
+        UIBezierPath(rect: CGRect(x: -10, y: 0, width: bounds.width + 20, height: bounds.height)).stroke()
     }
     
     private func drawSquare(col: Int, row: Int, color: UIColor) {
