@@ -69,8 +69,6 @@ class ChessViewController: UIViewController {
         updateWhoseTurnColors()
         boardView.setNeedsDisplay()
         boardView.isUserInteractionEnabled = true
-        youLabel.text = "You"
-        peerLabel.text = "Peer"
     }
     
     @IBAction func togglePieceImages(_ sender: UIBarButtonItem) {
@@ -173,8 +171,8 @@ extension ChessViewController: ChessDelegate {
             return
         }
 
-        if youLabel.text == UIDevice.current.name &&    // two devices connected
-            !isWithdrawing &&                           // can withdraw the last move made by any player
+        if peerLabel.text != "Peer" &&  // two devices connected
+            !isWithdrawing &&           // can withdraw the last move made by any player
             isWhiteDevice != chessEngine.whitesTurn {
             return
         }
@@ -197,7 +195,6 @@ extension ChessViewController: NearbyServiceDelegate {
     func disconnectedWith(peer: String) {
         boardView.isUserInteractionEnabled = false
         peerLabel.text = peer
-        youLabel.text = UIDevice.current.name
         
         let alertController = UIAlertController(title: "\(peer) disconnected", message: nil, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default))
@@ -209,7 +206,6 @@ extension ChessViewController: NearbyServiceDelegate {
     func connectedWith(peer: String) {
         boardView.isUserInteractionEnabled = true
         peerLabel.text = peer
-        youLabel.text = UIDevice.current.name
         
         let msg = firstMoveMade ? nil : "Whoever moves first becomes white player. For handicap, drag pieces out of board before making the first move."
         let alertController = UIAlertController(title: "\(peer) connected", message: msg, preferredStyle: .alert)
