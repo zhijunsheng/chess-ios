@@ -57,49 +57,69 @@ class ChessViewController: UIViewController {
         present(alertController, animated: true)
     }
     
+    @IBAction func togglePieceImages(_ sender: UIBarButtonItem) {
+        boardView.sharingDevice.toggle()
+        boardView.setNeedsDisplay()
+    }
+    
     func reset() {
         chessEngine.initializeGame()
         boardView.shadowPieces = chessEngine.pieces
         boardView.blackAtTop = true
         boardView.sharingDevice = false
         isWhiteDevice = true
-        self.upperColorView.backgroundColor = .black
-        self.lowerColorView.backgroundColor = .white
+        upperColorView.backgroundColor = .black
+        lowerColorView.backgroundColor = .white
         firstMoveMade = false
-        updateWhoseTurnColors()
-        boardView.setNeedsDisplay()
+        updateWhoseTurnColors(whiteTurn: chessEngine.whiteTurn)
         boardView.isUserInteractionEnabled = true
+        boardView.setNeedsDisplay()
     }
     
-    @IBAction func togglePieceImages(_ sender: UIBarButtonItem) {
-        boardView.sharingDevice.toggle()
-        boardView.setNeedsDisplay()
+    func reportStatusBefore(move: Move) {
+        var status = ""
+        
+        status += "\n\n"
+        status += "================ Status for \(UIDevice.current.name) before move: \(move) ===================\n"
+        status += "boardView.blackAtTop = \(boardView.blackAtTop)\n"
+        status += "boardView.sharingDevice = \(boardView.sharingDevice)\n"
+        status += "isWhiteDevice = \(isWhiteDevice)\n"
+        status += "firstMoveMade = \(firstMoveMade)\n"
+        status += "boardView.isUserInteractionEnabled = \(boardView.isUserInteractionEnabled)\n"
+        status += "\n"
+        status += "chessEngine.isHandicap = \(chessEngine.isHandicap(move: move))\n"
+        status += "chessEngine.isWithdrawing = \(chessEngine.isWithdrawing(move: move))\n"
+//        status += " = \()"
+        status += "============= end of ==== Status for \(UIDevice.current.name) ================================"
+        status += "\n\n"
+        
+        print(status)
     }
     
     func updateMove(move: Move) {
-        guard chessEngine.isHandicap(move: move) || chessEngine.isValid(move: move, isWhite: chessEngine.whitesTurn) else {
+        guard chessEngine.isHandicap(move: move) || chessEngine.isValid(move: move, isWhite: chessEngine.whiteTurn) else {
             return
-        }
-        
-        if !chessEngine.isHandicap(move: move) {
-            updateWhoseTurnColors()
         }
         
         chessEngine.movePiece(move: move)
         boardView.shadowPieces = chessEngine.pieces
         boardView.setNeedsDisplay()
         
+        if !chessEngine.isHandicap(move: move) {
+            updateWhoseTurnColors(whiteTurn: chessEngine.whiteTurn)
+        }
+        
         audioPlayer.play()
     }
     
-    func updateWhoseTurnColors() {
+    func updateWhoseTurnColors(whiteTurn: Bool) {
         upperView.backgroundColor = waitingColor
         lowerView.backgroundColor = waitingColor
         var whoseTurnView: UIView
         if isWhiteDevice {
-            whoseTurnView = chessEngine.whitesTurn ? lowerView : upperView
+            whoseTurnView = whiteTurn ? lowerView : upperView
         } else {
-            whoseTurnView = chessEngine.whitesTurn ? upperView : lowerView
+            whoseTurnView = whiteTurn ? upperView : lowerView
         }
         whoseTurnView.backgroundColor = whoseTurnColor
     }
@@ -167,13 +187,13 @@ extension ChessViewController: ChessDelegate {
         guard let movingPiece = chessEngine.pieceAt(col: move.fC, row: move.fR),
               chessEngine.isHandicap(move: move) ||
                 isWithdrawing ||
-                movingPiece.isWhite == chessEngine.whitesTurn else {
+                movingPiece.isWhite == chessEngine.whiteTurn else {
             return
         }
 
         if peerLabel.text != "Peer" &&  // two devices connected
             !isWithdrawing &&           // can withdraw the last move made by any player
-            isWhiteDevice != chessEngine.whitesTurn {
+            isWhiteDevice != chessEngine.whiteTurn {
             return
         }
         

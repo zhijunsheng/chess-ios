@@ -712,7 +712,7 @@ class KingTests: XCTestCase {
          7 r n b q . b n r
          */
         game.movePiece(fromCol: 2, fromRow: 3, toCol: 4, toRow: 5)
-        XCTAssertTrue(game.whitesTurn)
+        XCTAssertTrue(game.whiteTurn)
         XCTAssertTrue(game.underThreatAt(col: 4, row: 5, whiteEnemy: false))
         XCTAssertFalse(game.canKingMove(Move(4, 6, 4, 5)))
     }
@@ -824,7 +824,7 @@ class KingTests: XCTestCase {
          7 r n b q . b n r
          */
         game.movePiece(fromCol: 2, fromRow: 3, toCol: 4, toRow: 5)
-        XCTAssertTrue(game.whitesTurn)
+        XCTAssertTrue(game.whiteTurn)
         XCTAssertTrue(game.underThreatAt(col: 4, row: 5, whiteEnemy: false))
         XCTAssertFalse(game.canKingMove(Move(4, 6, 4, 5)))
         XCTAssertFalse(game.isValid(fromCol: 4, fromRow: 6, toCol: 4, toRow: 5, isWhite: true))

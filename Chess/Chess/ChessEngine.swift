@@ -11,7 +11,7 @@ import Foundation
 struct ChessEngine {
     var pieces: Set<ChessPiece> = []
     var previousPieces: Set<ChessPiece> = []
-    private(set) var whitesTurn: Bool = true
+    private(set) var whiteTurn: Bool = true
     private(set) var lastMovedPiece: ChessPiece?
     
     var whiteKingSideRookMoved = false
@@ -27,7 +27,7 @@ struct ChessEngine {
             return false
         }
         
-        return movingPiece == lastMovedPiece && whitesTurn != movingPiece.isWhite && pieceAt(col: move.tC, row: move.tR) == nil
+        return movingPiece == lastMovedPiece && whiteTurn != movingPiece.isWhite && pieceAt(col: move.tC, row: move.tR) == nil
     }
     
     mutating func withdraw() {
@@ -35,7 +35,7 @@ struct ChessEngine {
             return
         }
         pieces = previousPieces
-        whitesTurn = lastMovedPiece.isWhite
+        whiteTurn = lastMovedPiece.isWhite
     }
     
     func needsPromotion() -> Bool {
@@ -113,7 +113,7 @@ struct ChessEngine {
         
         updateCastlingPrerequisite(move: move)
         lastMovedPiece = ChessPiece(col: toCol, row: toRow, imageName: movingPiece.imageName, isWhite: movingPiece.isWhite, rank: movingPiece.rank)
-        whitesTurn = !whitesTurn
+        whiteTurn = !whiteTurn
     }
     
     private mutating func tryRemovingEnPassantEnemy(_ fromCol: Int, _ fromRow: Int, _ toCol: Int, _ toRow: Int) {
@@ -331,7 +331,7 @@ struct ChessEngine {
         let toCol = move.tC
         let toRow = move.tR
         
-        guard !underThreatAt(col: toCol, row: toRow, whiteEnemy: !whitesTurn) else {
+        guard !underThreatAt(col: toCol, row: toRow, whiteEnemy: !whiteTurn) else {
             return false
         }
         if canCastle(toCol: toCol, toRow: toRow) {
@@ -355,7 +355,7 @@ struct ChessEngine {
         guard
             let piece = pieceAt(col: 4, row: toRow),
             piece.rank == .king,
-            piece.isWhite == whitesTurn,
+            piece.isWhite == whiteTurn,
             toRow == (piece.isWhite ? 7 : 0) else {
             return false
         }
@@ -364,7 +364,7 @@ struct ChessEngine {
         let row = piece.isWhite ? 7 : 0
         let cols = kingSide ? 5...6 : 1...3
         
-        guard emptyAndSafe(row: row, cols: cols, whiteEnemy: !whitesTurn), toCol == (kingSide ? 6 : 2) else {
+        guard emptyAndSafe(row: row, cols: cols, whiteEnemy: !whiteTurn), toCol == (kingSide ? 6 : 2) else {
             return false
         }
         
@@ -534,7 +534,7 @@ struct ChessEngine {
     
     mutating func initializeGame() {
         pieces.removeAll()
-        whitesTurn = true
+        whiteTurn = true
         lastMovedPiece = nil
         
         whiteKingSideRookMoved = false
