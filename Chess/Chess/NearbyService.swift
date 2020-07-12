@@ -67,6 +67,9 @@ extension NearbyService: MCSessionDelegate {
             }
         case .notConnected:
             print("not connected: \(peerID.displayName)")
+            DispatchQueue.main.async {
+                self.nearbyServiceDelegate?.disconnectedWith(peer: peerID.displayName)
+            }
         @unknown default:
             print("unknown state: \(state)")
         }

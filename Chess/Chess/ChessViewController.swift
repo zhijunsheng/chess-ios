@@ -65,6 +65,7 @@ class ChessViewController: UIViewController {
         firstMoveMade = false
         updateWhoseTurnColors()
         boardView.setNeedsDisplay()
+        boardView.isUserInteractionEnabled = true
     }
     
     @IBAction func togglePieceImages(_ sender: UIBarButtonItem) {
@@ -180,7 +181,20 @@ extension ChessViewController: ChessDelegate {
 }
 
 extension ChessViewController: NearbyServiceDelegate {
+    func disconnectedWith(peer: String) {
+        boardView.isUserInteractionEnabled = false
+        peerLabel.text = peer
+        youLabel.text = UIDevice.current.name
+        
+        let alertController = UIAlertController(title: "Disconnected with \(peer)", message: nil, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        avoidAlertCrashOnPad(alertController: alertController)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     func connectedWith(peer: String) {
+        boardView.isUserInteractionEnabled = true
         peerLabel.text = peer
         youLabel.text = UIDevice.current.name
         
