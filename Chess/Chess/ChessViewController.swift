@@ -113,15 +113,20 @@ class ChessViewController: UIViewController {
     }
     
     func updateWhoseTurnColors(whiteTurn: Bool) {
-        upperView.backgroundColor = waitingColor
-        lowerView.backgroundColor = waitingColor
         var whoseTurnView: UIView
+        var waiterView: UIView
         if isWhiteDevice {
             whoseTurnView = whiteTurn ? lowerView : upperView
+            waiterView = whiteTurn ? upperView : lowerView
         } else {
             whoseTurnView = whiteTurn ? upperView : lowerView
+            waiterView = whiteTurn ? lowerView : upperView
         }
-        whoseTurnView.backgroundColor = whoseTurnColor
+        
+        UIViewPropertyAnimator(duration: 1.0, curve: .easeInOut) {
+            whoseTurnView.backgroundColor = self.whoseTurnColor
+            waiterView.backgroundColor = self.waitingColor
+        }.startAnimation()
     }
     
     func send(move: Move, targetRank: Character? = nil) {
@@ -172,7 +177,7 @@ class ChessViewController: UIViewController {
         boardView.setNeedsDisplay()
     }
     
-    func avoidAlertCrashOnPad(alertController: UIAlertController) {
+    private func avoidAlertCrashOnPad(alertController: UIAlertController) {
         if let popoverPresentationController = alertController.popoverPresentationController {
             popoverPresentationController.permittedArrowDirections = .init(rawValue: 0)
             popoverPresentationController.sourceView = self.view
