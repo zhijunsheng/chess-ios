@@ -69,6 +69,8 @@ class ChessViewController: UIViewController {
         updateWhoseTurnColors()
         boardView.setNeedsDisplay()
         boardView.isUserInteractionEnabled = true
+        youLabel.text = "You"
+        peerLabel.text = "Peer"
     }
     
     @IBAction func togglePieceImages(_ sender: UIBarButtonItem) {
