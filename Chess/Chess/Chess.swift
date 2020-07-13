@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ChessEngine {
+struct Chess {
     var pieces: Set<ChessPiece> = []
     var previousPieces: Set<ChessPiece> = []
     private(set) var whiteTurn: Bool = true
@@ -570,7 +570,7 @@ struct ChessEngine {
     }
 }
 
-extension ChessEngine: CustomStringConvertible {
+extension Chess: CustomStringConvertible {
     var description: String {
         var desc = ""
         

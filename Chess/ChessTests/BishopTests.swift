@@ -12,7 +12,7 @@ import XCTest
 class BishopTests: XCTestCase {
     
     func testBishopRules() {
-        var game = ChessEngine()
+        var game = Chess()
         game.pieces.insert(ChessPiece(col: 2, row: 7, imageName: "", isWhite: true, rank: .bishop))
         
         /*
@@ -81,7 +81,7 @@ class BishopTests: XCTestCase {
          */
         XCTAssertFalse(game.isValid(fromCol: 2, fromRow: 7, toCol: 7, toRow: 2, isWhite: true))
         
-        game = ChessEngine()
+        game = Chess()
         game.pieces.insert(ChessPiece(col: 3, row: 3, imageName: "", isWhite: true, rank: .bishop))
         /*
          + 0 1 2 3 4 5 6 7

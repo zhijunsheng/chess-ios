@@ -12,7 +12,7 @@ import XCTest
 class QueenTests: XCTestCase {
 
     func testQueenRules() {
-        var game = ChessEngine()
+        var game = Chess()
         
         /*
          + 0 1 2 3 4 5 6 7
@@ -66,7 +66,7 @@ class QueenTests: XCTestCase {
          6 x . . . . . n .
          7 . . . . . . . x
          */
-        game = ChessEngine()
+        game = Chess()
         game.pieces.insert(ChessPiece(col: 3, row: 3, imageName: "", isWhite: true, rank: .queen))
         game.pieces.insert(ChessPiece(col: 1, row: 1, imageName: "", isWhite: true, rank: .knight))
         game.pieces.insert(ChessPiece(col: 4, row: 2, imageName: "", isWhite: true, rank: .knight))

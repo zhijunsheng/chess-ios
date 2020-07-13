@@ -13,7 +13,7 @@ class KingTests: XCTestCase {
     
     func testProtectorBreakingRules() {
 
-        var game = ChessEngine()
+        var game = Chess()
         game.initializeGame()
         
         /*
@@ -69,7 +69,7 @@ class KingTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        var game = ChessEngine()
+        var game = Chess()
         game.pieces.insert(ChessPiece(col: 3, row: 3, imageName: "", isWhite: true, rank: .king))
         XCTAssertFalse(game.isValid(fromCol: 3, fromRow: 3, toCol: 3, toRow: 3, isWhite: true))
         XCTAssertFalse(game.isValid(fromCol: 3, fromRow: 3, toCol: 5, toRow: 3, isWhite: true))
@@ -87,13 +87,13 @@ class KingTests: XCTestCase {
          6 p p p p p p p p
          7 r n b q k b n r
          */
-        game = ChessEngine()
+        game = Chess()
         game.initializeGame()
         XCTAssertFalse(game.isValid(fromCol: 4, fromRow: 7, toCol: 4, toRow: 8, isWhite: true))
     }
     
     func testWhiteKingSideCanCastle() {
-        var game = ChessEngine()
+        var game = Chess()
         game.initializeGame()
         
         /*
@@ -195,7 +195,7 @@ class KingTests: XCTestCase {
     }
     
     func testWhiteQueenSideCastling() {
-        var game = ChessEngine()
+        var game = Chess()
         game.initializeGame()
         
         /*
@@ -246,7 +246,7 @@ class KingTests: XCTestCase {
     }
     
     func testWhiteKingSideCastling() {
-        var game = ChessEngine()
+        var game = Chess()
         game.initializeGame()
         
         /*
@@ -377,7 +377,7 @@ class KingTests: XCTestCase {
          6 p p p k p p . p
          7 r n b . q . . r
          */
-        game = ChessEngine()
+        game = Chess()
         game.initializeGame()
         game.movePiece(fromCol: 3, fromRow: 6, toCol: 3, toRow: 5) // pawn
         game.movePiece(fromCol: 0, fromRow: 1, toCol: 0, toRow: 2)
@@ -403,7 +403,7 @@ class KingTests: XCTestCase {
     }
     
     func testBlackKingSideCastling() {
-        var game = ChessEngine()
+        var game = Chess()
         game.initializeGame()
         
         /*
@@ -547,7 +547,7 @@ class KingTests: XCTestCase {
          6 p p p p p p p p
          7 r n b q k b n r
          */
-        var game = ChessEngine()
+        var game = Chess()
         game.initializeGame()
         
         /*
@@ -606,7 +606,7 @@ class KingTests: XCTestCase {
     }
     
     func testKingCapturingUnderThreat() {
-        var game = ChessEngine()
+        var game = Chess()
         game.initializeGame()
         
         /*
@@ -718,7 +718,7 @@ class KingTests: XCTestCase {
     }
     
     func testProtectorMovingAway() {
-        var game = ChessEngine()
+        var game = Chess()
         game.initializeGame()
         
         /*
@@ -858,7 +858,7 @@ class KingTests: XCTestCase {
     }
     
     func testKingChecked() {
-        var game = ChessEngine()
+        var game = Chess()
         game.initializeGame()
         
         /*
@@ -975,7 +975,7 @@ class KingTests: XCTestCase {
     }
     
     func testKingCapturingWithoutBeingAttacked() {
-        var game = ChessEngine()
+        var game = Chess()
         game.initializeGame()
         
         /*

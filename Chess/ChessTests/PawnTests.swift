@@ -12,7 +12,7 @@ import XCTest
 class PawnTests: XCTestCase {
     
     func testPawnKilledWrongly() {
-        var game = ChessEngine()
+        var game = Chess()
         game.initializeGame()
         
         /*
@@ -94,7 +94,7 @@ class PawnTests: XCTestCase {
          6 p . . . . . . .
          7 . . . . . . . .
          */
-        var game = ChessEngine()
+        var game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 1, imageName: "", isWhite: false, rank: .pawn))
         game.pieces.insert(ChessPiece(col: 0, row: 6, imageName: "", isWhite: true, rank: .pawn))
         game.movePiece(fromCol: 0, fromRow: 6, toCol: 0, toRow: 5)
@@ -113,7 +113,7 @@ class PawnTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        game = ChessEngine()
+        game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 1, imageName: "", isWhite: false, rank: .pawn))
         game.pieces.insert(ChessPiece(col: 5, row: 2, imageName: "", isWhite: true, rank: .knight))
         XCTAssertFalse(game.isValid(fromCol: 5, fromRow: 1, toCol: 5, toRow: 2, isWhite: false))
@@ -130,7 +130,7 @@ class PawnTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        game = ChessEngine()
+        game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 1, imageName: "", isWhite: false, rank: .pawn))
         game.pieces.insert(ChessPiece(col: 5, row: 3, imageName: "", isWhite: true, rank: .knight))
         XCTAssertTrue(game.isValid(fromCol: 5, fromRow: 1, toCol: 5, toRow: 2, isWhite: false))
@@ -147,7 +147,7 @@ class PawnTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        game = ChessEngine()
+        game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 4, imageName: "", isWhite: false, rank: .pawn))
         XCTAssertTrue(game.isValid(fromCol: 5, fromRow: 4, toCol: 5, toRow: 5, isWhite: false))
         XCTAssertFalse(game.isValid(fromCol: 5, fromRow: 4, toCol: 4, toRow: 3, isWhite: false))
@@ -169,7 +169,7 @@ class PawnTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        game = ChessEngine()
+        game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 3, imageName: "", isWhite: false, rank: .pawn))
         game.pieces.insert(ChessPiece(col: 5, row: 4, imageName: "", isWhite: true, rank: .knight))
         XCTAssertFalse(game.isValid(fromCol: 5, fromRow: 3, toCol: 5, toRow: 4, isWhite: false))
@@ -185,7 +185,7 @@ class PawnTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        game = ChessEngine()
+        game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 2, imageName: "", isWhite: false, rank: .pawn))
         game.pieces.insert(ChessPiece(col: 4, row: 3, imageName: "", isWhite: true, rank: .knight))
         game.pieces.insert(ChessPiece(col: 6, row: 3, imageName: "", isWhite: true, rank: .knight))
@@ -203,7 +203,7 @@ class PawnTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        game = ChessEngine()
+        game = Chess()
         game.pieces.insert(ChessPiece(col: 2, row: 1, imageName: "", isWhite: false, rank: .pawn))
         game.pieces.insert(ChessPiece(col: 3, row: 2, imageName: "", isWhite: true, rank: .pawn))
         XCTAssertTrue(game.isValid(fromCol: 2, fromRow: 1, toCol: 3, toRow: 2, isWhite: false))
@@ -221,7 +221,7 @@ class PawnTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        var game = ChessEngine()
+        var game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 3, imageName: "", isWhite: true, rank: .pawn))
         game.pieces.insert(ChessPiece(col: 4, row: 1, imageName: "", isWhite: false, rank: .pawn))
         game.movePiece(fromCol: 4, fromRow: 1, toCol: 4, toRow: 3)
@@ -265,7 +265,7 @@ class PawnTests: XCTestCase {
          7 r n b q k b n r
          
          */
-        game = ChessEngine()
+        game = Chess()
         game.initializeGame()
         
         game.movePiece(fromCol: 5, fromRow: 6, toCol: 5, toRow: 4)
@@ -317,7 +317,7 @@ class PawnTests: XCTestCase {
          7 r n b q k b n r
          
          */
-        game = ChessEngine()
+        game = Chess()
         game.initializeGame()
         
         game.movePiece(fromCol: 5, fromRow: 6, toCol: 5, toRow: 4)
@@ -341,7 +341,7 @@ class PawnTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        var game = ChessEngine()
+        var game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 4, imageName: "", isWhite: false, rank: .pawn))
         game.pieces.insert(ChessPiece(col: 6, row: 6, imageName: "", isWhite: true, rank: .pawn))
         game.movePiece(fromCol: 6, fromRow: 6, toCol: 6, toRow: 4)
@@ -365,7 +365,7 @@ class PawnTests: XCTestCase {
          6 . . . . x p x .
          7 . . . . . . . .
          */
-        var game = ChessEngine()
+        var game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 6, imageName: "", isWhite: true, rank: .pawn))
         XCTAssertFalse(game.isValid(fromCol: 5, fromRow: 6, toCol: 6, toRow: 5, isWhite: true))
         XCTAssertTrue(game.isValid(fromCol: 5, fromRow: 6, toCol: 5, toRow: 5, isWhite: true))
@@ -382,7 +382,7 @@ class PawnTests: XCTestCase {
          6 . . . . . p . .
          7 . . . . . . . .
          */
-        game = ChessEngine()
+        game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 6, imageName: "", isWhite: true, rank: .pawn))
         game.pieces.insert(ChessPiece(col: 5, row: 5, imageName: "", isWhite: false, rank: .knight))
         XCTAssertFalse(game.isValid(fromCol: 5, fromRow: 6, toCol: 5, toRow: 5, isWhite: true))
@@ -399,7 +399,7 @@ class PawnTests: XCTestCase {
          6 . . . . . p . .
          7 . . . . . . . .
          */
-        game = ChessEngine()
+        game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 6, imageName: "", isWhite: true, rank: .pawn))
         game.pieces.insert(ChessPiece(col: 5, row: 4, imageName: "", isWhite: false, rank: .knight))
         XCTAssertTrue(game.isValid(fromCol: 5, fromRow: 6, toCol: 5, toRow: 5, isWhite: true))
@@ -416,7 +416,7 @@ class PawnTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        game = ChessEngine()
+        game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 4, imageName: "", isWhite: true, rank: .pawn))
         XCTAssertTrue(game.isValid(fromCol: 5, fromRow: 4, toCol: 5, toRow: 3, isWhite: true))
         XCTAssertFalse(game.isValid(fromCol: 5, fromRow: 4, toCol: 4, toRow: 3, isWhite: true))
@@ -438,7 +438,7 @@ class PawnTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        game = ChessEngine()
+        game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 4, imageName: "", isWhite: true, rank: .pawn))
         game.pieces.insert(ChessPiece(col: 5, row: 3, imageName: "", isWhite: false, rank: .knight))
         XCTAssertFalse(game.isValid(fromCol: 5, fromRow: 4, toCol: 5, toRow: 3, isWhite: true))
@@ -454,7 +454,7 @@ class PawnTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        game = ChessEngine()
+        game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 4, imageName: "", isWhite: true, rank: .pawn))
         XCTAssertFalse(game.isValid(fromCol: 5, fromRow: 4, toCol: 5, toRow: 2, isWhite: true))
         
@@ -469,7 +469,7 @@ class PawnTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        game = ChessEngine()
+        game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 4, imageName: "", isWhite: true, rank: .pawn))
         game.pieces.insert(ChessPiece(col: 4, row: 3, imageName: "", isWhite: false, rank: .knight))
         game.pieces.insert(ChessPiece(col: 6, row: 3, imageName: "", isWhite: false, rank: .knight))
@@ -489,7 +489,7 @@ class PawnTests: XCTestCase {
          6 p p p p p p p p
          7 r n b q k b n r
          */
-        var game = ChessEngine()
+        var game = Chess()
         game.initializeGame()
         XCTAssertTrue(game.canPawnAttack(Move(0, 6, 1, 5)))
         XCTAssertFalse(game.canPawnAttack(Move(0, 6, 0, 5)))
@@ -509,7 +509,7 @@ class PawnTests: XCTestCase {
          6 p p p p p p p p
          7 r n b q k b n r
          */
-        var game = ChessEngine()
+        var game = Chess()
         game.initializeGame()
         game.movePiece(fromCol: 6, fromRow: 7, toCol: 7, toRow: 5)
         game.movePiece(fromCol: 0, fromRow: 1, toCol: 0, toRow: 2)
@@ -522,7 +522,7 @@ class PawnTests: XCTestCase {
     }
     
     func testPromotion() {
-        var game = ChessEngine()
+        var game = Chess()
         game.initializeGame()
         
         /*
@@ -646,7 +646,7 @@ class PawnTests: XCTestCase {
     }
     
     func testAlreadyPromoted() {
-        var game = ChessEngine()
+        var game = Chess()
         game.initializeGame()
         
         /*

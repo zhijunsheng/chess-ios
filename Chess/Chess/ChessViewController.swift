@@ -15,7 +15,7 @@ class ChessViewController: UIViewController {
     let whoseTurnColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
     let waitingColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     
-    var chessEngine: ChessEngine = ChessEngine()
+    var chessEngine: Chess = Chess()
     
     @IBOutlet weak var boardView: BoardView!
     
@@ -39,14 +39,9 @@ class ChessViewController: UIViewController {
         audioPlayer = try? AVAudioPlayer(contentsOf: url)
         
         boardView.chessDelegate = self
+        nearbyService.nearbyServiceDelegate = self
         
         resetLocally()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        nearbyService.nearbyServiceDelegate = self
     }
     
     @IBAction func reset(_ sender: UIBarButtonItem) {
@@ -63,6 +58,7 @@ class ChessViewController: UIViewController {
     }
     
     private func resetLocally() {
+        peerLabel.text = "Peer"
         chessEngine.initializeGame()
         boardView.shadowPieces = chessEngine.pieces
         boardView.blackAtTop = true

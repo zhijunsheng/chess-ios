@@ -15,7 +15,7 @@
 		07298BC324887E0300D154D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07298BC124887E0300D154D2 /* LaunchScreen.storyboard */; };
 		07298BD924887E2D00D154D2 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07298BD824887E2D00D154D2 /* BoardView.swift */; };
 		07298BDB248898E100D154D2 /* ChessPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07298BDA248898E100D154D2 /* ChessPiece.swift */; };
-		07298BDD2488998000D154D2 /* ChessEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07298BDC2488998000D154D2 /* ChessEngine.swift */; };
+		07298BDD2488998000D154D2 /* Chess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07298BDC2488998000D154D2 /* Chess.swift */; };
 		073496E3249D419500C3AAB0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 073496E2249D419500C3AAB0 /* InfoPlist.strings */; };
 		0789A84624B8D93C004D7FD9 /* NearbyServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0789A84524B8D93C004D7FD9 /* NearbyServiceDelegate.swift */; };
 		0789A84824B8D9C2004D7FD9 /* NearbyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0789A84724B8D9C2004D7FD9 /* NearbyService.swift */; };
@@ -54,7 +54,7 @@
 		07298BCF24887E0300D154D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07298BD824887E2D00D154D2 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		07298BDA248898E100D154D2 /* ChessPiece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessPiece.swift; sourceTree = "<group>"; };
-		07298BDC2488998000D154D2 /* ChessEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessEngine.swift; sourceTree = "<group>"; };
+		07298BDC2488998000D154D2 /* Chess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chess.swift; sourceTree = "<group>"; };
 		07306EAA24A18ED100DEEA63 /* GT ChessRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GT ChessRelease.entitlements"; sourceTree = "<group>"; };
 		073496E2249D419500C3AAB0 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		0789A84524B8D93C004D7FD9 /* NearbyServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyServiceDelegate.swift; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 				07F4C02324AB86FF00E2E9BB /* ChessRank.swift */,
 				07F4C02524AE835700E2E9BB /* Move.swift */,
 				07298BDA248898E100D154D2 /* ChessPiece.swift */,
-				07298BDC2488998000D154D2 /* ChessEngine.swift */,
+				07298BDC2488998000D154D2 /* Chess.swift */,
 				07298BD824887E2D00D154D2 /* BoardView.swift */,
 				07298BBA24887E0300D154D2 /* ChessViewController.swift */,
 				07306EAA24A18ED100DEEA63 /* GT ChessRelease.entitlements */,
@@ -249,7 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07298BDD2488998000D154D2 /* ChessEngine.swift in Sources */,
+				07298BDD2488998000D154D2 /* Chess.swift in Sources */,
 				0789A84624B8D93C004D7FD9 /* NearbyServiceDelegate.swift in Sources */,
 				07298BBB24887E0300D154D2 /* ChessViewController.swift in Sources */,
 				07F4C02424AB86FF00E2E9BB /* ChessRank.swift in Sources */,
