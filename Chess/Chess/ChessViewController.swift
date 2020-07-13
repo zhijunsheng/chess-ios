@@ -40,7 +40,7 @@ class ChessViewController: UIViewController {
         
         boardView.chessDelegate = self
         
-        reset()
+        resetLocally()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -51,7 +51,7 @@ class ChessViewController: UIViewController {
     
     @IBAction func reset(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Restart?", message: nil, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Yes", style: .destructive) {_ in self.reset() })
+        alertController.addAction(UIAlertAction(title: "Yes", style: .destructive) {_ in self.resetLocally() })
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         avoidAlertCrashOnPad(alertController: alertController)
         present(alertController, animated: true)
@@ -62,7 +62,7 @@ class ChessViewController: UIViewController {
         boardView.setNeedsDisplay()
     }
     
-    func reset() {
+    private func resetLocally() {
         chessEngine.initializeGame()
         boardView.shadowPieces = chessEngine.pieces
         boardView.blackAtTop = true
@@ -71,32 +71,12 @@ class ChessViewController: UIViewController {
         upperColorView.backgroundColor = .black
         lowerColorView.backgroundColor = .white
         firstMoveMade = false
-        updateWhoseTurnColors(whiteTurn: chessEngine.whiteTurn)
+        updateWhoseTurnColorsLocally(whiteTurn: chessEngine.whiteTurn)
         boardView.isUserInteractionEnabled = true
         boardView.setNeedsDisplay()
     }
     
-    func reportStatusBefore(move: Move) {
-        var status = ""
-        
-        status += "\n\n"
-        status += "================ Status for \(UIDevice.current.name) before move: \(move) ===================\n"
-        status += "boardView.blackAtTop = \(boardView.blackAtTop)\n"
-        status += "boardView.sharingDevice = \(boardView.sharingDevice)\n"
-        status += "isWhiteDevice = \(isWhiteDevice)\n"
-        status += "firstMoveMade = \(firstMoveMade)\n"
-        status += "boardView.isUserInteractionEnabled = \(boardView.isUserInteractionEnabled)\n"
-        status += "\n"
-        status += "chessEngine.isHandicap = \(chessEngine.isHandicap(move: move))\n"
-        status += "chessEngine.isWithdrawing = \(chessEngine.isWithdrawing(move: move))\n"
-//        status += " = \()"
-        status += "============= end of ==== Status for \(UIDevice.current.name) ================================"
-        status += "\n\n"
-        
-        print(status)
-    }
-    
-    func updateMove(move: Move) {
+    private func updateMoveLocally(move: Move) {
         guard chessEngine.isHandicap(move: move) || chessEngine.isValid(move: move, isWhite: chessEngine.whiteTurn) else {
             return
         }
@@ -106,13 +86,13 @@ class ChessViewController: UIViewController {
         boardView.setNeedsDisplay()
         
         if !chessEngine.isHandicap(move: move) {
-            updateWhoseTurnColors(whiteTurn: chessEngine.whiteTurn)
+            updateWhoseTurnColorsLocally(whiteTurn: chessEngine.whiteTurn)
         }
         
         audioPlayer.play()
     }
     
-    func updateWhoseTurnColors(whiteTurn: Bool) {
+    private func updateWhoseTurnColorsLocally(whiteTurn: Bool) {
         var whoseTurnView: UIView
         var waiterView: UIView
         if isWhiteDevice {
@@ -129,7 +109,7 @@ class ChessViewController: UIViewController {
         }.startAnimation()
     }
     
-    func send(move: Move, targetRank: Character? = nil) {
+    private func notifyPeersWith(move: Move, targetRank: Character? = nil) {
         var promotionPostfix = ""
         if let targetRank = targetRank {
             promotionPostfix = ":\(targetRank)"
@@ -171,7 +151,7 @@ class ChessViewController: UIViewController {
     }
     
     private func alertActionOf(move: Move, rank: ChessRank, targetRank: Character) {
-        send(move: move, targetRank: targetRank)
+        notifyPeersWith(move: move, targetRank: targetRank)
         chessEngine.promoteTo(rank: rank)
         boardView.shadowPieces = chessEngine.pieces
         boardView.setNeedsDisplay()
@@ -183,6 +163,25 @@ class ChessViewController: UIViewController {
             popoverPresentationController.sourceView = self.view
             popoverPresentationController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
         }
+    }
+    
+    private func reportStatusBefore(move: Move) {
+        var status = ""
+        
+        status += "\n\n"
+        status += "================ Status for \(UIDevice.current.name) before move: \(move) ===================\n"
+        status += "boardView.blackAtTop = \(boardView.blackAtTop)\n"
+        status += "boardView.sharingDevice = \(boardView.sharingDevice)\n"
+        status += "isWhiteDevice = \(isWhiteDevice)\n"
+        status += "firstMoveMade = \(firstMoveMade)\n"
+        status += "boardView.isUserInteractionEnabled = \(boardView.isUserInteractionEnabled)\n"
+        status += "\n"
+        status += "chessEngine.isHandicap = \(chessEngine.isHandicap(move: move))\n"
+        status += "chessEngine.isWithdrawing = \(chessEngine.isWithdrawing(move: move))\n"
+        status += "============= end of ==== Status for \(UIDevice.current.name) ================================"
+        status += "\n\n"
+        
+        print(status)
     }
 }
 
@@ -202,12 +201,12 @@ extension ChessViewController: ChessDelegate {
             return
         }
         
-        updateMove(move: move)
+        updateMoveLocally(move: move)
         
         if chessEngine.needsPromotion() {
             promptPromotionOptions(with: move)
         } else {
-            send(move: move)
+            notifyPeersWith(move: move)
         }
     }
     
@@ -257,7 +256,7 @@ extension ChessViewController: NearbyServiceDelegate {
                 }
                 
                 self.boardView.animate(move: move) { _ in
-                    self.updateMove(move: move)
+                    self.updateMoveLocally(move: move)
                     if moveArr.count == 5 {
                         switch moveArr[4] {
                         case "q":
