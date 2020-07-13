@@ -36,6 +36,7 @@ struct Chess {
         }
         pieces = previousPieces
         whiteTurn = lastMovedPiece.isWhite
+        self.lastMovedPiece = nil
     }
     
     func needsPromotion() -> Bool {
