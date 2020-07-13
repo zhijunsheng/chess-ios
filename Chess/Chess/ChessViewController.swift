@@ -15,7 +15,7 @@ class ChessViewController: UIViewController {
     let whoseTurnColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
     let waitingColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
     
-    var chessEngine: Chess = Chess()
+    var chess: Chess = Chess()
     
     @IBOutlet weak var boardView: BoardView!
     
@@ -59,30 +59,30 @@ class ChessViewController: UIViewController {
     
     private func resetLocally() {
         peerLabel.text = "Peer"
-        chessEngine.initializeGame()
-        boardView.shadowPieces = chessEngine.pieces
+        chess.initializeGame()
+        boardView.shadowPieces = chess.pieces
         boardView.blackAtTop = true
         boardView.sharingDevice = false
         isWhiteDevice = true
         upperPlayerColorView.backgroundColor = .black
         lowerPlayerColorView.backgroundColor = .white
         firstMoveMade = false
-        updateWhoseTurnColorsLocally(whiteTurn: chessEngine.whiteTurn)
+        updateWhoseTurnColorsLocally(whiteTurn: chess.whiteTurn)
         boardView.isUserInteractionEnabled = true
         boardView.setNeedsDisplay()
     }
     
     private func updateMoveLocally(move: Move) {
-        guard chessEngine.isHandicap(move: move) || chessEngine.isValid(move: move, isWhite: chessEngine.whiteTurn) else {
+        guard chess.isHandicap(move: move) || chess.isValid(move: move, isWhite: chess.whiteTurn) else {
             return
         }
         
-        chessEngine.movePiece(move: move)
-        boardView.shadowPieces = chessEngine.pieces
+        chess.movePiece(move: move)
+        boardView.shadowPieces = chess.pieces
         boardView.setNeedsDisplay()
         
-        if !chessEngine.isHandicap(move: move) {
-            updateWhoseTurnColorsLocally(whiteTurn: chessEngine.whiteTurn)
+        if !chess.isHandicap(move: move) {
+            updateWhoseTurnColorsLocally(whiteTurn: chess.whiteTurn)
         }
         
         audioPlayer.play()
@@ -112,13 +112,13 @@ class ChessViewController: UIViewController {
         }
         let msg = "\(move.fC):\(move.fR):\(move.tC):\(move.tR)\(promotionPostfix)"
         nearbyService.send(msg: msg)
-        if !chessEngine.isHandicap(move: move) {
+        if !chess.isHandicap(move: move) {
             firstMoveMade = true
         }
     }
     
     private func promptPromotionOptions(with move: Move) {
-        if chessEngine.needsPromotion() {
+        if chess.needsPromotion() {
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
             let queenAction = UIAlertAction(title: "Queen", style: .default) { _ in
@@ -148,8 +148,8 @@ class ChessViewController: UIViewController {
     
     private func alertActionOf(move: Move, rank: ChessRank, targetRank: Character) {
         notifyPeersWith(move: move, targetRank: targetRank)
-        chessEngine.promoteTo(rank: rank)
-        boardView.shadowPieces = chessEngine.pieces
+        chess.promoteTo(rank: rank)
+        boardView.shadowPieces = chess.pieces
         boardView.setNeedsDisplay()
     }
     
@@ -172,8 +172,8 @@ class ChessViewController: UIViewController {
         status += "firstMoveMade = \(firstMoveMade)\n"
         status += "boardView.isUserInteractionEnabled = \(boardView.isUserInteractionEnabled)\n"
         status += "\n"
-        status += "chessEngine.isHandicap = \(chessEngine.isHandicap(move: move))\n"
-        status += "chessEngine.isWithdrawing = \(chessEngine.isWithdrawing(move: move))\n"
+        status += "chessEngine.isHandicap = \(chess.isHandicap(move: move))\n"
+        status += "chessEngine.isWithdrawing = \(chess.isWithdrawing(move: move))\n"
         status += "============= end of ==== Status for \(UIDevice.current.name) ================================"
         status += "\n\n"
         
@@ -183,23 +183,23 @@ class ChessViewController: UIViewController {
 
 extension ChessViewController: ChessDelegate {
     func play(with move: Move) {
-        let isWithdrawing = chessEngine.isWithdrawing(move: move)
-        guard let movingPiece = chessEngine.pieceAt(col: move.fC, row: move.fR),
-              chessEngine.isHandicap(move: move) ||
+        let isWithdrawing = chess.isWithdrawing(move: move)
+        guard let movingPiece = chess.pieceAt(col: move.fC, row: move.fR),
+              chess.isHandicap(move: move) ||
                 isWithdrawing ||
-                movingPiece.isWhite == chessEngine.whiteTurn else {
+                movingPiece.isWhite == chess.whiteTurn else {
             return
         }
 
         if peerLabel.text != "Peer" &&  // two devices connected
             !isWithdrawing &&           // can withdraw the last move made by any player
-            isWhiteDevice != chessEngine.whiteTurn {
+            isWhiteDevice != chess.whiteTurn {
             return
         }
         
         updateMoveLocally(move: move)
         
-        if chessEngine.needsPromotion() {
+        if chess.needsPromotion() {
             promptPromotionOptions(with: move)
         } else {
             notifyPeersWith(move: move)
@@ -207,7 +207,7 @@ extension ChessViewController: ChessDelegate {
     }
     
     func pieceAt(col: Int, row: Int) -> ChessPiece? {
-        return chessEngine.pieceAt(col: col, row: row)
+        return chess.pieceAt(col: col, row: row)
     }
 }
 
@@ -240,7 +240,7 @@ extension ChessViewController: NearbyServiceDelegate {
         if let fromCol = Int(moveArr[0]), let fromRow = Int(moveArr[1]), let toCol = Int(moveArr[2]), let toRow = Int(moveArr[3]) {
             DispatchQueue.main.async {
                 let move = Move(fC: fromCol, fR: fromRow, tC: toCol, tR: toRow)
-                if !self.firstMoveMade && !self.chessEngine.isHandicap(move: move) {
+                if !self.firstMoveMade && !self.chess.isHandicap(move: move) {
                     self.firstMoveMade = true
                     self.boardView.blackAtTop = false
                     self.isWhiteDevice = false
@@ -256,17 +256,17 @@ extension ChessViewController: NearbyServiceDelegate {
                     if moveArr.count == 5 {
                         switch moveArr[4] {
                         case "q":
-                            self.chessEngine.promoteTo(rank: .queen)
+                            self.chess.promoteTo(rank: .queen)
                         case "n":
-                            self.chessEngine.promoteTo(rank: .knight)
+                            self.chess.promoteTo(rank: .knight)
                         case "r":
-                            self.chessEngine.promoteTo(rank: .rook)
+                            self.chess.promoteTo(rank: .rook)
                         case "b":
-                            self.chessEngine.promoteTo(rank: .bishop)
+                            self.chess.promoteTo(rank: .bishop)
                         default:
                             break
                         }
-                        self.boardView.shadowPieces = self.chessEngine.pieces
+                        self.boardView.shadowPieces = self.chess.pieces
                         self.boardView.setNeedsDisplay()
                     }
                 }
