@@ -19,13 +19,13 @@ class ChessViewController: UIViewController {
     
     @IBOutlet weak var boardView: BoardView!
     
-    @IBOutlet weak var upperView: UIView!
+    @IBOutlet weak var upperPlayerView: UIView!
     @IBOutlet weak var peerLabel: UILabel!
-    @IBOutlet weak var upperColorView: UIView!
+    @IBOutlet weak var upperPlayerColorView: UIView!
     
-    @IBOutlet weak var lowerView: UIView!
+    @IBOutlet weak var lowerPlayerView: UIView!
     @IBOutlet weak var youLabel: UILabel!
-    @IBOutlet weak var lowerColorView: UIView!
+    @IBOutlet weak var lowerPlayerColorView: UIView!
     
     var audioPlayer: AVAudioPlayer!
     
@@ -68,8 +68,8 @@ class ChessViewController: UIViewController {
         boardView.blackAtTop = true
         boardView.sharingDevice = false
         isWhiteDevice = true
-        upperColorView.backgroundColor = .black
-        lowerColorView.backgroundColor = .white
+        upperPlayerColorView.backgroundColor = .black
+        lowerPlayerColorView.backgroundColor = .white
         firstMoveMade = false
         updateWhoseTurnColorsLocally(whiteTurn: chessEngine.whiteTurn)
         boardView.isUserInteractionEnabled = true
@@ -96,11 +96,11 @@ class ChessViewController: UIViewController {
         var whoseTurnView: UIView
         var waiterView: UIView
         if isWhiteDevice {
-            whoseTurnView = whiteTurn ? lowerView : upperView
-            waiterView = whiteTurn ? upperView : lowerView
+            whoseTurnView = whiteTurn ? lowerPlayerView : upperPlayerView
+            waiterView = whiteTurn ? upperPlayerView : lowerPlayerView
         } else {
-            whoseTurnView = whiteTurn ? upperView : lowerView
-            waiterView = whiteTurn ? lowerView : upperView
+            whoseTurnView = whiteTurn ? upperPlayerView : lowerPlayerView
+            waiterView = whiteTurn ? lowerPlayerView : upperPlayerView
         }
         
         UIViewPropertyAnimator(duration: 1.0, curve: .easeInOut) {
@@ -248,10 +248,10 @@ extension ChessViewController: NearbyServiceDelegate {
                     self.firstMoveMade = true
                     self.boardView.blackAtTop = false
                     self.isWhiteDevice = false
-                    self.upperColorView.backgroundColor = .white
-                    self.lowerColorView.backgroundColor = .black
-                    self.upperView.backgroundColor = self.whoseTurnColor
-                    self.lowerView.backgroundColor = self.waitingColor
+                    self.upperPlayerColorView.backgroundColor = .white
+                    self.lowerPlayerColorView.backgroundColor = .black
+                    self.upperPlayerView.backgroundColor = self.whoseTurnColor
+                    self.lowerPlayerView.backgroundColor = self.waitingColor
                     self.boardView.setNeedsDisplay()
                 }
                 
