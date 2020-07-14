@@ -22,14 +22,6 @@ struct Chess {
     var blackQueenSideRookMoved = false
     var blackKingMoved = false
     
-//    func isWithdrawing(move: Move) -> Bool {
-//        guard let lastMovedPiece = lastMovedPiece, let movingPiece = pieceAt(col: move.fC, row: move.fR) else {
-//            return false
-//        }
-//        
-//        return movingPiece == lastMovedPiece && whiteTurn != movingPiece.isWhite && pieceAt(col: move.tC, row: move.tR) == nil
-//    }
-    
     mutating func withdraw() {
         guard let lastMovedPiece = lastMovedPiece else {
             return
