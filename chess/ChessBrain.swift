@@ -1,6 +1,53 @@
 import Foundation
 
-struct ChessBrain {
+struct ChessBrain: CustomStringConvertible {
+    
+    var description: String {
+        /*
+          0 1 2
+        0 R . B . . . . .
+        1 . . . . . . . .
+        2 . . . . . . . .
+         . . . . . . . .
+         . . . . . . . .
+         . . . . . . . .
+         . . . . . . . .
+         . . . . . . . .
+         
+         */
+        var desc = ""
+        
+        desc += "  0 1 2 3 4 5 6 7 \n"
+        
+        for row in 0..<8 {
+            desc += "\(row) "
+            for col in 0..<8 {
+                if let piece = pieceAt(x: col, y: row) {
+                    switch piece.rank {
+                    case .rook:
+                        desc += piece.isWhite ? "R " : "r "
+                    case .knight:
+                        desc += piece.isWhite ? "N " : "n "
+                    case .bishop:
+                        desc += piece.isWhite ? "B " : "b "
+                    case .king:
+                        desc += piece.isWhite ? "K " : "k "
+                    case .pawn:
+                        desc += piece.isWhite ? "P " : "p "
+                    case .queen:
+                        desc += piece.isWhite ? "Q " : "q "
+                    }
+                } else {
+                    desc += ". "
+                }
+            }
+            
+            desc += "\n"
+        }
+
+        return desc
+    }
+    
     var piecesBox = Set<ChessPiece>()
     var promotingPawn: ChessPiece? = nil
     
@@ -82,25 +129,14 @@ struct ChessBrain {
         piecesBox.insert(ChessPiece(x: 3, y: 0, isWhite: true, rank: .queen, imageName: "Queen-white"))
         piecesBox.insert(ChessPiece(x: 3, y: 7, isWhite: false, rank: .queen, imageName: "Queen-black"))
 
-        piecesBox.insert(ChessPiece(x: 4, y: 0, isWhite: true, rank: .queen, imageName: "King-white"))
-        piecesBox.insert(ChessPiece(x: 4, y: 7, isWhite: true, rank: .queen, imageName: "King-black"))
+        piecesBox.insert(ChessPiece(x: 4, y: 0, isWhite: true, rank: .king, imageName: "King-white"))
+        piecesBox.insert(ChessPiece(x: 4, y: 7, isWhite: false, rank: .king, imageName: "King-black"))
         
         for i in 0..<8 {
             piecesBox.insert(ChessPiece(x: i, y: 1, isWhite: true, rank: .pawn, imageName: "Pawn-white"))
             piecesBox.insert(ChessPiece(x: i, y: 6, isWhite: false, rank: .pawn, imageName: "Pawn-black"))
         }
-        
-        
-                                    // white pawn corner
-//        for i in 0..<8 {
-//            piecesBox.insert(ChessPiece(x: i, y: 6, isWhite: false, rank: .pawn, imageName: "Pawn-black"))
-//        }
-       
-
-//
     }
-    
-    
     
     mutating func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
         if toX > 7 || toX < 0 || toY > 7 || toY < 0 {
@@ -116,10 +152,32 @@ struct ChessBrain {
             return
         }
         
+        switch movingPiece.rank {
+        case .rook:
+            if !isValidRook(frX: frX, frY: frY, toX: toX, toY: toY) {
+                return
+            }
+            
+        case .knight:
+            if !isValidKnight(frX: frX, frY: frY, toX: toX, toY: toY) {
+                return
+            }
+            
+        case .bishop:
+            if !isValidBishop(frX: frX, frY: frY, toX: toX, toY: toY) {
+                return
+            }
+        case .king:
+            break
+        case .pawn:
+            break
+        case .queen:
+            break
+        }
+        
         if let actualBeCapturedPiece = beCapturedPiece {
             piecesBox.remove(actualBeCapturedPiece)
         }
-        
                       
         piecesBox.remove(movingPiece)
         let movedPiece = ChessPiece(x: toX, y: toY, isWhite: movingPiece.isWhite, rank: movingPiece.rank, imageName: movingPiece.imageName)
@@ -130,5 +188,36 @@ struct ChessBrain {
         if movedPiece.rank == .pawn && movedPiece.y == 7 || movedPiece.rank == .pawn && movedPiece.y == 0 {
             promotingPawn = movedPiece
         }
+        
+        
+    }
+    
+    func isValidRook(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
+        return frX == toX && frY != toY ||
+               frX != toX && frY == toY
+    }
+    
+    /**
+     frX +1/+2/-1/-2 = toX
+     frY +2/+1/-2/-1 = toY (8)
+     */
+    
+    func isValidKnight(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
+        return frX + 1 == toX && frY + 2 == toY ||
+               frX + 2 == toX && frY + 1 == toY ||
+               frX - 1 == toX && frY + 2 == toY ||
+               frX - 2 == toX && frY + 1 == toY ||
+               frX + 1 == toX && frY - 2 == toY ||
+               frX + 2 == toX && frY - 1 == toY ||
+               frX - 1 == toX && frY - 2 == toY ||
+               frX - 2 == toX && frY - 1 == toY
+    }
+    
+    func isValidBishop(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
+        let deltaX = abs(frX - toX)
+        return frX + deltaX == toX && frY + deltaX == toY ||
+               frX - deltaX == toX && frY + deltaX == toY ||
+               frX + deltaX == toX && frY - deltaX == toY ||
+               frX - deltaX == toX && frY - deltaX == toY
     }
 }
