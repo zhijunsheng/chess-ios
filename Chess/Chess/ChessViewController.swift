@@ -186,11 +186,21 @@ class ChessViewController: UIViewController {
 
 extension ChessViewController: ChessDelegate {
     func play(with move: Move) {
+        guard let movingPiece = chess.pieceAt(col: move.fC, row: move.fR),
+              chess.isHandicap(move: move) ||
+                isWithdrawing(move: move) ||
+                movingPiece.isWhite == chess.whiteTurn else {
+            return
+        }
+        
         if isolated {
             if isWithdrawing(move: move) {
                 updateWithdrawLocally()
             } else {
                 updateMoveLocally(move: move)
+                if chess.needsPromotion() {
+                    promptPromotionOptions(with: move)
+                }
             }
         } else {
             if isWithdrawing(move: move) {
@@ -198,31 +208,12 @@ extension ChessViewController: ChessDelegate {
                 sendWithdrawToPeers()
             } else if isWhiteDevice == chess.whiteTurn {
                 updateMoveLocally(move: move)
-                sendMoveToPeers(move: move)
+                if chess.needsPromotion() {
+                    promptPromotionOptions(with: move)
+                } else {
+                    sendMoveToPeers(move: move)
+                }
             }
-        }
-        
-        
-//        let isWithdrawing = isWithdrawing(move: move)
-//        guard let movingPiece = chess.pieceAt(col: move.fC, row: move.fR),
-//              chess.isHandicap(move: move) ||
-//                isWithdrawing ||
-//                movingPiece.isWhite == chess.whiteTurn else {
-//            return
-//        }
-//
-//        if !isolated &&
-//            !isWithdrawing &&
-//            isWhiteDevice != chess.whiteTurn {
-//            return
-//        }
-//
-//        updateMoveLocally(move: move)
-        
-        if chess.needsPromotion() {
-            promptPromotionOptions(with: move)
-//        } else {
-//            sendMoveToPeers(move: move)
         }
     }
     
@@ -265,7 +256,6 @@ extension ChessViewController: NearbyServiceDelegate {
             } else {
                 let moveArr = msg.components(separatedBy: ":")
                 if let fromCol = Int(moveArr[0]), let fromRow = Int(moveArr[1]), let toCol = Int(moveArr[2]), let toRow = Int(moveArr[3]) {
-                    
                     let move = Move(fC: fromCol, fR: fromRow, tC: toCol, tR: toRow)
                     if !self.firstMoveMade && !self.chess.isHandicap(move: move) {
                         self.firstMoveMade = true
