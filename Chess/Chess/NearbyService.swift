@@ -12,11 +12,9 @@ import MultipeerConnectivity
 class NearbyService: NSObject {
     var nearbyServiceDelegate: NearbyServiceDelegate?
     
-    private var serviceType = "gt-nearby"
-    
     private let peerID = MCPeerID(displayName: UIDevice.current.name)
-    private let nearbyServiceAdvertiser: MCNearbyServiceAdvertiser
-    private let nearbyServiceBrowser: MCNearbyServiceBrowser
+    private var nearbyServiceAdvertiser: MCNearbyServiceAdvertiser?
+    private var nearbyServiceBrowser: MCNearbyServiceBrowser?
     
     lazy var session: MCSession = {
         let session = MCSession(peer: peerID, securityIdentity: nil, encryptionPreference: .required)
@@ -24,28 +22,27 @@ class NearbyService: NSObject {
         return session
     }()
     
-    override init() {
-        nearbyServiceAdvertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: nil, serviceType: serviceType)
-        nearbyServiceBrowser = MCNearbyServiceBrowser(peer: peerID, serviceType: serviceType)
-        super.init()
-        
-        nearbyServiceAdvertiser.delegate = self
-        nearbyServiceAdvertiser.startAdvertisingPeer()
-        print("\(peerID.displayName) started advertsing peer...")
-        
-        nearbyServiceBrowser.delegate = self
-        nearbyServiceBrowser.startBrowsingForPeers()
-        print("\(peerID.displayName) started browsing for peers...")
-    }
-    
     convenience init(serviceType: String) {
         self.init()
-        self.serviceType = serviceType
+        initService(serviceType: serviceType)
     }
     
     deinit {
-        nearbyServiceAdvertiser.stopAdvertisingPeer()
-        nearbyServiceBrowser.stopBrowsingForPeers()
+        nearbyServiceAdvertiser?.stopAdvertisingPeer()
+        nearbyServiceBrowser?.stopBrowsingForPeers()
+    }
+    
+    func initService(serviceType: String) {
+        nearbyServiceAdvertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: nil, serviceType: serviceType)
+        nearbyServiceBrowser = MCNearbyServiceBrowser(peer: peerID, serviceType: serviceType)
+        
+        nearbyServiceAdvertiser?.delegate = self
+        nearbyServiceAdvertiser?.startAdvertisingPeer()
+        print("\(peerID.displayName) started advertsing peer...")
+        
+        nearbyServiceBrowser?.delegate = self
+        nearbyServiceBrowser?.startBrowsingForPeers()
+        print("\(peerID.displayName) started browsing for peers...")
     }
     
     func send(msg: String) {
@@ -98,10 +95,6 @@ extension NearbyService: MCNearbyServiceBrowserDelegate {
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         browser.invitePeer(peerID, to: session, withContext: nil, timeout: 60)
         print("\(self.peerID.displayName) found and invited \(peerID.displayName)")
-        
-//        nearbyServiceAdvertiser.stopAdvertisingPeer()
-//        nearbyServiceBrowser.stopBrowsingForPeers()
-//        print("\(self.peerID.displayName) stopped advertising peer and browsing for peers")
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
@@ -113,9 +106,5 @@ extension NearbyService: MCNearbyServiceAdvertiserDelegate {
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         invitationHandler(true, session)
         print("\(self.peerID.displayName) received invatation from \(peerID.displayName)")
-        
-//        nearbyServiceAdvertiser.stopAdvertisingPeer()
-//        nearbyServiceBrowser.stopBrowsingForPeers()
-//        print("\(self.peerID.displayName) stopped advertising peer and browsing for peers")
     }
 }
