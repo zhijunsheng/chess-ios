@@ -229,8 +229,8 @@ extension ChessViewController: NearbyServiceDelegate {
         peerLabel.text = peer
         
         let info = "It may be reconnected in a few seconds."
-        let alertController = UIAlertController(title: "\(peer) disconnected. \(info)", message: nil, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        let alertController = UIAlertController(title: "\(peer) disconnected.", message: "\(info)", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Got it.", style: .default))
         
         avoidAlertCrashOnPad(alertController: alertController)
         present(alertController, animated: true, completion: nil)
@@ -242,8 +242,8 @@ extension ChessViewController: NearbyServiceDelegate {
         peerLabel.text = peer
         
         let info = firstMoveMade ? "" : "Whoever moves first becomes white player. For handicap, drag pieces out of board before making the first move."
-        let alertController = UIAlertController(title: "\(peer) connected. \(info)", message: nil, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        let alertController = UIAlertController(title: "\(peer) connected.", message: "\(info)", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Got it.", style: .default))
         
         avoidAlertCrashOnPad(alertController: alertController)
         present(alertController, animated: true, completion: nil)
