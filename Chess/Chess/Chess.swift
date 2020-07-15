@@ -193,10 +193,6 @@ struct Chess {
             return false
         }
         
-//        if isWithdrawing(move: move) {
-//            return true
-//        }
-        
         if let target = pieceAt(col: toCol, row: toRow), target.isWhite == movingPiece.isWhite  {
             return false
         }
