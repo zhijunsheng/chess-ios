@@ -213,7 +213,7 @@ class BoardView: UIView {
         twelvePieces.draw(in: CGRect(x: CGFloat(-col) * side, y: CGFloat(-row) * side, width: 6 * side, height: 2 * side))
         var img = UIGraphicsGetImageFromCurrentImageContext()
         if row == 1, let actualImg = img, let cgImg = actualImg.cgImage {
-            img = UIImage(cgImage: cgImg, scale: 1.0, orientation: blackFlipped ? .downMirrored : .up)
+            img = UIImage(cgImage: cgImg, scale: 1.0, orientation: blackFlipped ? .down : .up)
         }
         UIGraphicsEndImageContext()
         return img
