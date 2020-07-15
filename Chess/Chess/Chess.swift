@@ -189,7 +189,7 @@ struct Chess {
             return false
         }
         
-        guard inBoard(toCol, toRow), !isStandstill(move: Move(fC: fromCol, fR: fromRow, tC: toCol, tR: toRow)) else {
+        guard inBoard(toCol, toRow), !isStandstill(move: move) else {
             return false
         }
         
