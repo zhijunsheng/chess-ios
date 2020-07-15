@@ -21,6 +21,7 @@
 		E7D2108124B5DA81008E1262 /* RookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D2108024B5DA81008E1262 /* RookTests.swift */; };
 		E7D2108324BA98BB008E1262 /* KnightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D2108224BA98BB008E1262 /* KnightTests.swift */; };
 		E7D2108524BDC287008E1262 /* BishopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D2108424BDC286008E1262 /* BishopTests.swift */; };
+		E7D2108724BF1595008E1262 /* QueenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D2108624BF1595008E1262 /* QueenTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		E7D2108024B5DA81008E1262 /* RookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RookTests.swift; sourceTree = "<group>"; };
 		E7D2108224BA98BB008E1262 /* KnightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnightTests.swift; sourceTree = "<group>"; };
 		E7D2108424BDC286008E1262 /* BishopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BishopTests.swift; sourceTree = "<group>"; };
+		E7D2108624BF1595008E1262 /* QueenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueenTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				E7D2108024B5DA81008E1262 /* RookTests.swift */,
 				E7D2108224BA98BB008E1262 /* KnightTests.swift */,
 				E7D2108424BDC286008E1262 /* BishopTests.swift */,
+				E7D2108624BF1595008E1262 /* QueenTests.swift */,
 				E7C859682498E39900520545 /* AgreementTests.swift */,
 			);
 			path = chessTests;
@@ -239,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7D2108524BDC287008E1262 /* BishopTests.swift in Sources */,
+				E7D2108724BF1595008E1262 /* QueenTests.swift in Sources */,
 				E7D2108124B5DA81008E1262 /* RookTests.swift in Sources */,
 				E7D2108324BA98BB008E1262 /* KnightTests.swift in Sources */,
 				E7C859692498E39900520545 /* AgreementTests.swift in Sources */,

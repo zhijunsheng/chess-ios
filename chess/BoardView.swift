@@ -99,10 +99,10 @@ class BoardView: UIView {
         
     }
     
-    func drawColumn(idx:Int) {
+    func drawColumn(idx: Int) {
         for i in 0..<8 {
             let color : UIColor
-            if (i + idx) % 2 == 0 {
+            if (i + idx) % 2 == 1 {
                 color = .red
             } else {
                 color = .green
