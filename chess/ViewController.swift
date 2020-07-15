@@ -27,10 +27,6 @@ class ViewController: UIViewController, ChessDelegate {
         boardView.piecesBoxShadow = chessBrain.piecesBox
         boardView.setNeedsDisplay()
         boardView.chessDelegate = self
-        
-//        let str = "123:45:700"
-//        let subStringArray = str.components(separatedBy: ":")
-//        subStringArray[2]
     }
     
     @IBAction func advertise(_ sender: Any) {
@@ -43,6 +39,12 @@ class ViewController: UIViewController, ChessDelegate {
         let browser = MCBrowserViewController(serviceType: "dabaos-chess", session: session)
         browser.delegate = self
         present(browser, animated: true)
+    }
+
+    @IBAction func newGame(_ sender: Any) {
+        chessBrain.reset()
+        boardView.piecesBoxShadow = chessBrain.piecesBox
+        boardView.setNeedsDisplay()
     }
     
     func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {

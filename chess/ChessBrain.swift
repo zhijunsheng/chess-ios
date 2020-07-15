@@ -110,6 +110,8 @@ struct ChessBrain: CustomStringConvertible {
      
      */
     mutating func reset() {
+        piecesBox.removeAll()
+        
         for i in 0..<2 {
             piecesBox.insert(ChessPiece(x: 0 + i * 7, y: 0, isWhite: true, rank: .rook, imageName: "Rook-white"))
             piecesBox.insert(ChessPiece(x: 0 + i * 7, y: 7, isWhite: false, rank: .rook, imageName: "Rook-black"))
