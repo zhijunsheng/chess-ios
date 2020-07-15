@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17132" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -12,46 +14,46 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ChessViewController" customModule="GT_Chess" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="new-f3-sg8">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
                                 <items>
                                     <barButtonItem title="👌" id="eJN-uT-90Y">
                                         <connections>
                                             <action selector="reset:" destination="BYZ-38-t0r" id="5dZ-HM-WTb"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="⚔️" id="Vn5-aF-Ym6">
+                                    <barButtonItem title="👇" id="Vn5-aF-Ym6">
                                         <connections>
-                                            <action selector="togglePieceImages:" destination="BYZ-38-t0r" id="vvZ-DS-8nT"/>
+                                            <action selector="flipPieceImages:" destination="BYZ-38-t0r" id="vvZ-DS-8nT"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HTc-Gy-MCg">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iLw-d9-IaF">
-                                        <rect key="frame" x="0.0" y="169.66666666666666" width="600" height="8"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iLw-d9-IaF">
+                                        <rect key="frame" x="0.0" y="169.5" width="414" height="8"/>
                                         <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="8" id="4bQ-yn-cp1"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dKl-gE-s19" customClass="BoardView" customModule="GT_Chess" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="177.66666666666663" width="414" height="414"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dKl-gE-s19" customClass="BoardView" customModule="GT_Chess" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="177.5" width="414" height="414"/>
                                         <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="dKl-gE-s19" secondAttribute="height" multiplier="1:1" id="SUh-Rn-4Vy"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UW7-Hc-U3E">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="169.66666666666666"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UW7-Hc-U3E">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="169.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Peer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltv-NM-tuC">
-                                                <rect key="frame" x="0.0" y="64.333333333333329" width="600" height="41"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltv-NM-tuC">
+                                                <rect key="frame" x="0.0" y="64.5" width="414" height="41"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -64,11 +66,11 @@
                                             <constraint firstAttribute="trailing" secondItem="ltv-NM-tuC" secondAttribute="trailing" id="ZiN-Pv-uZu"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D1U-Fg-84X">
-                                        <rect key="frame" x="0.0" y="599.66666666666652" width="600" height="169.33333333333337"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D1U-Fg-84X">
+                                        <rect key="frame" x="0.0" y="599.5" width="414" height="169.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="You" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w45-1f-xiQ">
-                                                <rect key="frame" x="0.0" y="64" width="600" height="41"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w45-1f-xiQ">
+                                                <rect key="frame" x="0.0" y="64.5" width="414" height="41"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -81,8 +83,8 @@
                                             <constraint firstAttribute="trailing" secondItem="w45-1f-xiQ" secondAttribute="trailing" id="kbJ-rl-CyS"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fU9-2w-jnI">
-                                        <rect key="frame" x="0.0" y="591.66666666666663" width="600" height="8"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fU9-2w-jnI">
+                                        <rect key="frame" x="0.0" y="591.5" width="414" height="8"/>
                                         <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="8" id="wSF-dc-8R2"/>
@@ -125,6 +127,7 @@
                     </view>
                     <connections>
                         <outlet property="boardView" destination="dKl-gE-s19" id="8fu-Po-7MD"/>
+                        <outlet property="flipImageBarButtonItem" destination="Vn5-aF-Ym6" id="Gno-bF-TT6"/>
                         <outlet property="lowerPlayerColorView" destination="fU9-2w-jnI" id="YPr-ft-wGQ"/>
                         <outlet property="lowerPlayerView" destination="D1U-Fg-84X" id="0HF-n8-xht"/>
                         <outlet property="peerLabel" destination="ltv-NM-tuC" id="70d-7t-Lf7"/>
@@ -135,7 +138,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1794.2028985507247" y="-35.491071428571423"/>
+            <point key="canvasLocation" x="-2051" y="-33"/>
         </scene>
     </scenes>
     <resources>

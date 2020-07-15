@@ -27,6 +27,8 @@ class ChessViewController: UIViewController {
     @IBOutlet weak var youLabel: UILabel!
     @IBOutlet weak var lowerPlayerColorView: UIView!
     
+    @IBOutlet weak var flipImageBarButtonItem: UIBarButtonItem!
+    
     var audioPlayer: AVAudioPlayer!
     
     private var isolated = true
@@ -53,7 +55,10 @@ class ChessViewController: UIViewController {
         present(alertController, animated: true)
     }
     
-    @IBAction func togglePieceImages(_ sender: UIBarButtonItem) {
+    @IBAction func flipPieceImages(_ sender: UIBarButtonItem) {
+        peerLabel.text = "Black"
+        youLabel.text = "White"
+        peerLabel.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
         boardView.sharingDevice.toggle()
         boardView.setNeedsDisplay()
     }
@@ -70,6 +75,10 @@ class ChessViewController: UIViewController {
     }
     
     private func resetLocally() {
+        peerLabel.text = "Peer"
+        youLabel.text = "You"
+        peerLabel.transform = .identity
+        flipImageBarButtonItem.isEnabled = true
         chess.initializeGame()
         boardView.shadowPieces = chess.pieces
         boardView.blackAtTop = true
@@ -238,6 +247,7 @@ extension ChessViewController: NearbyServiceDelegate {
     
     func connectedWith(peer: String) {
         isolated = false
+        flipImageBarButtonItem.isEnabled = false
         boardView.isUserInteractionEnabled = true
         peerLabel.text = peer
         
