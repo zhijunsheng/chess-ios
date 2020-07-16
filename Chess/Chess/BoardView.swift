@@ -67,7 +67,7 @@ class BoardView: UIView {
     override func draw(_ rect: CGRect) {
         if UIDevice.current.userInterfaceIdiom == .phone {
             pieceRatio = 1.1
-            movingPieceRatio = 1.4
+            movingPieceRatio = 2.0
         } else {
             pieceRatio = 0.9
             movingPieceRatio = 1.2
@@ -143,12 +143,26 @@ class BoardView: UIView {
         }
         
         if let movingImage = movingImage {
+            drawCrosshair(x: movingPieceX, y: movingPieceY)
             movingImage.draw(in: imageRect(center: CGPoint(x: movingPieceX, y: movingPieceY), normalSize: CGSize(width: cellSide, height: cellSide), ratio: movingPieceRatio))
-            #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1).setStroke()
-            let circle = UIBezierPath(arcCenter: CGPoint(x: movingPieceX, y: movingPieceY), radius: 1.5 * cellSide, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
-            circle.lineWidth = 3
-            circle.stroke()
         }
+    }
+    
+    private func drawCrosshair(x: CGFloat, y: CGFloat) {
+        #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1).setStroke()
+        let radius = 1.5 * cellSide
+        let circle = UIBezierPath(arcCenter: CGPoint(x: x, y: y), radius: radius, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
+        circle.lineWidth = 3
+        circle.stroke()
+        
+        let cross = UIBezierPath()
+        let half = 1.3 * radius
+        cross.move(to: CGPoint(x: x - half, y: y))
+        cross.addLine(to: CGPoint(x: x + half, y: y))
+        cross.move(to: CGPoint(x: x, y: y - half))
+        cross.addLine(to: CGPoint(x: x, y: y + half))
+        cross.lineWidth = 3
+        cross.stroke()
     }
     
     private func imageRect(normalRect: CGRect, ratio: CGFloat) -> CGRect {
