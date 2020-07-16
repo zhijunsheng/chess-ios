@@ -82,11 +82,6 @@ struct Chess {
             return
         }
         
-//        if isWithdrawing(move: move) {
-//            withdraw()
-//            return
-//        }
-        
         previousPieces = pieces
         
         if movingPiece.rank == .pawn {
@@ -98,14 +93,15 @@ struct Chess {
         }
         
         if movingPiece.rank == .king && fromCol == 4 {
-            tryMovingRook(fromRow, toCol, toRow)
+            tryCastlingRook(fromRow, toCol, toRow)
         }
         
         pieces.remove(movingPiece)
-        pieces.insert(ChessPiece(col: toCol, row: toRow, imageName: movingPiece.imageName, isWhite: movingPiece.isWhite, rank: movingPiece.rank))
+        let newPiece = ChessPiece(col: toCol, row: toRow, imageName: movingPiece.imageName, isWhite: movingPiece.isWhite, rank: movingPiece.rank)
+        pieces.insert(newPiece)
+        lastMovedPiece = newPiece
         
         updateCastlingPrerequisite(move: move)
-        lastMovedPiece = ChessPiece(col: toCol, row: toRow, imageName: movingPiece.imageName, isWhite: movingPiece.isWhite, rank: movingPiece.rank)
         whiteTurn = !whiteTurn
     }
     
@@ -117,7 +113,7 @@ struct Chess {
         }
     }
     
-    private mutating func tryMovingRook(_ fromRow: Int, _ toCol: Int, _ toRow: Int) {
+    private mutating func tryCastlingRook(_ fromRow: Int, _ toCol: Int, _ toRow: Int) {
         guard let king = pieceAt(col: 4, row: fromRow) else {
             return
         }
