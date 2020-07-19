@@ -14,4 +14,9 @@ struct ChessPiece: Hashable {
     let imageName: String
     let isWhite: Bool
     let rank: ChessRank
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(row)
+        hasher.combine(col)
+    }
 }
