@@ -172,7 +172,9 @@ struct ChessBrain: CustomStringConvertible {
         case .king:
             break
         case .pawn:
-            break
+            if !isValidPawn(frX: frX, frY: frY, toX: toX, toY: toY) {
+                return
+            }
         case .queen:
             if !isValidQueen(frX: frX, frY: frY, toX: toX, toY: toY) {
                 return
@@ -230,15 +232,48 @@ struct ChessBrain: CustomStringConvertible {
                isValidBishop(frX: frX, frY: frY, toX: toX, toY: toY)
     }
     
-    func isValidPawn(frX: Int, frY: Int, toX: Int, toY: Int, isWhite: Bool) -> Bool {
-        switch isWhite {
-        case true:
-            break
-        
-        case false:
-            break
+    func isValidPawn(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
+        guard let movingPiece = pieceAt(x: frX, y: frY) else {
+            return false
         }
         
-        return true
+        switch movingPiece.isWhite {
+        case true:
+            if let target = pieceAt(x: toX, y: toY) {
+                if target.x == movingPiece.x + 1 {
+                    return frX + 1 == toX && frY - 1 == toY
+                } else if target.x == movingPiece.x - 1 {
+                    return frX - 1 == toX && frY - 1 == toY
+                } else {
+                    return false
+                }
+                
+            } else {
+                if frY == 6 {
+                    return frX == toX && frY - 1 == toY ||
+                           frX == toX && frY - 2 == toY
+                } else {
+                    return frX == toX && frY - 1 == toY
+                }
+            }
+            
+        case false:
+            if let target = pieceAt(x: toX, y: toY) {
+                if target.x == movingPiece.x + 1 {
+                    return frX + 1 == toX && frY + 1 == toY
+                } else if target.x == movingPiece.x - 1 {
+                    return frX - 1 == toX && frY + 1 == toY
+                } else {
+                    return false
+                }
+            } else {
+                if frY == 1 {
+                    return frX == toX && frY + 1 == toY ||
+                           frX == toX && frY + 2 == toY
+                } else {
+                    return frX == toX && frY + 1 == toY
+                }
+            }
+        }
     }
 }
