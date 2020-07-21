@@ -49,7 +49,10 @@ struct ChessBrain: CustomStringConvertible {
     }
     
     var piecesBox = Set<ChessPiece>()
+    var lastMovedPiece: ChessPiece? = nil
+    
     var promotingPawn: ChessPiece? = nil
+    
     
     mutating func promote(rank: ChessRank) {
         guard let promotingPawn = promotingPawn else {
@@ -174,6 +177,12 @@ struct ChessBrain: CustomStringConvertible {
         case .pawn:
             if !isValidPawn(frX: frX, frY: frY, toX: toX, toY: toY) {
                 return
+            } else {
+                if let lastMovedPiece = lastMovedPiece {
+                    if isEnPassant(frX: frX, frY: frY, toX: toX, toY: toY) {
+                        piecesBox.remove(lastMovedPiece)
+                    }
+                }
             }
         case .queen:
             if !isValidQueen(frX: frX, frY: frY, toX: toX, toY: toY) {
@@ -195,7 +204,7 @@ struct ChessBrain: CustomStringConvertible {
             promotingPawn = movedPiece
         }
         
-        
+        lastMovedPiece = movedPiece
     }
     
     func isValidRook(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
@@ -237,9 +246,16 @@ struct ChessBrain: CustomStringConvertible {
             return false
         }
         
+        if isEnPassant(frX: frX, frY: frY, toX: toX, toY: toY) {
+            return true
+        }
+        
         switch movingPiece.isWhite {
         case true:
+            
+            
             if let target = pieceAt(x: toX, y: toY) {
+                // capture
                 if target.x == movingPiece.x + 1 {
                     return frX + 1 == toX && frY - 1 == toY
                 } else if target.x == movingPiece.x - 1 {
@@ -248,13 +264,19 @@ struct ChessBrain: CustomStringConvertible {
                     return false
                 }
                 
+                
             } else {
+                
+                
+                // normal move
                 if frY == 6 {
                     return frX == toX && frY - 1 == toY ||
                            frX == toX && frY - 2 == toY
                 } else {
                     return frX == toX && frY - 1 == toY
                 }
+                
+                
             }
             
         case false:
@@ -267,6 +289,7 @@ struct ChessBrain: CustomStringConvertible {
                     return false
                 }
             } else {
+                
                 if frY == 1 {
                     return frX == toX && frY + 1 == toY ||
                            frX == toX && frY + 2 == toY
@@ -275,5 +298,26 @@ struct ChessBrain: CustomStringConvertible {
                 }
             }
         }
+    }
+    
+    func isEnPassant(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
+        guard let movingPiece = pieceAt(x: frX, y: frY) else {
+            return false
+        }
+        
+        switch movingPiece.isWhite {
+        case true:
+            if let deadPiece = pieceAt(x: toX, y: 3), frY == 3, toY == 2, deadPiece.rank == .pawn, lastMovedPiece == deadPiece {
+                return abs(frX - toX) == 1
+            }
+        
+        case false:
+            if let deadPiece = pieceAt(x: toX, y: 4), frY == 4, toY == 5, deadPiece.rank == .pawn, lastMovedPiece == deadPiece {
+                
+                return abs(frX - toX) == 1
+            }
+        }
+        
+        return false
     }
 }

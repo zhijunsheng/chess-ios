@@ -17,7 +17,6 @@
 		E762896B235F129100FE367C /* ChessBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762896A235F129100FE367C /* ChessBrain.swift */; };
 		E762896D235F18FE00FE367C /* ChessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E762896C235F18FE00FE367C /* ChessDelegate.swift */; };
 		E76F72B724C28594001FCF13 /* PawnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76F72B624C28594001FCF13 /* PawnTests.swift */; };
-		E7C859692498E39900520545 /* AgreementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C859682498E39900520545 /* AgreementTests.swift */; };
 		E7D1F6BF21BC9E8B00DD7865 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D1F6BE21BC9E8B00DD7865 /* BoardView.swift */; };
 		E7D2108124B5DA81008E1262 /* RookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D2108024B5DA81008E1262 /* RookTests.swift */; };
 		E7D2108324BA98BB008E1262 /* KnightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D2108224BA98BB008E1262 /* KnightTests.swift */; };
@@ -50,7 +49,6 @@
 		E762896A235F129100FE367C /* ChessBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBrain.swift; sourceTree = "<group>"; };
 		E762896C235F18FE00FE367C /* ChessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessDelegate.swift; sourceTree = "<group>"; };
 		E76F72B624C28594001FCF13 /* PawnTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PawnTests.swift; sourceTree = "<group>"; };
-		E7C859682498E39900520545 /* AgreementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementTests.swift; sourceTree = "<group>"; };
 		E7D1F6BE21BC9E8B00DD7865 /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		E7D2108024B5DA81008E1262 /* RookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RookTests.swift; sourceTree = "<group>"; };
 		E7D2108224BA98BB008E1262 /* KnightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnightTests.swift; sourceTree = "<group>"; };
@@ -121,7 +119,6 @@
 				E7D2108424BDC286008E1262 /* BishopTests.swift */,
 				E7D2108624BF1595008E1262 /* QueenTests.swift */,
 				E76F72B624C28594001FCF13 /* PawnTests.swift */,
-				E7C859682498E39900520545 /* AgreementTests.swift */,
 			);
 			path = chessTests;
 			sourceTree = "<group>";
@@ -248,7 +245,6 @@
 				E7D2108724BF1595008E1262 /* QueenTests.swift in Sources */,
 				E7D2108124B5DA81008E1262 /* RookTests.swift in Sources */,
 				E7D2108324BA98BB008E1262 /* KnightTests.swift in Sources */,
-				E7C859692498E39900520545 /* AgreementTests.swift in Sources */,
 				E76F72B724C28594001FCF13 /* PawnTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
