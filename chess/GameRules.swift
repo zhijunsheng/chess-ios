@@ -21,6 +21,15 @@ struct GameRules: CustomStringConvertible {
         }
         return false
     }
+    func canRookmove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        if pieceAt(col: fromCol, row: fromRow) != nil {
+            if fromRow == toRow
+            || fromCol == toCol {
+                return true
+            }
+        }
+        return false
+    }
     func canPawnMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         let movingPiece = pieceAt(col: fromCol, row: fromRow)
         if movingPiece?.isWhite == true {
@@ -69,7 +78,7 @@ struct GameRules: CustomStringConvertible {
         {
             return true
         }
-        return true
+        return false
     }
     mutating func move(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         if !canMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
@@ -105,14 +114,18 @@ struct GameRules: CustomStringConvertible {
          
      */
     func canMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        let movingPiece = pieceAt(col: fromCol, row: fromRow)
+        guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
+            return false
+        }
         
-        if movingPiece?.rank == "K" {
+        if movingPiece.rank == "K" {
             return canKingMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
-        } else if movingPiece?.rank == "N" {
+        } else if movingPiece.rank == "N" {
             return canKnightMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
-        } else if movingPiece?.rank == "B" {
+        } else if movingPiece.rank == "B" {
             return canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        } else if movingPiece.rank == "R" {
+            return canRookmove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         }
         return true
     }

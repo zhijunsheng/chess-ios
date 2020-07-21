@@ -72,7 +72,7 @@ class BoardView: UIView {
         a1.addLine(to: CGPoint(x: x + side, y: y + side))
         a1.addLine(to: CGPoint(x: x, y: y + side))
         a1.close()
-        #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1).setFill()
+        #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1).setFill()
         a1.fill()
     }
 }
