@@ -63,8 +63,35 @@ struct GameRules: CustomStringConvertible {
        7 . x . . . . . x
      */
     func canBishopMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-
-        return true
+        let number: ClosedRange<Int> = 1...8
+        for n in number {
+            if fromCol + n == toCol && fromRow + n == toRow
+            || fromCol + n == toCol && fromRow - n == toRow
+            || fromCol - n == toCol && fromRow + n == toRow
+            || fromCol - n == toCol && fromRow - n == toRow {
+                return true
+            }
+        }
+        return false
+    }
+    func canQueenMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        let number: ClosedRange<Int> = 1...8
+        for n in number {
+            if fromCol + n == toCol && fromRow + n == toRow
+            || fromCol + n == toCol && fromRow - n == toRow
+            || fromCol - n == toCol && fromRow + n == toRow
+            || fromCol - n == toCol && fromRow - n == toRow {
+                return true
+            }
+        }
+        if pieceAt(col: fromCol, row: fromRow) != nil {
+            if fromRow == toRow
+            || fromCol == toCol {
+                return true
+            }
+        }
+        
+        return false
     }
     func canKingMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         if fromCol + 1 == toCol && fromRow == toRow
@@ -126,6 +153,10 @@ struct GameRules: CustomStringConvertible {
             return canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         } else if movingPiece.rank == "R" {
             return canRookmove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        } else if movingPiece.rank == "Q" {
+            return canQueenMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        } else if movingPiece.rank == "P" {
+            return canPawnMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         }
         return true
     }
@@ -134,7 +165,8 @@ struct GameRules: CustomStringConvertible {
             if piece.col == col && piece.row == row {
                 return piece
             }
-        }; return nil
+        }
+        return nil
     }
     
     var description: String {
@@ -161,6 +193,7 @@ struct GameRules: CustomStringConvertible {
                     }
                 }
             }
-        }; return desc
+        }
+        return desc
     }
 }
