@@ -289,29 +289,35 @@ extension ChessViewController: NearbyServiceDelegate {
                     if #available(iOS 10.0, *) {
                         self.boardView.animate(move: move) { _ in
                             self.updateMoveLocally(move: move)
+                            if moveArr.count == 5 {
+                                self.promoteTo(rank: moveArr[4])
+                            }
                         }
                     } else {
                         self.updateMoveLocally(move: move)
-                    }
-                    
-                    if moveArr.count == 5 {
-                        switch moveArr[4] {
-                        case "q":
-                            self.chess.promoteTo(rank: .queen)
-                        case "n":
-                            self.chess.promoteTo(rank: .knight)
-                        case "r":
-                            self.chess.promoteTo(rank: .rook)
-                        case "b":
-                            self.chess.promoteTo(rank: .bishop)
-                        default:
-                            break
+                        if moveArr.count == 5 {
+                            self.promoteTo(rank: moveArr[4])
                         }
-                        self.boardView.shadowPieces = self.chess.pieces
-                        self.boardView.setNeedsDisplay()
                     }
                 }
             }
         }
+    }
+    
+    private func promoteTo(rank: String) {
+        switch rank {
+        case "q":
+            self.chess.promoteTo(rank: .queen)
+        case "n":
+            self.chess.promoteTo(rank: .knight)
+        case "r":
+            self.chess.promoteTo(rank: .rook)
+        case "b":
+            self.chess.promoteTo(rank: .bishop)
+        default:
+            break
+        }
+        self.boardView.shadowPieces = self.chess.pieces
+        self.boardView.setNeedsDisplay()
     }
 }
