@@ -116,6 +116,7 @@ class BoardView: UIView {
         setNeedsDisplay()
     }
     
+    @available(iOS 10.0, *)
     func animate(move: Move, _ completion: @escaping (UIViewAnimatingPosition) -> Void) {
         guard let chessEngine = chessDelegate, let piece = chessEngine.pieceAt(col: move.fC, row: move.fR) else {
             return
@@ -124,7 +125,7 @@ class BoardView: UIView {
         addSubview(pieceImageView)
         let normalBeginningFrame = CGRect(x: originX + CGFloat(p2p(piece.col)) * cellSide, y: originY + CGFloat(p2p(piece.row)) * cellSide, width: cellSide, height: cellSide)
         pieceImageView.frame = imageRect(normalRect: normalBeginningFrame, ratio: pieceRatio)
-        let moveAnimator = UIViewPropertyAnimator(duration: 1.0, curve: .easeInOut) {
+        let moveAnimator = UIViewPropertyAnimator(duration: 0.5, curve: .easeInOut) {
             let normalEnddingFrame = CGRect(x: self.originX + CGFloat(self.p2p(move.tC)) * self.cellSide, y: self.originY + CGFloat(self.p2p(move.tR)) * self.cellSide, width: self.cellSide, height: self.cellSide)
             pieceImageView.frame = self.imageRect(normalRect: normalEnddingFrame, ratio: self.movingPieceRatio)
         }

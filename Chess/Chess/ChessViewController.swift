@@ -106,10 +106,15 @@ class ChessViewController: UIViewController {
             waiterView = whiteTurn ? lowerPlayerView : upperPlayerView
         }
         
-        UIViewPropertyAnimator(duration: 1.0, curve: .easeInOut) {
+        if #available(iOS 10.0, *) {
+            UIViewPropertyAnimator(duration: 1.0, curve: .easeInOut) {
+                whoseTurnView.backgroundColor = self.whoseTurnColor
+                waiterView.backgroundColor = self.waitingColor
+            }.startAnimation()
+        } else {
             whoseTurnView.backgroundColor = self.whoseTurnColor
             waiterView.backgroundColor = self.waitingColor
-        }.startAnimation()
+        }
     }
     
     private func updateMoveLocally(move: Move) {
@@ -281,24 +286,29 @@ extension ChessViewController: NearbyServiceDelegate {
                         self.boardView.setNeedsDisplay()
                     }
                     
-                    self.boardView.animate(move: move) { _ in
-                        self.updateMoveLocally(move: move)
-                        if moveArr.count == 5 {
-                            switch moveArr[4] {
-                            case "q":
-                                self.chess.promoteTo(rank: .queen)
-                            case "n":
-                                self.chess.promoteTo(rank: .knight)
-                            case "r":
-                                self.chess.promoteTo(rank: .rook)
-                            case "b":
-                                self.chess.promoteTo(rank: .bishop)
-                            default:
-                                break
-                            }
-                            self.boardView.shadowPieces = self.chess.pieces
-                            self.boardView.setNeedsDisplay()
+                    if #available(iOS 10.0, *) {
+                        self.boardView.animate(move: move) { _ in
+                            self.updateMoveLocally(move: move)
                         }
+                    } else {
+                        self.updateMoveLocally(move: move)
+                    }
+                    
+                    if moveArr.count == 5 {
+                        switch moveArr[4] {
+                        case "q":
+                            self.chess.promoteTo(rank: .queen)
+                        case "n":
+                            self.chess.promoteTo(rank: .knight)
+                        case "r":
+                            self.chess.promoteTo(rank: .rook)
+                        case "b":
+                            self.chess.promoteTo(rank: .bishop)
+                        default:
+                            break
+                        }
+                        self.boardView.shadowPieces = self.chess.pieces
+                        self.boardView.setNeedsDisplay()
                     }
                 }
             }
