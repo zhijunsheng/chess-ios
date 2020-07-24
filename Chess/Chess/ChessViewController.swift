@@ -56,10 +56,13 @@ class ChessViewController: UIViewController {
     }
     
     @IBAction func flipPieceImages(_ sender: UIBarButtonItem) {
+        guard !boardView.sharingDevice && !firstMoveMade else {
+            return
+        }
+        boardView.sharingDevice = true
         peerLabel.text = "Black"
         youLabel.text = "White"
         peerLabel.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
-        boardView.sharingDevice.toggle()
         boardView.setNeedsDisplay()
     }
     
