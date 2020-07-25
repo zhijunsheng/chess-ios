@@ -173,7 +173,9 @@ struct ChessBrain: CustomStringConvertible {
                 return
             }
         case .king:
-            break
+            if !isValidKing(frX: frX, frY: frY, toX: toX, toY: toY) {
+                return
+            }
         case .pawn:
             if !isValidPawn(frX: frX, frY: frY, toX: toX, toY: toY) {
                 return
@@ -320,4 +322,42 @@ struct ChessBrain: CustomStringConvertible {
         
         return false
     }
+    
+    func isValidKing(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
+        return isValidQueen(frX: frX, frY: frY, toX: toX, toY: toY) && (abs(frX - toX) == 1 || abs(frY - toY) == 1) ||
+            isCastling(frX: frX, frY: frY, toX: toX, toY: toY)
+        
+    }
+    
+    func isCastling(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
+        guard abs(frX - toX) == 2,
+              pieceAt(x: toX, y: toY) == nil,
+              pieceAt(x: toX - 1, y: toY) == nil else {
+            return false
+        }
+        
+        if toX == 2 {
+            if pieceAt(x: 3, y: toY) != nil {
+                return false
+            }
+        }
+        
+        return true
+    }
 }
+
+// 1 + 2 + 4 + 8 + ... +  = x
+
+/*
+ 
+ 2^0 + 2^1 + 2^2 + 2^3 + ... + 2^n = x = 2^(n + 1) - 1
+ 
+ x = 1 + (2 + 4 + 8 + ...)
+ x = 1 + 2(1 + 2 + 4 + ...)
+ x = 1 + 2x
+ x = -1
+ 
+ 1 + 2 + 3 + 4 + ... = -(1/12)
+ 
+ 
+ */
