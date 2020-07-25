@@ -36,7 +36,6 @@
                                 <state key="normal" title="--NG--"/>
                                 <connections>
                                     <action selector="newGame:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Waf-n5-NdX"/>
-                                    <action selector="withdraw:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SQE-Ex-HEf"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Labal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcX-Pg-Yo0">

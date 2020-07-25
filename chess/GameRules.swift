@@ -49,6 +49,25 @@ struct GameRules: CustomStringConvertible {
         }
         return false
     }
+    mutating func reset() {
+        pieceBox.insert(ChessPiece(col: 3, row: 0, rank: "K", isWhite: true, imageName:   "King-white"))
+        pieceBox.insert(ChessPiece(col: 3, row: 7, rank: "K", isWhite: false, imageName:  "King-black"))
+        pieceBox.insert(ChessPiece(col: 4, row: 0, rank: "Q", isWhite: true, imageName:  "Queen-white"))
+        pieceBox.insert(ChessPiece(col: 4, row: 7, rank: "Q", isWhite: false, imageName: "Queen-black"))
+        for i in 0...7 {
+            pieceBox.insert(ChessPiece(col: i, row: 1, rank: "P", isWhite: true, imageName:  "Pawn-white"))
+            pieceBox.insert(ChessPiece(col: i, row: 6, rank: "P", isWhite: false, imageName: "Pawn-black"))
+        }
+        for i in 0...1 {
+            pieceBox.insert(ChessPiece(col: 0 + i * 7, row: 0, rank: "R", isWhite: true, imageName:    "Rook-white"))
+            pieceBox.insert(ChessPiece(col: 0 + i * 7, row: 7, rank: "R", isWhite: false, imageName:   "Rook-black"))
+            pieceBox.insert(ChessPiece(col: 1 + i * 5, row: 0, rank: "N", isWhite: true, imageName:  "Knight-white"))
+            pieceBox.insert(ChessPiece(col: 1 + i * 5, row: 7, rank: "N", isWhite: false, imageName: "Knight-black"))
+            pieceBox.insert(ChessPiece(col: 2 + i * 3, row: 0, rank: "B", isWhite: true, imageName:  "Bishop-white"))
+            pieceBox.insert(ChessPiece(col: 2 + i * 3, row: 7, rank: "B", isWhite: false, imageName: "Bishop-black"))
+            
+        }
+    }
       /*
              c o l
        
