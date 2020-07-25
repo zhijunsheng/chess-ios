@@ -10,17 +10,12 @@ import Foundation
 
 struct Chess {
     var pieces: Set<ChessPiece> = []
-    var previousPieces: Set<ChessPiece> = []
+    private var previousPieces: Set<ChessPiece> = []
     private(set) var whiteTurn: Bool = true
     private(set) var lastMovedPiece: ChessPiece?
     
-    var whiteKingSideRookMoved = false
-    var whiteQueenSideRookMoved = false
-    var whiteKingMoved = false
-    
-    var blackKingSideRookMoved = false
-    var blackQueenSideRookMoved = false
-    var blackKingMoved = false
+    private var whiteCastlingPiecesMoved = false
+    private var blackCastlingPiecesMoved = false
     
     mutating func withdraw() {
         guard let lastMovedPiece = lastMovedPiece else {
@@ -133,27 +128,15 @@ struct Chess {
     }
     
     private mutating func updateCastlingPrerequisite(move: Move) {
-        let fromCol = move.fC
-        let fromRow = move.fR
-        
-        if fromCol == 4 && fromRow == 7 {
-            whiteKingMoved = true
+        guard [0, 4, 7].contains(move.fC) else {
+            return
         }
-        if fromCol == 7 && fromRow == 7 {
-            whiteKingSideRookMoved = true
-        }
-        if fromCol == 0 && fromRow == 7 {
-            whiteQueenSideRookMoved = true
+        if move.fR == 7 {
+            whiteCastlingPiecesMoved = true
         }
         
-        if fromCol == 4 && fromRow == 0 {
-            blackKingMoved = true
-        }
-        if fromCol == 7 && fromRow == 0 {
-            blackKingSideRookMoved = true
-        }
-        if fromCol == 0 && fromRow == 0 {
-            blackQueenSideRookMoved = true
+        if move.fR == 0 {
+            blackCastlingPiecesMoved = true
         }
     }
     
@@ -353,13 +336,7 @@ struct Chess {
             return false
         }
         
-        if piece.isWhite && !whiteKingMoved {
-            return kingSide ? !whiteKingSideRookMoved : !whiteQueenSideRookMoved
-        } else if !piece.isWhite && !blackKingMoved {
-            return kingSide ? !blackKingSideRookMoved : !blackQueenSideRookMoved
-        }
-        
-        return false
+        return piece.isWhite ? !whiteCastlingPiecesMoved : !blackCastlingPiecesMoved
     }
     
     func emptyAndSafe(row: Int, cols: ClosedRange<Int>, whiteEnemy: Bool) -> Bool {
@@ -522,13 +499,8 @@ struct Chess {
         whiteTurn = true
         lastMovedPiece = nil
         
-        whiteKingSideRookMoved = false
-        whiteQueenSideRookMoved = false
-        whiteKingMoved = false
-        
-        blackKingSideRookMoved = false
-        blackQueenSideRookMoved = false
-        blackKingMoved = false
+        whiteCastlingPiecesMoved = false
+        blackCastlingPiecesMoved = false
         
         for i in 0..<2 {
             pieces.insert(ChessPiece(col: i * 7, row: 0, imageName: BoardView.rookBlack, isWhite: false, rank: .rook))
