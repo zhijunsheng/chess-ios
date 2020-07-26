@@ -25,9 +25,9 @@ class ViewController: UIViewController, ChessDelegate {
         nearbyServiceAdvertiser.startAdvertisingPeer()
     }
     @IBAction func join(_ sender: Any) {
-        let blowser = MCBrowserViewController(serviceType: "maruischess", session: session)
-        blowser.delegate = self
-        present(blowser, animated: true)
+        let browser = MCBrowserViewController(serviceType: "mariuschess", session: session)
+        browser.delegate = self
+        present(browser, animated: true)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,11 +85,11 @@ extension ViewController: MCSessionDelegate {
 
 extension ViewController: MCBrowserViewControllerDelegate {
     func browserViewControllerDidFinish(_ browserViewController: MCBrowserViewController) {
-        
+        dismiss(animated: true)
     }
     
     func browserViewControllerWasCancelled(_ browserViewController: MCBrowserViewController) {
-        
+        dismiss(animated: true)
     }
 }
 

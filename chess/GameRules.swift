@@ -5,26 +5,26 @@ struct GameRules: CustomStringConvertible {
     
     var pieceBox = Set<ChessPiece>()
     
-      
+    
     func canKnightMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         if fromCol + 1 == toCol && fromRow + 2 == toRow
-        || fromCol - 1 == toCol && fromRow - 2 == toRow
-        || fromCol + 1 == toCol && fromRow - 2 == toRow
-        || fromCol - 1 == toCol && fromRow + 2 == toRow
-        || fromCol + 2 == toCol && fromRow + 1 == toRow
-        || fromCol - 2 == toCol && fromRow - 1 == toRow
-        || fromCol + 2 == toCol && fromRow - 1 == toRow
-        || fromCol - 2 == toCol && fromRow + 1 == toRow
-
+            || fromCol - 1 == toCol && fromRow - 2 == toRow
+            || fromCol + 1 == toCol && fromRow - 2 == toRow
+            || fromCol - 1 == toCol && fromRow + 2 == toRow
+            || fromCol + 2 == toCol && fromRow + 1 == toRow
+            || fromCol - 2 == toCol && fromRow - 1 == toRow
+            || fromCol + 2 == toCol && fromRow - 1 == toRow
+            || fromCol - 2 == toCol && fromRow + 1 == toRow
+            
         {
             return true
         }
         return false
     }
-    func canRookmove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+    func canRookMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         if pieceAt(col: fromCol, row: fromRow) != nil {
             if fromRow == toRow
-            || fromCol == toCol {
+                || fromCol == toCol {
                 return true
             }
         }
@@ -32,20 +32,27 @@ struct GameRules: CustomStringConvertible {
     }
     func canPawnMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         let movingPiece = pieceAt(col: fromCol, row: fromRow)
+        let frwhite: Int = 1
+        let trwhite: Int = 3
+        let frblack: Int = 6
+        let trblack: Int = 4
         if movingPiece?.isWhite == true {
             if fromRow + 1 == toRow && fromCol == toCol
-            || fromRow + 1 == toRow && fromCol + 1 == toCol
-            || fromRow + 1 == toRow && fromCol - 1 == toCol
+                || fromRow + 1 == toRow && fromCol + 1 == toCol
+                || fromRow + 1 == toRow && fromCol - 1 == toCol
+                || fromRow == frwhite && toRow == trwhite && fromCol == toCol
             {
                 return true
             }
-        }else if movingPiece?.isWhite == false {
+        } else if movingPiece?.isWhite == false {
             if fromRow - 1 == toRow && fromCol == toCol
-            || fromRow - 1 == toRow && fromCol + 1 == toCol
-            || fromRow - 1 == toRow && fromCol - 1 == toCol
+                || fromRow - 1 == toRow && fromCol + 1 == toCol
+                || fromRow - 1 == toRow && fromCol - 1 == toCol
+                || fromRow == frblack && toRow == trblack && fromCol == toCol
             {
                 return true
             }
+            
         }
         return false
     }
@@ -68,59 +75,43 @@ struct GameRules: CustomStringConvertible {
             
         }
     }
-      /*
-             c o l
-       
-         0 1 2 3 4 5 6 7
-       0 x . . . . . . .
-       1 . x . . . . . x
-    r  2 . . x . . . x .
-    o  3 . . . x . x . .
-    w  4 . . . . o . . .
-       5 . . . x . x . .
-       6 . . x . . . x .
-       7 . x . . . . . x
+    /*
+     c o l
+     
+     0 1 2 3 4 5 6 7
+     0 x . . . . . . .
+     1 . x . . . . . x
+     r  2 . . x . . . x .
+     o  3 . . . x . x . .
+     w  4 . . . . o . . .
+     5 . . . x . x . .
+     6 . . x . . . x .
+     7 . x . . . . . x
      */
     func canBishopMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         let number: ClosedRange<Int> = 1...8
         for n in number {
             if fromCol + n == toCol && fromRow + n == toRow
-            || fromCol + n == toCol && fromRow - n == toRow
-            || fromCol - n == toCol && fromRow + n == toRow
-            || fromCol - n == toCol && fromRow - n == toRow {
+                || fromCol + n == toCol && fromRow - n == toRow
+                || fromCol - n == toCol && fromRow + n == toRow
+                || fromCol - n == toCol && fromRow - n == toRow {
                 return true
             }
         }
         return false
     }
     func canQueenMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        let number: ClosedRange<Int> = 1...8
-        for n in number {
-            if fromCol + n == toCol && fromRow + n == toRow
-            || fromCol + n == toCol && fromRow - n == toRow
-            || fromCol - n == toCol && fromRow + n == toRow
-            || fromCol - n == toCol && fromRow - n == toRow {
-                return true
-            }
-        }
-        if pieceAt(col: fromCol, row: fromRow) != nil {
-            if fromRow == toRow
-            || fromCol == toCol {
-                return true
-            }
-        }
-        
-        return false
+        return canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toCol) ||            canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
     }
     func canKingMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         if fromCol + 1 == toCol && fromRow == toRow
-        || fromCol - 1 == toCol && fromRow == toRow
-        || fromCol == toCol && fromRow + 1 == toRow
-        || fromCol == toCol && fromRow - 1 == toRow
-        || fromCol + 1 == toCol && fromRow + 1 == toRow
-        || fromCol - 1 == toCol && fromRow - 1 == toRow
-        || fromCol + 1 == toCol && fromRow - 1 == toRow
-        || fromCol - 1 == toCol && fromRow + 1 == toRow
+            || fromCol - 1 == toCol && fromRow == toRow
+            || fromCol == toCol && fromRow + 1 == toRow
+            || fromCol == toCol && fromRow - 1 == toRow
+            || fromCol + 1 == toCol && fromRow + 1 == toRow
+            || fromCol - 1 == toCol && fromRow - 1 == toRow
+            || fromCol + 1 == toCol && fromRow - 1 == toRow
+            || fromCol - 1 == toCol && fromRow + 1 == toRow
         {
             return true
         }
@@ -157,7 +148,7 @@ struct GameRules: CustomStringConvertible {
      case "B" : desc.append(piece!.isWhite ? " b" : " B")// bishop
      case "Q" : desc.append(piece!.isWhite ? " q" : " Q")// queen
      case "P" : desc.append(piece!.isWhite ? " p" : " P")// pown
-         
+     
      */
     func canMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
@@ -171,7 +162,7 @@ struct GameRules: CustomStringConvertible {
         } else if movingPiece.rank == "B" {
             return canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         } else if movingPiece.rank == "R" {
-            return canRookmove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+            return canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         } else if movingPiece.rank == "Q" {
             return canQueenMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         } else if movingPiece.rank == "P" {
