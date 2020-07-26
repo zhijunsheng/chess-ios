@@ -1,6 +1,12 @@
 import Foundation
 
 struct ChessBrain: CustomStringConvertible {
+    var conditionWQueenS: Bool = true
+    var conditionWKing: Bool = true
+    var conditionWKingS: Bool = true
+    var conditionBQueenS: Bool = true
+    var conditionBKing: Bool = true
+    var conditionBKingS: Bool = true
     
     var description: String {
         /*
@@ -195,7 +201,31 @@ struct ChessBrain: CustomStringConvertible {
         if let actualBeCapturedPiece = beCapturedPiece {
             piecesBox.remove(actualBeCapturedPiece)
         }
-                      
+             
+        if movingPiece.rank == .rook && movingPiece.isWhite == false && movingPiece.x == 0 && movingPiece.y == 0 {
+            conditionBQueenS = false
+        }
+        
+        if movingPiece.rank == .rook && movingPiece.isWhite == false && movingPiece.x == 7 && movingPiece.y == 0 {
+            conditionBKingS = false
+        }
+        
+        if movingPiece.rank == .king && movingPiece.isWhite == false && movingPiece.x == 4 && movingPiece.y == 0 {
+            conditionBKing = false
+        }
+        
+        if movingPiece.rank == .rook && movingPiece.isWhite == true && movingPiece.x == 0 && movingPiece.y == 7 {
+            conditionWQueenS = false
+        }
+        
+        if movingPiece.rank == .rook && movingPiece.isWhite == true && movingPiece.x == 7 && movingPiece.y == 7 {
+            conditionWKingS = false
+        }
+        
+        if movingPiece.rank == .king && movingPiece.isWhite == true && movingPiece.x == 4 && movingPiece.y == 7 {
+            conditionWKing = false
+        }
+        
         piecesBox.remove(movingPiece)
         let movedPiece = ChessPiece(x: toX, y: toY, isWhite: movingPiece.isWhite, rank: movingPiece.rank, imageName: movingPiece.imageName)
         
@@ -330,6 +360,10 @@ struct ChessBrain: CustomStringConvertible {
     }
     
     func isCastling(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
+        guard let movingPiece = pieceAt(x: frX, y: frY) else {
+            return false
+        }
+        
         guard abs(frX - toX) == 2,
               pieceAt(x: toX, y: toY) == nil,
               pieceAt(x: toX - 1, y: toY) == nil else {
@@ -338,6 +372,24 @@ struct ChessBrain: CustomStringConvertible {
         
         if toX == 2 {
             if pieceAt(x: 3, y: toY) != nil {
+                return false
+            }
+        }
+        
+        if movingPiece.isWhite {
+            if !conditionWQueenS && toX == 2 {
+                return false
+            } else if !conditionWKingS && toX == 6 {
+                return false
+            } else if !conditionWKing {
+                return false
+            }
+        } else {
+            if !conditionBQueenS && toX == 2 {
+                return false
+            } else if !conditionBKingS && toX == 6 {
+                return false
+            } else if !conditionBKing {
                 return false
             }
         }
