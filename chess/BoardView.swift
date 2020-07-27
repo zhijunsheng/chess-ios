@@ -13,9 +13,14 @@ class BoardView: UIView {
     var cell: CGFloat = 75
     var originX: CGFloat = 50
     var originY: CGFloat = 50
+    var shadowPieces: Set<Piece> = []
     
     override func draw(_ rect: CGRect) {
         print(bounds.width)
+        
+        shadowPieces.insert(Piece(col: 3, row: 7, player: .white, rank: .queen, imageName: "queen_w"))
+        shadowPieces.insert(Piece(col: 4, row: 7, player: .white, rank: .queen, imageName: "king_w"))
+        
         
         cell = bounds.width/9
         originX = (bounds.width - cell * 8)/2
@@ -59,7 +64,10 @@ class BoardView: UIView {
     }
     
     func drawPieces() {
-        let pieceImage = UIImage(named: "knight_b")
-        pieceImage?.draw(in: CGRect(x: cell + originX, y: originY, width: cell, height: cell))
+        for piece in shadowPieces {
+            let pieceImage = UIImage(named: piece.imageName)
+            pieceImage?.draw(in: CGRect(x: CGFloat(piece.col) * cell + originX, y: CGFloat(piece.row) * cell + originY, width: cell, height: cell))
+        }
+        
     }
 }
