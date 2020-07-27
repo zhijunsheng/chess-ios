@@ -21,6 +21,21 @@ class BoardView: UIView {
         originX = (bounds.width - cell * 8)/2
         originY = (bounds.height - cell * 8)/2
         
+        drawBoard()
+        drawPieces()
+    }
+    
+    func drawSquare(col: Int, row: Int, color: UIColor) {
+        let colourPath = UIBezierPath()
+        color.setFill()
+        colourPath.move(to: CGPoint(x: CGFloat(col) * cell + originX, y: CGFloat(row) * cell + originY))
+        colourPath.addLine(to: CGPoint(x: CGFloat(col) * cell + cell + originX, y: CGFloat(row) * cell + originY))
+        colourPath.addLine(to: CGPoint(x: CGFloat(col) * cell + cell + originX, y: CGFloat(row) * cell + cell + originY))
+        colourPath.addLine(to: CGPoint(x: CGFloat(col) * cell + originX, y: CGFloat(row) * cell + cell + originY))
+        colourPath.fill()
+    }
+    
+    func drawBoard() {
         let path = UIBezierPath()
         
         for i in 0 ..< 9 {
@@ -43,13 +58,8 @@ class BoardView: UIView {
         path.stroke()
     }
     
-    func drawSquare(col: Int, row: Int, color: UIColor) {
-        let colourPath = UIBezierPath()
-        color.setFill()
-        colourPath.move(to: CGPoint(x: CGFloat(col) * cell + originX, y: CGFloat(row) * cell + originY))
-        colourPath.addLine(to: CGPoint(x: CGFloat(col) * cell + cell + originX, y: CGFloat(row) * cell + originY))
-        colourPath.addLine(to: CGPoint(x: CGFloat(col) * cell + cell + originX, y: CGFloat(row) * cell + cell + originY))
-        colourPath.addLine(to: CGPoint(x: CGFloat(col) * cell + originX, y: CGFloat(row) * cell + cell + originY))
-        colourPath.fill()
+    func drawPieces() {
+        let pieceImage = UIImage(named: "knight_b")
+        pieceImage?.draw(in: CGRect(x: cell + originX, y: originY, width: cell, height: cell))
     }
 }
