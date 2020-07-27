@@ -10,11 +10,17 @@ import UIKit
 
 class BoardView: UIView {
     
-    let cell: CGFloat = 75
-    let originX: CGFloat = 50
-    let originY: CGFloat = 50
+    var cell: CGFloat = 75
+    var originX: CGFloat = 50
+    var originY: CGFloat = 50
     
     override func draw(_ rect: CGRect) {
+        print(bounds.width)
+        
+        cell = bounds.width/9
+        originX = (bounds.width - cell * 8)/2
+        originY = (bounds.height - cell * 8)/2
+        
         let path = UIBezierPath()
         
         for i in 0 ..< 9 {
