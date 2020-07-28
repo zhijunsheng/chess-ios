@@ -52,7 +52,7 @@ class ChessEngineTests: XCTestCase {
         game.movePiece(move: Move(3, 1, 3, 2))
         game.movePiece(move: Move(5, 4, 5, 3))
         
-        XCTAssertTrue(game.underThreatAt(col: 5, row: 3, whiteEnemy: false))
+        XCTAssertTrue(game.underThreatAt(col: 5, row: 3, enemy: .black))
         
         /*
          
@@ -73,7 +73,7 @@ class ChessEngineTests: XCTestCase {
         game.movePiece(move: Move(1, 0, 0, 2))
         game.movePiece(move: Move(5, 4, 5, 3))
         
-        XCTAssertFalse(game.underThreatAt(col: 5, row: 3, whiteEnemy: false))
+        XCTAssertFalse(game.underThreatAt(col: 5, row: 3, enemy: .black))
         
         /*
          + 0 1 2 3 4 5 6 7
@@ -89,7 +89,7 @@ class ChessEngineTests: XCTestCase {
         game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 4, imageName: "", isWhite: true, rank: .bishop))
         game.movePiece(fromCol: 5, fromRow: 4, toCol: 6, toRow: 3)
-        XCTAssertTrue(game.underThreatAt(col: 3, row: 0, whiteEnemy: true))
+        XCTAssertTrue(game.underThreatAt(col: 3, row: 0, enemy: .white))
     }
     
     func testEmptyAndSafe() {
@@ -107,6 +107,6 @@ class ChessEngineTests: XCTestCase {
         var game = Chess()
         game.pieces.insert(ChessPiece(col: 5, row: 4, imageName: "", isWhite: true, rank: .bishop))
         game.movePiece(fromCol: 5, fromRow: 4, toCol: 6, toRow: 3)
-        XCTAssertFalse(game.emptyAndSafe(row: 0, cols: 1...3, whiteEnemy: true))
+        XCTAssertFalse(game.emptyAndSafe(row: 0, cols: 1...3, enemy: .white))
     }
 }

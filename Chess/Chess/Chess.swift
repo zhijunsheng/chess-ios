@@ -11,7 +11,7 @@ import Foundation
 struct Chess {
     var pieces: Set<ChessPiece> = []
     private var previousPieces: Set<ChessPiece> = []
-    private(set) var whiteTurn: Bool = true
+    private(set) var playerOnTurn: Player = .white
     private(set) var lastMovedPiece: ChessPiece?
     
     private var whiteCastlingPiecesMoved = false
@@ -22,7 +22,7 @@ struct Chess {
             return
         }
         pieces = previousPieces
-        whiteTurn = lastMovedPiece.isWhite
+        playerOnTurn = lastMovedPiece.player
         self.lastMovedPiece = nil
     }
     
@@ -97,7 +97,7 @@ struct Chess {
         lastMovedPiece = newPiece
         
         updateCastlingPrerequisite(move: move)
-        whiteTurn = !whiteTurn
+        playerOnTurn = playerOnTurn.enemy
     }
     
     private mutating func tryRemovingEnPassantEnemy(_ fromCol: Int, _ fromRow: Int, _ toCol: Int, _ toRow: Int) {
@@ -140,8 +140,8 @@ struct Chess {
         }
     }
     
-    func underThreatAt(col: Int, row: Int, whiteEnemy: Bool) -> Bool {
-        for piece in pieces where piece.isWhite == whiteEnemy {
+    func underThreatAt(col: Int, row: Int, enemy: Player) -> Bool {
+        for piece in pieces where piece.player == enemy {
             if canPieceAttack(move: Move(fC: piece.col, fR: piece.row, tC: col, tR: row)) {
                 return true
             }
@@ -155,10 +155,13 @@ struct Chess {
     
     // for unit test only
     func isValid(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
-        return isValid(move: Move(fromCol, fromRow, toCol, toRow), isWhite: isWhite)
+        return isValid(move: Move(fromCol, fromRow, toCol, toRow), player: isWhite ? .white : .black)
+    }
+    func isValid(move: Move, isWhite: Bool) -> Bool {
+        return isValid(move: move, player: isWhite ? .white : .black)
     }
 
-    func isValid(move: Move, isWhite: Bool) -> Bool {
+    func isValid(move: Move, player: Player) -> Bool {
         let fromCol = move.fC
         let fromRow = move.fR
         let toCol = move.tC
@@ -193,7 +196,7 @@ struct Chess {
             break
         }
         
-        if canRescueCheck(move: move, isWhite: isWhite) {
+        if canRescueCheck(move: move, player: player) {
             return true
         }
 
@@ -208,7 +211,7 @@ struct Chess {
         if let king = pieces.filter({ $0.isWhite == protector.isWhite && $0.rank == .king }).first {
             var gameCopy = self
             gameCopy.pieces.remove(protector)
-            if gameCopy.checked(isWhite: king.isWhite) {
+            if gameCopy.checked(player: king.player) {
                 return true
             }
         }
@@ -219,15 +222,15 @@ struct Chess {
         return move.fC == move.tC && move.fR == move.tR
     }
     
-    func checked(isWhite: Bool) -> Bool {
-        if let king = pieces.filter({ $0.isWhite == isWhite && $0.rank == .king }).first {
-            return underThreatAt(col: king.col, row: king.row, whiteEnemy: !isWhite)
+    func checked(player: Player) -> Bool {
+        if let king = pieces.filter({ $0.player == player && $0.rank == .king }).first {
+            return underThreatAt(col: king.col, row: king.row, enemy: player.enemy)
         }
         return false
     }
     
-    func canRescueCheck(move: Move, isWhite: Bool) -> Bool {
-        guard let movingPiece = pieceAt(col: move.fC, row: move.fR), checked(isWhite: isWhite) else {
+    func canRescueCheck(move: Move, player: Player) -> Bool {
+        guard let movingPiece = pieceAt(col: move.fC, row: move.fR), checked(player: player) else {
             return false
         }
         var gameCopy = self
@@ -236,7 +239,7 @@ struct Chess {
             gameCopy.pieces.remove(target)
         }
         gameCopy.pieces.insert(ChessPiece(col: move.tC, row: move.tR, imageName: movingPiece.imageName, isWhite: movingPiece.isWhite, rank: movingPiece.rank))
-        return !gameCopy.checked(isWhite: isWhite)
+        return !gameCopy.checked(player: player)
     }
     
     func canPieceAttack(move: Move) -> Bool {
@@ -299,7 +302,7 @@ struct Chess {
         let toCol = move.tC
         let toRow = move.tR
         
-        guard !underThreatAt(col: toCol, row: toRow, whiteEnemy: !whiteTurn) else {
+        guard !underThreatAt(col: toCol, row: toRow, enemy: playerOnTurn.enemy) else {
             return false
         }
         if canCastle(toCol: toCol, toRow: toRow) {
@@ -323,7 +326,7 @@ struct Chess {
         guard
             let piece = pieceAt(col: 4, row: toRow),
             piece.rank == .king,
-            piece.isWhite == whiteTurn,
+            piece.player == playerOnTurn,
             toRow == (piece.isWhite ? 7 : 0) else {
             return false
         }
@@ -332,20 +335,20 @@ struct Chess {
         let row = piece.isWhite ? 7 : 0
         let cols = kingSide ? 5...6 : 1...3
         
-        guard emptyAndSafe(row: row, cols: cols, whiteEnemy: !whiteTurn), toCol == (kingSide ? 6 : 2) else {
+        guard emptyAndSafe(row: row, cols: cols, enemy: playerOnTurn.enemy), toCol == (kingSide ? 6 : 2) else {
             return false
         }
         
         return piece.isWhite ? !whiteCastlingPiecesMoved : !blackCastlingPiecesMoved
     }
     
-    func emptyAndSafe(row: Int, cols: ClosedRange<Int>, whiteEnemy: Bool) -> Bool {
-        return emptyAt(row: row, cols: cols) && safeAt(row: row, cols: cols, whiteEnemy: whiteEnemy)
+    func emptyAndSafe(row: Int, cols: ClosedRange<Int>, enemy: Player) -> Bool {
+        return emptyAt(row: row, cols: cols) && safeAt(row: row, cols: cols, enemy: enemy)
     }
     
-    func safeAt(row: Int, cols: ClosedRange<Int>, whiteEnemy: Bool) -> Bool {
+    func safeAt(row: Int, cols: ClosedRange<Int>, enemy: Player) -> Bool {
         for col in cols {
-            if underThreatAt(col: col, row: row, whiteEnemy: whiteEnemy) {
+            if underThreatAt(col: col, row: row, enemy: enemy) {
                 return false
             }
         }
@@ -496,7 +499,7 @@ struct Chess {
     
     mutating func initializeGame() {
         pieces.removeAll()
-        whiteTurn = true
+        playerOnTurn = .white
         lastMovedPiece = nil
         
         whiteCastlingPiecesMoved = false

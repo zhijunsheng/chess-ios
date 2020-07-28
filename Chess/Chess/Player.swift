@@ -20,4 +20,13 @@ enum Player {
             return false
         }
     }
+    
+    var enemy: Player {
+        switch self {
+        case .white:
+            return .black
+        case .black:
+            return .white
+        }
+    }
 }

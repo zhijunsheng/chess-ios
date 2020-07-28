@@ -712,8 +712,8 @@ class KingTests: XCTestCase {
          7 r n b q . b n r
          */
         game.movePiece(fromCol: 2, fromRow: 3, toCol: 4, toRow: 5)
-        XCTAssertTrue(game.whiteTurn)
-        XCTAssertTrue(game.underThreatAt(col: 4, row: 5, whiteEnemy: false))
+        XCTAssertTrue(game.playerOnTurn.isWhite)
+        XCTAssertTrue(game.underThreatAt(col: 4, row: 5, enemy: .black))
         XCTAssertFalse(game.canKingMove(Move(4, 6, 4, 5)))
     }
     
@@ -824,8 +824,8 @@ class KingTests: XCTestCase {
          7 r n b q . b n r
          */
         game.movePiece(fromCol: 2, fromRow: 3, toCol: 4, toRow: 5)
-        XCTAssertTrue(game.whiteTurn)
-        XCTAssertTrue(game.underThreatAt(col: 4, row: 5, whiteEnemy: false))
+        XCTAssertTrue(game.playerOnTurn.isWhite)
+        XCTAssertTrue(game.underThreatAt(col: 4, row: 5, enemy: .black))
         XCTAssertFalse(game.canKingMove(Move(4, 6, 4, 5)))
         XCTAssertFalse(game.isValid(fromCol: 4, fromRow: 6, toCol: 4, toRow: 5, isWhite: true))
         
@@ -912,9 +912,9 @@ class KingTests: XCTestCase {
          7 r n b q k b . r
          */
         game.movePiece(fromCol: 3, fromRow: 0, toCol: 7, toRow: 4)
-        XCTAssertTrue(game.checked(isWhite: true))
-        XCTAssertFalse(game.checked(isWhite: false))
-        XCTAssertTrue(game.canRescueCheck(move: Move(fC: 6, fR: 6, tC: 6, tR: 5), isWhite: true))
+        XCTAssertTrue(game.checked(player: .white))
+        XCTAssertFalse(game.checked(player: .black))
+        XCTAssertTrue(game.canRescueCheck(move: Move(fC: 6, fR: 6, tC: 6, tR: 5), player: .white))
         XCTAssertTrue(game.isValid(fromCol: 6, fromRow: 6, toCol: 6, toRow: 5, isWhite: true))
         XCTAssertFalse(game.isValid(fromCol: 7, fromRow: 6, toCol: 7, toRow: 5, isWhite: true))
         XCTAssertTrue(game.isValid(fromCol: 5, fromRow: 5, toCol: 7, toRow: 4, isWhite: true))
@@ -970,8 +970,8 @@ class KingTests: XCTestCase {
          7 r n b q . b . r
          */
         game.movePiece(fromCol: 7, fromRow: 4, toCol: 6, toRow: 5)
-        XCTAssertTrue(game.checked(isWhite: true))
-        XCTAssertTrue(game.canRescueCheck(move: Move(fC: 5, fR: 6, tC: 6, tR: 5), isWhite: true))
+        XCTAssertTrue(game.checked(player: .white))
+        XCTAssertTrue(game.canRescueCheck(move: Move(fC: 5, fR: 6, tC: 6, tR: 5), player: .white))
     }
     
     func testKingCapturingWithoutBeingAttacked() {
@@ -1068,7 +1068,7 @@ class KingTests: XCTestCase {
          7 . n b q k b n r
          */
         game.movePiece(fromCol: 0, fromRow: 2, toCol: 3, toRow: 2)
-        XCTAssertFalse(game.underThreatAt(col: 3, row: 2, whiteEnemy: true))
+        XCTAssertFalse(game.underThreatAt(col: 3, row: 2, enemy: .white))
         XCTAssertTrue(game.canKingMove(Move(4, 1, 3, 2)))
         XCTAssertTrue(game.isValid(fromCol: 4, fromRow: 1, toCol: 3, toRow: 2, isWhite: false))
     }

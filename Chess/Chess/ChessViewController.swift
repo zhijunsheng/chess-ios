@@ -82,7 +82,7 @@ class ChessViewController: UIViewController {
             return false
         }
         
-        return movingPiece == lastMovedPiece && chess.whiteTurn != movingPiece.isWhite && pieceAt(col: move.tC, row: move.tR) == nil
+        return movingPiece == lastMovedPiece && chess.playerOnTurn != movingPiece.player && pieceAt(col: move.tC, row: move.tR) == nil
     }
     
     private func resetLocally() {
@@ -98,20 +98,20 @@ class ChessViewController: UIViewController {
         upperPlayerColorView.backgroundColor = .black
         lowerPlayerColorView.backgroundColor = .white
         firstMoveMade = false
-        updateWhoseTurnColorsLocally(whiteTurn: chess.whiteTurn)
+        updateWhoseTurnColorsLocally(player: chess.playerOnTurn)
         boardView.isUserInteractionEnabled = true
         boardView.setNeedsDisplay()
     }
     
-    private func updateWhoseTurnColorsLocally(whiteTurn: Bool) {
+    private func updateWhoseTurnColorsLocally(player: Player) {
         var whoseTurnView: UIView
         var waiterView: UIView
         if isWhiteDevice {
-            whoseTurnView = whiteTurn ? lowerPlayerView : upperPlayerView
-            waiterView = whiteTurn ? upperPlayerView : lowerPlayerView
+            whoseTurnView = player.isWhite ? lowerPlayerView : upperPlayerView
+            waiterView = player.isWhite ? upperPlayerView : lowerPlayerView
         } else {
-            whoseTurnView = whiteTurn ? upperPlayerView : lowerPlayerView
-            waiterView = whiteTurn ? lowerPlayerView : upperPlayerView
+            whoseTurnView = player.isWhite ? upperPlayerView : lowerPlayerView
+            waiterView = player.isWhite ? lowerPlayerView : upperPlayerView
         }
         
         if #available(iOS 10.0, *) {
@@ -126,7 +126,7 @@ class ChessViewController: UIViewController {
     }
     
     private func updateMoveLocally(move: Move) {
-        guard chess.isHandicap(move: move) || chess.isValid(move: move, isWhite: chess.whiteTurn) else {
+        guard chess.isHandicap(move: move) || chess.isValid(move: move, player: chess.playerOnTurn) else {
             return
         }
         
@@ -135,7 +135,7 @@ class ChessViewController: UIViewController {
         boardView.setNeedsDisplay()
         
         if !chess.isHandicap(move: move) {
-            updateWhoseTurnColorsLocally(whiteTurn: chess.whiteTurn)
+            updateWhoseTurnColorsLocally(player: chess.playerOnTurn)
         }
         
         audioPlayer.play()
@@ -156,7 +156,7 @@ class ChessViewController: UIViewController {
     func updateWithdrawLocally() {
         chess.withdraw()
         boardView.shadowPieces = chess.pieces
-        updateWhoseTurnColorsLocally(whiteTurn: chess.whiteTurn)
+        updateWhoseTurnColorsLocally(player: chess.playerOnTurn)
         boardView.setNeedsDisplay()
     }
     
@@ -214,7 +214,7 @@ extension ChessViewController: ChessDelegate {
         guard let movingPiece = chess.pieceAt(col: move.fC, row: move.fR),
               chess.isHandicap(move: move) ||
                 isWithdrawing(move: move) ||
-                movingPiece.isWhite == chess.whiteTurn else {
+                movingPiece.player == chess.playerOnTurn else {
             return
         }
         
@@ -231,7 +231,7 @@ extension ChessViewController: ChessDelegate {
             if isWithdrawing(move: move) {
                 updateWithdrawLocally()
                 sendWithdrawToPeers()
-            } else if isWhiteDevice == chess.whiteTurn {
+            } else if isWhiteDevice == chess.playerOnTurn.isWhite {
                 updateMoveLocally(move: move)
                 if chess.needsPromotion() {
                     promptPromotionOptions(with: move)
