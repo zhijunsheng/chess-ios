@@ -178,9 +178,22 @@ struct ChessBrain: CustomStringConvertible {
             if !isValidBishop(frX: frX, frY: frY, toX: toX, toY: toY) {
                 return
             }
+            
         case .king:
             if !isValidKing(frX: frX, frY: frY, toX: toX, toY: toY) {
                 return
+            } else {
+                if isCastling(frX: frX, frY: frY, toX: toX, toY: toY) {
+                    if toX == 6, let castlingRook = pieceAt(x: 7, y: toY) {
+                        piecesBox.remove(castlingRook)
+                        piecesBox.insert(ChessPiece(x: 5, y: toY, isWhite: castlingRook.isWhite, rank: .rook, imageName: castlingRook.imageName))
+                    }
+                    
+                    if toX == 2, let castlingRook = pieceAt(x: 0, y: toY) {
+                        piecesBox.remove(castlingRook)
+                        piecesBox.insert(ChessPiece(x: 3, y: toY, isWhite: castlingRook.isWhite, rank: .rook, imageName: castlingRook.imageName))
+                    }
+                }
             }
         case .pawn:
             if !isValidPawn(frX: frX, frY: frY, toX: toX, toY: toY) {
@@ -244,11 +257,6 @@ struct ChessBrain: CustomStringConvertible {
                frX != toX && frY == toY
     }
     
-    /**
-     frX +1/+2/-1/-2 = toX
-     frY +2/+1/-2/-1 = toY (8)
-     */
-    
     func isValidKnight(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
         return frX + 1 == toX && frY + 2 == toY ||
                frX + 2 == toX && frY + 1 == toY ||
@@ -295,11 +303,7 @@ struct ChessBrain: CustomStringConvertible {
                 } else {
                     return false
                 }
-                
-                
             } else {
-                
-                
                 // normal move
                 if frY == 6 {
                     return frX == toX && frY - 1 == toY ||
@@ -307,8 +311,6 @@ struct ChessBrain: CustomStringConvertible {
                 } else {
                     return frX == toX && frY - 1 == toY
                 }
-                
-                
             }
             
         case false:
@@ -356,7 +358,6 @@ struct ChessBrain: CustomStringConvertible {
     func isValidKing(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
         return isValidQueen(frX: frX, frY: frY, toX: toX, toY: toY) && (abs(frX - toX) == 1 || abs(frY - toY) == 1) ||
             isCastling(frX: frX, frY: frY, toX: toX, toY: toY)
-        
     }
     
     func isCastling(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
@@ -393,23 +394,7 @@ struct ChessBrain: CustomStringConvertible {
                 return false
             }
         }
-        
+    
         return true
     }
 }
-
-// 1 + 2 + 4 + 8 + ... +  = x
-
-/*
- 
- 2^0 + 2^1 + 2^2 + 2^3 + ... + 2^n = x = 2^(n + 1) - 1
- 
- x = 1 + (2 + 4 + 8 + ...)
- x = 1 + 2(1 + 2 + 4 + ...)
- x = 1 + 2x
- x = -1
- 
- 1 + 2 + 3 + 4 + ... = -(1/12)
- 
- 
- */
