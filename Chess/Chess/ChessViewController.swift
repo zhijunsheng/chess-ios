@@ -66,6 +66,14 @@ class ChessViewController: UIViewController {
         boardView.setNeedsDisplay()
     }
     
+    @IBAction func info(_ sender: UIBarButtonItem) {
+        let info = "En Passant\nCastle\nPromotion\nStalemate"
+        let alertController = UIAlertController(title: "Make sure you understand", message: "\(info)", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Got it.", style: .default))
+        avoidAlertCrashOnPad(alertController: alertController)
+        present(alertController, animated: true, completion: nil)
+    }
+    
     /*
      Don't move this function to model since a button could also trigger withdrawing.
      */
