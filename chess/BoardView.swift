@@ -11,7 +11,7 @@ class BoardView: UIView {
 
     override func draw(_ rect: CGRect) {
         originX = (bounds.width - side * 8) / 2
-        originY = (bounds.height - side * 8) / 23
+        originY = (bounds.height - side * 8) / 2
         drawSquares()
         drawFrame()
         drawPieces()
