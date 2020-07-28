@@ -101,7 +101,7 @@ struct GameRules: CustomStringConvertible {
         return false
     }
     func canQueenMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        return canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toCol) ||            canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        return canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) ||            canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
     }
     func canKingMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         if fromCol + 1 == toCol && fromRow == toRow

@@ -48,6 +48,11 @@ class ViewController: UIViewController, ChessDelegate {
         game.move(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         boardView.shadowPieceBox = game.pieceBox
         boardView.setNeedsDisplay()
+        
+        let message: String = "\(fromCol),\(fromRow),\(toCol),\(toRow)"
+        if let data = message.data(using: .utf8) {
+            try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
+        }
     }
    
 }
@@ -65,7 +70,22 @@ extension ViewController: MCSessionDelegate {
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        
+        if let messaged = String(data: data, encoding: .utf8) {
+            let abcd = messaged.components(separatedBy: ",")
+            
+            if let fromCol = Int(abcd[0]),
+                let fromRow = Int(abcd[1]),
+                let toCol = Int(abcd[2]),
+                let toRow = Int(abcd[3]) {
+                
+                DispatchQueue.main.async {
+                    self.game.move(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+                    self.boardView.shadowPieceBox = self.game.pieceBox
+                    self.boardView.setNeedsDisplay()
+                }
+                
+            }
+        }
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {

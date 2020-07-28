@@ -1,8 +1,8 @@
 import UIKit
 
 class BoardView: UIView {
-    let originX         : CGFloat = 0
-    let originY         : CGFloat = 0
+    var originX         : CGFloat = 0
+    var originY         : CGFloat = 0
     let side            : CGFloat = 91.5
     var fC              : Int = 53
     var fR              : Int = 89
@@ -10,7 +10,8 @@ class BoardView: UIView {
     var shadowPieceBox  : Set<ChessPiece> = Set<ChessPiece>()
 
     override func draw(_ rect: CGRect) {
-    
+        originX = (bounds.width - side * 8) / 2
+        originY = (bounds.height - side * 8) / 23
         drawSquares()
         drawFrame()
         drawPieces()
