@@ -14,6 +14,27 @@ class BoardView: UIView {
     var originX: CGFloat = 50
     var originY: CGFloat = 50
     var shadowPieces: Set<Piece> = []
+    var movingPieceImage: UIImage?
+    var movingPieceX: CGFloat = CGFloat.zero
+    var movingPieceY: CGFloat = CGFloat.zero
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let firstFinger = touches.first!
+        let firstFingerLocation = firstFinger.location(in: self)
+        movingPieceImage = UIImage(named: "queen_b")
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let firstFinger = touches.first!
+        let firstFingerLocation = firstFinger.location(in: self)
+        movingPieceX = firstFingerLocation.x
+        movingPieceY = firstFingerLocation.y
+        setNeedsDisplay()
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+    }
     
     override func draw(_ rect: CGRect) {
         cell = bounds.width/9
@@ -62,6 +83,8 @@ class BoardView: UIView {
             let pieceImage = UIImage(named: piece.imageName)
             pieceImage?.draw(in: CGRect(x: CGFloat(piece.col) * cell + originX, y: CGFloat(piece.row) * cell + originY, width: cell, height: cell))
         }
+        
+        movingPieceImage?.draw(in: CGRect(x: movingPieceX - cell/2, y: movingPieceY - cell/2, width: cell, height: cell))
         
     }
 }
