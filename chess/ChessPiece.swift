@@ -13,7 +13,7 @@ struct ChessPiece: Hashable {
     let col: Int
     let row: Int
     let isBlack: Bool
-    let pieceType: String 
+    let pieceType: ChessRank
 }
 
 
