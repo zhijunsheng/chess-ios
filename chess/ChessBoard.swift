@@ -48,10 +48,22 @@ struct ChessBoard: CustomStringConvertible{
             else {
                 return false
         }
-        
-        if piece.pieceType == .Rook {
+        switch piece.pieceType {
+        case .King:
+            break
+        case .Rook:
             return canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        case .Bishop:
+            break
+        case .Queen:
+            break
+        case .Knight:
+            return canKnightMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        case .Pawn:
+            break
         }
+        
+        
         
         return true
     }
@@ -69,11 +81,29 @@ struct ChessBoard: CustomStringConvertible{
         if toCol == fromCol && toRow != fromRow || toCol != fromCol && toRow == fromRow{
             return true
         }
-        
+        return false
+    }
+    
+    func canKnightMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        if  toCol == fromCol - 1 && toRow == fromRow - 2 ||
+            toCol == fromCol - 1 && toRow == fromRow + 2 ||
+            toCol == fromCol + 1 && toRow == fromRow - 2 ||
+            toCol == fromCol + 1 && toRow == fromRow + 2 ||
+            toCol == fromCol - 2 && toRow == fromRow - 1 ||
+            toCol == fromCol - 2 && toRow == fromRow + 1 ||
+            toCol == fromCol + 2 && toRow == fromRow - 1 ||
+            toCol == fromCol + 2 && toRow == fromRow + 1 {
+            
+            return true
+        }
         
         
         return false
     }
+    
+    
+    
+    
     
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         backupBox = pieceBox
