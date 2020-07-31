@@ -11,16 +11,25 @@ import UIKit
 class BoardView: UIView {
     
     var cell: CGFloat = 75
-    var originX: CGFloat = 50
+    var originX: CGFloat = CGFloat.zero
     var originY: CGFloat = 50
     var shadowPieces: Set<Piece> = []
     var movingPieceImage: UIImage?
     var movingPieceX: CGFloat = CGFloat.zero
     var movingPieceY: CGFloat = CGFloat.zero
     
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let firstFinger = touches.first!
         let firstFingerLocation = firstFinger.location(in: self)
+        
+        let rawCol: CGFloat = (firstFingerLocation.x - originX)/cell
+        let rawRow: CGFloat = (firstFingerLocation.y - originY)/cell
+        let col: Int = Int(rawCol)
+        let row: Int = Int(rawRow)
+        
+        print("(\(col), \(row))")
+        
         movingPieceImage = UIImage(named: "queen_b")
     }
     
@@ -68,8 +77,8 @@ class BoardView: UIView {
         
         for j in 0 ... 3 {
             for i in 0 ... 3 {
-                drawSquare(col: i * 2 + 1, row: j * 2, color: #colorLiteral(red: 0, green: 0.5628422499, blue: 0.3188166618, alpha: 1))
-                drawSquare(col: i * 2, row: j * 2 + 1, color: #colorLiteral(red: 0, green: 0.5598887801, blue: 0.3187503517, alpha: 1))
+                drawSquare(col: i * 2 + 1, row: j * 2, color: #colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1))
+                drawSquare(col: i * 2, row: j * 2 + 1, color: #colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1))
                 drawSquare(col: i * 2, row: j * 2, color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
                 drawSquare(col: i * 2 + 1, row: j * 2 + 1, color: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
             }
