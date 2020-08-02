@@ -45,11 +45,17 @@ class BoardView: UIView {
     var originY: CGFloat = -10
     var cellSide: CGFloat = -10
     
-    var shadowPieces: Set<ChessPiece> = Set<ChessPiece>()
+    var shadowPieces: Set<ChessPiece> = [] {
+        didSet {
+            backgroundImage = nil
+        }
+    }
+    private var backgroundImage: UIImage?
+    
     var chessDelegate: ChessDelegate? = nil
     
-    var fromCol: Int? = nil
-    var fromRow: Int? = nil
+    private var movingPieceFromCol: Int? = nil
+    private var movingPieceFromRow: Int? = nil
     
     var movingImage: UIImage? = nil
     var movingPieceX: CGFloat = -1
@@ -84,12 +90,15 @@ class BoardView: UIView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let first = touches.first!
         let fingerLocation = first.location(in: self)
-        fromCol = p2p(Int((fingerLocation.x - originX) / cellSide))
-        fromRow = p2p(Int((fingerLocation.y - originY) / cellSide))
+        let fromCol = p2p(Int((fingerLocation.x - originX) / cellSide))
+        let fromRow = p2p(Int((fingerLocation.y - originY) / cellSide))
+        movingPieceFromCol = fromCol
+        movingPieceFromRow = fromRow
         
-        if let fromCol = fromCol, let fromRow = fromRow, let movingPiece = chessDelegate?.pieceAt(col: fromCol, row: fromRow) {
+        if let movingPiece = chessDelegate?.pieceAt(col: fromCol, row: fromRow) {
             movingImage = image(named: movingPiece.imageName)
         }
+        backgroundImage = createBackgroundImage()
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -107,12 +116,13 @@ class BoardView: UIView {
         let toCol: Int = p2p(Int((fingerLocation.x - originX) / cellSide))
         let toRow: Int = p2p(Int((fingerLocation.y - originY) / cellSide))
         
-        if let fromCol = fromCol, let fromRow = fromRow, fromCol != toCol || fromRow != toRow {
+        if let fromCol = movingPieceFromCol, let fromRow = movingPieceFromRow, fromCol != toCol || fromRow != toRow {
             chessDelegate?.play(with: Move(fC: fromCol, fR: fromRow, tC: toCol, tR: toRow))
         }
         movingImage = nil
-        fromCol = nil
-        fromRow = nil
+        movingPieceFromCol = nil
+        movingPieceFromRow = nil
+        backgroundImage = createBackgroundImage()
         setNeedsDisplay()
     }
     
@@ -137,11 +147,15 @@ class BoardView: UIView {
     }
     
     private func drawPieces() {
-        for piece in shadowPieces where fromCol != piece.col || fromRow != piece.row {
-            let normalRect = CGRect(x: originX + CGFloat(p2p(piece.col)) * cellSide, y: originY + CGFloat(p2p(piece.row)) * cellSide, width: cellSide, height: cellSide)
-            let imgRect = imageRect(normalRect: normalRect, ratio: pieceRatio)
-            image(named: piece.imageName)?.draw(in: imgRect)
+        if backgroundImage == nil {
+            backgroundImage = createBackgroundImage()
         }
+//        for piece in shadowPieces where movingPieceFromCol != piece.col || movingPieceFromRow != piece.row {
+//            let normalRect = CGRect(x: originX + CGFloat(p2p(piece.col)) * cellSide, y: originY + CGFloat(p2p(piece.row)) * cellSide, width: cellSide, height: cellSide)
+//            let imgRect = imageRect(normalRect: normalRect, ratio: pieceRatio)
+//            image(named: piece.imageName)?.draw(in: imgRect)
+//        }
+        backgroundImage?.draw(at: CGPoint.zero)
         
         if let movingImage = movingImage {
             drawCrosshair(x: movingPieceX, y: movingPieceY)
@@ -232,5 +246,22 @@ class BoardView: UIView {
         }
         UIGraphicsEndImageContext()
         return img
+    }
+    
+    private func drawPiece(piece: ChessPiece) {
+        let normalRect = CGRect(x: originX + CGFloat(p2p(piece.col)) * cellSide, y: originY + CGFloat(p2p(piece.row)) * cellSide, width: cellSide, height: cellSide)
+        let imgRect = imageRect(normalRect: normalRect, ratio: pieceRatio)
+        image(named: piece.imageName)?.draw(in: imgRect)
+    }
+    
+    private func createBackgroundImage() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0)
+        drawBoard()
+        for piece in shadowPieces where movingPieceFromCol != piece.col || movingPieceFromRow != piece.row {
+            drawPiece(piece: piece)
+        }
+        let backgroundImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return backgroundImage
     }
 }
