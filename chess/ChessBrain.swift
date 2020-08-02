@@ -253,8 +253,10 @@ struct ChessBrain: CustomStringConvertible {
     }
     
     func isValidRook(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
-        return frX == toX && frY != toY ||
-               frX != toX && frY == toY
+        
+        return emptyBetween(frX: frX, frY: frY, toX: toX, toY: toY) &&
+              (frX == toX && frY != toY ||
+               frX != toX && frY == toY)
     }
     
     func isValidKnight(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
@@ -269,11 +271,12 @@ struct ChessBrain: CustomStringConvertible {
     }
     
     func isValidBishop(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
+        
         let deltaX = abs(frX - toX)
-        return frX + deltaX == toX && frY + deltaX == toY ||
+        return emptyBetween(frX: frX, frY: frY, toX: toX, toY: toY) &&   (frX + deltaX == toX && frY + deltaX == toY ||
                frX - deltaX == toX && frY + deltaX == toY ||
                frX + deltaX == toX && frY - deltaX == toY ||
-               frX - deltaX == toX && frY - deltaX == toY
+               frX - deltaX == toX && frY - deltaX == toY)
     }
     
     func isValidQueen(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
@@ -397,4 +400,87 @@ struct ChessBrain: CustomStringConvertible {
     
         return true
     }
+    
+    func isThreatingCastling(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
+        return true
+    }
+    
+    func checkIsThreatenedSquare(x: Int, y: Int, isWhiteMoving: Bool) -> Bool {
+        for piece in piecesBox where piece.isWhite != isWhiteMoving {
+            
+        }
+        return true
+    }
+    
+    func emptyBetween(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
+        let deltaX = abs(frX - toX)
+        
+        if frX == toX && frY != toY  { // |
+            if toY > frY { // going ⬇️
+                if frY + 1 <= toY - 1 {
+                    for y in frY + 1 ... toY - 1 {
+                        if pieceAt(x: frX, y: y) != nil {
+                            return false
+                        }
+                    }
+                }
+            } else { // going ⬆️
+                if toY + 1 <= frY - 1 {
+                    for y in toY + 1 ... frY - 1 {
+                        if pieceAt(x: frX, y: y) != nil {
+                            return false
+                        }
+                    }
+                }
+            }
+        } else if frY == toY && frX != toX { // -
+            if toX > frX { // going ➡️
+                if frX + 1 <= toX - 1 {
+                    for x in frX + 1 ... toX - 1 {
+                        if pieceAt(x: x, y: frY) != nil {
+                            return false
+                        }
+                    }
+                }
+            } else { // going ⬅️
+                if toX + 1 <= frX - 1 {
+                    for x in toX + 1 ... frX - 1 {
+                        if pieceAt(x: x, y: frY) != nil {
+                            return false
+                        }
+                    }
+                }
+            }
+        } else if frX + deltaX == toX && frY + deltaX == toY { // \
+            for i in 1...deltaX {
+                if pieceAt(x: frX + i, y: frY + i) != nil {
+                    return false
+                }
+            }
+        } else if frX - deltaX == toX && frY + deltaX == toY { // /
+            for i in 1...deltaX {
+                if pieceAt(x: frX - i, y: frY + i) != nil {
+                    return false
+                }
+            }
+        } else if frX + deltaX == toX && frY - deltaX == toY {
+            for i in 1...deltaX {
+                if pieceAt(x: frX + i, y: frY - i) != nil {
+                    return false
+                }
+            }
+        } else if frX - deltaX == toX && frY - deltaX == toY {
+            for i in 1...deltaX {
+                if pieceAt(x: frX - i, y: frY - i) != nil {
+                    return false
+                }
+            }
+        }
+        
+        return true
+    }
+    
+    /**
+     frX + deltaX == toX && frY + deltaX == toY
+     */
 }
