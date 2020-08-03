@@ -67,7 +67,7 @@ class ChessViewController: UIViewController {
     }
     
     @IBAction func info(_ sender: UIBarButtonItem) {
-        let info = "En Passant\nCastle\nPromotion\nStalemate"
+        let info = "En Passant\nCastle\nPromotion\nStalemate\n\nThis app is playable between 2 iOS devices close to each other."
         let alertController = UIAlertController(title: "Make sure you understand", message: "\(info)", preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Got it.", style: .default))
         avoidAlertCrashOnPad(alertController: alertController)
