@@ -32,4 +32,15 @@ struct ChessEngine {
         }
 
     }
+    
+    func pieceAt(col: Int, row: Int) -> Piece? {
+        
+        for piece in pieces {
+            if col == piece.col && row == piece.row {
+                return piece
+            }
+        }
+        
+        return nil
+    }
 }

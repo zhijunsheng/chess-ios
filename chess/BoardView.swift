@@ -18,6 +18,8 @@ class BoardView: UIView {
     var movingPieceX: CGFloat = CGFloat.zero
     var movingPieceY: CGFloat = CGFloat.zero
     
+    var chessDelegate: ChessDelegate?
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let firstFinger = touches.first!
@@ -30,7 +32,9 @@ class BoardView: UIView {
         
         print("(\(col), \(row))")
         
-        movingPieceImage = UIImage(named: "queen_b")
+        if let piece = chessDelegate?.pieceAt(col: col, row: row) {
+            movingPieceImage = UIImage(named: piece.imageName)
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
