@@ -150,11 +150,6 @@ class BoardView: UIView {
         if backgroundImage == nil {
             backgroundImage = createBackgroundImage()
         }
-//        for piece in shadowPieces where movingPieceFromCol != piece.col || movingPieceFromRow != piece.row {
-//            let normalRect = CGRect(x: originX + CGFloat(p2p(piece.col)) * cellSide, y: originY + CGFloat(p2p(piece.row)) * cellSide, width: cellSide, height: cellSide)
-//            let imgRect = imageRect(normalRect: normalRect, ratio: pieceRatio)
-//            image(named: piece.imageName)?.draw(in: imgRect)
-//        }
         backgroundImage?.draw(at: CGPoint.zero)
         
         if let movingImage = movingImage {
