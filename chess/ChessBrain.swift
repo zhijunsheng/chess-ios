@@ -149,6 +149,26 @@ struct ChessBrain: CustomStringConvertible {
         }
     }
     
+    func canPieceMove(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
+        guard let movingPiece = pieceAt(x: frX, y: frY) else {
+            return false
+        }
+        switch movingPiece.rank {
+        case .rook:
+             return isValidRook(frX: frX, frY: frY, toX: toX, toY: toY)
+        case .knight:
+            return isValidKnight(frX: frX, frY: frY, toX: toX, toY: toY)
+        case .bishop:
+            return isValidBishop(frX: frX, frY: frY, toX: toX, toY: toY)
+        case .king:
+            return isValidKing(frX: frX, frY: frY, toX: toX, toY: toY)
+        case .pawn:
+            return isValidPawn(frX: frX, frY: frY, toX: toX, toY: toY)
+        case .queen:
+            return isValidQueen(frX: frX, frY: frY, toX: toX, toY: toY)
+        }
+    }
+    
     mutating func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
         if toX > 7 || toX < 0 || toY > 7 || toY < 0 {
             return
@@ -398,18 +418,34 @@ struct ChessBrain: CustomStringConvertible {
             }
         }
     
+        if isThreateningCastling(frX: frX, frY: frY, toX: toX, toY: toY) {
+            return false
+        }
+        
+        
         return true
     }
     
-    func isThreatingCastling(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
-        return true
+    func isThreateningCastling(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
+        guard let movingPiece = pieceAt(x: frX, y: frY) else {
+            return false
+        }
+        
+        if checkIsThreatenedSquare(x: movingPiece.x, y: movingPiece.y, isWhiteMoving: movingPiece.isWhite) {
+            return true
+        }
+        
+        return false
     }
     
     func checkIsThreatenedSquare(x: Int, y: Int, isWhiteMoving: Bool) -> Bool {
         for piece in piecesBox where piece.isWhite != isWhiteMoving {
-            
+            if canPieceMove(frX: piece.x, frY: piece.y, toX: x, toY: y) {
+                return true
+            }
         }
-        return true
+        
+        return false
     }
     
     func emptyBetween(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
@@ -452,25 +488,25 @@ struct ChessBrain: CustomStringConvertible {
                 }
             }
         } else if frX + deltaX == toX && frY + deltaX == toY { // \
-            for i in 1...deltaX {
+            for i in 1..<deltaX {
                 if pieceAt(x: frX + i, y: frY + i) != nil {
                     return false
                 }
             }
         } else if frX - deltaX == toX && frY + deltaX == toY { // /
-            for i in 1...deltaX {
+            for i in 1..<deltaX {
                 if pieceAt(x: frX - i, y: frY + i) != nil {
                     return false
                 }
             }
         } else if frX + deltaX == toX && frY - deltaX == toY {
-            for i in 1...deltaX {
+            for i in 1..<deltaX {
                 if pieceAt(x: frX + i, y: frY - i) != nil {
                     return false
                 }
             }
         } else if frX - deltaX == toX && frY - deltaX == toY {
-            for i in 1...deltaX {
+            for i in 1..<deltaX {
                 if pieceAt(x: frX - i, y: frY - i) != nil {
                     return false
                 }
@@ -480,7 +516,4 @@ struct ChessBrain: CustomStringConvertible {
         return true
     }
     
-    /**
-     frX + deltaX == toX && frY + deltaX == toY
-     */
 }
