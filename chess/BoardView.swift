@@ -19,6 +19,8 @@ class BoardView: UIView {
     var movingPieceY: CGFloat = CGFloat.zero
     
     var chessDelegate: ChessDelegate?
+    var fromCol: Int = -1
+    var fromRow: Int = -2
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -27,12 +29,10 @@ class BoardView: UIView {
         
         let rawCol: CGFloat = (firstFingerLocation.x - originX)/cell
         let rawRow: CGFloat = (firstFingerLocation.y - originY)/cell
-        let col: Int = Int(rawCol)
-        let row: Int = Int(rawRow)
+        fromCol = Int(rawCol)
+        fromRow = Int(rawRow)
         
-        print("(\(col), \(row))")
-        
-        if let piece = chessDelegate?.pieceAt(col: col, row: row) {
+        if let piece = chessDelegate?.pieceAt(col: fromCol, row: fromRow) {
             movingPieceImage = UIImage(named: piece.imageName)
         }
     }
@@ -46,7 +46,15 @@ class BoardView: UIView {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let firstFinger = touches.first!
+        let firstFingerLocation = firstFinger.location(in: self)
         
+        let rawCol: CGFloat = (firstFingerLocation.x - originX)/cell
+        let rawRow: CGFloat = (firstFingerLocation.y - originY)/cell
+        let col: Int = Int(rawCol)
+        let row: Int = Int(rawRow)
+        
+        chessDelegate?.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: col, toRow: row)
     }
     
     override func draw(_ rect: CGRect) {

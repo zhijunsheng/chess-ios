@@ -10,6 +10,8 @@ import UIKit
 
 class GameViewController: UIViewController, ChessDelegate {
     
+    
+    
     var cEngine = ChessEngine()
     
     @IBOutlet weak var boardView: BoardView!
@@ -24,32 +26,16 @@ class GameViewController: UIViewController, ChessDelegate {
         boardView.shadowPieces = cEngine.pieces
         boardView.setNeedsDisplay()
         
-        
-
-        let piece = cEngine.pieceAt(col: 2, row: 0)
-        print(piece?.rank)
-        
-        
-        let n = 15
-        let divisor = 7
-        
-        for i in 0 ..< divisor - 1 {
-            if n % divisor == i + 1 {
-                print("n is not a multiple of \(divisor)")
-            } else {
-               print("n is a multiple of \(divisor)")
-            }
-        }
-        
-        let a = 17
-        
-        print(a % 3) // 2
-        print(a / 3) // 5
-        print(a % 3 == 0)
-        print((a + 1) % 3 == 0)
     }
     
     func pieceAt(col: Int, row: Int) -> Piece? {
         return cEngine.pieceAt(col: col, row: row)
     }
+    
+    func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        cEngine.moveP(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        boardView.shadowPieces = cEngine.pieces
+        boardView.setNeedsDisplay()
+    }
+    
 }

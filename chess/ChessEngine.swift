@@ -30,7 +30,6 @@ struct ChessEngine {
             pieces.insert(Piece(col: i * 5 + 1, row: 7, player: .white, rank: .knight, imageName: "knight_w"))
             pieces.insert(Piece(col: i * 3 + 2, row: 7, player: .white, rank: .bishop, imageName: "bishop_w"))
         }
-
     }
     
     func pieceAt(col: Int, row: Int) -> Piece? {
@@ -43,4 +42,14 @@ struct ChessEngine {
         
         return nil
     }
+    
+    mutating func moveP(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
+            return
+        }
+        
+        pieces.remove(movingPiece)
+        pieces.insert(Piece(col: toCol, row: toRow, player: movingPiece.player, rank: movingPiece.rank, imageName: movingPiece.imageName))
+    }
+    
 }
