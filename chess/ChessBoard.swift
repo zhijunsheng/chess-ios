@@ -54,7 +54,7 @@ struct ChessBoard: CustomStringConvertible{
         case .Rook:
             return canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .Bishop:
-            break
+            return canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .Queen:
             break
         case .Knight:
@@ -75,9 +75,9 @@ struct ChessBoard: CustomStringConvertible{
 
         if isThereVerticalBlocker(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow){
             return false
-        }
-        
-        if toCol == fromCol && toRow != fromRow || toCol != fromCol && toRow == fromRow {
+        } else if isThereHorizantalBlocker(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow){
+            return false
+        } else if toCol == fromCol && toRow != fromRow || toCol != fromCol && toRow == fromRow {
             return true
         }
         
@@ -99,13 +99,17 @@ struct ChessBoard: CustomStringConvertible{
         return false
     }
     
+    func canBishopMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        return abs(fromCol - toCol) == abs(fromRow - toRow) && !isThereDiagBlocker(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+    }
+    
     func isThereVerticalBlocker(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         let delta = abs(fromRow - toRow)
         guard delta > 1 else {
             return false
         }
 
-        for i in 1..<delta + 1 {
+        for i in 1..<delta {
             if  fromCol == toCol && pieceAt(locationX: fromCol, locationY: fromRow - i) != nil && fromRow > toRow ||
                 fromCol == toCol && pieceAt(locationX: fromCol, locationY: fromRow + i) != nil && fromRow < toRow{
                 return true
@@ -116,20 +120,38 @@ struct ChessBoard: CustomStringConvertible{
     }
     
     func isThereHorizantalBlocker(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-//        if fromCol == toCol && pieceAt(locationX: fromCol - 1, locationY: fromRow)  {
-//            <#code#>
-//        }
+        let delta = abs(fromCol - toCol)
+        guard delta > 1 else {
+            return false
+        }
+        
+        for i in 1..<delta {
+            if  fromRow == toRow && pieceAt(locationX: fromCol - i, locationY: fromRow) != nil && fromCol > toCol ||
+                fromRow == toRow && pieceAt(locationX: fromCol + i, locationY: fromRow) != nil && fromCol < toCol{
+                return true
+            }
+        }
+        
         return false
     }
     
     func isThereDiagBlocker(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-//        if fromCol == toCol && pieceAt(locationX: fromCol - 1, locationY: fromRow)  {
-//            <#code#>
-//        }
+        let delta = abs(fromCol - toCol)
+        guard delta > 1 else {
+            return false
+        }
+        
+        for i in 1..<delta {
+            if  pieceAt(locationX: fromCol - i, locationY: fromRow - i) != nil && fromCol > toCol && fromRow > toRow ||
+                pieceAt(locationX: fromCol - i, locationY: fromRow + i) != nil && fromCol > toCol && fromRow < toRow ||
+                pieceAt(locationX: fromCol + i, locationY: fromRow - i) != nil && fromCol < toCol && fromRow > toRow ||
+                pieceAt(locationX: fromCol + i, locationY: fromRow + i) != nil && fromCol < toCol && fromRow < toRow {
+                return true
+            }
+        }
+        
         return false
     }
-    
-    
     
     
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
