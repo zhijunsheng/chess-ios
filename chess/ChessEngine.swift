@@ -62,6 +62,15 @@ struct ChessEngine {
             }
         }
         
+        if movingPiece.rank == .bishop {
+            if fromCol - toCol == fromRow - toRow ||
+                toCol - fromCol == fromRow - toRow ||
+                toCol - fromCol == toRow - fromRow ||
+                fromCol - toCol == toRow - fromRow {
+                return true
+            }
+        }
+        
         return false
         
     }
