@@ -26,7 +26,7 @@ class ChessBoardTests: XCTestCase {
     */
     func testPrintingChessBoard() {
         var chessBoard = ChessBoard()
-        let piece = ChessPiece(imageName:"chess_queen_b", col: 3, row: 3, isBlack: true, pieceType:"Q")
+        let piece = ChessPiece(imageName:"chess_queen_b", col: 3, row: 3, isBlack: true, pieceType: .Queen)
         chessBoard.pieceBox.insert(piece)
         print(chessBoard)
     }

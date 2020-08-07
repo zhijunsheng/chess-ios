@@ -40,9 +40,10 @@ class GameViewController: UIViewController, ChessDelegate {
     func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         if chessBoard.canPieceMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
             chessBoard.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
-            boardView.pieceBoxShadow = chessBoard.pieceBox
-            boardView.setNeedsDisplay()
         }
+        
+        boardView.pieceBoxShadow = chessBoard.pieceBox
+        boardView.setNeedsDisplay()
     }
     
     func pieceAt(locationX: Int, locationY: Int) -> ChessPiece? {

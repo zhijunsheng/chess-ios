@@ -63,24 +63,24 @@ struct ChessBoard: CustomStringConvertible{
             break
         }
         
-        
-        
         return true
     }
     
     func canRookMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        
         guard let piece = pieceAt(locationX: fromCol, locationY: fromRow)
-              else {
+            else {
+                return false
+        }
+
+        if isThereVerticalBlocker(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow){
             return false
         }
-          // blocker
-//        if pieceAt(locationX: fromCol - 1, locationY: fromRow) ||{
-//            <#code#>
-//        }
         
-        if toCol == fromCol && toRow != fromRow || toCol != fromCol && toRow == fromRow{
+        if toCol == fromCol && toRow != fromRow || toCol != fromCol && toRow == fromRow {
             return true
         }
+        
         return false
     }
     
@@ -96,11 +96,38 @@ struct ChessBoard: CustomStringConvertible{
             
             return true
         }
-        
+        return false
+    }
+    
+    func isThereVerticalBlocker(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        let delta = abs(fromRow - toRow)
+        guard delta > 1 else {
+            return false
+        }
+
+        for i in 1..<delta + 1 {
+            if  fromCol == toCol && pieceAt(locationX: fromCol, locationY: fromRow - i) != nil && fromRow > toRow ||
+                fromCol == toCol && pieceAt(locationX: fromCol, locationY: fromRow + i) != nil && fromRow < toRow{
+                return true
+            }
+        }
         
         return false
     }
     
+    func isThereHorizantalBlocker(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+//        if fromCol == toCol && pieceAt(locationX: fromCol - 1, locationY: fromRow)  {
+//            <#code#>
+//        }
+        return false
+    }
+    
+    func isThereDiagBlocker(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+//        if fromCol == toCol && pieceAt(locationX: fromCol - 1, locationY: fromRow)  {
+//            <#code#>
+//        }
+        return false
+    }
     
     
     
