@@ -53,25 +53,59 @@ struct ChessEngine {
     }
     
     func canPieceMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else { return false
+        guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
+            return false
         }
         
-        if movingPiece.rank == .rook {
-            if fromCol == toCol || fromRow == toRow {
-                return true
-            }
+        switch movingPiece.rank {
+        case .pawn:
+            break
+        case .knight:
+            break
+        case .bishop:
+            return canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        case .rook:
+            return canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        case .queen:
+            return canQueenMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        case .king:
+            break
         }
         
-        if movingPiece.rank == .bishop {
-            if fromCol - toCol == fromRow - toRow ||
-                toCol - fromCol == fromRow - toRow ||
-                toCol - fromCol == toRow - fromRow ||
-                fromCol - toCol == toRow - fromRow {
-                return true
-            }
+        
+        
+        return false
+        
+    }
+    
+    func canRookMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        if fromCol == toCol || fromRow == toRow {
+            return true
+        }
+        
+        return false
+    }
+    
+    func canBishopMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        if fromCol - toCol == fromRow - toRow ||
+            toCol - fromCol == fromRow - toRow ||
+            toCol - fromCol == toRow - fromRow ||
+            fromCol - toCol == toRow - fromRow {
+            return true
         }
         
         return false
         
     }
+    
+    func canQueenMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        if canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) || canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
+            
+            return true
+        }
+        
+        return false
+        
+    }
+    
 }
