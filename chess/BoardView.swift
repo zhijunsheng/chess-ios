@@ -54,6 +54,7 @@ class BoardView: UIView {
         let col: Int = Int(rawCol)
         let row: Int = Int(rawRow)
         
+        movingPieceImage = nil
         chessDelegate?.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: col, toRow: row)
     }
     

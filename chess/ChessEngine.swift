@@ -50,6 +50,7 @@ struct ChessEngine {
         
         pieces.remove(movingPiece)
         pieces.insert(Piece(col: toCol, row: toRow, player: movingPiece.player, rank: movingPiece.rank, imageName: movingPiece.imageName))
+        
     }
     
 }
