@@ -50,7 +50,19 @@ struct ChessEngine {
         
         pieces.remove(movingPiece)
         pieces.insert(Piece(col: toCol, row: toRow, player: movingPiece.player, rank: movingPiece.rank, imageName: movingPiece.imageName))
-        
     }
     
+    func canPieceMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else { return false
+        }
+        
+        if movingPiece.rank == .rook {
+            if fromCol == toCol || fromRow == toRow {
+                return true
+            }
+        }
+        
+        return false
+        
+    }
 }

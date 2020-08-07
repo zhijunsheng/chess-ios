@@ -33,6 +33,11 @@ class GameViewController: UIViewController, ChessDelegate {
     }
     
     func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        
+        guard cEngine.canPieceMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) else {
+            return
+        }
+        
         cEngine.moveP(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         boardView.shadowPieces = cEngine.pieces
         boardView.setNeedsDisplay()
