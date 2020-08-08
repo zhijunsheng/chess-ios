@@ -379,8 +379,13 @@ struct ChessBrain: CustomStringConvertible {
     }
     
     func isValidKing(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
-        return isValidQueen(frX: frX, frY: frY, toX: toX, toY: toY) && (abs(frX - toX) == 1 || abs(frY - toY) == 1) ||
+        return canKingAttack(frX: frX, frY: frY, toX: toX, toY: toY) ||
             isCastling(frX: frX, frY: frY, toX: toX, toY: toY)
+    }
+    
+    
+    func canKingAttack(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
+        return isValidQueen(frX: frX, frY: frY, toX: toX, toY: toY) && (abs(frX - toX) == 1 || abs(frY - toY) == 1)
     }
     
     func isCastling(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
@@ -427,11 +432,13 @@ struct ChessBrain: CustomStringConvertible {
     }
     
     func isThreateningCastling(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
-        guard let movingPiece = pieceAt(x: frX, y: frY) else {
+        guard let movPiece = pieceAt(x: frX, y: frY) else {
             return false
         }
         
-        if checkIsThreatenedSquare(x: movingPiece.x, y: movingPiece.y, isWhiteMoving: movingPiece.isWhite) {
+        if checkIsThreatenedSquare(x: movPiece.x, y: movPiece.y, isWhiteMoving: movPiece.isWhite) ||
+            checkIsThreatenedSquare(x: (frX + toX) / 2, y: frY, isWhiteMoving: movPiece.isWhite) ||
+            checkIsThreatenedSquare(x: toX, y: toY, isWhiteMoving: movPiece.isWhite) {
             return true
         }
         
@@ -440,9 +447,16 @@ struct ChessBrain: CustomStringConvertible {
     
     func checkIsThreatenedSquare(x: Int, y: Int, isWhiteMoving: Bool) -> Bool {
         for piece in piecesBox where piece.isWhite != isWhiteMoving {
-            if canPieceMove(frX: piece.x, frY: piece.y, toX: x, toY: y) {
-                return true
+            if piece.rank == .king {
+                if canKingAttack(frX: piece.x, frY: piece.y, toX: x, toY: y) {
+                    return true
+                }
+            } else {
+                if canPieceMove(frX: piece.x, frY: piece.y, toX: x, toY: y) {
+                    return true
+                }
             }
+            
         }
         
         return false
