@@ -57,16 +57,20 @@ struct ChessBrain: CustomStringConvertible {
     var piecesBox = Set<ChessPiece>()
     var lastMovedPiece: ChessPiece? = nil
     
-    var promotingPawn: ChessPiece? = nil
     
     
     mutating func promote(rank: ChessRank) {
-        guard let promotingPawn = promotingPawn else {
+        
+        
+        
+        guard let movingPawn = lastMovedPiece else {
             return
         }
-//        promotingPawn?.rank = rank
+        
         var imageName = ""
-        if promotingPawn.isWhite {
+        
+        
+        if movingPawn.isWhite {
             switch rank {
             case .queen:
                 imageName = "Queen-white"
@@ -95,8 +99,9 @@ struct ChessBrain: CustomStringConvertible {
             }
         }
         
-            piecesBox.remove(promotingPawn)
-   //     piecesBox.insert(<#T##newMember: ChessPiece##ChessPiece#>)
+        piecesBox.remove(movingPawn)
+        let newPiece = ChessPiece(x: movingPawn.x, y: movingPawn.y, isWhite: movingPawn.isWhite, rank: rank, imageName: imageName)
+        piecesBox.insert(newPiece)
     }
     
     func pieceAt(x: Int, y: Int) -> ChessPiece? {
@@ -266,10 +271,23 @@ struct ChessBrain: CustomStringConvertible {
         
        
         if movedPiece.rank == .pawn && movedPiece.y == 7 || movedPiece.rank == .pawn && movedPiece.y == 0 {
-            promotingPawn = movedPiece
+ //           promote(rank: <#T##ChessRank#>, movingPawn: <#T##ChessPiece#>)
+            // we'll show a selection dialog window ...
         }
         
         lastMovedPiece = movedPiece
+    }
+    
+    func needsPromotion() -> Bool {
+        if let lastMovedPiece = lastMovedPiece, lastMovedPiece.rank == .pawn {
+            if lastMovedPiece.isWhite {
+                return lastMovedPiece.y == 0
+            } else {
+                return lastMovedPiece.y == 7
+            }
+        }
+        
+        return false
     }
     
     func isValidRook(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {

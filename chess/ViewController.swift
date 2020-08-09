@@ -56,6 +56,45 @@ class ViewController: UIViewController, ChessDelegate {
         boardView.piecesBoxShadow = chessBrain.piecesBox
         boardView.setNeedsDisplay()
         
+        if chessBrain.needsPromotion() {
+            print("RBQK")
+            let alertController = UIAlertController(title: "promotion", message: nil, preferredStyle: .actionSheet)
+            
+            let qenAcction = UIAlertAction(title: "Queen", style: .default) { _ in
+                self.chessBrain.promote(rank: .queen)
+                self.boardView.piecesBoxShadow = self.chessBrain.piecesBox
+                self.boardView.setNeedsDisplay()
+            }
+            let rokAcction = UIAlertAction(title: "Rook", style: .default) { _ in
+                self.chessBrain.promote(rank: .rook)
+                self.boardView.piecesBoxShadow = self.chessBrain.piecesBox
+                self.boardView.setNeedsDisplay()
+            }
+            let nitAcction = UIAlertAction(title: "Knight", style: .default) { _ in
+                self.chessBrain.promote(rank: .knight)
+                self.boardView.piecesBoxShadow = self.chessBrain.piecesBox
+                self.boardView.setNeedsDisplay()
+            }
+            let bisAcction = UIAlertAction(title: "Bishop", style: .default) { _ in
+                self.chessBrain.promote(rank: .bishop)
+                self.boardView.piecesBoxShadow = self.chessBrain.piecesBox
+                self.boardView.setNeedsDisplay()
+            }
+            alertController.addAction(qenAcction)
+            alertController.addAction(rokAcction)
+            alertController.addAction(nitAcction)
+            alertController.addAction(bisAcction)
+            
+            if let popoverPresentationController = alertController.popoverPresentationController {
+                popoverPresentationController.permittedArrowDirections = .init(rawValue: 0)
+                popoverPresentationController.sourceView = self.view
+                popoverPresentationController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            }
+            present(alertController, animated: true)
+            
+        }
+        
+        
         let message: String = "\(frX) \(frY) \(toX) \(toY)"
         if let data = message.data(using: .utf8) {
             try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
