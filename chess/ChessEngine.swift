@@ -33,7 +33,6 @@ struct ChessEngine {
     }
     
     func pieceAt(col: Int, row: Int) -> Piece? {
-        
         for piece in pieces {
             if col == piece.col && row == piece.row {
                 return piece
@@ -46,6 +45,12 @@ struct ChessEngine {
     mutating func moveP(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
             return
+        }
+        
+        if let pieceGone = pieceAt(col: toCol, row: toRow) {
+            if pieceGone.player != movingPiece.player {
+                pieces.remove(pieceGone)
+            }
         }
         
         pieces.remove(movingPiece)
