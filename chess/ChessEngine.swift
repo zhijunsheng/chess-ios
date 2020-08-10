@@ -61,7 +61,7 @@ struct ChessEngine {
         case .pawn:
             break
         case .knight:
-            break
+            return canKnightMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .bishop:
             return canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .rook:
@@ -72,40 +72,26 @@ struct ChessEngine {
             break
         }
         
-        
-        
         return false
-        
     }
     
     func canRookMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        if fromCol == toCol || fromRow == toRow {
-            return true
-        }
-        
-        return false
+        return fromCol == toCol || fromRow == toRow
     }
     
     func canBishopMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        if fromCol - toCol == fromRow - toRow ||
+        return fromCol - toCol == fromRow - toRow ||
             toCol - fromCol == fromRow - toRow ||
             toCol - fromCol == toRow - fromRow ||
-            fromCol - toCol == toRow - fromRow {
-            return true
-        }
-        
-        return false
-        
+            fromCol - toCol == toRow - fromRow
     }
     
     func canQueenMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        if canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) || canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
-            
-            return true
-        }
-        
-        return false
-        
+        return canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) || canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
     }
     
+    func canKnightMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        return abs(fromCol - toCol) == 2 && abs(fromRow - toRow) == 1 ||
+            abs(fromCol - toCol) == 1 && abs(fromRow - toRow) == 2
+    }
 }
