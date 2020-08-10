@@ -80,10 +80,7 @@ struct ChessEngine {
     }
     
     func canBishopMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        return fromCol - toCol == fromRow - toRow ||
-            toCol - fromCol == fromRow - toRow ||
-            toCol - fromCol == toRow - fromRow ||
-            fromCol - toCol == toRow - fromRow
+        return abs(fromCol - toCol) == abs(fromRow - toRow)
     }
     
     func canQueenMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
