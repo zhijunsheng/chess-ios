@@ -56,14 +56,12 @@ struct ChessBoard: CustomStringConvertible{
         case .Bishop:
             return canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .Queen:
-            break
+            return canQueenMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .Knight:
             return canKnightMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .Pawn:
             return canPawnMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         }
-        
-        return true
     }
     
     func canRookMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
@@ -126,7 +124,13 @@ struct ChessBoard: CustomStringConvertible{
         return false
     }
     
-    
+    func canQueenMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        if canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) == false {
+            return canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        } else {
+            return canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        }
+    }
     
     
     
