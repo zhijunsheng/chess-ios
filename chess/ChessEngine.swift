@@ -19,7 +19,7 @@ struct ChessEngine {
         
         for i in 0 ..< 8 {
             pieces.insert(Piece(col: i, row: 6, player: .white, rank: .pawn, imageName: "pawn_w"))
-            pieces.insert(Piece(col: i, row: 1, player: .black, rank: .queen, imageName: "pawn_b"))
+            pieces.insert(Piece(col: i, row: 1, player: .black, rank: .pawn, imageName: "pawn_b"))
         }
         
         for i in 0 ..< 2 {
@@ -97,7 +97,15 @@ struct ChessEngine {
     }
     
     func canPawnMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        return toRow == fromRow - 1
+        guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
+                   return false
+        }
+        
+        if movingPiece.player == .black {
+            return toRow == fromRow + 1
+        } else {
+            return toRow == fromRow - 1
+        }
     }
     
     func canKingMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
