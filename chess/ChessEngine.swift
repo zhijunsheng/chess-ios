@@ -98,13 +98,21 @@ struct ChessEngine {
     
     func canPawnMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         guard let movingPiece = pieceAt(col: fromCol, row: fromRow) else {
-                   return false
+            return false
         }
         
         if movingPiece.player == .black {
+            if movingPiece.row == 1 {
+                return toRow == fromRow + 1 && fromCol == toCol || toRow == fromRow + 2 && fromCol == toCol
+            }
+            
             return toRow == fromRow + 1
         } else {
-            return toRow == fromRow - 1
+            if movingPiece.row == 6 {
+                return toRow == fromRow - 1 && fromCol == toCol || toRow == fromRow - 2 && fromCol == toCol
+            }
+            
+            return toRow == fromRow - 1 && fromCol == toCol
         }
     }
     
