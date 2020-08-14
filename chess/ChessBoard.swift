@@ -96,20 +96,20 @@ struct ChessBoard: CustomStringConvertible{
                 return false
         }
         
+        let landingSpot = pieceAt(locationX: toCol, locationY: toRow)
+        
         if piece.isBlack == false {
-            if  toCol == fromCol - 1 && toRow == fromRow - 1 && pieceAt(locationX: toCol, locationY: toRow) != nil ||
-                toCol == fromCol + 1 && toRow == fromRow - 1 && pieceAt(locationX: toCol, locationY: toRow) != nil ||
-                toCol == fromCol && fromRow - 1 == toRow && pieceAt(locationX: toCol, locationY: toRow) == nil ||
-                toCol == fromCol && fromRow == 6 && toRow == 4 && pieceAt(locationX: toCol, locationY: toRow) == nil && isThereVerticalBlocker(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) == false {
-                    return true
+            if  abs(toCol - fromCol) == 1 && toRow == fromRow - 1 && landingSpot != nil ||
+                toCol == fromCol && fromRow - 1 == toRow && landingSpot == nil ||
+                toCol == fromCol && fromRow == 6 && toRow == 4 && landingSpot == nil && isThereVerticalBlocker(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) == false {
+                return true
             }
         }
         
         if piece.isBlack {
-            if  toCol == fromCol - 1 && toRow == fromRow + 1 && pieceAt(locationX: toCol, locationY: toRow) != nil ||
-                toCol == fromCol + 1 && toRow == fromRow + 1 && pieceAt(locationX: toCol, locationY: toRow) != nil ||
-                toCol == fromCol && fromRow + 1 == toRow && pieceAt(locationX: toCol, locationY: toRow) == nil ||
-                toCol == fromCol && fromRow == 1 && toRow == 3 && pieceAt(locationX: toCol, locationY: toRow) == nil && isThereVerticalBlocker(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) == false {
+            if  abs(toCol - fromCol) == 1 && toRow == fromRow + 1 && landingSpot != nil ||
+                toCol == fromCol && fromRow + 1 == toRow && landingSpot == nil ||
+                toCol == fromCol && fromRow == 1 && toRow == 3 && landingSpot == nil && isThereVerticalBlocker(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) == false {
                 return true
             }
         }
