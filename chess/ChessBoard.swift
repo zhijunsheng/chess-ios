@@ -60,19 +60,13 @@ struct ChessBoard: CustomStringConvertible{
         case .Knight:
             return canKnightMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .Pawn:
-            break
+            return canPawnMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         }
         
         return true
     }
     
     func canRookMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        
-        guard let piece = pieceAt(locationX: fromCol, locationY: fromRow)
-            else {
-                return false
-        }
-
         if isThereVerticalBlocker(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow){
             return false
         } else if isThereHorizantalBlocker(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow){
@@ -102,6 +96,36 @@ struct ChessBoard: CustomStringConvertible{
     func canBishopMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         return abs(fromCol - toCol) == abs(fromRow - toRow) && !isThereDiagBlocker(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
     }
+    
+    func canPawnMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        guard let piece = pieceAt(locationX: fromCol, locationY: fromRow)
+            else {
+                return false
+        }
+        
+        if piece.isBlack == false {
+            if  toCol == fromCol - 1 && toRow == fromRow - 1 && pieceAt(locationX: toCol, locationY: toRow) != nil ||
+                toCol == fromCol + 1 && toRow == fromRow - 1 && pieceAt(locationX: toCol, locationY: toRow) != nil ||
+                toCol == fromCol && fromRow - 1 == toRow && pieceAt(locationX: toCol, locationY: toRow) == nil ||
+                toCol == fromCol && fromRow == 6 && toRow == 4 && pieceAt(locationX: toCol, locationY: toRow) == nil && isThereVerticalBlocker(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) == false {
+                    return true
+            }
+        }
+        
+        if piece.isBlack {
+            if  toCol == fromCol - 1 && toRow == fromRow + 1 && pieceAt(locationX: toCol, locationY: toRow) != nil ||
+                toCol == fromCol + 1 && toRow == fromRow + 1 && pieceAt(locationX: toCol, locationY: toRow) != nil ||
+                toCol == fromCol && fromRow + 1 == toRow && pieceAt(locationX: toCol, locationY: toRow) == nil ||
+                toCol == fromCol && fromRow == 1 && toRow == 3 && pieceAt(locationX: toCol, locationY: toRow) == nil && isThereVerticalBlocker(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) == false {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    
+    
     
     func isThereVerticalBlocker(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         let delta = abs(fromRow - toRow)
