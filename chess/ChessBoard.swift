@@ -79,15 +79,8 @@ struct ChessBoard: CustomStringConvertible{
     }
     
     func canKnightMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        if  toCol == fromCol - 1 && toRow == fromRow - 2 ||
-            toCol == fromCol - 1 && toRow == fromRow + 2 ||
-            toCol == fromCol + 1 && toRow == fromRow - 2 ||
-            toCol == fromCol + 1 && toRow == fromRow + 2 ||
-            toCol == fromCol - 2 && toRow == fromRow - 1 ||
-            toCol == fromCol - 2 && toRow == fromRow + 1 ||
-            toCol == fromCol + 2 && toRow == fromRow - 1 ||
-            toCol == fromCol + 2 && toRow == fromRow + 1 {
-            
+        if  abs(toCol - fromCol) == 1 && abs(toRow - fromRow) == 2 ||
+            abs(toCol - fromCol) == 2 && abs(toRow - fromRow) == 1 {
             return true
         }
         return false
