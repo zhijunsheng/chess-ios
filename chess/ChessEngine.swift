@@ -101,15 +101,24 @@ struct ChessEngine {
             return false
         }
         
-        if movingPiece.player == .black {
-            if movingPiece.row == 1 {
-                return toRow == fromRow + 1 && fromCol == toCol || toRow == fromRow + 2 && fromCol == toCol
+        if let enemyPiece = pieceAt(col: toCol, row: toRow) {
+            if enemyPiece.player == movingPiece.player {
+                return false
+            } else if enemyPiece.player != movingPiece.player {
+              return abs(fromCol - toCol) == 1 && abs(fromRow - toRow) == 1
             }
             
-            return toRow == fromRow + 1
+        }
+        
+        if movingPiece.player == .black {
+            if movingPiece.row == 1 && fromCol == toCol {
+                return toRow == fromRow + 1 || toRow == fromRow + 2
+            }
+            
+            return toRow == fromRow + 1 && fromCol == toCol
         } else {
-            if movingPiece.row == 6 {
-                return toRow == fromRow - 1 && fromCol == toCol || toRow == fromRow - 2 && fromCol == toCol
+            if movingPiece.row == 6 && fromCol == toCol {
+                return toRow == fromRow - 1 || toRow == fromRow - 2
             }
             
             return toRow == fromRow - 1 && fromCol == toCol
