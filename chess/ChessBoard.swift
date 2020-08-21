@@ -43,7 +43,7 @@ struct ChessBoard: CustomStringConvertible{
         }
     }
     
-    func canPieceMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+    mutating func canPieceMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         guard let piece = pieceAt(locationX: fromCol, locationY: fromRow)
             else {
                 return false
@@ -88,13 +88,26 @@ struct ChessBoard: CustomStringConvertible{
         return abs(fromCol - toCol) == abs(fromRow - toRow) && !isThereDiagBlocker(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
     }
     
-    func canPawnMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+    
+    
+    
+    mutating func canPawnMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         guard let piece = pieceAt(locationX: fromCol, locationY: fromRow)
             else {
                 return false
         }
         
         let landingSpot = pieceAt(locationX: toCol, locationY: toRow)
+        
+        if isThereEnPassant(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
+            guard let takenPiece = pieceAt(locationX: toCol, locationY: fromRow)
+                else {
+                    return false
+            }
+            
+            pieceBox.remove(takenPiece)
+            return true
+        }
         
         if piece.isBlack == false {
             if  abs(toCol - fromCol) == 1 && toRow == fromRow - 1 && landingSpot != nil ||
@@ -128,6 +141,42 @@ struct ChessBoard: CustomStringConvertible{
         return canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) || canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
     }
     
+    
+    
+    
+    mutating func isThereEnPassant(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        guard let movingPiece = pieceAt(locationX: fromCol, locationY: fromRow)
+            else {
+                return false
+        }
+        
+        if movingPiece.isBlack && fromRow == 4 && toRow == fromRow + 1 {
+            if didPieceJustMove(col: toCol, row: fromRow) && abs(toCol - fromCol) == 1{
+                return true
+            }
+        }
+        
+        if movingPiece.isBlack == false && fromRow == 3 && toRow == fromRow - 1 {
+            if didPieceJustMove(col: toCol, row: fromRow) && abs(toCol - fromCol) == 1{
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    func didPieceJustMove(col: Int, row: Int) -> Bool {
+        guard let piece = pieceAt(locationX: col, locationY: row)
+            else {
+                return false
+        }
+        
+        if backupBox.contains(piece) {
+            return false
+        }
+        
+        return true
+    }
     
     
     func isThereVerticalBlocker(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {

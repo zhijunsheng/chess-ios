@@ -42,8 +42,6 @@ class GameViewController: UIViewController, ChessDelegate {
             chessBoard.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         }
         
-        
-        
         boardView.pieceBoxShadow = chessBoard.pieceBox
         boardView.setNeedsDisplay()
     }
