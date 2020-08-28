@@ -125,6 +125,11 @@ struct ChessBoard: CustomStringConvertible{
             }
         }
         
+//        if  {
+//            <#code#>
+//        }
+        
+        
         return false
     }
     
@@ -193,6 +198,58 @@ struct ChessBoard: CustomStringConvertible{
         }
         
         return false
+    }
+    
+    func isItPromotion(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        guard let piece = pieceAt(locationX: toCol, locationY: toRow)
+            else {
+                return false
+        }
+        
+        if toRow == 7 && piece.pieceType == .Pawn || toRow == 0 && piece.pieceType == .Pawn {
+            return true
+        }
+        return false
+    }
+    
+    mutating func promote(col: Int, row: Int, newRank: ChessRank) {
+        guard let piece = pieceAt(locationX: col, locationY: row)
+            else {
+                return
+        }
+        var imageName: String = ""
+        if piece.isBlack == false {
+            switch newRank {
+            case .Queen:
+                imageName = "queen_chess_w"
+            case .Rook:
+                imageName = "rook_chess_w"
+            case .Bishop:
+                imageName = "bishop_chess_w"
+            case .Knight:
+                imageName = "knight_chess_w"
+            default:
+                break
+            }
+        }
+        
+        if piece.isBlack {
+            switch newRank {
+            case .Queen:
+                imageName = "queen_chess_b"
+            case .Rook:
+                imageName = "rook_chess_b"
+            case .Bishop:
+                imageName = "bishop_chess_b"
+            case .Knight:
+                imageName = "knight_chess_b"
+            default:
+                break
+            }
+        }
+        
+        pieceBox.remove(piece)
+        pieceBox.insert(ChessPiece(imageName: imageName, col: col, row: row, isBlack: piece.isBlack, pieceType: newRank))
     }
     
     func isThereHorizantalBlocker(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
