@@ -49,7 +49,6 @@ class GameViewController: UIViewController, ChessDelegate {
                 let alertController = UIAlertController(title: "Choose your piece", message: nil, preferredStyle: .actionSheet)
                 
                 let queenAction = UIAlertAction(title: "Queen", style: .default) { _ in
-                    print("Queen!")
                     self.chessBoard.promote(col: toCol, row: toRow, newRank: .Queen)
                     
                     self.boardView.pieceBoxShadow = self.chessBoard.pieceBox
@@ -57,7 +56,6 @@ class GameViewController: UIViewController, ChessDelegate {
                 }
                 
                 let rookAction = UIAlertAction(title: "Rook", style: .default) { _ in
-                    print("Rook!")
                     self.chessBoard.promote(col: toCol, row: toRow, newRank: .Rook)
                     
                     self.boardView.pieceBoxShadow = self.chessBoard.pieceBox
@@ -65,7 +63,6 @@ class GameViewController: UIViewController, ChessDelegate {
                 }
                 
                 let bishopAction = UIAlertAction(title: "Bishop", style: .default) { _ in
-                    print("Bishop!")
                     self.chessBoard.promote(col: toCol, row: toRow, newRank: .Bishop)
                     
                     self.boardView.pieceBoxShadow = self.chessBoard.pieceBox
