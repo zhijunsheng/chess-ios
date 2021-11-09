@@ -8,7 +8,18 @@
 
 import Foundation
 
-struct ChessEngine {
+struct ChessEngine: CustomStringConvertible {
+    var description: String {
+        var desc = ""
+        for _ in 0 ..< 8 {
+            for i in 0 ..< 8 {
+                desc += ". "
+            }
+        }
+        return desc
+    }
+    
+    
     var pieces: Set<Piece> = []
     
     mutating func initGame() {

@@ -22,6 +22,14 @@ class BoardView: UIView {
     var fromCol: Int = -1
     var fromRow: Int = -2
     
+    override func draw(_ rect: CGRect) {
+        cell = bounds.width/9
+        originX = (bounds.width - cell * 8)/2
+        originY = (bounds.height - cell * 8)/2
+        
+        drawBoard()
+        drawPieces()
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let firstFinger = touches.first!
@@ -58,14 +66,7 @@ class BoardView: UIView {
         chessDelegate?.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: col, toRow: row)
     }
     
-    override func draw(_ rect: CGRect) {
-        cell = bounds.width/9
-        originX = (bounds.width - cell * 8)/2
-        originY = (bounds.height - cell * 8)/2
-        
-        drawBoard()
-        drawPieces()
-    }
+    
     
     func drawSquare(col: Int, row: Int, color: UIColor) {
         let colourPath = UIBezierPath()
