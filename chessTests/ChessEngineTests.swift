@@ -12,7 +12,8 @@ import XCTest
 class ChessEngineTests: XCTestCase {
     
     func testPrintBoard() {
-        let board = ChessEngine()
-        print(board)
+        var game = ChessEngine()
+        game.initGame()
+        print(game.description)
     }
 }

@@ -9,15 +9,7 @@
 import Foundation
 
 struct ChessEngine: CustomStringConvertible {
-    var description: String {
-        var desc = ""
-        for _ in 0 ..< 8 {
-            for i in 0 ..< 8 {
-                desc += ". "
-            }
-        }
-        return desc
-    }
+    
     
     
     var pieces: Set<Piece> = []
@@ -141,4 +133,41 @@ struct ChessEngine: CustomStringConvertible {
             abs(fromCol - toCol) == 1 && abs(fromRow - toRow) == 1 ||
             abs(fromCol - toCol) == 1 && fromRow == toRow
     }
+    
+    var description: String {
+        var desc = "  "
+        
+        for i in 0 ..< 8 {
+            desc += "\(i) "
+        }
+        
+        desc += "\n"
+        
+        for r in 0 ..< 8 {
+            desc += "\(r) "
+            for c in 0 ..< 8 {
+                if let piece = pieceAt(col: c, row: r) {
+                    switch piece.rank {
+                    case .bishop:
+                        desc += piece.player == .black ? "B " : "b "
+                    case .pawn:
+                        desc += piece.player == .black ? "P " : "p "
+                    case .knight:
+                        desc += piece.player == .black ? "N " : "n "
+                    case .rook:
+                        desc += piece.player == .black ? "R " : "r "
+                    case .queen:
+                        desc += piece.player == .black ? "Q " : "q "
+                    case .king:
+                        desc += piece.player == .black ? "K " : "k "
+                    }
+                } else {
+                    desc += ". "
+                }
+            }
+            desc += "\n"
+        }
+        return desc
+    }
+    
 }
