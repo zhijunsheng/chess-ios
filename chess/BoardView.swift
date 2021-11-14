@@ -64,6 +64,7 @@ class BoardView: UIView {
         
         movingPieceImage = nil
         chessDelegate?.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: col, toRow: row)
+        setNeedsDisplay()
     }
     
     
@@ -102,12 +103,19 @@ class BoardView: UIView {
     }
     
     func drawPieces() {
+        
         for piece in shadowPieces {
             let pieceImage = UIImage(named: piece.imageName)
-            pieceImage?.draw(in: CGRect(x: CGFloat(piece.col) * cell + originX, y: CGFloat(piece.row) * cell + originY, width: cell, height: cell))
+            
+            if movingPieceImage == nil {
+                pieceImage?.draw(in: CGRect(x: CGFloat(piece.col) * cell + originX, y: CGFloat(piece.row) * cell + originY, width: cell, height: cell))
+            } else {
+                if !(piece.col == fromCol && piece.row == fromRow) {
+                    pieceImage?.draw(in: CGRect(x: CGFloat(piece.col) * cell + originX, y: CGFloat(piece.row) * cell + originY, width: cell, height: cell))
+                }
+            }
         }
         
         movingPieceImage?.draw(in: CGRect(x: movingPieceX - cell/2, y: movingPieceY - cell/2, width: cell, height: cell))
-        
     }
 }

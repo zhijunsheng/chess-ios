@@ -50,13 +50,14 @@ struct ChessEngine: CustomStringConvertible {
             return
         }
         
+        pieces.remove(movingPiece)
+        
         if let pieceGone = pieceAt(col: toCol, row: toRow) {
             if pieceGone.player != movingPiece.player {
                 pieces.remove(pieceGone)
             }
         }
         
-        pieces.remove(movingPiece)
         pieces.insert(Piece(col: toCol, row: toRow, player: movingPiece.player, rank: movingPiece.rank, imageName: movingPiece.imageName))
     }
     
@@ -82,7 +83,11 @@ struct ChessEngine: CustomStringConvertible {
     }
     
     func canRookMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        return fromCol == toCol || fromRow == toRow
+        if fromCol == toCol || fromRow == toRow {
+            return true
+        } else {
+            return false
+        }
     }
     
     func canBishopMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
