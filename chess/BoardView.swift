@@ -104,12 +104,8 @@ class BoardView: UIView {
     
     func drawPieces() {
         for piece in shadowPieces {
-            if movingPieceImage == nil {
+            if movingPieceImage == nil || movingPieceImage != nil && !(piece.col == fromCol && piece.row == fromRow) {
                 drawPiece(col: piece.col, row: piece.row)
-            } else {
-                if !(piece.col == fromCol && piece.row == fromRow) {
-                    drawPiece(col: piece.col, row: piece.row)
-                }
             }
         }
         
@@ -121,6 +117,5 @@ class BoardView: UIView {
         let pieceImage = UIImage(named: imageName)
         pieceImage?.draw(in: CGRect(x: CGFloat(col) * cell + originX, y: CGFloat(row) * cell + originY, width: cell, height: cell))
     }
-    
 }
 
