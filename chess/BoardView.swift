@@ -103,19 +103,24 @@ class BoardView: UIView {
     }
     
     func drawPieces() {
-        
         for piece in shadowPieces {
-            let pieceImage = UIImage(named: piece.imageName)
-            
             if movingPieceImage == nil {
-                pieceImage?.draw(in: CGRect(x: CGFloat(piece.col) * cell + originX, y: CGFloat(piece.row) * cell + originY, width: cell, height: cell))
+                drawPiece(col: piece.col, row: piece.row)
             } else {
                 if !(piece.col == fromCol && piece.row == fromRow) {
-                    pieceImage?.draw(in: CGRect(x: CGFloat(piece.col) * cell + originX, y: CGFloat(piece.row) * cell + originY, width: cell, height: cell))
+                    drawPiece(col: piece.col, row: piece.row)
                 }
             }
         }
         
         movingPieceImage?.draw(in: CGRect(x: movingPieceX - cell/2, y: movingPieceY - cell/2, width: cell, height: cell))
     }
+    
+    func drawPiece(col: Int, row: Int) {
+        guard let imageName = chessDelegate?.pieceAt(col: col, row: row)?.imageName else { return }
+        let pieceImage = UIImage(named: imageName)
+        pieceImage?.draw(in: CGRect(x: CGFloat(col) * cell + originX, y: CGFloat(row) * cell + originY, width: cell, height: cell))
+    }
+    
 }
+
