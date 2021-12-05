@@ -16,5 +16,16 @@ class GameLogicTests: XCTestCase {
         gameLogic.restart()
         print(gameLogic)
     }
+    
+    func testRookMove() {
+        var gameLogic = GameLogic()
+        var p = ChessPiece(col: 0, row: 0, isBlack: true, pieceType: .rook)
+        gameLogic.pieces.insert(p)
+        XCTAssertNotNil(gameLogic.rookMove(piece: p, column: 0, row: 1))
+        print(gameLogic)
+        XCTAssertNil(gameLogic.rookMove(piece: p, column: 1, row: 1))
+        XCTAssertNotNil(gameLogic.rookMove(piece: p, column: 1, row: 0))
+        print(gameLogic)
+    }
 
 }

@@ -8,9 +8,9 @@
 
 import Foundation
 struct ChessPiece: Hashable {
-    let col: Int
-    let row: Int
+    var col: Int
+    var row: Int
     let isBlack: Bool
     let pieceType: PieceType
-
+    let picName : String
 }

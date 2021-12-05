@@ -10,14 +10,13 @@ import UIKit
 
 class ChessView: UIView {
 
+    var delegate: ChessDelegate? = nil
     
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
-        // Drawing code
         drawBoard()
-        
+        drawPieces()
     }
+    
     func drawBoard() {
         let margin: CGFloat = 20
         let width: CGFloat = (bounds.width - 2 * margin) / 8
@@ -36,7 +35,28 @@ class ChessView: UIView {
                 
             }
         }
-        
     }
-
+    func drawPieces() {
+        for i in 0..<8{
+            for j in 0..<8{
+                if let piece = delegate?.pieceAt(column: i, row: j){
+                    drawPieceAt(piece: piece)
+                }
+            }
+        }
+    }
+    
+    /*
+     to draw an image
+     
+     create an obj of UIImage
+     img.draw(..)
+     
+     */
+    func drawPieceAt(piece : ChessPiece){
+        let margin: CGFloat = 20
+        let width: CGFloat = (bounds.width - 2 * margin) / 8
+        let pic = UIImage(named: piece.picName)
+        pic?.draw(in: CGRect(x: margin + width * CGFloat(piece.col), y: margin + width * CGFloat(piece.row), width: width, height: width))
+    }
 }
