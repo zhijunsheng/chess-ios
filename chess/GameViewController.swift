@@ -23,5 +23,9 @@ class GameViewController: UIViewController, ChessDelegate {
         return gameManager.pieceAt(column: column, row: row)
     }
     
+    func move(fromX: Int, fromY: Int, toX: Int, toY: Int) {
+        gameManager.move(fromX: fromX, fromY: fromY, toX: toX, toY: toY)
+        chessView.setNeedsDisplay()
+    }
 }
 

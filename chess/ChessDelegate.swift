@@ -9,4 +9,5 @@
 import Foundation
 protocol ChessDelegate{
     func pieceAt(column:Int, row:Int) -> ChessPiece?
+    func move(fromX: Int, fromY: Int, toX: Int, toY: Int)
 }

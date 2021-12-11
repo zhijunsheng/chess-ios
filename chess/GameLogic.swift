@@ -13,13 +13,32 @@ struct GameLogic: CustomStringConvertible {
     var pieces: Set<ChessPiece> = []
     
     mutating func restart() {
+        /*
         for i in 0..<8 {
             pieces.insert(ChessPiece(col: i, row: 1, isBlack: true, pieceType: .pawn, picName: "pawn_chess_b"))
         }
         for i in 0..<8 {
             pieces.insert(ChessPiece(col: i, row: 6, isBlack: false, pieceType: .pawn, picName: "pawn_chess_w"))
         }
+         */
         pieces.insert(ChessPiece(col: 0, row: 0, isBlack: true, pieceType: .rook, picName: "rook_chess_b"))
+        pieces.insert(ChessPiece(col: 7, row: 0, isBlack: true, pieceType: .rook, picName: "rook_chess_b"))
+        pieces.insert(ChessPiece(col: 0, row: 7, isBlack: true, pieceType: .rook, picName: "rook_chess_w"))
+        pieces.insert(ChessPiece(col: 7, row: 7, isBlack: true, pieceType: .rook, picName: "rook_chess_w"))
+        /*
+        pieces.insert(ChessPiece(col: 1, row: 0, isBlack: true, pieceType: .knight, picName: "knight_chess_b"))
+        pieces.insert(ChessPiece(col: 6, row: 0, isBlack: true, pieceType: .knight, picName: "knight_chess_b"))
+        pieces.insert(ChessPiece(col: 1, row: 7, isBlack: true, pieceType: .knight, picName: "knight_chess_w"))
+        pieces.insert(ChessPiece(col: 6, row: 7, isBlack: true, pieceType: .knight, picName: "knight_chess_w"))
+        pieces.insert(ChessPiece(col: 2, row: 0, isBlack: true, pieceType: .bishop, picName: "bishop_chess_b"))
+        pieces.insert(ChessPiece(col: 5, row: 0, isBlack: true, pieceType: .bishop, picName: "bishop_chess_b"))
+        pieces.insert(ChessPiece(col: 2, row: 7, isBlack: true, pieceType: .bishop, picName: "bishop_chess_w"))
+        pieces.insert(ChessPiece(col: 5, row: 7, isBlack: true, pieceType: .bishop, picName: "bishop_chess_w"))
+        pieces.insert(ChessPiece(col: 3, row: 0, isBlack: true, pieceType: .king, picName: "king_chess_b"))
+        pieces.insert(ChessPiece(col: 4, row: 0, isBlack: true, pieceType: .queen, picName: "queen_chess_b"))
+        pieces.insert(ChessPiece(col: 4, row: 7, isBlack: true, pieceType: .queen, picName: "queen_chess_w"))
+        pieces.insert(ChessPiece(col: 3, row: 7, isBlack: true, pieceType: .king, picName: "king_chess_w"))
+                                                                                                            */
     }
     
     func pieceAt(column:Int, row:Int) -> ChessPiece? {
@@ -29,6 +48,19 @@ struct GameLogic: CustomStringConvertible {
             }
         }
         return nil
+    }
+    
+    mutating func move (fromX: Int, fromY: Int, toX: Int, toY: Int){
+        if let p = pieceAt(column: fromX, row: fromY){
+            if(p.pieceType == .rook){
+                
+                if let newPiece = rookMove(piece: p, column: toX, row: toY){
+                    pieces.remove(p)
+                    pieces.insert(newPiece)
+                }
+                
+            }
+        }
     }
     
     mutating func rookMove(piece: ChessPiece, column:Int, row:Int) -> ChessPiece? {
