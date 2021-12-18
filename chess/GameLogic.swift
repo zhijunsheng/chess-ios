@@ -23,12 +23,12 @@ struct GameLogic: CustomStringConvertible {
          */
         pieces.insert(ChessPiece(col: 0, row: 0, isBlack: true, pieceType: .rook, picName: "rook_chess_b"))
         pieces.insert(ChessPiece(col: 7, row: 0, isBlack: true, pieceType: .rook, picName: "rook_chess_b"))
-        pieces.insert(ChessPiece(col: 0, row: 7, isBlack: true, pieceType: .rook, picName: "rook_chess_w"))
-        pieces.insert(ChessPiece(col: 7, row: 7, isBlack: true, pieceType: .rook, picName: "rook_chess_w"))
+        pieces.insert(ChessPiece(col: 0, row: 7, isBlack: false, pieceType: .rook, picName: "rook_chess_w"))
+        pieces.insert(ChessPiece(col: 7, row: 7, isBlack: false, pieceType: .rook, picName: "rook_chess_w"))
         pieces.insert(ChessPiece(col: 1, row: 0, isBlack: true, pieceType: .knight, picName: "knight_chess_b"))
         pieces.insert(ChessPiece(col: 6, row: 0, isBlack: true, pieceType: .knight, picName: "knight_chess_b"))
-        pieces.insert(ChessPiece(col: 1, row: 7, isBlack: true, pieceType: .knight, picName: "knight_chess_w"))
-        pieces.insert(ChessPiece(col: 6, row: 7, isBlack: true, pieceType: .knight, picName: "knight_chess_w"))
+        pieces.insert(ChessPiece(col: 1, row: 7, isBlack: false, pieceType: .knight, picName: "knight_chess_w"))
+        pieces.insert(ChessPiece(col: 6, row: 7, isBlack: false, pieceType: .knight, picName: "knight_chess_w"))
         /*
         pieces.insert(ChessPiece(col: 2, row: 0, isBlack: true, pieceType: .bishop, picName: "bishop_chess_b"))
         pieces.insert(ChessPiece(col: 5, row: 0, isBlack: true, pieceType: .bishop, picName: "bishop_chess_b"))
@@ -50,160 +50,89 @@ struct GameLogic: CustomStringConvertible {
         return nil
     }
     
-    mutating func move (fromX: Int, fromY: Int, toX: Int, toY: Int) {
+    mutating func move (fromX: Int, fromY: Int, toX: Int, toY: Int) {//-> Bool {
         if toX < 0 || toY < 0 || toX > 7 || toY > 7{
+            return //false
+        }
+        else if let p = pieceAt(column: fromX, row: fromY){
+            switch p.pieceType {
+            case .king:
+                break
+            case .queen:
+                break
+            case .rook:
+                rookMove(piece: p, column: toX, row: toY)
+            case .bishop:
+                break
+            case .knight:
+                knightMove(piece: p, column: toX, row: toY)
+            case .pawn:
+                break
+            }
+        }
+    }
+    mutating func knightMove(piece: ChessPiece, column:Int, row:Int) {
+        if let dest = pieceAt(column: column, row: row){
+            if piece.isBlack == dest.isBlack{
+                return
+            }
+        }
+        if (abs(column - piece.col) == 2 && abs(row - piece.row) == 1) || (abs(column - piece.col) == 1 && abs(row - piece.row) == 2){
+            if let p = pieceAt(column: column, row: row) {
+                pieces.remove(p)
+            }
+            pieces.remove(piece)
+            let newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
+            pieces.insert(newPiece)
+            print(self)
+            
+        }
+    }
+    
+    
+    mutating func rookMove(piece: ChessPiece, column:Int, row:Int) {
+        if let dest = pieceAt(column: column, row: row){
+            if piece.isBlack == dest.isBlack{
+                return
+            }
+        }
+        
+        if isNotEmptyBetween(fromX: piece.col, fromY: piece.row, toX: column, toY: row){
             return
         }
-        else if let p = pieceAt(column: fromX, row: fromY) {
-            
-            if(p.pieceType == .rook) {
-                
-                if let newPiece = rookMove(piece: p, column: toX, row: toY) {
-                    pieces.remove(p)
-                    /*
-                    if let piece = pieceAt(column: toX, row: toY){
-                        pieces.remove(piece)
-                    }
-                     */
-                    pieces.insert(newPiece)
-                }
-            }
-            if p.pieceType == .knight {
-                if let newPiece = knightMove(piece: p, column: toX, row: toY) {
-                    pieces.remove(p)
-                    /*
-                    if let piece = pieceAt(column: toX, row: toY){
-                        pieces.remove(piece)
-                    }
-                     */
-                    pieces.insert(newPiece)
-                }
-            }
-        }
-    }
-    mutating func knightMove(piece: ChessPiece, column:Int, row:Int) -> ChessPiece? {
         if let p = pieceAt(column: column, row: row) {
-            if piece.isBlack != p.isBlack {
-                pieces.remove(p)
-                return ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
-            }
-            return nil
+            pieces.remove(p)
         }
-        if ((column == piece.col - 2 && row == piece.row - 1) || (column == piece.col - 2 && row == piece.row + 1) || (column == piece.col + 2 && row == piece.row - 1) || (column == piece.col + 2 && row == piece.row + 1) || (column == piece.col - 1 && row == piece.row - 2) || (column == piece.col - 1 && row == piece.row + 2) || (column == piece.col + 1 && row == piece.row - 2) || (column == piece.col + 1 && row == piece.row + 2)) {
-            return ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
-        }
-        return nil
+        pieces.remove(piece)
+        let newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
+        pieces.insert(newPiece)
+        print(self)
     }
-    mutating func rookMove(piece: ChessPiece, column:Int, row:Int) -> ChessPiece? {
-        if piece.col==column && piece.row != row {
-            if piece.row>row {
-                for i in row - 1..<piece.row {
-                    if pieceAt(column: column, row: i) != nil {
-                        return nil
-                    }
+    
+    func isNotEmptyBetween(fromX: Int, fromY: Int, toX: Int, toY: Int) -> Bool {
+        let smallerX = min(fromX, toX)
+        let largerX = max(fromX, toX)
+        let smallerY = min(fromY, toY)
+        let largerY = max(fromY, toY)
+        if smallerX == largerX && smallerY == largerY{
+            return false
+        }
+            
+        if smallerX == largerX && smallerY != largerY{
+            for i in smallerY + 1 ..< largerY {
+                if nil != pieceAt(column: toX, row: i){
+                    return true
                 }
-                
-                if let p = pieceAt(column: column, row: row) {
-                    if piece.isBlack != p.isBlack {
-                        /*
-                        pieces.remove(p)
-                        var newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType)
-                        pieces.insert(newPiece)
-                        
-                         */
-                        return ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
-                    }
-                    return nil
-                }
-                /*
-                let newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType)
-                pieces.insert(newPiece)
-                pieces.remove(piece)
-                 */
-                return ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
-            }
-            else{
-                for i in piece.row + 1..<row {
-                    if pieceAt(column: column, row: i) != nil {
-                        return nil
-                    }
-                }
-                
-                if let p = pieceAt(column: column, row: row) {
-                    if piece.isBlack != p.isBlack {
-                        /*
-                        pieces.remove(p)
-                        let newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType)
-                        pieces.insert(newPiece)
-                        pieces.remove(piece)
-                         */
-                        return ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
-                    }
-                    return nil
-                }
-                /*
-                let newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType)
-                pieces.insert(newPiece)
-                pieces.remove(piece)
-                 */
-                return ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
             }
         }
-        if piece.col != column && piece.row == row {
-            if piece.col>column {
-                for i in column - 1..<piece.col {
-                    if pieceAt(column: i, row: row) != nil {
-                        return nil
-                    }
+        if smallerX != largerX && smallerY == largerY{
+            for i in smallerX + 1 ..< largerX {
+                if nil != pieceAt(column: i, row: fromY){
+                    return true
                 }
-                
-                if let p = pieceAt(column: column, row: row) {
-                    if piece.isBlack != p.isBlack {
-                        /*
-                        let newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType)
-                        pieces.insert(newPiece)
-                        pieces.remove(piece)
-                         */
-                        
-                        return ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
-                    }
-                    return nil
-                }
-                /*
-                let newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType)
-                pieces.insert(newPiece)
-                pieces.remove(piece)
-                 */
-                return ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
-            }
-            else{
-                for i in piece.col + 1..<column  {
-                    if pieceAt(column: i, row: row) != nil {
-                        return nil
-                    }
-                }
-                
-                if let p = pieceAt(column: column, row: row) {
-                    if piece.isBlack != p.isBlack {
-                        /*
-                        pieces.remove(p)
-                        let newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType)
-                        pieces.insert(newPiece)
-                        pieces.remove(piece)
-                         */
-                        return ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
-                    }
-                    return nil
-                }
-                /*
-                let newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType)
-                pieces.insert(newPiece)
-                pieces.remove(piece)
-                 */
-                return ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
             }
         }
-        return nil
+        return false
     }
     
     var description: String {
