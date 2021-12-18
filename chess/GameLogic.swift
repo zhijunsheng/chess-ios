@@ -25,11 +25,11 @@ struct GameLogic: CustomStringConvertible {
         pieces.insert(ChessPiece(col: 7, row: 0, isBlack: true, pieceType: .rook, picName: "rook_chess_b"))
         pieces.insert(ChessPiece(col: 0, row: 7, isBlack: true, pieceType: .rook, picName: "rook_chess_w"))
         pieces.insert(ChessPiece(col: 7, row: 7, isBlack: true, pieceType: .rook, picName: "rook_chess_w"))
-        /*
         pieces.insert(ChessPiece(col: 1, row: 0, isBlack: true, pieceType: .knight, picName: "knight_chess_b"))
         pieces.insert(ChessPiece(col: 6, row: 0, isBlack: true, pieceType: .knight, picName: "knight_chess_b"))
         pieces.insert(ChessPiece(col: 1, row: 7, isBlack: true, pieceType: .knight, picName: "knight_chess_w"))
         pieces.insert(ChessPiece(col: 6, row: 7, isBlack: true, pieceType: .knight, picName: "knight_chess_w"))
+        /*
         pieces.insert(ChessPiece(col: 2, row: 0, isBlack: true, pieceType: .bishop, picName: "bishop_chess_b"))
         pieces.insert(ChessPiece(col: 5, row: 0, isBlack: true, pieceType: .bishop, picName: "bishop_chess_b"))
         pieces.insert(ChessPiece(col: 2, row: 7, isBlack: true, pieceType: .bishop, picName: "bishop_chess_w"))
@@ -50,19 +50,50 @@ struct GameLogic: CustomStringConvertible {
         return nil
     }
     
-    mutating func move (fromX: Int, fromY: Int, toX: Int, toY: Int){
-        if let p = pieceAt(column: fromX, row: fromY){
-            if(p.pieceType == .rook){
+    mutating func move (fromX: Int, fromY: Int, toX: Int, toY: Int) {
+        if toX < 0 || toY < 0 || toX > 7 || toY > 7{
+            return
+        }
+        else if let p = pieceAt(column: fromX, row: fromY) {
+            
+            if(p.pieceType == .rook) {
                 
-                if let newPiece = rookMove(piece: p, column: toX, row: toY){
+                if let newPiece = rookMove(piece: p, column: toX, row: toY) {
                     pieces.remove(p)
+                    /*
+                    if let piece = pieceAt(column: toX, row: toY){
+                        pieces.remove(piece)
+                    }
+                     */
                     pieces.insert(newPiece)
                 }
-                
+            }
+            if p.pieceType == .knight {
+                if let newPiece = knightMove(piece: p, column: toX, row: toY) {
+                    pieces.remove(p)
+                    /*
+                    if let piece = pieceAt(column: toX, row: toY){
+                        pieces.remove(piece)
+                    }
+                     */
+                    pieces.insert(newPiece)
+                }
             }
         }
     }
-    
+    mutating func knightMove(piece: ChessPiece, column:Int, row:Int) -> ChessPiece? {
+        if let p = pieceAt(column: column, row: row) {
+            if piece.isBlack != p.isBlack {
+                pieces.remove(p)
+                return ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
+            }
+            return nil
+        }
+        if ((column == piece.col - 2 && row == piece.row - 1) || (column == piece.col - 2 && row == piece.row + 1) || (column == piece.col + 2 && row == piece.row - 1) || (column == piece.col + 2 && row == piece.row + 1) || (column == piece.col - 1 && row == piece.row - 2) || (column == piece.col - 1 && row == piece.row + 2) || (column == piece.col + 1 && row == piece.row - 2) || (column == piece.col + 1 && row == piece.row + 2)) {
+            return ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
+        }
+        return nil
+    }
     mutating func rookMove(piece: ChessPiece, column:Int, row:Int) -> ChessPiece? {
         if piece.col==column && piece.row != row {
             if piece.row>row {
@@ -78,7 +109,7 @@ struct GameLogic: CustomStringConvertible {
                         pieces.remove(p)
                         var newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType)
                         pieces.insert(newPiece)
-                        pieces.remove(piece)
+                        
                          */
                         return ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
                     }
@@ -128,12 +159,12 @@ struct GameLogic: CustomStringConvertible {
                 
                 if let p = pieceAt(column: column, row: row) {
                     if piece.isBlack != p.isBlack {
-                        pieces.remove(p)
                         /*
                         let newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType)
                         pieces.insert(newPiece)
                         pieces.remove(piece)
                          */
+                        
                         return ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
                     }
                     return nil
