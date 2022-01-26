@@ -7,55 +7,32 @@ struct ChessBrain: CustomStringConvertible {
     var conditionBQueenS: Bool = true
     var conditionBKing: Bool = true
     var conditionBKingS: Bool = true
-    
-    var description: String {
-        /*
-          0 1 2
-        0 R . B . . . . .
-        1 . . . . . . . .
-        2 . . . . . . . .
-         . . . . . . . .
-         . . . . . . . .
-         . . . . . . . .
-         . . . . . . . .
-         . . . . . . . .
-         
-         */
-        var desc = ""
-        
-        desc += "  0 1 2 3 4 5 6 7 \n"
-        
-        for row in 0..<8 {
-            desc += "\(row) "
-            for col in 0..<8 {
-                if let piece = pieceAt(x: col, y: row) {
-                    switch piece.rank {
-                    case .rook:
-                        desc += piece.isWhite ? "R " : "r "
-                    case .knight:
-                        desc += piece.isWhite ? "N " : "n "
-                    case .bishop:
-                        desc += piece.isWhite ? "B " : "b "
-                    case .king:
-                        desc += piece.isWhite ? "K " : "k "
-                    case .pawn:
-                        desc += piece.isWhite ? "P " : "p "
-                    case .queen:
-                        desc += piece.isWhite ? "Q " : "q "
-                    }
-                } else {
-                    desc += ". "
-                }
-            }
-            
-            desc += "\n"
-        }
-
-        return desc
-    }
-    
+    var isWhiteTurn: Bool = true
     var piecesBox = Set<ChessPiece>()
     var lastMovedPiece: ChessPiece? = nil
+    
+
+    mutating func bwturn() {
+        let boardview = BoardView()
+        if lastMovedPiece != nil {
+            let frSquare = ChessPiece(x: boardview.xc, y: boardview.yr, isWhite: lastMovedPiece!.isWhite, rank: lastMovedPiece!.rank, imageName: lastMovedPiece!.imageName)
+            if isWhiteTurn {
+                if !lastMovedPiece!.isWhite {
+                    lastMovedPiece!.x = frSquare.x
+                    lastMovedPiece!.y = frSquare.y
+                    isWhiteTurn = false
+                }
+            } else {
+                if lastMovedPiece!.isWhite {
+                    lastMovedPiece!.x = frSquare.x
+                    lastMovedPiece!.y = frSquare.y
+                    isWhiteTurn = true
+                }
+            }
+        }
+        
+    }
+    
     
     
     
@@ -114,6 +91,29 @@ struct ChessBrain: CustomStringConvertible {
         return nil
     }
     
+    func winOrLose() {
+        let boardview = BoardView()
+        var a = 0
+        var b = 0
+        for c in 0..<8 {
+            for d in 0..<8 {
+                if pieceAt(x: c, y: d) == nil {
+                    continue
+                }
+                if pieceAt(x: c, y: d)!.rank == .king && pieceAt(x: c, y: d)!.isWhite {
+                    a += 1
+                }
+                if pieceAt(x: c, y: d)!.rank == .king && pieceAt(x: c, y: d)!.isWhite == false {
+                    b += 1
+                }
+            }
+        }
+        
+        if a == 0 || b == 0 {
+            boardview.isUserInteractionEnabled = true
+        }
+    }
+    
     /**
     
     i => ?
@@ -160,18 +160,33 @@ struct ChessBrain: CustomStringConvertible {
         }
         switch movingPiece.rank {
         case .rook:
-             return isValidRook(frX: frX, frY: frY, toX: toX, toY: toY)
+            if !isValidRook(frX: frX, frY: frY, toX: toX, toY: toY) {
+                return false
+            }
         case .knight:
-            return isValidKnight(frX: frX, frY: frY, toX: toX, toY: toY)
+            if !isValidKnight(frX: frX, frY: frY, toX: toX, toY: toY) {
+                return false
+            }
         case .bishop:
-            return isValidBishop(frX: frX, frY: frY, toX: toX, toY: toY)
+            if !isValidBishop(frX: frX, frY: frY, toX: toX, toY: toY) {
+                return false
+            }
         case .king:
-            return isValidKing(frX: frX, frY: frY, toX: toX, toY: toY)
+            if !isValidKing(frX: frX, frY: frY, toX: toX, toY: toY) {
+                return false
+            }
         case .pawn:
-            return isValidPawn(frX: frX, frY: frY, toX: toX, toY: toY)
+            if !isValidPawn(frX: frX, frY: frY, toX: toX, toY: toY) {
+                return false
+            }
         case .queen:
-            return isValidQueen(frX: frX, frY: frY, toX: toX, toY: toY)
+            if !isValidQueen(frX: frX, frY: frY, toX: toX, toY: toY) {
+                return false
+            }
         }
+        
+        return true
+        
     }
     
     mutating func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
@@ -548,4 +563,37 @@ struct ChessBrain: CustomStringConvertible {
         return true
     }
     
+    var description: String {
+        var desc = ""
+        
+        desc += "  0 1 2 3 4 5 6 7 \n"
+        
+        for row in 0..<8 {
+            desc += "\(row) "
+            for col in 0..<8 {
+                if let piece = pieceAt(x: col, y: row) {
+                    switch piece.rank {
+                    case .rook:
+                        desc += piece.isWhite ? "R " : "r "
+                    case .knight:
+                        desc += piece.isWhite ? "N " : "n "
+                    case .bishop:
+                        desc += piece.isWhite ? "B " : "b "
+                    case .king:
+                        desc += piece.isWhite ? "K " : "k "
+                    case .pawn:
+                        desc += piece.isWhite ? "P " : "p "
+                    case .queen:
+                        desc += piece.isWhite ? "Q " : "q "
+                    }
+                } else {
+                    desc += ". "
+                }
+            }
+            
+            desc += "\n"
+        }
+
+        return desc
+    }
 }

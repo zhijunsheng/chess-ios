@@ -23,5 +23,8 @@ class KnightTests: XCTestCase {
         print(brain)
         XCTAssertNotNil(brain.pieceAt(x: 0, y: 7))
         XCTAssertNil(brain.pieceAt(x: 0, y: 0))
+        
+        
     }
+    
 }

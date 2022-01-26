@@ -7,8 +7,8 @@ class ViewController: UIViewController, ChessDelegate {
     @IBOutlet weak var promoteToRookButton: UIButton!
     @IBOutlet weak var promoteToKnightButton: UIButton!
     @IBOutlet weak var promoteToBishopButton: UIButton!
-    
     @IBOutlet weak var boardView: BoardView!
+    @IBOutlet weak var peerIDnameLabel: UILabel!
     
     var chessBrain = ChessBrain()
     var peerID: MCPeerID!
@@ -17,11 +17,10 @@ class ViewController: UIViewController, ChessDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         peerID = MCPeerID(displayName: UIDevice.current.name)
         session = MCSession(peer: peerID)
         session.delegate = self
-        
+        peerIDnameLabel.text = "\(peerID.displayName)"
         chessBrain.reset()
         
         boardView.piecesBoxShadow = chessBrain.piecesBox
