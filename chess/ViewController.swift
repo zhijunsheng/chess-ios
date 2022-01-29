@@ -57,7 +57,6 @@ class ViewController: UIViewController, ChessDelegate {
     }
     
     func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
-        appear()
         guard chessBrain.pieceAt(x: frX, y: frY) != nil && chessBrain.canPieceMove(frX: frX, frY: frY, toX: toX, toY: toY) else {
             return
         }
@@ -102,8 +101,7 @@ class ViewController: UIViewController, ChessDelegate {
             present(alertController, animated: true)
             
         }
-        
-        
+        appear()
         let message: String = "\(frX) \(frY) \(toX) \(toY)"
         if let data = message.data(using: .utf8) {
             try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
