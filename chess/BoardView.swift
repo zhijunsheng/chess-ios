@@ -12,49 +12,38 @@ class BoardView: UIView {
     var fingerX: CGFloat = 1234567890
     var fingerY: CGFloat = 1234567890
     var movingPiece: ChessPiece?
+    var bx = 12
+    var by = 10
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         cellSide = bounds.width / 8
         let touch = touches.first!
         let touchLocation = touch.location(in: self)
-        print(touchLocation.x)
-        // x
         xc = Int(touchLocation.x / cellSide)
-        
-        // y
+        bx = xc
         yr = Int(touchLocation.y / cellSide)
-        
+        by = yr
         movingPiece = chessDelegate?.getMovingPiece(x: xc, y: yr)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
         let touch = touches.first!
         let touchLocation = touch.location(in: self)
         fingerX = touchLocation.x
         fingerY = touchLocation.y
         
         setNeedsDisplay()
-        
-        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         cellSide = bounds.width / 8
         let touch = touches.first!
         let touchLocation = touch.location(in: self)
-        print(touchLocation.x)
-        // x
         let xx: Int = Int(touchLocation.x / cellSide)
-        
-        // y
         let yy: Int = Int(touchLocation.y / cellSide)
-        print("(from: \(xc), \(yr)), (to: \(xx), \(yy))")
-        
         chessDelegate?.movePiece(frX: xc, frY: yr, toX: xx, toY: yy)
         
         movingPiece = nil
-        
     }
     
     override func draw(_ rect: CGRect) {

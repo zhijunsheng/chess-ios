@@ -97,6 +97,7 @@
                     <connections>
                         <outlet property="boardView" destination="Kee-CN-hck" id="Ep9-iB-gLJ"/>
                         <outlet property="peerIDnameLabel" destination="521-PA-qad" id="FwF-bn-1gO"/>
+                        <outlet property="whosTurnLabel" destination="Cf9-u0-TEV" id="i5M-Tk-nsS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

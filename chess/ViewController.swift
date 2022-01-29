@@ -9,6 +9,7 @@ class ViewController: UIViewController, ChessDelegate {
     @IBOutlet weak var promoteToBishopButton: UIButton!
     @IBOutlet weak var boardView: BoardView!
     @IBOutlet weak var peerIDnameLabel: UILabel!
+    @IBOutlet weak var whosTurnLabel: UILabel!
     
     var chessBrain = ChessBrain()
     var peerID: MCPeerID!
@@ -28,6 +29,14 @@ class ViewController: UIViewController, ChessDelegate {
         boardView.chessDelegate = self
     }
     
+    func appear() {
+        if chessBrain.isWhiteTurn {
+            whosTurnLabel.text = "white's turn"
+        } else {
+            whosTurnLabel.text = "black's turn"
+        }
+    }
+    
     @IBAction func advertise(_ sender: Any) {
         nearbyServiceAdvertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: nil, serviceType: "dabaos-chess")
         nearbyServiceAdvertiser.delegate = self
@@ -44,10 +53,12 @@ class ViewController: UIViewController, ChessDelegate {
         chessBrain.reset()
         boardView.piecesBoxShadow = chessBrain.piecesBox
         boardView.setNeedsDisplay()
+        whosTurnLabel.text = "white's turn"
     }
     
     func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
-        guard chessBrain.pieceAt(x: frX, y: frY) != nil else {
+        appear()
+        guard chessBrain.pieceAt(x: frX, y: frY) != nil && chessBrain.canPieceMove(frX: frX, frY: frY, toX: toX, toY: toY) else {
             return
         }
         
@@ -56,7 +67,6 @@ class ViewController: UIViewController, ChessDelegate {
         boardView.setNeedsDisplay()
         
         if chessBrain.needsPromotion() {
-            print("RBQK")
             let alertController = UIAlertController(title: "promotion", message: nil, preferredStyle: .actionSheet)
             
             let qenAcction = UIAlertAction(title: "Queen", style: .default) { _ in
@@ -121,9 +131,9 @@ extension ViewController: MCSessionDelegate {
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         if let str = String(data: data, encoding: .utf8) {
-            print(str)
+//            print(str)
             let components = str.components(separatedBy: " ")
-            print("(\(components[0]),\(components[1])) -> (\(components[2]),\(components[3]))")
+//            print("(\(components[0]),\(components[1])) -> (\(components[2]),\(components[3]))")
             if let fC = Int(components[0]), let fR = Int(components[1]), let tC = Int(components[2]), let tR = Int(components[3]) {
                 
                 DispatchQueue.main.async {

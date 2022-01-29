@@ -12,27 +12,27 @@ struct ChessBrain: CustomStringConvertible {
     var lastMovedPiece: ChessPiece? = nil
     
 
-    mutating func bwturn() {
-        let boardview = BoardView()
-        if lastMovedPiece != nil {
-            let frSquare = ChessPiece(x: boardview.xc, y: boardview.yr, isWhite: lastMovedPiece!.isWhite, rank: lastMovedPiece!.rank, imageName: lastMovedPiece!.imageName)
-            if isWhiteTurn {
-                if !lastMovedPiece!.isWhite {
-                    lastMovedPiece!.x = frSquare.x
-                    lastMovedPiece!.y = frSquare.y
-                    isWhiteTurn = false
-                }
-            } else {
-                if lastMovedPiece!.isWhite {
-                    lastMovedPiece!.x = frSquare.x
-                    lastMovedPiece!.y = frSquare.y
-                    isWhiteTurn = true
-                }
-            }
-        }
-        
-    }
-    
+//    mutating func bwturn() {
+//        let boardview = BoardView()
+//        if lastMovedPiece != nil {
+//            let frSquare = ChessPiece(x: boardview.bx, y: boardview.by, isWhite: lastMovedPiece!.isWhite, rank: lastMovedPiece!.rank, imageName: lastMovedPiece!.imageName)
+//            if isWhiteTurn {
+//                if !lastMovedPiece!.isWhite {
+//                    lastMovedPiece!.x = frSquare.x
+//                    lastMovedPiece!.y = frSquare.y
+//                    isWhiteTurn = false
+//                }
+//            } else {
+//                if lastMovedPiece!.isWhite {
+//                    lastMovedPiece!.x = frSquare.x
+//                    lastMovedPiece!.y = frSquare.y
+//                    isWhiteTurn = true
+//                }
+//            }
+//        }
+//
+//    }
+//
     
     
     
@@ -158,6 +158,10 @@ struct ChessBrain: CustomStringConvertible {
         guard let movingPiece = pieceAt(x: frX, y: frY) else {
             return false
         }
+        
+        if isWhiteTurn && movingPiece.isWhite == false || !isWhiteTurn && movingPiece.isWhite {
+            return false
+        }
         switch movingPiece.rank {
         case .rook:
             if !isValidRook(frX: frX, frY: frY, toX: toX, toY: toY) {
@@ -190,6 +194,7 @@ struct ChessBrain: CustomStringConvertible {
     }
     
     mutating func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
+//        bwturn()
         if toX > 7 || toX < 0 || toY > 7 || toY < 0 {
             return
         }
@@ -291,6 +296,8 @@ struct ChessBrain: CustomStringConvertible {
         }
         
         lastMovedPiece = movedPiece
+        isWhiteTurn.toggle()
+        print(isWhiteTurn)
     }
     
     func needsPromotion() -> Bool {
