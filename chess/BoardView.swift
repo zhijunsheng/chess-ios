@@ -31,7 +31,7 @@ class BoardView: UIView {
         let touchLocation = touch.location(in: self)
         fingerX = touchLocation.x
         fingerY = touchLocation.y
-        
+
         setNeedsDisplay()
     }
     
@@ -44,6 +44,7 @@ class BoardView: UIView {
         chessDelegate?.movePiece(frX: xc, frY: yr, toX: xx, toY: yy)
         
         movingPiece = nil
+        setNeedsDisplay()
     }
     
     override func draw(_ rect: CGRect) {
