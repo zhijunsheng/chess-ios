@@ -284,23 +284,13 @@ struct ChessBrain: CustomStringConvertible {
     }
     
     func isValidKnight(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
-        return frX + 1 == toX && frY + 2 == toY ||
-               frX + 2 == toX && frY + 1 == toY ||
-               frX - 1 == toX && frY + 2 == toY ||
-               frX - 2 == toX && frY + 1 == toY ||
-               frX + 1 == toX && frY - 2 == toY ||
-               frX + 2 == toX && frY - 1 == toY ||
-               frX - 1 == toX && frY - 2 == toY ||
-               frX - 2 == toX && frY - 1 == toY
+        let dx = abs(frX - toX)
+        let dy = abs(frY - toY)
+        return dx == 1 && dy == 2 || dy == 1 && dx == 2        
     }
     
     func isValidBishop(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
-        
         return emptyBetween(frX: frX, frY: frY, toX: toX, toY: toY) && abs(frX - toX) == abs(frY - toY)
-//            (frX + deltaX == toX && frY + deltaX == toY ||
-//            frX - deltaX == toX && frY + deltaX == toY ||
-//            frX + deltaX == toX && frY - deltaX == toY ||
-//            frX - deltaX == toX && frY - deltaX == toY)
     }
     
     func isValidQueen(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
