@@ -11,34 +11,7 @@ struct ChessBrain: CustomStringConvertible {
     var piecesBox = Set<ChessPiece>()
     var lastMovedPiece: ChessPiece? = nil
     
-
-//    mutating func bwturn() {
-//        let boardview = BoardView()
-//        if lastMovedPiece != nil {
-//            let frSquare = ChessPiece(x: boardview.bx, y: boardview.by, isWhite: lastMovedPiece!.isWhite, rank: lastMovedPiece!.rank, imageName: lastMovedPiece!.imageName)
-//            if isWhiteTurn {
-//                if !lastMovedPiece!.isWhite {
-//                    lastMovedPiece!.x = frSquare.x
-//                    lastMovedPiece!.y = frSquare.y
-//                    isWhiteTurn = false
-//                }
-//            } else {
-//                if lastMovedPiece!.isWhite {
-//                    lastMovedPiece!.x = frSquare.x
-//                    lastMovedPiece!.y = frSquare.y
-//                    isWhiteTurn = true
-//                }
-//            }
-//        }
-//
-//    }
-//
-    
-    
-    
     mutating func promote(rank: ChessRank) {
-        
-        
         
         guard let movingPawn = lastMovedPiece else {
             return
@@ -114,15 +87,6 @@ struct ChessBrain: CustomStringConvertible {
         }
     }
     
-    /**
-    
-    i => ?
-    0 => 1
-    1 => 6
-     2 => ?
-     3 => ?
-     
-     */
     mutating func reset() {
         piecesBox.removeAll()
         
@@ -130,7 +94,6 @@ struct ChessBrain: CustomStringConvertible {
             piecesBox.insert(ChessPiece(x: 0 + i * 7, y: 7, isWhite: true, rank: .rook, imageName: "Rook-white"))
             piecesBox.insert(ChessPiece(x: 0 + i * 7, y: 0, isWhite: false, rank: .rook, imageName: "Rook-black"))
         }
-        
         
         for i in 0..<2 {
             piecesBox.insert(ChessPiece(x: 1 + i * 5, y: 7, isWhite: true, rank: .knight, imageName: "Knight-white"))
@@ -162,6 +125,7 @@ struct ChessBrain: CustomStringConvertible {
         if isWhiteTurn && movingPiece.isWhite == false || !isWhiteTurn && movingPiece.isWhite {
             return false
         }
+        
         switch movingPiece.rank {
         case .rook:
             if !isValidRook(frX: frX, frY: frY, toX: toX, toY: toY) {

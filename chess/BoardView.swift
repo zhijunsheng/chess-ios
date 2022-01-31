@@ -8,21 +8,17 @@ class BoardView: UIView {
     var xc = 12234
     var yr = 43221
     var chessDelegate: ChessDelegate? = nil
-    var piecesBoxShadow = Set<ChessPiece>()
     var fingerX: CGFloat = 1234567890
     var fingerY: CGFloat = 1234567890
     var movingPiece: ChessPiece?
-    var bx = 12
-    var by = 10
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         cellSide = bounds.width / 8
         let touch = touches.first!
         let touchLocation = touch.location(in: self)
         xc = Int(touchLocation.x / cellSide)
-        bx = xc
         yr = Int(touchLocation.y / cellSide)
-        by = yr
+        
         movingPiece = chessDelegate?.getMovingPiece(x: xc, y: yr)
     }
     
@@ -63,11 +59,39 @@ class BoardView: UIView {
     }
     
     func drawPieces() {
-        for piece in piecesBoxShadow {
-            drawPiece(string: piece.imageName, x: piece.x, y: piece.y)
-            
-            if movingPiece == piece {
-                continue
+        var imgnam: String = ""
+        var image: UIImage
+        
+        for col in 0..<8 {
+            for row in 0..<8 {
+                if let piece = chessDelegate?.pieceAt(x: col, y: row) {
+                    switch piece.rank {
+                    case .rook:
+                        imgnam = piece.isWhite ? "Rook-white" : "Rook-black"
+                        image = UIImage(named: imgnam)!
+                        image.draw(in: CGRect(x: CGFloat(col) * cellSide, y: CGFloat(row) * cellSide, width: cellSide, height: cellSide))
+                    case .knight:
+                        imgnam = piece.isWhite ? "Knight-white" : "Knight-black"
+                        image = UIImage(named: imgnam)!
+                        image.draw(in: CGRect(x: CGFloat(col) * cellSide, y: CGFloat(row) * cellSide, width: cellSide, height: cellSide))
+                    case .bishop:
+                        imgnam = piece.isWhite ? "Bishop-white" : "Bishop-black"
+                        image = UIImage(named: imgnam)!
+                        image.draw(in: CGRect(x: CGFloat(col) * cellSide, y: CGFloat(row) * cellSide, width: cellSide, height: cellSide))
+                    case .king:
+                        imgnam = piece.isWhite ? "King-white" : "King-black"
+                        image = UIImage(named: imgnam)!
+                        image.draw(in: CGRect(x: CGFloat(col) * cellSide, y: CGFloat(row) * cellSide, width: cellSide, height: cellSide))
+                    case .pawn:
+                        imgnam = piece.isWhite ? "Pawn-white" : "Pawn-black"
+                        image = UIImage(named: imgnam)!
+                        image.draw(in: CGRect(x: CGFloat(col) * cellSide, y: CGFloat(row) * cellSide, width: cellSide, height: cellSide))
+                    case .queen:
+                        imgnam = piece.isWhite ? "Queen-white" : "Queen-black"
+                        image = UIImage(named: imgnam)!
+                        image.draw(in: CGRect(x: CGFloat(col) * cellSide, y: CGFloat(row) * cellSide, width: cellSide, height: cellSide))
+                    }
+                }
             }
         }
     }
@@ -86,7 +110,6 @@ class BoardView: UIView {
         drawColumn(idx: 5)
         drawColumn(idx: 6)
         drawColumn(idx: 7)
-        
     }
     
     func drawColumn(idx: Int) {

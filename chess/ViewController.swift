@@ -2,7 +2,7 @@ import UIKit
 import MultipeerConnectivity
 
 class ViewController: UIViewController, ChessDelegate {
-    
+
     @IBOutlet weak var promoteToQueenButton: UIButton!
     @IBOutlet weak var promoteToRookButton: UIButton!
     @IBOutlet weak var promoteToKnightButton: UIButton!
@@ -24,9 +24,12 @@ class ViewController: UIViewController, ChessDelegate {
         peerIDnameLabel.text = "\(peerID.displayName)"
         chessBrain.reset()
         
-        boardView.piecesBoxShadow = chessBrain.piecesBox
         boardView.setNeedsDisplay()
         boardView.chessDelegate = self
+    }
+    
+    func pieceAt(x: Int, y: Int) -> ChessPiece? {
+        return chessBrain.pieceAt(x: x, y: y)
     }
     
     func appear() {
@@ -51,7 +54,6 @@ class ViewController: UIViewController, ChessDelegate {
 
     @IBAction func newGame(_ sender: Any) {
         chessBrain.reset()
-        boardView.piecesBoxShadow = chessBrain.piecesBox
         boardView.setNeedsDisplay()
         whosTurnLabel.text = "white's turn"
     }
@@ -62,7 +64,6 @@ class ViewController: UIViewController, ChessDelegate {
         }
         
         chessBrain.movePiece(frX: frX, frY: frY, toX: toX, toY: toY)
-        boardView.piecesBoxShadow = chessBrain.piecesBox
         boardView.setNeedsDisplay()
         
         if chessBrain.needsPromotion() {
@@ -70,22 +71,18 @@ class ViewController: UIViewController, ChessDelegate {
             
             let qenAcction = UIAlertAction(title: "Queen", style: .default) { _ in
                 self.chessBrain.promote(rank: .queen)
-                self.boardView.piecesBoxShadow = self.chessBrain.piecesBox
                 self.boardView.setNeedsDisplay()
             }
             let rokAcction = UIAlertAction(title: "Rook", style: .default) { _ in
                 self.chessBrain.promote(rank: .rook)
-                self.boardView.piecesBoxShadow = self.chessBrain.piecesBox
                 self.boardView.setNeedsDisplay()
             }
             let nitAcction = UIAlertAction(title: "Knight", style: .default) { _ in
                 self.chessBrain.promote(rank: .knight)
-                self.boardView.piecesBoxShadow = self.chessBrain.piecesBox
                 self.boardView.setNeedsDisplay()
             }
             let bisAcction = UIAlertAction(title: "Bishop", style: .default) { _ in
                 self.chessBrain.promote(rank: .bishop)
-                self.boardView.piecesBoxShadow = self.chessBrain.piecesBox
                 self.boardView.setNeedsDisplay()
             }
             alertController.addAction(qenAcction)
@@ -98,16 +95,14 @@ class ViewController: UIViewController, ChessDelegate {
                 popoverPresentationController.sourceView = self.view
                 popoverPresentationController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
             }
-            present(alertController, animated: true)
             
+            present(alertController, animated: true)
         }
         appear()
         let message: String = "\(frX) \(frY) \(toX) \(toY)"
         if let data = message.data(using: .utf8) {
             try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
         }
-        
-        
     }
 
     func getMovingPiece(x: Int, y: Int) -> ChessPiece? {
@@ -136,10 +131,8 @@ extension ViewController: MCSessionDelegate {
                 
                 DispatchQueue.main.async {
                     self.chessBrain.movePiece(frX: fC, frY: fR, toX: tC, toY: tR)
-                    self.boardView.piecesBoxShadow = self.chessBrain.piecesBox
                     self.boardView.setNeedsDisplay()
                 }
-                
             }
         }
     }
