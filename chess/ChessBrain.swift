@@ -286,7 +286,7 @@ struct ChessBrain: CustomStringConvertible {
     func isValidKnight(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
         let dx = abs(frX - toX)
         let dy = abs(frY - toY)
-        return dx == 1 && dy == 2 || dy == 1 && dx == 2        
+        return dx == 1 && dy == 2 || dy == 1 && dx == 2
     }
     
     func isValidBishop(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
@@ -324,7 +324,7 @@ struct ChessBrain: CustomStringConvertible {
                 // normal move
                 if frY == 6 {
                     return frX == toX && frY - 1 == toY ||
-                           frX == toX && frY - 2 == toY
+                           frX == toX && frY - 2 == toY && emptyBetween(frX: frX, frY: frY, toX: toX, toY: toY)
                 } else {
                     return frX == toX && frY - 1 == toY
                 }
@@ -343,7 +343,7 @@ struct ChessBrain: CustomStringConvertible {
                 
                 if frY == 1 {
                     return frX == toX && frY + 1 == toY ||
-                           frX == toX && frY + 2 == toY
+                           frX == toX && frY + 2 == toY && emptyBetween(frX: frX, frY: frY, toX: toX, toY: toY)
                 } else {
                     return frX == toX && frY + 1 == toY
                 }
