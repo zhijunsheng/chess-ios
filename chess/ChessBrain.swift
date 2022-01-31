@@ -296,11 +296,11 @@ struct ChessBrain: CustomStringConvertible {
     
     func isValidBishop(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
         
-        let deltaX = abs(frX - toX)
-        return emptyBetween(frX: frX, frY: frY, toX: toX, toY: toY) &&   (frX + deltaX == toX && frY + deltaX == toY ||
-               frX - deltaX == toX && frY + deltaX == toY ||
-               frX + deltaX == toX && frY - deltaX == toY ||
-               frX - deltaX == toX && frY - deltaX == toY)
+        return emptyBetween(frX: frX, frY: frY, toX: toX, toY: toY) && abs(frX - toX) == abs(frY - toY)
+//            (frX + deltaX == toX && frY + deltaX == toY ||
+//            frX - deltaX == toX && frY + deltaX == toY ||
+//            frX + deltaX == toX && frY - deltaX == toY ||
+//            frX - deltaX == toX && frY - deltaX == toY)
     }
     
     func isValidQueen(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
@@ -467,8 +467,10 @@ struct ChessBrain: CustomStringConvertible {
     }
     
     func emptyBetween(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
+        if frX == toX && frY == toY {
+            return false
+        }
         let deltaX = abs(frX - toX)
-        
         if frX == toX && frY != toY  { // |
             if toY > frY { // going ⬇️
                 if frY + 1 <= toY - 1 {
