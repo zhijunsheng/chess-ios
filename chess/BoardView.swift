@@ -11,7 +11,7 @@ class BoardView: UIView {
     var fingerX: CGFloat = 1234567890
     var fingerY: CGFloat = 1234567890
     var movingPiece: ChessPiece?
-    var isWhiteDevice: Bool = false
+    var isWhiteDevice: Bool = true
     var vcm = 0
     
     
@@ -59,7 +59,7 @@ class BoardView: UIView {
         boardOriginY = (bounds.height - 8 * cellSide) / 2
         
         drawChessBoard()
-        drawPieces(isWhiteAdvertise: isWhiteDevice)
+        drawPieces()
         
         if movingPiece != nil {
             
@@ -90,7 +90,7 @@ class BoardView: UIView {
     func newCR(new: Int) -> Int {
         return 7 - new
     }
-    func drawPieces(isWhiteAdvertise: Bool) {
+    func drawPieces() {
         var imgnam: String = ""
         var image: UIImage
         
@@ -102,7 +102,7 @@ class BoardView: UIView {
                     c = newCR(new: c)
                     r = newCR(new: r)
                 }
-                if !isWhiteAdvertise {
+                if !isWhiteDevice {
                     if let piece = chessDelegate?.pieceAt(x: c, y: r) {
                         switch piece.rank {
                         case .rook:
