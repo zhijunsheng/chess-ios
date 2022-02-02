@@ -23,6 +23,10 @@ class QueenTests: XCTestCase {
         print(brain)
         XCTAssertNotNil(brain.pieceAt(x: 3, y: 5))
         XCTAssertNil(brain.pieceAt(x: 0, y: 0))
+        var a = ChessPiece(x: 1, y: 1, isWhite: true, rank: .queen, imageName: "Queen-white")
+        a.isWhite.toggle()
+        print(a.imageName)
+        
     }
     
 }

@@ -18,6 +18,7 @@ class ViewController: UIViewController, ChessDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        chessBrain.isWhiteTurn = boardView.isWhiteDevice
         peerID = MCPeerID(displayName: UIDevice.current.name)
         session = MCSession(peer: peerID)
         session.delegate = self
@@ -26,6 +27,9 @@ class ViewController: UIViewController, ChessDelegate {
         
         boardView.setNeedsDisplay()
         boardView.chessDelegate = self
+        if !boardView.isWhiteDevice {
+            chessBrain.vewctlmsg = 1
+        }
     }
     
     func pieceAt(x: Int, y: Int) -> ChessPiece? {
@@ -34,9 +38,9 @@ class ViewController: UIViewController, ChessDelegate {
     
     func appear() {
         if chessBrain.isWhiteTurn {
-            whosTurnLabel.text = "white's turn"
-        } else {
             whosTurnLabel.text = "black's turn"
+        } else {
+            whosTurnLabel.text = "white's turn"
         }
     }
     
@@ -56,13 +60,15 @@ class ViewController: UIViewController, ChessDelegate {
         chessBrain.reset()
         boardView.setNeedsDisplay()
         whosTurnLabel.text = "white's turn"
+        chessBrain.isWhiteTurn = boardView.isWhiteDevice
     }
     
     func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
         guard chessBrain.pieceAt(x: frX, y: frY) != nil && chessBrain.canPieceMove(frX: frX, frY: frY, toX: toX, toY: toY) else {
             return
         }
-        
+        var b = chessBrain.pieceAt(x: frX, y: frY)!
+        b.isWhite.toggle()
         chessBrain.movePiece(frX: frX, frY: frY, toX: toX, toY: toY)
         boardView.setNeedsDisplay()
         
@@ -99,7 +105,11 @@ class ViewController: UIViewController, ChessDelegate {
             present(alertController, animated: true)
         }
         appear()
-        let message: String = "\(frX) \(frY) \(toX) \(toY)"
+        if chessBrain.isThreatenedKing() {
+            boardView.vcm += 1
+        }
+        
+        let message: String = "\(frX) \(7 - frY) \(toX) \(7 - toY)"
         if let data = message.data(using: .utf8) {
             try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
         }
@@ -119,6 +129,8 @@ extension ViewController: MCSessionDelegate {
             print("connecting:  \(peerID.displayName)...")
         case .notConnected:
             print("not-connected! (\(peerID.displayName))")
+        @unknown default:
+            break
         }
     }
     

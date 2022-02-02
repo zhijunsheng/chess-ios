@@ -10,6 +10,9 @@ struct ChessBrain: CustomStringConvertible {
     var isWhiteTurn: Bool = true
     var piecesBox = Set<ChessPiece>()
     var lastMovedPiece: ChessPiece? = nil
+    var vewctlmsg: Int = 0
+    
+    
     
     mutating func promote(rank: ChessRank) {
         
@@ -158,7 +161,18 @@ struct ChessBrain: CustomStringConvertible {
     }
     
     mutating func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
-//        bwturn()
+        if isGameEnded() {
+            return
+        }
+        for piece in piecesBox {
+            var p = ChessPiece(x: piece.x, y: piece.y, isWhite: piece.isWhite, rank: piece.rank, imageName: piece.imageName)
+            p.x = 7 - piece.x
+            p.y = 7 - piece.y
+            p.isWhite.toggle()
+        }
+        if vewctlmsg == 1 {
+            
+        }
         if toX > 7 || toX < 0 || toY > 7 || toY < 0 {
             return
         }
@@ -439,18 +453,39 @@ struct ChessBrain: CustomStringConvertible {
         return false
     }
     
-    func checkIsThreatenedSquare(x: Int, y: Int, isWhiteMoving: Bool) -> Bool {
-        for piece in piecesBox where piece.isWhite != isWhiteMoving {
+    func isGameEnded() -> Bool {
+        var a = 0
+        for piece in piecesBox {
             if piece.rank == .king {
-                if canKingAttack(frX: piece.x, frY: piece.y, toX: x, toY: y) {
-                    return true
-                }
-            } else {
-                if canPieceMove(frX: piece.x, frY: piece.y, toX: x, toY: y) {
-                    return true
-                }
+                a += 1
             }
-            
+        }
+        
+        if a < 2 {
+            return true
+        }
+        
+        return false
+    }
+    
+    func isThreatenedKing() -> Bool {
+        for piece in piecesBox where piece.rank == .king {
+            if checkIsThreatenedSquare(x: piece.x, y: piece.y, isWhiteMoving: !piece.isWhite) {
+                    return true
+            }
+        }
+        return false
+    }
+    
+    func checkIsThreatenedSquare(x: Int, y: Int, isWhiteMoving: Bool) -> Bool {
+        if pieceAt(x: x, y: y) == nil {
+            return false
+        }
+        for piece in piecesBox where piece.isWhite == isWhiteMoving {
+            if canPieceMove(frX: piece.x, frY: piece.y, toX: x, toY: y) {
+                
+                    return true
+            }
         }
         
         return false
