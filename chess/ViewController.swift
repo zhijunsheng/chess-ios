@@ -15,10 +15,13 @@ class ViewController: UIViewController, ChessDelegate {
     var peerID: MCPeerID!
     var session: MCSession!
     var nearbyServiceAdvertiser: MCNearbyServiceAdvertiser!
+//    var hn = 0
+    var firstMoveMade: Bool = false
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        chessBrain.isWhiteTurn = boardView.isWhiteDevice
+//        chessBrain.isWhiteTurn = boardView.isWhiteDevice
         peerID = MCPeerID(displayName: UIDevice.current.name)
         session = MCSession(peer: peerID)
         session.delegate = self
@@ -27,9 +30,9 @@ class ViewController: UIViewController, ChessDelegate {
         
         boardView.setNeedsDisplay()
         boardView.chessDelegate = self
-        if !boardView.isWhiteDevice {
-            chessBrain.vewctlmsg = 1
-        }
+//        if !boardView.isWhiteDevice {
+//            chessBrain.vewctlmsg = 1
+//        }
     }
     
     func pieceAt(x: Int, y: Int) -> ChessPiece? {
@@ -38,9 +41,17 @@ class ViewController: UIViewController, ChessDelegate {
     
     func appear() {
         if chessBrain.isWhiteTurn {
-            whosTurnLabel.text = "black's turn"
+            if boardView.isWhiteDevice {
+                whosTurnLabel.text = "white's turn"
+            } else {
+                whosTurnLabel.text = "black's turn"
+            }
         } else {
-            whosTurnLabel.text = "white's turn"
+            if !boardView.isWhiteDevice {
+                whosTurnLabel.text = "white's turn"
+            } else {
+                whosTurnLabel.text = "black's turn"
+            }
         }
     }
     
@@ -48,6 +59,7 @@ class ViewController: UIViewController, ChessDelegate {
         nearbyServiceAdvertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: nil, serviceType: "dabaos-chess")
         nearbyServiceAdvertiser.delegate = self
         nearbyServiceAdvertiser.startAdvertisingPeer()
+//        hn = 1
     }
     
     @IBAction func join(_ sender: Any) {
@@ -60,7 +72,8 @@ class ViewController: UIViewController, ChessDelegate {
         chessBrain.reset()
         boardView.setNeedsDisplay()
         whosTurnLabel.text = "white's turn"
-        chessBrain.isWhiteTurn = boardView.isWhiteDevice
+//        chessBrain.isWhiteTurn = boardView.isWhiteDevice
+//        hn = 2
     }
     
     func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
@@ -109,9 +122,11 @@ class ViewController: UIViewController, ChessDelegate {
             boardView.vcm += 1
         }
         
-        let message: String = "\(frX) \(7 - frY) \(toX) \(7 - toY)"
+        let message: String = "\(7 - frX) \(7 - frY) \(7 - toX) \(7 - toY)"
         if let data = message.data(using: .utf8) {
             try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
+            firstMoveMade = true
+            chessBrain.isWhiteTurn.toggle()
         }
     }
 
@@ -125,6 +140,13 @@ extension ViewController: MCSessionDelegate {
         switch state {
         case .connected:
             print("connected: \(peerID.displayName)")
+//            if hn == 1 {
+//                boardView.isWhiteDevice = true
+//            } else if hn == 2 {
+//                boardView.isWhiteDevice = false
+//            } else {
+//
+//            }
         case .connecting:
             print("connecting:  \(peerID.displayName)...")
         case .notConnected:
@@ -143,7 +165,12 @@ extension ViewController: MCSessionDelegate {
                 
                 DispatchQueue.main.async {
                     self.chessBrain.movePiece(frX: fC, frY: fR, toX: tC, toY: tR)
+                    if !self.firstMoveMade {
+                        self.boardView.isWhiteDevice = false
+                    }
+                    
                     self.boardView.setNeedsDisplay()
+                    self.chessBrain.isWhiteTurn.toggle()
                 }
             }
         }

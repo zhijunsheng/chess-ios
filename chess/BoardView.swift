@@ -19,8 +19,8 @@ class BoardView: UIView {
         cellSide = bounds.width / 8
         let touch = touches.first!
         let touchLocation = touch.location(in: self)
-        xc = Int(touchLocation.x / cellSide)
-        yr = Int(touchLocation.y / cellSide)
+        xc = newCR(new: Int(touchLocation.x / cellSide))
+        yr = newCR(new: Int(touchLocation.y / cellSide))
         
         movingPiece = chessDelegate?.getMovingPiece(x: xc, y: yr)
     }
@@ -30,7 +30,7 @@ class BoardView: UIView {
         let touchLocation = touch.location(in: self)
         fingerX = touchLocation.x
         fingerY = touchLocation.y
-
+        
         setNeedsDisplay()
     }
     
@@ -38,23 +38,26 @@ class BoardView: UIView {
         cellSide = bounds.width / 8
         let touch = touches.first!
         let touchLocation = touch.location(in: self)
-        let xx: Int = Int(touchLocation.x / cellSide)
-        let yy: Int = Int(touchLocation.y / cellSide)
+        let xx: Int = newCR(new: Int(touchLocation.x / cellSide))
+        let yy: Int = newCR(new: Int(touchLocation.y / cellSide))
         chessDelegate?.movePiece(frX: xc, frY: yr, toX: xx, toY: yy)
         
         movingPiece = nil
         if vcm == 1 {
-            let img = UIImage(named: "check")
-            img!.draw(in: CGRect(x: 3 * cellSide, y: 3 * cellSide, width: 2 * cellSide, height: 2 * cellSide))
+            let img = UIImage(named: "check")!
+            img.draw(in: CGRect(x: 3 * cellSide, y: 3 * cellSide, width: 2 * cellSide, height: 2 * cellSide))
             setNeedsDisplay()
+            vcm -= 1
         }
         
         setNeedsDisplay()
     }
     
+    
+    
     override func draw(_ rect: CGRect) {
         cellSide = bounds.width / 8
-
+        
         boardOriginX = (bounds.width - 8 * cellSide) / 2
         boardOriginY = (bounds.height - 8 * cellSide) / 2
         
@@ -63,24 +66,26 @@ class BoardView: UIView {
         
         if movingPiece != nil {
             
-            if !isWhiteDevice {
-                movingPiece!.isWhite.toggle()
-                let string = movingPiece!.imageName
-                let arr = string.split(separator: "-")
-                switch arr[1] {
-                case "white":
-                    movingPiece!.imageName = "\(getRank(piece: movingPiece!))-black"
-                case "black":
-                    movingPiece!.imageName = "\(getRank(piece: movingPiece!))-white"
-                default:
-                    break
-                }
+            
+            movingPiece!.isWhite.toggle()
+            let string = movingPiece!.imageName
+            let arr = string.split(separator: "-")
+            switch arr[1] {
+            case "white":
+                movingPiece!.imageName = "\(getRank(piece: movingPiece!))-black"
+            case "black":
+                movingPiece!.imageName = "\(getRank(piece: movingPiece!))-white"
+            default:
+                break
             }
+            
             
             let movingPieceImage = UIImage(named: movingPiece!.imageName)
             movingPieceImage?.draw(in: CGRect(x: fingerX - cellSide / 2, y: fingerY - cellSide / 2, width: cellSide, height: cellSide))
             movingPiece!.isWhite.toggle()
         }
+        
+        setNeedsDisplay()
     }
     
     func getRank(piece: ChessPiece) -> ChessRank {

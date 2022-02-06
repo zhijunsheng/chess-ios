@@ -10,7 +10,7 @@ struct ChessBrain: CustomStringConvertible {
     var isWhiteTurn: Bool = true
     var piecesBox = Set<ChessPiece>()
     var lastMovedPiece: ChessPiece? = nil
-    var vewctlmsg: Int = 0
+//    var vewctlmsg: Int = 0
     
     
     
@@ -164,15 +164,15 @@ struct ChessBrain: CustomStringConvertible {
         if isGameEnded() {
             return
         }
-        for piece in piecesBox {
-            var p = ChessPiece(x: piece.x, y: piece.y, isWhite: piece.isWhite, rank: piece.rank, imageName: piece.imageName)
-            p.x = 7 - piece.x
-            p.y = 7 - piece.y
-            p.isWhite.toggle()
-        }
-        if vewctlmsg == 1 {
-            
-        }
+//        for piece in piecesBox {
+//            var p = ChessPiece(x: piece.x, y: piece.y, isWhite: piece.isWhite, rank: piece.rank, imageName: piece.imageName)
+//            p.x = 7 - piece.x
+//            p.y = 7 - piece.y
+//            p.isWhite.toggle()
+//        }
+//        if vewctlmsg == 1 {
+//
+//        }
         if toX > 7 || toX < 0 || toY > 7 || toY < 0 {
             return
         }
@@ -269,8 +269,6 @@ struct ChessBrain: CustomStringConvertible {
         
        
         if movedPiece.rank == .pawn && movedPiece.y == 7 || movedPiece.rank == .pawn && movedPiece.y == 0 {
- //           promote(rank: <#T##ChessRank#>, movingPawn: <#T##ChessPiece#>)
-            // we'll show a selection dialog window ...
         }
         
         lastMovedPiece = movedPiece
@@ -444,9 +442,9 @@ struct ChessBrain: CustomStringConvertible {
             return false
         }
         
-        if checkIsThreatenedSquare(x: movPiece.x, y: movPiece.y, isWhiteMoving: movPiece.isWhite) ||
-            checkIsThreatenedSquare(x: (frX + toX) / 2, y: frY, isWhiteMoving: movPiece.isWhite) ||
-            checkIsThreatenedSquare(x: toX, y: toY, isWhiteMoving: movPiece.isWhite) {
+        if checkIsThreatenedSquare(x: movPiece.x, y: movPiece.y, isWhiteMoving: !movPiece.isWhite) ||
+            checkIsThreatenedSquare(x: (frX + toX) / 2, y: frY, isWhiteMoving: !movPiece.isWhite) ||
+            checkIsThreatenedSquare(x: toX, y: toY, isWhiteMoving: !movPiece.isWhite) {
             return true
         }
         
@@ -495,6 +493,7 @@ struct ChessBrain: CustomStringConvertible {
         if frX == toX && frY == toY {
             return false
         }
+        
         let deltaX = abs(frX - toX)
         if frX == toX && frY != toY  { // |
             if toY > frY { // going ⬇️

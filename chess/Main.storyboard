@@ -16,14 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kee-CN-hck" customClass="BoardView" customModule="chess" customModuleProvider="target">
-                                <rect key="frame" x="20" y="185" width="728" height="728"/>
-                                <color key="backgroundColor" red="0.83103681409999997" green="0.37355242220000001" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="Kee-CN-hck" secondAttribute="height" multiplier="1:1" id="2bj-bl-qTX"/>
-                                </constraints>
-                                <viewLayoutGuide key="safeArea" id="DEX-jJ-XfW"/>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ6-Fl-BIG">
                                 <rect key="frame" x="20" y="921" width="360" height="83"/>
                                 <constraints>
@@ -70,6 +62,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kee-CN-hck" customClass="BoardView" customModule="chess" customModuleProvider="target">
+                                <rect key="frame" x="20" y="185" width="728" height="728"/>
+                                <color key="backgroundColor" red="0.83103681409999997" green="0.37355242220000001" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Kee-CN-hck" secondAttribute="height" multiplier="1:1" id="2bj-bl-qTX"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="DEX-jJ-XfW"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.9918310789" green="1" blue="0.31684241699999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
