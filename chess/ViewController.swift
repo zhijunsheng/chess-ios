@@ -15,13 +15,11 @@ class ViewController: UIViewController, ChessDelegate {
     var peerID: MCPeerID!
     var session: MCSession!
     var nearbyServiceAdvertiser: MCNearbyServiceAdvertiser!
-//    var hn = 0
     var firstMoveMade: Bool = false
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        chessBrain.isWhiteTurn = boardView.isWhiteDevice
         peerID = MCPeerID(displayName: UIDevice.current.name)
         session = MCSession(peer: peerID)
         session.delegate = self
@@ -30,9 +28,6 @@ class ViewController: UIViewController, ChessDelegate {
         
         boardView.setNeedsDisplay()
         boardView.chessDelegate = self
-//        if !boardView.isWhiteDevice {
-//            chessBrain.vewctlmsg = 1
-//        }
     }
     
     func pieceAt(x: Int, y: Int) -> ChessPiece? {
@@ -72,8 +67,6 @@ class ViewController: UIViewController, ChessDelegate {
         chessBrain.reset()
         boardView.setNeedsDisplay()
         whosTurnLabel.text = "white's turn"
-//        chessBrain.isWhiteTurn = boardView.isWhiteDevice
-//        hn = 2
     }
     
     func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
@@ -126,7 +119,6 @@ class ViewController: UIViewController, ChessDelegate {
         if let data = message.data(using: .utf8) {
             try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
             firstMoveMade = true
-            chessBrain.isWhiteTurn.toggle()
         }
     }
 
@@ -140,13 +132,6 @@ extension ViewController: MCSessionDelegate {
         switch state {
         case .connected:
             print("connected: \(peerID.displayName)")
-//            if hn == 1 {
-//                boardView.isWhiteDevice = true
-//            } else if hn == 2 {
-//                boardView.isWhiteDevice = false
-//            } else {
-//
-//            }
         case .connecting:
             print("connecting:  \(peerID.displayName)...")
         case .notConnected:
@@ -170,7 +155,6 @@ extension ViewController: MCSessionDelegate {
                     }
                     
                     self.boardView.setNeedsDisplay()
-                    self.chessBrain.isWhiteTurn.toggle()
                 }
             }
         }

@@ -7,12 +7,9 @@ struct ChessBrain: CustomStringConvertible {
     var conditionBQueenS: Bool = true
     var conditionBKing: Bool = true
     var conditionBKingS: Bool = true
-    var isWhiteTurn: Bool = true
+    private(set) var isWhiteTurn: Bool = true
     var piecesBox = Set<ChessPiece>()
     var lastMovedPiece: ChessPiece? = nil
-//    var vewctlmsg: Int = 0
-    
-    
     
     mutating func promote(rank: ChessRank) {
         
@@ -273,7 +270,6 @@ struct ChessBrain: CustomStringConvertible {
         
         lastMovedPiece = movedPiece
         isWhiteTurn.toggle()
-        print(isWhiteTurn)
     }
     
     func needsPromotion() -> Bool {
