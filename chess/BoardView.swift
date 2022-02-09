@@ -19,9 +19,13 @@ class BoardView: UIView {
         cellSide = bounds.width / 8
         let touch = touches.first!
         let touchLocation = touch.location(in: self)
-        xc = newCR(new: Int(touchLocation.x / cellSide))
-        yr = newCR(new: Int(touchLocation.y / cellSide))
-        
+        xc = Int(touchLocation.x / cellSide)
+        yr = Int(touchLocation.y / cellSide)
+//        if isWhiteDevice {
+//            xc = newCR(new: Int(touchLocation.x / cellSide))
+//            yr = newCR(new: Int(touchLocation.y / cellSide))
+//        }
+
         movingPiece = chessDelegate?.getMovingPiece(x: xc, y: yr)
     }
     
@@ -38,8 +42,12 @@ class BoardView: UIView {
         cellSide = bounds.width / 8
         let touch = touches.first!
         let touchLocation = touch.location(in: self)
-        let xx: Int = newCR(new: Int(touchLocation.x / cellSide))
-        let yy: Int = newCR(new: Int(touchLocation.y / cellSide))
+        var xx: Int = Int(touchLocation.x / cellSide)
+        var yy: Int = Int(touchLocation.y / cellSide)
+//        if isWhiteDevice {
+//            xx = newCR(new: xx)
+//            yy = newCR(new: yy)
+//        }
         chessDelegate?.movePiece(frX: xc, frY: yr, toX: xx, toY: yy)
         
         movingPiece = nil

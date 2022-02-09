@@ -122,7 +122,7 @@ class ViewController: UIViewController, ChessDelegate {
             boardView.vcm += 1
         }
         
-        let message: String = "\(7 - frX) \(7 - frY) \(7 - toX) \(7 - toY)"
+        let message: String = "\(frX) \(7 - frY) \(toX) \(7 - toY)"
         if let data = message.data(using: .utf8) {
             try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
             firstMoveMade = true
