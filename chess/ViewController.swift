@@ -154,11 +154,11 @@ extension ViewController: MCSessionDelegate {
             if let fC = Int(components[0]), let fR = Int(components[1]), let tC = Int(components[2]), let tR = Int(components[3]) {
                 
                 DispatchQueue.main.async {
-                    
+                    self.chessBrain.movePiece(frX: fC, frY: fR, toX: tC, toY: tR)
                     if !self.firstMoveMade {
                         self.boardView.isWhiteDevice = false
                         
-                        self.chessBrain.movePiece(frX: fC, frY: fR, toX: tC, toY: tR)
+                        
                         self.firstMoveMade = true
                     }
                     

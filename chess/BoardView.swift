@@ -101,11 +101,12 @@ class BoardView: UIView {
         
         for col in 0..<8 {
             for row in 0..<8 {
-                let c = goodCR(new: col)
-                let r = goodCR(new: row)
                 
                 
-                if let piece = chessDelegate?.pieceAt(x: c, y: r) {
+                
+                if let piece = chessDelegate?.pieceAt(x: col, y: row) {
+                    let c = goodCR(new: col)
+                    let r = goodCR(new: row)
                     switch piece.rank {
                     case .rook:
                         imgnam = piece.isWhite ? "Rook-white" : "Rook-black"
