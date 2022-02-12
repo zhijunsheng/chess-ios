@@ -16,8 +16,7 @@ class ViewController: UIViewController, ChessDelegate {
     var session: MCSession!
     var nearbyServiceAdvertiser: MCNearbyServiceAdvertiser!
     var firstMoveMade: Bool = false
-    
-    
+    var hn = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         peerID = MCPeerID(displayName: UIDevice.current.name)
@@ -73,8 +72,11 @@ class ViewController: UIViewController, ChessDelegate {
         guard chessBrain.pieceAt(x: frX, y: frY) != nil && chessBrain.canPieceMove(frX: frX, frY: frY, toX: toX, toY: toY) else {
             return
         }
-        var b = chessBrain.pieceAt(x: frX, y: frY)!
-        b.isWhite.toggle()
+//        var b = chessBrain.pieceAt(x: frX, y: frY)!
+//        if b.isWhite != chessBrain.isWhiteTurn {
+//            return
+//        }
+//        b.isWhite.toggle()
         chessBrain.movePiece(frX: frX, frY: frY, toX: toX, toY: toY)
         boardView.setNeedsDisplay()
         
@@ -114,12 +116,14 @@ class ViewController: UIViewController, ChessDelegate {
         if chessBrain.isThreatenedKing() {
             boardView.vcm += 1
         }
-        
-        let message: String = "\(frX) \(7 - frY) \(toX) \(7 - toY)"
-        if let data = message.data(using: .utf8) {
-            try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
-            firstMoveMade = true
+        if hn == 1 {
+            let message: String = "\(frX) \(frY) \(toX) \(toY)"
+            if let data = message.data(using: .utf8) {
+                try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
+                firstMoveMade = true
+            }
         }
+        
     }
 
     func getMovingPiece(x: Int, y: Int) -> ChessPiece? {
@@ -132,6 +136,7 @@ extension ViewController: MCSessionDelegate {
         switch state {
         case .connected:
             print("connected: \(peerID.displayName)")
+            hn += 1
         case .connecting:
             print("connecting:  \(peerID.displayName)...")
         case .notConnected:
@@ -149,12 +154,16 @@ extension ViewController: MCSessionDelegate {
             if let fC = Int(components[0]), let fR = Int(components[1]), let tC = Int(components[2]), let tR = Int(components[3]) {
                 
                 DispatchQueue.main.async {
-                    self.chessBrain.movePiece(frX: fC, frY: fR, toX: tC, toY: tR)
+                    
                     if !self.firstMoveMade {
                         self.boardView.isWhiteDevice = false
+                        
+                        self.chessBrain.movePiece(frX: fC, frY: fR, toX: tC, toY: tR)
+                        self.firstMoveMade = true
                     }
                     
                     self.boardView.setNeedsDisplay()
+
                 }
             }
         }

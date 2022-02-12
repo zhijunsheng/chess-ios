@@ -118,6 +118,10 @@ struct ChessBrain: CustomStringConvertible {
     }
     
     func canPieceMove(frX: Int, frY: Int, toX: Int, toY: Int) -> Bool {
+        if toX > 7 || toX < 0 || toY > 7 || toY < 0 {
+            return false
+        }
+        
         guard let movingPiece = pieceAt(x: frX, y: frY) else {
             return false
         }
@@ -161,18 +165,8 @@ struct ChessBrain: CustomStringConvertible {
         if isGameEnded() {
             return
         }
-//        for piece in piecesBox {
-//            var p = ChessPiece(x: piece.x, y: piece.y, isWhite: piece.isWhite, rank: piece.rank, imageName: piece.imageName)
-//            p.x = 7 - piece.x
-//            p.y = 7 - piece.y
-//            p.isWhite.toggle()
-//        }
-//        if vewctlmsg == 1 {
-//
-//        }
-        if toX > 7 || toX < 0 || toY > 7 || toY < 0 {
-            return
-        }
+        
+        
         
         let beCapturedPiece = pieceAt(x: toX, y: toY)
         guard let movingPiece = pieceAt(x: frX, y: frY) else {

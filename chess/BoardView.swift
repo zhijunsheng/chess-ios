@@ -19,13 +19,10 @@ class BoardView: UIView {
         cellSide = bounds.width / 8
         let touch = touches.first!
         let touchLocation = touch.location(in: self)
-        xc = Int(touchLocation.x / cellSide)
-        yr = Int(touchLocation.y / cellSide)
-//        if isWhiteDevice {
-//            xc = newCR(new: Int(touchLocation.x / cellSide))
-//            yr = newCR(new: Int(touchLocation.y / cellSide))
-//        }
-
+        xc = goodCR(new: Int(touchLocation.x / cellSide))
+        yr = goodCR(new: Int(touchLocation.y / cellSide))
+        //        xc = Int(touchLocation.x / cellSide)
+        //        yr = Int(touchLocation.y / cellSide)
         movingPiece = chessDelegate?.getMovingPiece(x: xc, y: yr)
     }
     
@@ -42,12 +39,10 @@ class BoardView: UIView {
         cellSide = bounds.width / 8
         let touch = touches.first!
         let touchLocation = touch.location(in: self)
-        var xx: Int = Int(touchLocation.x / cellSide)
-        var yy: Int = Int(touchLocation.y / cellSide)
-//        if isWhiteDevice {
-//            xx = newCR(new: xx)
-//            yy = newCR(new: yy)
-//        }
+        let xx: Int = goodCR(new: Int(touchLocation.x / cellSide))
+        let yy: Int = goodCR(new: Int(touchLocation.y / cellSide))
+        //        let xx: Int = Int(touchLocation.x / cellSide)
+        //        let yy: Int = Int(touchLocation.y / cellSide)
         chessDelegate?.movePiece(frX: xc, frY: yr, toX: xx, toY: yy)
         
         movingPiece = nil
@@ -73,9 +68,6 @@ class BoardView: UIView {
         drawPieces()
         
         if movingPiece != nil {
-            
-            
-            movingPiece!.isWhite.toggle()
             let string = movingPiece!.imageName
             let arr = string.split(separator: "-")
             switch arr[1] {
@@ -100,8 +92,8 @@ class BoardView: UIView {
         return piece.rank
     }
     
-    func newCR(new: Int) -> Int {
-        return 7 - new
+    func goodCR(new: Int) -> Int {
+        return isWhiteDevice ? new : 7 - new
     }
     func drawPieces() {
         var imgnam: String = ""
@@ -109,69 +101,36 @@ class BoardView: UIView {
         
         for col in 0..<8 {
             for row in 0..<8 {
-                var c = col
-                var r = row
-                if !isWhiteDevice {
-                    c = newCR(new: c)
-                    r = newCR(new: r)
-                }
-                if !isWhiteDevice {
-                    if let piece = chessDelegate?.pieceAt(x: c, y: r) {
-                        switch piece.rank {
-                        case .rook:
-                            imgnam = piece.isWhite ? "Rook-black" : "Rook-white"
-                            image = UIImage(named: imgnam)!
-                            image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
-                        case .knight:
-                            imgnam = piece.isWhite ? "Knight-black" : "Knight-white"
-                            image = UIImage(named: imgnam)!
-                            image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
-                        case .bishop:
-                            imgnam = piece.isWhite ? "Bishop-black" : "Bishop-white"
-                            image = UIImage(named: imgnam)!
-                            image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
-                        case .king:
-                            imgnam = piece.isWhite ? "King-black" : "King-white"
-                            image = UIImage(named: imgnam)!
-                            image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
-                        case .pawn:
-                            imgnam = piece.isWhite ? "Pawn-black" : "Pawn-white"
-                            image = UIImage(named: imgnam)!
-                            image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
-                        case .queen:
-                            imgnam = piece.isWhite ? "Queen-black" : "Queen-white"
-                            image = UIImage(named: imgnam)!
-                            image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
-                        }
-                    }
-                } else {
-                    if let piece = chessDelegate?.pieceAt(x: c, y: r) {
-                        switch piece.rank {
-                        case .rook:
-                            imgnam = piece.isWhite ? "Rook-white" : "Rook-black"
-                            image = UIImage(named: imgnam)!
-                            image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
-                        case .knight:
-                            imgnam = piece.isWhite ? "Knight-white" : "Knight-black"
-                            image = UIImage(named: imgnam)!
-                            image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
-                        case .bishop:
-                            imgnam = piece.isWhite ? "Bishop-white" : "Bishop-black"
-                            image = UIImage(named: imgnam)!
-                            image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
-                        case .king:
-                            imgnam = piece.isWhite ? "King-white" : "King-black"
-                            image = UIImage(named: imgnam)!
-                            image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
-                        case .pawn:
-                            imgnam = piece.isWhite ? "Pawn-white" : "Pawn-black"
-                            image = UIImage(named: imgnam)!
-                            image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
-                        case .queen:
-                            imgnam = piece.isWhite ? "Queen-white" : "Queen-black"
-                            image = UIImage(named: imgnam)!
-                            image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
-                        }
+                let c = goodCR(new: col)
+                let r = goodCR(new: row)
+                
+                
+                if let piece = chessDelegate?.pieceAt(x: c, y: r) {
+                    switch piece.rank {
+                    case .rook:
+                        imgnam = piece.isWhite ? "Rook-white" : "Rook-black"
+                        image = UIImage(named: imgnam)!
+                        image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
+                    case .knight:
+                        imgnam = piece.isWhite ? "Knight-white" : "Knight-black"
+                        image = UIImage(named: imgnam)!
+                        image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
+                    case .bishop:
+                        imgnam = piece.isWhite ? "Bishop-white" : "Bishop-black"
+                        image = UIImage(named: imgnam)!
+                        image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
+                    case .king:
+                        imgnam = piece.isWhite ? "King-white" : "King-black"
+                        image = UIImage(named: imgnam)!
+                        image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
+                    case .pawn:
+                        imgnam = piece.isWhite ? "Pawn-white" : "Pawn-black"
+                        image = UIImage(named: imgnam)!
+                        image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
+                    case .queen:
+                        imgnam = piece.isWhite ? "Queen-white" : "Queen-black"
+                        image = UIImage(named: imgnam)!
+                        image.draw(in: CGRect(x: CGFloat(c) * cellSide, y: CGFloat(r) * cellSide, width: cellSide, height: cellSide))
                     }
                 }
             }
