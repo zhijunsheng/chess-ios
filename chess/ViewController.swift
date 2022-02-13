@@ -16,8 +16,7 @@ class ViewController: UIViewController, ChessDelegate {
     var session: MCSession!
     var nearbyServiceAdvertiser: MCNearbyServiceAdvertiser!
     var firstMoveMade: Bool = false
-    var hn = 0
-    var hn2 = 0
+    var isMultiDevice = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,7 +118,7 @@ class ViewController: UIViewController, ChessDelegate {
             boardView.vcm += 1
         }
         
-        if hn == 1 {
+        if isMultiDevice == true {
             let message: String = "\(frX) \(frY) \(toX) \(toY)"
             if let data = message.data(using: .utf8) {
                 try? session.send(data, toPeers: session.connectedPeers, with: .reliable)
@@ -138,7 +137,7 @@ extension ViewController: MCSessionDelegate {
         switch state {
         case .connected:
             print("connected: \(peerID.displayName)")
-            hn += 1
+            isMultiDevice = true
         case .connecting:
             print("connecting:  \(peerID.displayName)...")
         case .notConnected:
