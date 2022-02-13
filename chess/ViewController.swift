@@ -2,7 +2,7 @@ import UIKit
 import MultipeerConnectivity
 
 class ViewController: UIViewController, ChessDelegate {
-
+    
     @IBOutlet weak var promoteToQueenButton: UIButton!
     @IBOutlet weak var promoteToRookButton: UIButton!
     @IBOutlet weak var promoteToKnightButton: UIButton!
@@ -17,6 +17,8 @@ class ViewController: UIViewController, ChessDelegate {
     var nearbyServiceAdvertiser: MCNearbyServiceAdvertiser!
     var firstMoveMade: Bool = false
     var hn = 0
+    var hn2 = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         peerID = MCPeerID(displayName: UIDevice.current.name)
@@ -53,7 +55,6 @@ class ViewController: UIViewController, ChessDelegate {
         nearbyServiceAdvertiser = MCNearbyServiceAdvertiser(peer: peerID, discoveryInfo: nil, serviceType: "dabaos-chess")
         nearbyServiceAdvertiser.delegate = self
         nearbyServiceAdvertiser.startAdvertisingPeer()
-//        hn = 1
     }
     
     @IBAction func join(_ sender: Any) {
@@ -61,7 +62,7 @@ class ViewController: UIViewController, ChessDelegate {
         browser.delegate = self
         present(browser, animated: true)
     }
-
+    
     @IBAction func newGame(_ sender: Any) {
         chessBrain.reset()
         boardView.setNeedsDisplay()
@@ -69,14 +70,15 @@ class ViewController: UIViewController, ChessDelegate {
     }
     
     func movePiece(frX: Int, frY: Int, toX: Int, toY: Int) {
+        
         guard chessBrain.pieceAt(x: frX, y: frY) != nil && chessBrain.canPieceMove(frX: frX, frY: frY, toX: toX, toY: toY) else {
             return
         }
-//        var b = chessBrain.pieceAt(x: frX, y: frY)!
-//        if b.isWhite != chessBrain.isWhiteTurn {
-//            return
-//        }
-//        b.isWhite.toggle()
+        
+        if boardView.isWhiteDevice != chessBrain.pieceAt(x: frX, y: frY)!.isWhite {
+            return
+        }
+        
         chessBrain.movePiece(frX: frX, frY: frY, toX: toX, toY: toY)
         boardView.setNeedsDisplay()
         
@@ -116,6 +118,7 @@ class ViewController: UIViewController, ChessDelegate {
         if chessBrain.isThreatenedKing() {
             boardView.vcm += 1
         }
+        
         if hn == 1 {
             let message: String = "\(frX) \(frY) \(toX) \(toY)"
             if let data = message.data(using: .utf8) {
@@ -123,9 +126,8 @@ class ViewController: UIViewController, ChessDelegate {
                 firstMoveMade = true
             }
         }
-        
     }
-
+    
     func getMovingPiece(x: Int, y: Int) -> ChessPiece? {
         return chessBrain.pieceAt(x: x, y: y)
     }
@@ -148,9 +150,7 @@ extension ViewController: MCSessionDelegate {
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         if let str = String(data: data, encoding: .utf8) {
-//            print(str)
             let components = str.components(separatedBy: " ")
-//            print("(\(components[0]),\(components[1])) -> (\(components[2]),\(components[3]))")
             if let fC = Int(components[0]), let fR = Int(components[1]), let tC = Int(components[2]), let tR = Int(components[3]) {
                 
                 DispatchQueue.main.async {
@@ -163,7 +163,6 @@ extension ViewController: MCSessionDelegate {
                     }
                     
                     self.boardView.setNeedsDisplay()
-
                 }
             }
         }
@@ -178,7 +177,6 @@ extension ViewController: MCSessionDelegate {
     }
     
     func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
-        
     }
 }
 
