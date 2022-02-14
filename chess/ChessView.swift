@@ -10,20 +10,23 @@ import UIKit
 
 class ChessView: UIView {
     
-    let gx: CGFloat = 10
-    let gy: CGFloat = 10
-    let cell: CGFloat = 50
+    let gx: CGFloat = 0
+    let gy: CGFloat = 0
+    var cell: CGFloat = -100
     
     override func draw(_ rect: CGRect) {
         
-        let pencil = UIBezierPath(rect: CGRect(x: gx, y: gy, width: cell, height: cell))
-        let pencil2 = UIBezierPath(rect: CGRect(x: gx + cell, y: gy + cell, width: cell, height: cell))
+        cell = bounds.width / 8
         
-        
-        
-        pencil.fill()
-        pencil2.fill()
-        
+        for k in 0 ..< 4 {
+            for i in 0 ..< 4 {
+                let pencil = UIBezierPath(rect: CGRect(x: gx + cell + cell * CGFloat(i * 2), y: gy + CGFloat(k) * (cell * 2), width: cell, height: cell))
+                pencil.fill()
+            }
+            for i in 0 ..< 4 {
+                let pencil = UIBezierPath(rect: CGRect(x: gx + cell * CGFloat(i * 2), y: gy + CGFloat(k) * (cell * 2) + cell, width: cell, height: cell))
+                pencil.fill()
+            }
+        }
     }
-
 }
