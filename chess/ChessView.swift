@@ -16,13 +16,13 @@ class ChessView: UIView {
     
     override func draw(_ rect: CGRect) {
         
-        let pencil = UIBezierPath()
-        
-        pencil.move(to: CGPoint(x: gx, y: gy))
-        pencil.addLine(to: CGPoint(x: gx, y: gy + cell))
+        let pencil = UIBezierPath(rect: CGRect(x: gx, y: gy, width: cell, height: cell))
+        let pencil2 = UIBezierPath(rect: CGRect(x: gx + cell, y: gy + cell, width: cell, height: cell))
         
         
-        pencil.stroke()
+        
+        pencil.fill()
+        pencil2.fill()
         
     }
 
