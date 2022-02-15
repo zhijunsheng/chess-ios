@@ -17,12 +17,32 @@ class ChessView: UIView {
     override func draw(_ rect: CGRect) {
         cell = bounds.width / 8
         drawBoard()
-        
+        drawPieces()
+    }
+    
+    func drawPieces() {
         for i in 0 ..< 8 {
-            let pawn = UIImage(named: "pawn_chess_w")
-            pawn?.draw(at: CGPoint(x: gx + cell * CGFloat(i), y: gy + cell * 6))
+            drawPiece(col: i, row: 1, image: "pawn_chess_b")
+            drawPiece(col: i, row: 6, image: "pawn_chess_w")
         }
         
+        for i in 0 ..< 2 {
+            drawPiece(col: 2 + i * 3, row: 0, image: "bishop_chess_b")
+            drawPiece(col: 2 + i * 3, row: 7, image: "bishop_chess_w")
+            drawPiece(col: i * 7, row: 0, image: "rook_chess_b")
+            drawPiece(col: i * 7, row: 7, image: "rook_chess_w")
+            drawPiece(col: 1 + i * 5, row: 0, image: "knight_chess_b")
+            drawPiece(col: 1 + i * 5, row: 7, image: "knight_chess_w")
+        }
+        drawPiece(col: 4, row: 0, image: "king_chess_b")
+        drawPiece(col: 4, row: 7, image: "king_chess_w")
+        drawPiece(col: 3, row: 0, image: "queen_chess_b")
+        drawPiece(col: 3, row: 7, image: "queen_chess_w")
+    }
+    
+    func drawPiece(col: Int, row: Int, image: String) {
+        let chessPiece = UIImage(named: image)
+        chessPiece?.draw(in: CGRect(x: gx + cell * CGFloat(col), y: gy + cell * CGFloat(row), width: cell, height: cell))
     }
     
     func drawBoard() {
