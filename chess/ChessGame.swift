@@ -11,6 +11,16 @@ import Foundation
 struct ChessGame {
     var pieces: Set<ChessPiece> = []
     
+    mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
+        if let wherePiece = pieceAt(col: fromCol, row: fromRow) {
+            pieces.remove(wherePiece)
+            
+            pieces.insert(ChessPiece(col: toCol, row: toRow, whatPiece: wherePiece.whatPiece, isWhite: wherePiece.isWhite, imageName: wherePiece.imageName))
+        }
+        
+        
+    }
+    
     mutating func reset() {
         for i in 0 ..< 8 {
             pieces.insert(ChessPiece(col: i, row: 1, whatPiece: .pawn, isWhite: false, imageName: "pawn_chess_b"))

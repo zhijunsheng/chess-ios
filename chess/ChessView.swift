@@ -13,8 +13,8 @@ class ChessView: UIView {
     let gx: CGFloat = 0
     let gy: CGFloat = 0
     var cell: CGFloat = -100
-    var colBegan: Int = -1
-    var rowBegan: Int = -1
+    var fromCol: Int = -1
+    var fromRow: Int = -1
     var delegate: ChessDelegate? = nil
     
     
@@ -27,17 +27,19 @@ class ChessView: UIView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         let finger = touch.location(in: self)
-        colBegan = Int(finger.x / cell)
-        rowBegan = Int(finger.y / cell)
+        fromCol = Int(finger.x / cell)
+        fromRow = Int(finger.y / cell)
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
         let finger = touch.location(in: self)
-        let colEnd: Int = Int(finger.x / cell)
-        let rowEnd: Int = Int(finger.y / cell)
+        let toCol: Int = Int(finger.x / cell)
+        let toRow: Int = Int(finger.y / cell)
         
-        print("From: \(colBegan),\(rowBegan) To: \(colEnd),\(rowEnd)")
+        delegate?.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
+        
+        print("From: \(fromCol),\(fromRow) To: \(toCol),\(toRow)")
     }
     
     func drawPieces() {
