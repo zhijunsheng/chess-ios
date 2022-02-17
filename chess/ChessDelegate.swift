@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+protocol ChessDelegate {
+    func pieceAt(col: Int, row: Int) -> ChessPiece?
+}

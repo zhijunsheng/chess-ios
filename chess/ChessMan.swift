@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+enum ChessMan {
+    case king
+    case queen
+    case bishop
+    case rook
+    case knight
+    case pawn
+}

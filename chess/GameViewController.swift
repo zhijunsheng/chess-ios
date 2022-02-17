@@ -8,13 +8,20 @@
 
 import UIKit
 
-class GameViewController: UIViewController {
-
+class GameViewController: UIViewController, ChessDelegate {
+    var game = ChessGame()
+    
+    @IBOutlet weak var chessView: ChessView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        chessView.delegate = self
+        game.reset()
     }
-
+    
+    func pieceAt(col: Int, row: Int) -> ChessPiece? {
+        return game.pieceAt(col: col, row: row)
+    }
 }
+
 

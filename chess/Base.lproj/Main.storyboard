@@ -33,6 +33,9 @@
                             <constraint firstItem="Num-d4-m38" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="odl-cH-UVt"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="chessView" destination="Num-d4-m38" id="byz-X2-lnf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
