@@ -12,13 +12,16 @@ struct ChessGame {
     var pieces: Set<ChessPiece> = []
     
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
-        if let wherePiece = pieceAt(col: fromCol, row: fromRow) {
-            pieces.remove(wherePiece)
-            
-            pieces.insert(ChessPiece(col: toCol, row: toRow, whatPiece: wherePiece.whatPiece, isWhite: wherePiece.isWhite, imageName: wherePiece.imageName))
+        
+        guard let wherePiece = pieceAt(col: fromCol, row: fromRow) else { return }
+
+        if wherePiece.whatPiece == .rook {
+            if canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
+
+                pieces.remove(wherePiece)
+                pieces.insert(ChessPiece(col: toCol, row: toRow, whatPiece: wherePiece.whatPiece, isWhite: wherePiece.isWhite, imageName: wherePiece.imageName))
+            }
         }
-        
-        
     }
     
     mutating func reset() {
@@ -53,4 +56,12 @@ struct ChessGame {
         }
         return nil
     }
+    
+    func canRookMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        if fromRow == toRow || fromCol == toCol {
+            return true
+        }
+        return false
+    }
+    
 }
