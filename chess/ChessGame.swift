@@ -86,15 +86,9 @@ struct ChessGame {
     }
     
     func canKingMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        if toCol == fromCol - 1 && toRow == fromRow - 1 ||
-            toCol == fromCol && toRow == fromRow - 1 ||
-            toCol == fromCol + 1 && toRow == fromRow - 1 ||
-            toCol == fromCol + 1 && toRow == fromRow ||
-            toCol == fromCol + 1 && toRow == fromRow + 1 ||
-            toCol == fromCol && toRow == fromRow + 1 ||
-            toCol == fromCol - 1 && toRow == fromRow + 1 ||
-            toCol == fromCol - 1 && toRow == fromRow
-        {
+        if toCol == fromCol && abs(toRow - fromRow) ==  1 ||
+            abs(toCol - fromCol) == 1 && toRow == fromRow ||
+            abs(toCol - fromCol) == 1 && abs(toRow - fromRow) ==  1 {
             return true
         }
         return false
