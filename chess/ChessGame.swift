@@ -30,6 +30,13 @@ struct ChessGame {
                 pieces.insert(ChessPiece(col: toCol, row: toRow, whatPiece: wherePiece.whatPiece, isWhite: wherePiece.isWhite, imageName: wherePiece.imageName))
             }
         }
+        if wherePiece.whatPiece == .knight {
+            if canKnightMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
+
+                pieces.remove(wherePiece)
+                pieces.insert(ChessPiece(col: toCol, row: toRow, whatPiece: wherePiece.whatPiece, isWhite: wherePiece.isWhite, imageName: wherePiece.imageName))
+            }
+        }
         if wherePiece.whatPiece == .king {
             if canKingMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
 
@@ -86,11 +93,12 @@ struct ChessGame {
     }
     
     func canKingMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        if toCol == fromCol && abs(toRow - fromRow) ==  1 ||
-            abs(toCol - fromCol) == 1 && toRow == fromRow ||
-            abs(toCol - fromCol) == 1 && abs(toRow - fromRow) ==  1 {
-            return true
-        }
-        return false
+        return toCol == fromCol && abs(toRow - fromRow) ==  1 ||
+        abs(toCol - fromCol) == 1 && toRow == fromRow ||
+        abs(toCol - fromCol) == 1 && abs(toRow - fromRow) ==  1
+    }
+    func canKnightMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        return abs(toCol - fromCol) == 1 && abs(toRow - fromRow) == 2 ||
+        abs(toCol - fromCol) == 2 && abs(toRow - fromRow) == 1
     }
 }
