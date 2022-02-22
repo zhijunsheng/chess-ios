@@ -22,6 +22,21 @@ struct ChessGame {
                 pieces.insert(ChessPiece(col: toCol, row: toRow, whatPiece: wherePiece.whatPiece, isWhite: wherePiece.isWhite, imageName: wherePiece.imageName))
             }
         }
+        
+        if wherePiece.whatPiece == .pawn {
+            if canPawnMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow, isWhite: wherePiece.isWhite) {
+
+                pieces.remove(wherePiece)
+                pieces.insert(ChessPiece(col: toCol, row: toRow, whatPiece: wherePiece.whatPiece, isWhite: wherePiece.isWhite, imageName: wherePiece.imageName))
+            }
+        }
+        if wherePiece.whatPiece == .king {
+            if canKingMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
+
+                pieces.remove(wherePiece)
+                pieces.insert(ChessPiece(col: toCol, row: toRow, whatPiece: wherePiece.whatPiece, isWhite: wherePiece.isWhite, imageName: wherePiece.imageName))
+            }
+        }
     }
     
     mutating func reset() {
@@ -63,5 +78,25 @@ struct ChessGame {
         }
         return false
     }
+    func canPawnMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
+        return true
+        
+        //CHANGE SOON
+        
+    }
     
+    func canKingMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+        if toCol == fromCol - 1 && toRow == fromRow - 1 ||
+            toCol == fromCol && toRow == fromRow - 1 ||
+            toCol == fromCol + 1 && toRow == fromRow - 1 ||
+            toCol == fromCol + 1 && toRow == fromRow ||
+            toCol == fromCol + 1 && toRow == fromRow + 1 ||
+            toCol == fromCol && toRow == fromRow + 1 ||
+            toCol == fromCol - 1 && toRow == fromRow + 1 ||
+            toCol == fromCol - 1 && toRow == fromRow
+        {
+            return true
+        }
+        return false
+    }
 }
