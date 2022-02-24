@@ -38,8 +38,6 @@ class ChessView: UIView {
         let toRow: Int = Int(finger.y / cell)
         
         delegate?.movePiece(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
-        
-        print("From: \(fromCol),\(fromRow) To: \(toCol),\(toRow)")
     }
     
     func drawPieces() {

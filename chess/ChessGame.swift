@@ -13,11 +13,18 @@ struct ChessGame {
     
     mutating func movePiece(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) {
         
-        guard let wherePiece = pieceAt(col: fromCol, row: fromRow) else { return }
+        guard let piece = pieceAt(col: fromCol, row: fromRow) else { return }
         
         if canPieceMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
-            pieces.remove(wherePiece)
-            pieces.insert(ChessPiece(col: toCol, row: toRow, whatPiece: wherePiece.whatPiece, isWhite: wherePiece.isWhite, imageName: wherePiece.imageName))
+            
+            if let targetPiece = pieceAt(col: toCol, row: toRow) {
+                if targetPiece.isWhite != piece.isWhite {
+                    pieces.remove(targetPiece)
+                }
+            }
+            
+            pieces.remove(piece)
+            pieces.insert(ChessPiece(col: toCol, row: toRow, whatPiece: piece.whatPiece, isWhite: piece.isWhite, imageName: piece.imageName))
         }
     }
     
@@ -32,10 +39,10 @@ struct ChessGame {
             pieces.insert(ChessPiece(col: 2 + i * 3, row: 7, whatPiece: .bishop, isWhite: true, imageName: "bishop_chess_w"))
             
             pieces.insert(ChessPiece(col: i * 7, row: 0, whatPiece: .rook, isWhite: false, imageName: "rook_chess_b"))
-            pieces.insert(ChessPiece(col: i * 7, row: 7, whatPiece: .rook, isWhite: false, imageName: "rook_chess_w"))
+            pieces.insert(ChessPiece(col: i * 7, row: 7, whatPiece: .rook, isWhite: true, imageName: "rook_chess_w"))
             
             pieces.insert(ChessPiece(col: 1 + i * 5, row: 0, whatPiece: .knight, isWhite: false, imageName: "knight_chess_b"))
-            pieces.insert(ChessPiece(col: 1 + i * 5, row: 7, whatPiece: .knight, isWhite: false, imageName: "knight_chess_w"))
+            pieces.insert(ChessPiece(col: 1 + i * 5, row: 7, whatPiece: .knight, isWhite: true, imageName: "knight_chess_w"))
         }
 
         pieces.insert(ChessPiece(col: 4, row: 0, whatPiece: .king, isWhite: false, imageName: "king_chess_b"))
@@ -54,14 +61,21 @@ struct ChessGame {
         return nil
     }
     func canPieceMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        guard let wherePiece = pieceAt(col: fromCol, row: fromRow) else {
+        guard let piece = pieceAt(col: fromCol, row: fromRow) else {
             return false
         }
-        switch wherePiece.whatPiece {
+        if let targetPiece = pieceAt(col: toCol, row: toRow) {
+            if targetPiece.isWhite == piece.isWhite {
+                return false
+            }
+
+        }
+        
+        switch piece.whatPiece {
         case .rook:
             return canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .pawn:
-            return canPawnMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow, isWhite: wherePiece.isWhite)
+            return canPawnMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow, isWhite: piece.isWhite)
         case .king:
             return canKingMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
         case .knight:
