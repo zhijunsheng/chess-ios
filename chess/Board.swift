@@ -24,6 +24,8 @@ struct Board: CustomStringConvertible {
     var isWhiteTurn: Bool = true
     var thing = Set<Piece>()
     var pieces: Set<Piece> = Set<Piece>()
+    var lastTng: Piece?
+    
     
     mutating func withdraw() {
         pieces = thing
@@ -32,11 +34,11 @@ struct Board: CustomStringConvertible {
     
     mutating func canPromote(col: Int, row: Int, isWhite: Bool) -> Bool {
         guard let piece = pieceOn(col: col, row: row) else { return false }
-        if piece.rank == .pawn && piece.isWhite {
+        if piece.cm == .pawn && piece.isWhite {
             if row == 0 {
                 return true
             }
-        } else if piece.rank == .pawn && !piece.isWhite {
+        } else if piece.cm == .pawn && !piece.isWhite {
             if row == 7 {
                 return true
             }
@@ -45,28 +47,28 @@ struct Board: CustomStringConvertible {
     }
     
     mutating func initPieces() {
-        pieces.insert(Piece(col: 0, row: 0, imageName: "rook_chess_b", isWhite: false, rank: .rook))
-        pieces.insert(Piece(col: 1, row: 0, imageName: "knight_chess_b", isWhite: false, rank: .knight))
-        pieces.insert(Piece(col: 2, row: 0, imageName: "bishop_chess_b", isWhite: false, rank: .bishop))
-        pieces.insert(Piece(col: 3, row: 0, imageName: "queen_chess_b", isWhite: false, rank: .queen))
-        pieces.insert(Piece(col: 4, row: 0, imageName: "king_chess_b", isWhite: false, rank: .king))
-        pieces.insert(Piece(col: 5, row: 0, imageName: "bishop_chess_b", isWhite: false, rank: .bishop))
-        pieces.insert(Piece(col: 6, row: 0, imageName: "knight_chess_b", isWhite: false, rank: .knight))
-        pieces.insert(Piece(col: 7, row: 0, imageName: "rook_chess_b", isWhite: false, rank: .rook))
-        pieces.insert(Piece(col: 0, row: 7, imageName: "rook_chess_w", isWhite: true, rank: .rook))
-        pieces.insert(Piece(col: 1, row: 7, imageName: "knight_chess_w", isWhite: true, rank: .knight))
-        pieces.insert(Piece(col: 2, row: 7, imageName: "bishop_chess_w", isWhite: true, rank: .bishop))
-        pieces.insert(Piece(col: 3, row: 7, imageName: "queen_chess_w", isWhite: true, rank: .queen))
-        pieces.insert(Piece(col: 4, row: 7, imageName: "king_chess_w", isWhite: true, rank: .king))
-        pieces.insert(Piece(col: 5, row: 7, imageName: "bishop_chess_w", isWhite: true, rank: .bishop))
-        pieces.insert(Piece(col: 6, row: 7, imageName: "knight_chess_w", isWhite: true, rank: .knight))
-        pieces.insert(Piece(col: 7, row: 7, imageName: "rook_chess_w", isWhite: true, rank: .rook))
+        pieces.insert(Piece(col: 0, row: 0, imageName: "rook_chess_b", isWhite: false, cm: .rook))
+        pieces.insert(Piece(col: 1, row: 0, imageName: "knight_chess_b", isWhite: false, cm: .knight))
+        pieces.insert(Piece(col: 2, row: 0, imageName: "bishop_chess_b", isWhite: false, cm: .bishop))
+        pieces.insert(Piece(col: 3, row: 0, imageName: "queen_chess_b", isWhite: false, cm: .queen))
+        pieces.insert(Piece(col: 4, row: 0, imageName: "king_chess_b", isWhite: false, cm: .king))
+        pieces.insert(Piece(col: 5, row: 0, imageName: "bishop_chess_b", isWhite: false, cm: .bishop))
+        pieces.insert(Piece(col: 6, row: 0, imageName: "knight_chess_b", isWhite: false, cm: .knight))
+        pieces.insert(Piece(col: 7, row: 0, imageName: "rook_chess_b", isWhite: false, cm: .rook))
+        pieces.insert(Piece(col: 0, row: 7, imageName: "rook_chess_w", isWhite: true, cm: .rook))
+        pieces.insert(Piece(col: 1, row: 7, imageName: "knight_chess_w", isWhite: true, cm: .knight))
+        pieces.insert(Piece(col: 2, row: 7, imageName: "bishop_chess_w", isWhite: true, cm: .bishop))
+        pieces.insert(Piece(col: 3, row: 7, imageName: "queen_chess_w", isWhite: true, cm: .queen))
+        pieces.insert(Piece(col: 4, row: 7, imageName: "king_chess_w", isWhite: true, cm: .king))
+        pieces.insert(Piece(col: 5, row: 7, imageName: "bishop_chess_w", isWhite: true, cm: .bishop))
+        pieces.insert(Piece(col: 6, row: 7, imageName: "knight_chess_w", isWhite: true, cm: .knight))
+        pieces.insert(Piece(col: 7, row: 7, imageName: "rook_chess_w", isWhite: true, cm: .rook))
         
         for bpawnNo in 0...7 {
-            pieces.insert(Piece(col: bpawnNo, row: 1, imageName: "pawn_chess_b", isWhite: false, rank: .pawn))
+            pieces.insert(Piece(col: bpawnNo, row: 1, imageName: "pawn_chess_b", isWhite: false, cm: .pawn))
         }
         for wpawnNo in 0...7 {
-            pieces.insert(Piece(col: wpawnNo, row: 6, imageName: "pawn_chess_w", isWhite: true, rank: .pawn))
+            pieces.insert(Piece(col: wpawnNo, row: 6, imageName: "pawn_chess_w", isWhite: true, cm: .pawn))
         }
 
     }
@@ -79,17 +81,20 @@ struct Board: CustomStringConvertible {
         }
 
         if canMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
-            if capturePiece(pieceCol: fromCol, pieceRow: fromRow, col: toCol, row: toRow) {
+            if canCapturePiece(pieceCol: fromCol, pieceRow: fromRow, col: toCol, row: toRow) {
                 guard let target = pieceOn(col: toCol, row: toRow) else {
                     return
                 }
                 pieces.remove(target)
                 pieces.remove(piece)
-                pieces.insert(Piece(col: toCol, row: toRow, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
+                pieces.insert(Piece(col: toCol, row: toRow, imageName: piece.imageName, isWhite: piece.isWhite, cm: piece.cm))
                 isWhiteTurn = !isWhiteTurn
             } else {
+                if piece.cm == .pawn {
+                    
+                }
                 pieces.remove(piece)
-                pieces.insert(Piece(col: toCol, row: toRow, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
+                pieces.insert(Piece(col: toCol, row: toRow, imageName: piece.imageName, isWhite: piece.isWhite, cm: piece.cm))
                 isWhiteTurn = !isWhiteTurn
             }
         }
@@ -106,7 +111,7 @@ struct Board: CustomStringConvertible {
            candidate.isWhite != isWhiteTurn {
             return false
         }
-        switch candidate.rank {
+        switch candidate.cm {
         case .pawn:
             return canPawnMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow, isWhite: candidate.isWhite)
         case .knight:
@@ -149,7 +154,7 @@ struct Board: CustomStringConvertible {
         return false
     }
     
-    func capturePiece(pieceCol: Int, pieceRow: Int, col: Int, row: Int) -> Bool {
+    func canCapturePiece(pieceCol: Int, pieceRow: Int, col: Int, row: Int) -> Bool {
         guard let candidate = pieceOn(col: pieceCol, row: pieceRow) else {
             return false
         }
@@ -172,27 +177,46 @@ struct Board: CustomStringConvertible {
             return false
         }
         
-        if isWhite && (pieceOn(col: fromCol, row: fromRow - 1) == nil) {
-            if candidate.row == 6 && (pieceOn(col: fromCol, row: fromRow - 2) == nil) {
-                return fromRow - 1 == toRow && fromCol == toCol || fromRow - 2 == toRow && fromCol == toCol || (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true
+        
+        
+        if (pieceOn(col: toCol, row: toRow) != nil) {
+            if pieceOn(col: toCol, row: toRow)?.isWhite != candidate.isWhite {
+                return toRow == fromRow + (isWhite ? -1 : 1) && abs(toCol - fromCol) == 1
             } else {
-                return fromRow - 1 == toRow && fromCol == toCol || (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true
+                return false
             }
-        }
-
-        if !isWhite && (pieceOn(col: fromCol, row: fromRow + 1) == nil) {
-            if candidate.row == 1 && (pieceOn(col: fromCol, row: fromRow + 2) == nil) {
-                return fromRow + 1 == toRow && fromCol == toCol || fromRow + 2 == toRow && fromCol == toCol || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol - 1, row: fromRow - 1)?.isWhite != false || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) && pieceOn(col: fromCol - 1, row: fromRow + 1)?.isWhite != false
-            } else {
-                return fromRow + 1 == toRow && fromCol == toCol || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol - 1, row: fromRow - 1)?.isWhite != false || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) && pieceOn(col: fromCol - 1, row: fromRow + 1)?.isWhite != false
-            }
-        }
-
-        if isWhite {
-            return (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true
         } else {
-            return (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol - 1, row: fromRow - 1)?.isWhite != false || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) && pieceOn(col: fromCol - 1, row: fromRow + 1)?.isWhite != false
+            if fromRow == (isWhite ? 6 : 1) {
+                return (toRow == fromRow + (isWhite ? -1 : 1) || toRow == fromRow + (isWhite ? -2 : 2)) && toCol == fromCol
+            } else {
+                return toRow == fromRow + (isWhite ? -1 : 1) && toCol == fromCol
+            }
         }
+        
+        
+//        if isWhite && (pieceOn(col: fromCol, row: fromRow - 1) == nil) {
+//            if (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true {
+//                if candidate.row == 6 && (pieceOn(col: fromCol, row: fromRow - 2) == nil) {
+//                    return fromRow - 1 == toRow && fromCol == toCol || fromRow - 2 == toRow && fromCol == toCol
+//                } else {
+//                    return fromRow - 1 == toRow && fromCol == toCol
+//                }
+//            }
+//        }
+//
+//        if !isWhite && (pieceOn(col: fromCol, row: fromRow + 1) == nil) {
+//            if candidate.row == 1 && (pieceOn(col: fromCol, row: fromRow + 2) == nil) {
+//                return fromRow + 1 == toRow && fromCol == toCol || fromRow + 2 == toRow && fromCol == toCol
+//            } else {
+//                return fromRow + 1 == toRow && fromCol == toCol
+//            }
+//        }
+//
+//        if isWhite {
+//            return (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true
+//        } else {
+//            return (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol - 1, row: fromRow - 1)?.isWhite != false || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) && pieceOn(col: fromCol - 1, row: fromRow + 1)?.isWhite != false
+//        }
 
     }
     
@@ -222,23 +246,11 @@ struct Board: CustomStringConvertible {
         return nil
     }
     
+    // there is a huge potential trap ... watch out down the road
     func isBeingAttackedAt(col: Int, row: Int) -> Bool {
         for piece in pieces {
-            switch piece.rank {
-            case .pawn where canPawnMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row, isWhite: piece.isWhite):
+            if canMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) {
                 return true
-            case .knight where canKnightMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row):
-                return true
-            case .bishop where canBishopMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row):
-                return true
-            case .rook where canRookMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row):
-                return true
-            case .queen where canQueenMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row):
-                return true
-            case .king where canKingMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row):
-                return true
-            default:
-                continue
             }
         }
         return false
@@ -337,13 +349,13 @@ struct Board: CustomStringConvertible {
 
     var description: String {
         var board: String = ""
-        board += "  0 1 2 3 4 5 6 7"
+        board += "◊ 0 1 2 3 4 5 6 7"
         board.append("\n")
         for i in 0..<rows {
             board += "\(i) "
             for j in 0..<cols {
                 if let piece = isXY(x: j, y: i, onPoints: pieces) {
-                    switch piece.rank {
+                    switch piece.cm {
                     case .pawn: piece.isWhite ? board += "P " : (board += "p ")
                     case .knight: piece.isWhite ? board.append("N ") : board.append("n ")
                     case .bishop: piece.isWhite ? board.append("B ") : board.append("b ")

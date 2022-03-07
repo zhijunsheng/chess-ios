@@ -70,26 +70,26 @@ class GameViewController: UIViewController, ChessDelegate {
                 let alert = UIAlertController(title: "PROMOTION!!!", message: "What do you want to promote into?", preferredStyle: .actionSheet)
                 alert.addAction(UIAlertAction(title: "Knight", style: .default, handler: { (UIAlertAction) in
                     self.board.pieces.remove(piece)
-                    self.board.pieces.insert(Piece(col: piece.col, row: piece.row, imageName: piece.isWhite ? "knight_chess_w" : "knight_chess_b", isWhite: piece.isWhite, rank: .knight))
+                    self.board.pieces.insert(Piece(col: piece.col, row: piece.row, imageName: piece.isWhite ? "knight_chess_w" : "knight_chess_b", isWhite: piece.isWhite, cm: .knight))
                     self.boardView.pieces = self.board.pieces
                     self.boardView.setNeedsDisplay()
                 }))
                 alert.addAction(UIAlertAction(title: "Bishop", style: .default, handler: { (UIAlertAction) in
                     self.board.pieces.remove(piece)
-                    self.board.pieces.insert(Piece(col: piece.col, row: piece.row, imageName: piece.isWhite ? "bishop_chess_w" : "bishop_chess_b", isWhite: piece.isWhite, rank: .bishop))
+                    self.board.pieces.insert(Piece(col: piece.col, row: piece.row, imageName: piece.isWhite ? "bishop_chess_w" : "bishop_chess_b", isWhite: piece.isWhite, cm: .bishop))
                     self.boardView.pieces = self.board.pieces
                     self.boardView.setNeedsDisplay()
                 }))
                 alert.addAction(UIAlertAction(title: "Rook", style: .default, handler: { (UIAlertAction) in
                     self.board.pieces.remove(piece)
-                    self.board.pieces.insert(Piece(col: piece.col, row: piece.row, imageName: piece.isWhite ? "rook_chess_w" : "rook_chess_b", isWhite: piece.isWhite, rank: .rook))
+                    self.board.pieces.insert(Piece(col: piece.col, row: piece.row, imageName: piece.isWhite ? "rook_chess_w" : "rook_chess_b", isWhite: piece.isWhite, cm: .rook))
                     self.boardView.pieces = self.board.pieces
                     self.boardView.setNeedsDisplay()
                     
                 }))
                 alert.addAction(UIAlertAction(title: "Queen", style: .default, handler: { (UIAlertAction) in
                     self.board.pieces.remove(piece)
-                    self.board.pieces.insert(Piece(col: piece.col, row: piece.row, imageName: piece.isWhite ? "queen_chess_w" : "queen_chess_b", isWhite: piece.isWhite, rank: .queen))
+                    self.board.pieces.insert(Piece(col: piece.col, row: piece.row, imageName: piece.isWhite ? "queen_chess_w" : "queen_chess_b", isWhite: piece.isWhite, cm: .queen))
                     self.boardView.pieces = self.board.pieces
                     self.boardView.setNeedsDisplay()
                 }))
@@ -108,10 +108,11 @@ class GameViewController: UIViewController, ChessDelegate {
         boardView.pieces = board.pieces
         boardView.setNeedsDisplay()
         let message = "\(startX),\(startY),\(endX),\(endY)"
+        print(message)
+        print(board)
         if let messageData = message.data(using: .utf8) {
             try? session.send(messageData, toPeers: session.connectedPeers, with: .reliable)
         }
-        
     }
     
     func nearestSquare(clicked: CGFloat) -> Int {
@@ -127,8 +128,8 @@ class GameViewController: UIViewController, ChessDelegate {
         return nil
     }
     
-    func addPiece(image: String, row: Int, col: Int, rank: Rank, isWhite: Bool) {
-        let piece = Piece(col: col, row: row, imageName: image, isWhite: isWhite, rank: rank)
+    func addPiece(image: String, row: Int, col: Int, cm: ChessMan, isWhite: Bool) {
+        let piece = Piece(col: col, row: row, imageName: image, isWhite: isWhite, cm: cm)
         board.pieces.insert(piece)
         
         let pieceImage = UIImage(named: image)

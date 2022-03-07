@@ -25,9 +25,10 @@
 		7577D30521893FDB00CEA3D6 /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577D30421893FDB00CEA3D6 /* BoardTests.swift */; };
 		7577D307218CF2C900CEA3D6 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577D306218CF2C900CEA3D6 /* Piece.swift */; };
 		75B6C3D823920C8E00A22D61 /* RecursionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B6C3D723920C8E00A22D61 /* RecursionTests.swift */; };
+		75B84E4D24BBD206001945B5 /* AttackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B84E4C24BBD205001945B5 /* AttackTests.swift */; };
 		75BA4AAD22BD1AEC0079D72F /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BA4AAC22BD1AEC0079D72F /* Utils.swift */; };
 		75BA4AAF22BD1C380079D72F /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BA4AAE22BD1C380079D72F /* UtilsTests.swift */; };
-		75EA06F2218E9C6900E677BA /* Rank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EA06F1218E9C6900E677BA /* Rank.swift */; };
+		75EA06F2218E9C6900E677BA /* ChessMan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EA06F1218E9C6900E677BA /* ChessMan.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,9 +65,10 @@
 		7577D30421893FDB00CEA3D6 /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		7577D306218CF2C900CEA3D6 /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
 		75B6C3D723920C8E00A22D61 /* RecursionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecursionTests.swift; sourceTree = "<group>"; };
+		75B84E4C24BBD205001945B5 /* AttackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackTests.swift; sourceTree = "<group>"; };
 		75BA4AAC22BD1AEC0079D72F /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		75BA4AAE22BD1C380079D72F /* UtilsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTests.swift; sourceTree = "<group>"; };
-		75EA06F1218E9C6900E677BA /* Rank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rank.swift; sourceTree = "<group>"; };
+		75EA06F1218E9C6900E677BA /* ChessMan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessMan.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,7 +121,7 @@
 				07FDE43D2018140A00A674FE /* Info.plist */,
 				7577D30121893E5000CEA3D6 /* Board.swift */,
 				7577D306218CF2C900CEA3D6 /* Piece.swift */,
-				75EA06F1218E9C6900E677BA /* Rank.swift */,
+				75EA06F1218E9C6900E677BA /* ChessMan.swift */,
 			);
 			path = chess;
 			sourceTree = "<group>";
@@ -139,6 +141,7 @@
 				751E885F24B2A56E008C0DB4 /* KnightTests.swift */,
 				751E885C24B2A4F1008C0DB4 /* KingTests.swift */,
 				751E886124B2A580008C0DB4 /* PawnTests.swift */,
+				75B84E4C24BBD205001945B5 /* AttackTests.swift */,
 			);
 			path = chessTests;
 			sourceTree = "<group>";
@@ -252,7 +255,7 @@
 				7577D30221893E5000CEA3D6 /* Board.swift in Sources */,
 				7506F2B5233C4DBA0083AD7E /* ChessDelagate.swift in Sources */,
 				75BA4AAD22BD1AEC0079D72F /* Utils.swift in Sources */,
-				75EA06F2218E9C6900E677BA /* Rank.swift in Sources */,
+				75EA06F2218E9C6900E677BA /* ChessMan.swift in Sources */,
 				07FDE4342018140A00A674FE /* GameViewController.swift in Sources */,
 				07FDE4322018140A00A674FE /* AppDelegate.swift in Sources */,
 			);
@@ -271,6 +274,7 @@
 				75BA4AAF22BD1C380079D72F /* UtilsTests.swift in Sources */,
 				751E885D24B2A4F1008C0DB4 /* KingTests.swift in Sources */,
 				7506F2B7234AAB9C0083AD7E /* StuffTests.swift in Sources */,
+				75B84E4D24BBD206001945B5 /* AttackTests.swift in Sources */,
 				751E886224B2A580008C0DB4 /* PawnTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,6 +13,6 @@ struct Piece: Hashable {
     var row : Int
     let imageName: String
     var isWhite : Bool
-    var rank : Rank
+    var cm : ChessMan
     
 }

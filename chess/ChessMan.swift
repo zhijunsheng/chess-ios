@@ -1,5 +1,5 @@
 //
-//  Rank.swift
+//  ChessMan.swift
 //  chess
 //
 //  Created by Peter Shi on 2018-11-03.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Rank {
+enum ChessMan {
     case pawn
     case knight
     case bishop

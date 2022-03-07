@@ -23,7 +23,7 @@ class BoardView: UIView {
     var originY: CGFloat = 0
     var side: CGFloat = 0
     var margin: CGFloat = 0 // for panning adjustments
-    let blackSquare = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 1)
+    let blackSquare = #colorLiteral(red: 0.3897942041, green: 0.4246642509, blue: 0.4452926713, alpha: 1)
     let whiteSquare = #colorLiteral(red: 0.951580584, green: 1, blue: 0.9881752133, alpha: 1)
     var pieces: Set<Piece> = Set<Piece>()
     var thingy1: Int = Int.min
@@ -109,7 +109,7 @@ class BoardView: UIView {
     private func drawPieces() {
         for piece in pieces {
             if piece != movingPiece {
-                drawPiece(piece: Piece(col: piece.col, row: piece.row, imageName: piece.imageName, isWhite: piece.isWhite, rank: piece.rank))
+                drawPiece(piece: Piece(col: piece.col, row: piece.row, imageName: piece.imageName, isWhite: piece.isWhite, cm: piece.cm))
             }
         }
     }
