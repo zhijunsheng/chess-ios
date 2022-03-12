@@ -82,26 +82,39 @@ struct Board: CustomStringConvertible {
 
         if canMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) {
             if canCapturePiece(pieceCol: fromCol, pieceRow: fromRow, col: toCol, row: toRow) {
-                guard let target = pieceOn(col: toCol, row: toRow) else {
-                    return
+                let r = toRow + (piece.isWhite ? 1 : -1)
+                if lastTng != nil && piece.cm == .pawn && lastTng?.isWhite != piece.isWhite && lastTng == pieceOn(col: toCol, row: r) {
+                    let target = pieceOn(col: toCol, row: r)!
+                    lastTng = nil
+                    pieces.remove(target)
+                    pieces.remove(piece)
+                    pieces.insert(Piece(col: toCol, row: toRow, imageName: piece.imageName, isWhite: piece.isWhite, cm: piece.cm))
+                    isWhiteTurn = !isWhiteTurn
+                } else {
+                    guard let target = pieceOn(col: toCol, row: toRow) else {
+                        return
+                    }
+                    lastTng = nil
+                    pieces.remove(target)
+                    pieces.remove(piece)
+                    pieces.insert(Piece(col: toCol, row: toRow, imageName: piece.imageName, isWhite: piece.isWhite, cm: piece.cm))
+                    isWhiteTurn = !isWhiteTurn
                 }
-                pieces.remove(target)
-                pieces.remove(piece)
-                pieces.insert(Piece(col: toCol, row: toRow, imageName: piece.imageName, isWhite: piece.isWhite, cm: piece.cm))
-                isWhiteTurn = !isWhiteTurn
             } else {
-                if piece.cm == .pawn {
-                    
+                if piece.cm == .pawn && toRow == fromRow + (piece.isWhite ? -2 : 2) && fromCol == toCol {
+                    lastTng = piece
+                    lastTng!.row = piece.row + (piece.isWhite ? -2 : 2)
+                } else {
+                    lastTng = nil
                 }
                 pieces.remove(piece)
                 pieces.insert(Piece(col: toCol, row: toRow, imageName: piece.imageName, isWhite: piece.isWhite, cm: piece.cm))
                 isWhiteTurn = !isWhiteTurn
             }
         }
-        
     }
     
-    func canMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
+    mutating func canMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         guard let candidate = pieceOn(col: fromCol, row: fromRow) else {
             return false
         }
@@ -154,15 +167,18 @@ struct Board: CustomStringConvertible {
         return false
     }
     
-    func canCapturePiece(pieceCol: Int, pieceRow: Int, col: Int, row: Int) -> Bool {
+    mutating func canCapturePiece(pieceCol: Int, pieceRow: Int, col: Int, row: Int) -> Bool {
         guard let candidate = pieceOn(col: pieceCol, row: pieceRow) else {
             return false
         }
         if canMove(fromCol: candidate.col, fromRow: candidate.row, toCol: col, toRow: row) {
             if (pieceOn(col: col, row: row) != nil) {
                 return true
+            } else if candidate.cm == .pawn && row == candidate.row + (candidate.isWhite ? -1 : 1) && abs(col - candidate.col) == 1 && lastTng != nil {
+                return true
             } else {
-                return false            }
+                return false
+            }
         } else {
             return false
         }
@@ -172,14 +188,12 @@ struct Board: CustomStringConvertible {
         return abs(toRow - fromRow) == 1 && abs(toCol - fromCol) == 2 || abs(toRow - fromRow) == 2 && abs(toCol - fromCol) == 1
     }
     
-    func canPawnMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
+    mutating func canPawnMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int, isWhite: Bool) -> Bool {
         guard let candidate = pieceOn(col: fromCol, row: fromRow) else {
             return false
         }
-        
-        
-        
-        if (pieceOn(col: toCol, row: toRow) != nil) {
+        let lt = lastTng
+        if pieceOn(col: toCol, row: toRow) != nil {
             if pieceOn(col: toCol, row: toRow)?.isWhite != candidate.isWhite {
                 return toRow == fromRow + (isWhite ? -1 : 1) && abs(toCol - fromCol) == 1
             } else {
@@ -188,36 +202,16 @@ struct Board: CustomStringConvertible {
         } else {
             if fromRow == (isWhite ? 6 : 1) {
                 return (toRow == fromRow + (isWhite ? -1 : 1) || toRow == fromRow + (isWhite ? -2 : 2)) && toCol == fromCol
+            } else if lt != nil && lt?.isWhite != candidate.isWhite {
+                if abs(lt!.col - fromCol) == 1 && fromRow == lt!.row && toCol == lt!.col && toRow == lt!.row + (candidate.isWhite ? -1 : 1) {
+                    return true
+                } else {
+                    return toRow == fromRow + (isWhite ? -1 : 1) && toCol == fromCol
+                }
             } else {
                 return toRow == fromRow + (isWhite ? -1 : 1) && toCol == fromCol
             }
         }
-        
-        
-//        if isWhite && (pieceOn(col: fromCol, row: fromRow - 1) == nil) {
-//            if (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true {
-//                if candidate.row == 6 && (pieceOn(col: fromCol, row: fromRow - 2) == nil) {
-//                    return fromRow - 1 == toRow && fromCol == toCol || fromRow - 2 == toRow && fromCol == toCol
-//                } else {
-//                    return fromRow - 1 == toRow && fromCol == toCol
-//                }
-//            }
-//        }
-//
-//        if !isWhite && (pieceOn(col: fromCol, row: fromRow + 1) == nil) {
-//            if candidate.row == 1 && (pieceOn(col: fromCol, row: fromRow + 2) == nil) {
-//                return fromRow + 1 == toRow && fromCol == toCol || fromRow + 2 == toRow && fromCol == toCol
-//            } else {
-//                return fromRow + 1 == toRow && fromCol == toCol
-//            }
-//        }
-//
-//        if isWhite {
-//            return (pieceOn(col: fromCol + 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true || (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol + 1, row: fromRow - 1)?.isWhite != true
-//        } else {
-//            return (pieceOn(col: fromCol - 1, row: fromRow - 1) != nil) && pieceOn(col: fromCol - 1, row: fromRow - 1)?.isWhite != false || (pieceOn(col: fromCol - 1, row: fromRow + 1) != nil) && pieceOn(col: fromCol - 1, row: fromRow + 1)?.isWhite != false
-//        }
-
     }
     
     func canRookMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
@@ -229,7 +223,7 @@ struct Board: CustomStringConvertible {
     }
     
     func canBishopMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-        print(numPiecesInBetween(fromRow: fromRow, fromCol: fromCol, toCol: toCol, toRow: toRow))
+//        print(numPiecesInBetween(fromRow: fromRow, fromCol: fromCol, toCol: toCol, toRow: toRow))
         return abs(toRow - fromRow) == abs(toCol - fromCol) && numPiecesInBetween(fromRow: fromRow, fromCol: fromCol, toCol: toCol, toRow: toRow) == 0
     }
     
@@ -247,7 +241,7 @@ struct Board: CustomStringConvertible {
     }
     
     // there is a huge potential trap ... watch out down the road
-    func isBeingAttackedAt(col: Int, row: Int) -> Bool {
+    mutating func isBeingAttackedAt(col: Int, row: Int) -> Bool {
         for piece in pieces {
             if canMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) {
                 return true

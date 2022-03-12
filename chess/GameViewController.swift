@@ -107,9 +107,9 @@ class GameViewController: UIViewController, ChessDelegate {
         }
         boardView.pieces = board.pieces
         boardView.setNeedsDisplay()
-        let message = "\(startX),\(startY),\(endX),\(endY)"
+        let message = "\(startX),\(startY), \(endX),\(endY)"
         print(message)
-        print(board)
+//        print(board)
         if let messageData = message.data(using: .utf8) {
             try? session.send(messageData, toPeers: session.connectedPeers, with: .reliable)
         }

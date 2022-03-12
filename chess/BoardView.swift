@@ -62,7 +62,6 @@ class BoardView: UIView {
         let touch = touches.first!
         movingLoc = touch.location(in: self)
         self.setNeedsDisplay()
-        print(movingLoc!)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -70,8 +69,7 @@ class BoardView: UIView {
         let loc = touch.location(in: self)
         let thing1: Int = Int((loc.x - originX) / side)
         let thing2: Int = Int((loc.y - originY) / side)
-        print("from(\(thingy1), \(thingy2)) to (\(thing1), \(thing2)).")
-        
+//        print("from(\(thingy1), \(thingy2)) to (\(thing1), \(thing2)).")
         chessDelagate?.move(startX: thingy1, startY: thingy2, endX: thing1, endY: thing2)
         movingPic = nil
     }
