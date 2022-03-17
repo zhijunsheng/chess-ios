@@ -33,11 +33,11 @@ class PawnTests: XCTestCase {
 //        XCTAssertTrue(game.canPawnMove(fromCol: 4, fromRow: 6, toCol: 4, toRow: 4, isWhite: true))
 //        XCTAssertFalse(game.canPawnMove(fromCol: 4, fromRow: 6, toCol: 3, toRow: 5, isWhite: true))
 //
-        game.pieces = [Piece(col: 4, row: 6, imageName: "pawn_chess_w", isWhite: true, rank: .pawn),
-                Piece(col: 3, row: 5, imageName: "pawn_chess_b", isWhite: false, rank: .pawn)]
+        game.pieces = [Piece(col: 4, row: 6, imageName: "pawn_chess_w", isWhite: true, cm: .pawn),
+                       Piece(col: 3, row: 5, imageName: "pawn_chess_b", isWhite: false, cm: .pawn)]
         XCTAssertTrue(game.canPawnMove(fromCol: 4, fromRow: 6, toCol: 3, toRow: 5, isWhite: true))
-        game.pieces = [Piece(col: 4, row: 6, imageName: "pawn_chess_w", isWhite: true, rank: .pawn),
-        Piece(col: 3, row: 5, imageName: "pawn_chess_w", isWhite: true, rank: .pawn)]
+        game.pieces = [Piece(col: 4, row: 6, imageName: "pawn_chess_w", isWhite: true, cm: .pawn),
+                       Piece(col: 3, row: 5, imageName: "pawn_chess_w", isWhite: true, cm: .pawn)]
         XCTAssertFalse(game.canPawnMove(fromCol: 4, fromRow: 6, toCol: 3, toRow: 5, isWhite: true))
     }
 

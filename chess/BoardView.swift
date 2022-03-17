@@ -88,7 +88,6 @@ class BoardView: UIView {
     }
  
     private func drawBoard() {
-        
         for i in 0..<8 {
             for j in 0..<8 {
                 drawSquare(x: originX + side * CGFloat(j), y: originY + side * CGFloat(i), color: ((j + i) % 2 == 1) ? blackSquare : whiteSquare)

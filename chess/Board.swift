@@ -223,7 +223,7 @@ struct Board: CustomStringConvertible {
     }
     
     func canBishopMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
-//        print(numPiecesInBetween(fromRow: fromRow, fromCol: fromCol, toCol: toCol, toRow: toRow))
+        print(numPiecesInBetween(fromRow: fromRow, fromCol: fromCol, toCol: toCol, toRow: toRow))
         return abs(toRow - fromRow) == abs(toCol - fromCol) && numPiecesInBetween(fromRow: fromRow, fromCol: fromCol, toCol: toCol, toRow: toRow) == 0
     }
     
@@ -243,7 +243,7 @@ struct Board: CustomStringConvertible {
     // there is a huge potential trap ... watch out down the road
     mutating func isBeingAttackedAt(col: Int, row: Int) -> Bool {
         for piece in pieces {
-            if canMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) {
+            if piece != pieceOn(col: col, row: row) && canQueenMove(fromCol: piece.col, fromRow: piece.row, toCol: col, toRow: row) {
                 return true
             }
         }
@@ -299,6 +299,7 @@ struct Board: CustomStringConvertible {
          7 . . . . . . . .
          
          */
+        
         if fromCol == 0 && fromRow == 0 && toCol == 0 && toRow == 0 {
             return 0
         }
@@ -331,12 +332,24 @@ struct Board: CustomStringConvertible {
                 }
             }
         } else if abs(toCol - fromCol) == abs(toRow - fromRow) {
-            for i in 1...abs(toCol - fromCol) {
+            /*
+             3 c
+             4 r
+             6 c
+             7 r
+             4, 5  5, 6
+             6-3 == 6-3 yes
+             
+             */
+//            for i in 1..<abs(toCol - fromCol) {
+//
+//                count += pieceOn(col: fromCol + i, row: fromRow + i)
+//            }
+            for i in 1..<abs(toCol - fromCol) {
                 let colSign = toCol > fromCol ? 1 : -1
                 let rowSign = toRow > fromRow ? 1 : -1
                 count += pieceOn(col: fromCol + i * colSign, row: fromRow + i * rowSign) != nil ? 1 : 0
             }
-            
         }
         return count
     }

@@ -44,7 +44,7 @@ class BoardTests: XCTestCase {
         var board = Board()
         board.pieces = [
 //            Piece(col: 0, row: 0, imageName: "bb", isWhite: false, rank: .bishop),
-            Piece(col: 7, row: 7, imageName: "wb", isWhite: true, rank: .bishop)
+            Piece(col: 7, row: 7, imageName: "wb", isWhite: true, cm: .bishop)
         ]
         XCTAssertTrue(board.isBeingAttackedAt(col: 0, row: 0))
         
@@ -60,9 +60,9 @@ class BoardTests: XCTestCase {
          7 . . . . 3 . R .
          */
         board.pieces = [
-            Piece(col: 4, row: 1, imageName: "bn", isWhite: false, rank: .knight),
-            Piece(col: 2, row: 5, imageName: "bq", isWhite: false, rank: .queen),
-            Piece(col: 6, row: 7, imageName: "br", isWhite: false, rank: .rook)
+            Piece(col: 4, row: 1, imageName: "bn", isWhite: false, cm: .knight),
+            Piece(col: 2, row: 5, imageName: "bq", isWhite: false, cm: .queen),
+            Piece(col: 6, row: 7, imageName: "br", isWhite: false, cm: .rook)
         ]
         XCTAssertFalse(board.isBeingAttackedAt(col: 4, row: 2))
         XCTAssertTrue(board.isBeingAttackedAt(col: 5, row: 3)) // (4, 1) => (5, 3)
@@ -84,8 +84,8 @@ class BoardTests: XCTestCase {
         7 r . . . . . . .
         */
         var anything = Board()
-        anything.pieces = [Piece(col: 0, row: 0, imageName: "wr", isWhite: false, rank: .pawn),
-                           Piece(col: 0, row: 7, imageName: "wr", isWhite: false, rank: .rook),
+        anything.pieces = [Piece(col: 0, row: 0, imageName: "wr", isWhite: false, cm: .pawn),
+                           Piece(col: 0, row: 7, imageName: "wr", isWhite: false, cm: .rook),
         ]
         XCTAssertEqual(anything.numPiecesInBetween(fromRow: 0, fromCol: 0, toCol: 0, toRow: 7), 0)
         
@@ -105,9 +105,9 @@ class BoardTests: XCTestCase {
         
         var board = Board()
         
-        board.pieces = [Piece(col: 0, row: 0, imageName: "wr", isWhite: false, rank: .pawn),
-                        Piece(col: 0, row: 4, imageName: "wr", isWhite: false, rank: .bishop),
-                        Piece(col: 0, row: 7, imageName: "wr", isWhite: false, rank: .rook),
+        board.pieces = [Piece(col: 0, row: 0, imageName: "wr", isWhite: false, cm: .pawn),
+                        Piece(col: 0, row: 4, imageName: "wr", isWhite: false, cm: .bishop),
+                        Piece(col: 0, row: 7, imageName: "wr", isWhite: false, cm: .rook),
         ]
         
         XCTAssertEqual(board.numPiecesInBetween(fromRow: 0, fromCol: 0, toCol: 0, toRow: 7), 1)
@@ -128,9 +128,9 @@ class BoardTests: XCTestCase {
          7 r . . . . . . .
          */
         var anything = Board()
-        anything.pieces = [Piece(col: 0, row: 0, imageName: "bb", isWhite: false, rank: .bishop),
-                           Piece(col: 4, row: 4, imageName: "bn", isWhite: false, rank: .knight),
-                           Piece(col: 2, row: 2, imageName: "bn", isWhite: false, rank: .knight)
+        anything.pieces = [Piece(col: 0, row: 0, imageName: "bb", isWhite: false, cm: .bishop),
+                           Piece(col: 4, row: 4, imageName: "bn", isWhite: false, cm: .knight),
+                           Piece(col: 2, row: 2, imageName: "bn", isWhite: false, cm: .knight)
         ]
         XCTAssertEqual(2, anything.numPiecesInBetween(fromRow: 0, fromCol: 0, toCol: 7, toRow: 7))
         
@@ -140,12 +140,12 @@ class BoardTests: XCTestCase {
     
     func testBoardPieces() {
         var anything = Board()
-        anything.pieces = [Piece(col: 1, row: 1, imageName: "<#String#>", isWhite: false, rank: .pawn),
-                           Piece(col: 0, row: 0, imageName: "<#String#>", isWhite: false, rank: .rook),
-                           Piece(col: 2, row: 7, imageName: "<#String#>", isWhite: true, rank: .bishop),
-                           Piece(col: 4, row: 0, imageName: "<#String#>", isWhite: false, rank: .queen),
-                           Piece(col: 7, row: 1, imageName: "<#String#>", isWhite: false, rank: .pawn),
-                           Piece(col: 5, row: 6, imageName: "<#String#>", isWhite: true, rank: .pawn),
+        anything.pieces = [Piece(col: 1, row: 1, imageName: "<#String#>", isWhite: false, cm: .pawn),
+                           Piece(col: 0, row: 0, imageName: "<#String#>", isWhite: false, cm: .rook),
+                           Piece(col: 2, row: 7, imageName: "<#String#>", isWhite: true, cm: .bishop),
+                           Piece(col: 4, row: 0, imageName: "<#String#>", isWhite: false, cm: .queen),
+                           Piece(col: 7, row: 1, imageName: "<#String#>", isWhite: false, cm: .pawn),
+                           Piece(col: 5, row: 6, imageName: "<#String#>", isWhite: true, cm: .pawn),
         ]
         print(anything)
     }
@@ -166,29 +166,29 @@ class BoardTests: XCTestCase {
         var board = Board()
         
         board.pieces = [
-            Piece(col: 0, row: 0, imageName: "<#String#>", isWhite: false, rank: .rook),
-            Piece(col: 1, row: 0, imageName: "<#String#>", isWhite: false, rank: .knight),
-            Piece(col: 2, row: 0, imageName: "<#String#>", isWhite: false, rank: .bishop),
-            Piece(col: 3, row: 0, imageName: "<#String#>", isWhite: false, rank: .queen),
-            Piece(col: 4, row: 0, imageName: "<#String#>", isWhite: false, rank: .king),
-            Piece(col: 5, row: 0, imageName: "<#String#>", isWhite: false, rank: .bishop),
-            Piece(col: 6, row: 0, imageName: "<#String#>", isWhite: false, rank: .knight),
-            Piece(col: 7, row: 0, imageName: "<#String#>", isWhite: false, rank: .rook),
-            Piece(col: 0, row: 7, imageName: "<#String#>", isWhite: true, rank: .rook),
-            Piece(col: 1, row: 7, imageName: "<#String#>", isWhite: true, rank: .knight),
-            Piece(col: 2, row: 7, imageName: "<#String#>", isWhite: true, rank: .bishop),
-            Piece(col: 3, row: 7, imageName: "<#String#>", isWhite: true, rank: .queen),
-            Piece(col: 4, row: 7, imageName: "<#String#>", isWhite: true, rank: .king),
-            Piece(col: 5, row: 7, imageName: "<#String#>", isWhite: true, rank: .bishop),
-            Piece(col: 6, row: 7, imageName: "<#String#>", isWhite: true, rank: .knight),
-            Piece(col: 7, row: 7, imageName: "<#String#>", isWhite: true, rank: .rook),
+            Piece(col: 0, row: 0, imageName: "<#String#>", isWhite: false, cm: .rook),
+            Piece(col: 1, row: 0, imageName: "<#String#>", isWhite: false, cm: .knight),
+            Piece(col: 2, row: 0, imageName: "<#String#>", isWhite: false, cm: .bishop),
+            Piece(col: 3, row: 0, imageName: "<#String#>", isWhite: false, cm: .queen),
+            Piece(col: 4, row: 0, imageName: "<#String#>", isWhite: false, cm: .king),
+            Piece(col: 5, row: 0, imageName: "<#String#>", isWhite: false, cm: .bishop),
+            Piece(col: 6, row: 0, imageName: "<#String#>", isWhite: false, cm: .knight),
+            Piece(col: 7, row: 0, imageName: "<#String#>", isWhite: false, cm: .rook),
+            Piece(col: 0, row: 7, imageName: "<#String#>", isWhite: true, cm: .rook),
+            Piece(col: 1, row: 7, imageName: "<#String#>", isWhite: true, cm: .knight),
+            Piece(col: 2, row: 7, imageName: "<#String#>", isWhite: true, cm: .bishop),
+            Piece(col: 3, row: 7, imageName: "<#String#>", isWhite: true, cm: .queen),
+            Piece(col: 4, row: 7, imageName: "<#String#>", isWhite: true, cm: .king),
+            Piece(col: 5, row: 7, imageName: "<#String#>", isWhite: true, cm: .bishop),
+            Piece(col: 6, row: 7, imageName: "<#String#>", isWhite: true, cm: .knight),
+            Piece(col: 7, row: 7, imageName: "<#String#>", isWhite: true, cm: .rook),
         ]
         
         for bpawnNo in 0...7 {
-            board.pieces.insert(Piece(col: bpawnNo, row: 1, imageName: "<#String#>", isWhite: false, rank: .pawn))
+            board.pieces.insert(Piece(col: bpawnNo, row: 1, imageName: "<#String#>", isWhite: false, cm: .pawn))
         }
         for wpawnNo in 0...7 {
-            board.pieces.insert(Piece(col: wpawnNo, row: 6, imageName: "<#String#>", isWhite: true, rank: .pawn))
+            board.pieces.insert(Piece(col: wpawnNo, row: 6, imageName: "<#String#>", isWhite: true, cm: .pawn))
         }
         XCTAssertEqual(32, board.pieces.count)
         print(board)
@@ -220,7 +220,7 @@ class BoardTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        board.pieces = [Piece(col: 1, row: 1, imageName: "bn", isWhite: false, rank: .knight)]
+        board.pieces = [Piece(col: 1, row: 1, imageName: "bn", isWhite: false, cm: .knight)]
         XCTAssertFalse(board.canBishopMove(fromCol: 2, fromRow: 0, toCol: 0, toRow: 2))
         
         /*
@@ -249,8 +249,8 @@ class BoardTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        board.pieces = [Piece(col: 4, row: 2, imageName: "bn", isWhite: false, rank: .knight),
-            Piece(col: 6, row: 4, imageName: "bn", isWhite: false, rank: .knight)
+        board.pieces = [Piece(col: 4, row: 2, imageName: "bn", isWhite: false, cm: .knight),
+                        Piece(col: 6, row: 4, imageName: "bn", isWhite: false, cm: .knight)
         ]
         XCTAssertFalse(board.canBishopMove(fromCol: 7, fromRow: 5, toCol: 2, toRow: 0))
         
@@ -274,14 +274,14 @@ class BoardTests: XCTestCase {
     
     func testN() {
         var board = Board()
-        board.pieces = [Piece(col: 2, row: 2, imageName: "bn", isWhite: false, rank: .knight)]
+        board.pieces = [Piece(col: 2, row: 2, imageName: "bn", isWhite: false, cm: .knight)]
         XCTAssertTrue(board.canKnightMove(fromCol: 2, fromRow: 2, toCol: 4, toRow: 3))
         XCTAssertTrue(board.canKnightMove(fromCol: 4, fromRow: 3, toCol: 2, toRow: 2))
     }
     
     func testR0() {
         var board = Board()
-        board.pieces = [Piece(col: 7, row: 0, imageName: "br", isWhite: false, rank: .rook)]
+        board.pieces = [Piece(col: 7, row: 0, imageName: "br", isWhite: false, cm: .rook)]
         XCTAssertFalse(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 6, toRow: 1))
         XCTAssertTrue(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 7, toRow: 7))
     }
@@ -301,8 +301,8 @@ class BoardTests: XCTestCase {
      */
     func testR1() {
         var board = Board()
-        board.pieces = [Piece(col: 7, row: 0, imageName: "br", isWhite: false, rank: .rook),
-                        Piece(col: 7, row: 2, imageName: "bn", isWhite: false, rank: .knight)]
+        board.pieces = [Piece(col: 7, row: 0, imageName: "br", isWhite: false, cm: .rook),
+                        Piece(col: 7, row: 2, imageName: "bn", isWhite: false, cm: .knight)]
         XCTAssertFalse(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 6, toRow: 1))
         XCTAssertFalse(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 7, toRow: 7))
         XCTAssertTrue(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 7, toRow: 1))
@@ -323,9 +323,9 @@ class BoardTests: XCTestCase {
          
          */
         var board = Board()
-        board.pieces = [Piece(col: 7, row: 0, imageName: "br", isWhite: false, rank: .rook),
-                        Piece(col: 7, row: 2, imageName: "wn", isWhite: true, rank: .knight),
-                        Piece(col: 7, row: 4, imageName: "bn", isWhite: false, rank: .knight)]
+        board.pieces = [Piece(col: 7, row: 0, imageName: "br", isWhite: false, cm: .rook),
+                        Piece(col: 7, row: 2, imageName: "wn", isWhite: true, cm: .knight),
+                        Piece(col: 7, row: 4, imageName: "bn", isWhite: false, cm: .knight)]
         XCTAssertFalse(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 6, toRow: 1))
         XCTAssertTrue(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 7, toRow: 2))
         XCTAssertFalse(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 7, toRow: 7))
@@ -338,7 +338,7 @@ class BoardTests: XCTestCase {
         
         // only knight itself
         
-        board.pieces = [Piece(col: 1, row: 0, imageName: "bn", isWhite: false, rank: .knight)]
+        board.pieces = [Piece(col: 1, row: 0, imageName: "bn", isWhite: false, cm: .knight)]
         XCTAssertFalse(board.canKnightMove(fromCol: 1, fromRow: 0, toCol: 7, toRow: 7))
         XCTAssertTrue(board.canKnightMove(fromCol: 1, fromRow: 0, toCol: 2, toRow: 2))
         XCTAssertTrue(board.canKnightMove(fromCol: 1, fromRow: 0, toCol: 3, toRow: 1))

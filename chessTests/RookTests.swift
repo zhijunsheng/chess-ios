@@ -13,7 +13,7 @@ class RookTests: XCTestCase {
 
     func testR0() {
         var board = Board()
-        board.pieces = [Piece(col: 7, row: 0, imageName: "br", isWhite: false, rank: .rook)]
+        board.pieces = [Piece(col: 7, row: 0, imageName: "br", isWhite: false, cm: .rook)]
         XCTAssertFalse(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 6, toRow: 1))
         XCTAssertTrue(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 7, toRow: 7))
     }
@@ -33,8 +33,8 @@ class RookTests: XCTestCase {
      */
     func testR1() {
         var board = Board()
-        board.pieces = [Piece(col: 7, row: 0, imageName: "br", isWhite: false, rank: .rook),
-                        Piece(col: 7, row: 2, imageName: "bn", isWhite: false, rank: .knight)]
+        board.pieces = [Piece(col: 7, row: 0, imageName: "br", isWhite: false, cm: .rook),
+                        Piece(col: 7, row: 2, imageName: "bn", isWhite: false, cm: .knight)]
         XCTAssertFalse(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 6, toRow: 1))
         XCTAssertFalse(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 7, toRow: 7))
         XCTAssertTrue(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 7, toRow: 1))
@@ -55,9 +55,9 @@ class RookTests: XCTestCase {
          
          */
         var board = Board()
-        board.pieces = [Piece(col: 7, row: 0, imageName: "br", isWhite: false, rank: .rook),
-                        Piece(col: 7, row: 2, imageName: "wn", isWhite: true, rank: .knight),
-                        Piece(col: 7, row: 4, imageName: "bn", isWhite: false, rank: .knight)]
+        board.pieces = [Piece(col: 7, row: 0, imageName: "br", isWhite: false, cm: .rook),
+                        Piece(col: 7, row: 2, imageName: "wn", isWhite: true, cm: .knight),
+                        Piece(col: 7, row: 4, imageName: "bn", isWhite: false, cm: .knight)]
         XCTAssertFalse(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 6, toRow: 1))
         XCTAssertTrue(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 7, toRow: 2))
         XCTAssertFalse(board.canRookMove(fromCol: 7, fromRow: 0, toCol: 7, toRow: 7))

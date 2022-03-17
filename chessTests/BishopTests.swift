@@ -27,7 +27,7 @@ class BishopTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        board.pieces = [Piece(col: 1, row: 1, imageName: "bn", isWhite: false, rank: .knight)]
+        board.pieces = [Piece(col: 1, row: 1, imageName: "bn", isWhite: false, cm: .knight)]
         XCTAssertFalse(board.canBishopMove(fromCol: 2, fromRow: 0, toCol: 0, toRow: 2))
         
         /*
@@ -56,8 +56,8 @@ class BishopTests: XCTestCase {
          6 . . . . . . . .
          7 . . . . . . . .
          */
-        board.pieces = [Piece(col: 4, row: 2, imageName: "bn", isWhite: false, rank: .knight),
-                        Piece(col: 6, row: 4, imageName: "bn", isWhite: false, rank: .knight)
+        board.pieces = [Piece(col: 4, row: 2, imageName: "bn", isWhite: false, cm: .knight),
+                        Piece(col: 6, row: 4, imageName: "bn", isWhite: false, cm: .knight)
         ]
         XCTAssertFalse(board.canBishopMove(fromCol: 7, fromRow: 5, toCol: 2, toRow: 0))
         
