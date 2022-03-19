@@ -29,15 +29,18 @@ struct GameLogic: CustomStringConvertible {
         pieces.insert(ChessPiece(col: 6, row: 0, isBlack: true, pieceType: .knight, picName: "knight_chess_b"))
         pieces.insert(ChessPiece(col: 1, row: 7, isBlack: false, pieceType: .knight, picName: "knight_chess_w"))
         pieces.insert(ChessPiece(col: 6, row: 7, isBlack: false, pieceType: .knight, picName: "knight_chess_w"))
-        /*
+        
         pieces.insert(ChessPiece(col: 2, row: 0, isBlack: true, pieceType: .bishop, picName: "bishop_chess_b"))
         pieces.insert(ChessPiece(col: 5, row: 0, isBlack: true, pieceType: .bishop, picName: "bishop_chess_b"))
         pieces.insert(ChessPiece(col: 2, row: 7, isBlack: true, pieceType: .bishop, picName: "bishop_chess_w"))
         pieces.insert(ChessPiece(col: 5, row: 7, isBlack: true, pieceType: .bishop, picName: "bishop_chess_w"))
-        pieces.insert(ChessPiece(col: 3, row: 0, isBlack: true, pieceType: .king, picName: "king_chess_b"))
+        
+        
         pieces.insert(ChessPiece(col: 4, row: 0, isBlack: true, pieceType: .queen, picName: "queen_chess_b"))
         pieces.insert(ChessPiece(col: 4, row: 7, isBlack: true, pieceType: .queen, picName: "queen_chess_w"))
+        /*
         pieces.insert(ChessPiece(col: 3, row: 7, isBlack: true, pieceType: .king, picName: "king_chess_w"))
+        pieces.insert(ChessPiece(col: 3, row: 0, isBlack: true, pieceType: .king, picName: "king_chess_b"))
                                                                                                             */
     }
     
@@ -63,13 +66,37 @@ struct GameLogic: CustomStringConvertible {
             case .rook:
                 rookMove(piece: p, column: toX, row: toY)
             case .bishop:
-                break
+                bishopMove(piece: p, column: toX, row: toY)
             case .knight:
                 knightMove(piece: p, column: toX, row: toY)
             case .pawn:
                 break
             }
         }
+    }
+    mutating func queenMove(piece: ChessPiece, column:Int, row:Int){
+        if let dest = pieceAt(column: column, row: row){
+            if piece.isBlack == dest.isBlack{
+                return
+            }
+        }
+        if isNotEmptyBetweenDiagnol(fromX: piece.col, fromY: piece.row, toX: column, toY: row) {
+            if(abs(piece.col - column) != abs(piece.row - row)){
+                return
+            }
+        }
+        if isNotEmptyBetweenLine(fromX: piece.col, fromY: piece.row, toX: column, toY: row){
+            if(piece.col != column && piece.row != row){
+                return
+            }
+        }
+        if let p = pieceAt(column: column, row: row) {
+            pieces.remove(p)
+        }
+        pieces.remove(piece)
+        let newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
+        pieces.insert(newPiece)
+        print(self)
     }
     mutating func knightMove(piece: ChessPiece, column:Int, row:Int) {
         if let dest = pieceAt(column: column, row: row){
@@ -89,6 +116,27 @@ struct GameLogic: CustomStringConvertible {
         }
     }
     
+    mutating func bishopMove(piece: ChessPiece, column:Int, row:Int) {
+        if let dest = pieceAt(column: column, row: row){
+            if piece.isBlack == dest.isBlack{
+                return
+            }
+        }
+        
+        if isNotEmptyBetweenDiagnol(fromX: piece.col, fromY: piece.row, toX: column, toY: row){
+            return
+        }
+        if(abs(piece.col - column) != abs(piece.row - row)){
+            return
+        }	
+        if let p = pieceAt(column: column, row: row) {
+            pieces.remove(p)
+        }
+        pieces.remove(piece)
+        let newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
+        pieces.insert(newPiece)
+        print(self)
+    }
     
     mutating func rookMove(piece: ChessPiece, column:Int, row:Int) {
         if let dest = pieceAt(column: column, row: row){
@@ -97,7 +145,10 @@ struct GameLogic: CustomStringConvertible {
             }
         }
         
-        if isNotEmptyBetween(fromX: piece.col, fromY: piece.row, toX: column, toY: row){
+        if isNotEmptyBetweenLine(fromX: piece.col, fromY: piece.row, toX: column, toY: row){
+            return
+        }
+        if(piece.col != column && piece.row != row){
             return
         }
         if let p = pieceAt(column: column, row: row) {
@@ -108,8 +159,47 @@ struct GameLogic: CustomStringConvertible {
         pieces.insert(newPiece)
         print(self)
     }
-    
-    func isNotEmptyBetween(fromX: Int, fromY: Int, toX: Int, toY: Int) -> Bool {
+    func isNotEmptyBetweenDiagnol(fromX: Int, fromY: Int, toX: Int, toY: Int) -> Bool {
+        let smallerX = min(fromX, toX)
+        let smallerY = min(fromY, toY)
+        let largerY = max(fromY, toY)
+        if fromX == toX && fromY == toY{
+            return false
+        }
+        
+        if(abs(fromX-toX)==abs(fromY-toY)){
+            if(smallerX == toX && smallerY == toY){
+                for i in 1..<largerY-smallerY {
+                    if nil != pieceAt(column:toX + i, row: toY+i){
+                        return true
+                    }
+                }
+            }
+            if(smallerX == fromX && smallerY == toY){
+                for i in 1..<largerY-smallerY {
+                    if nil != pieceAt(column:toX + i, row: toY - i){
+                        return true
+                    }
+                }
+            }
+            if(smallerX == fromX && smallerY == fromY){
+                for i in 1..<largerY-smallerY {
+                    if nil != pieceAt(column:toX - i, row: toY - i){
+                        return true
+                    }
+                }
+            }
+            if(smallerX == toX && smallerY == toY){
+                for i in 1..<largerY-smallerY {
+                    if nil != pieceAt(column:toX - i, row: toY+i){
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
+    func isNotEmptyBetweenLine(fromX: Int, fromY: Int, toX: Int, toY: Int) -> Bool {
         let smallerX = min(fromX, toX)
         let largerX = max(fromX, toX)
         let smallerY = min(fromY, toY)
