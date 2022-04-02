@@ -32,12 +32,10 @@ struct GameLogic: CustomStringConvertible {
         
         pieces.insert(ChessPiece(col: 2, row: 0, isBlack: true, pieceType: .bishop, picName: "bishop_chess_b"))
         pieces.insert(ChessPiece(col: 5, row: 0, isBlack: true, pieceType: .bishop, picName: "bishop_chess_b"))
-        pieces.insert(ChessPiece(col: 2, row: 7, isBlack: true, pieceType: .bishop, picName: "bishop_chess_w"))
-        pieces.insert(ChessPiece(col: 5, row: 7, isBlack: true, pieceType: .bishop, picName: "bishop_chess_w"))
-        
-        
+        pieces.insert(ChessPiece(col: 2, row: 7, isBlack: false, pieceType: .bishop, picName: "bishop_chess_w"))
+        pieces.insert(ChessPiece(col: 5, row: 7, isBlack: false, pieceType: .bishop, picName: "bishop_chess_w"))
         pieces.insert(ChessPiece(col: 4, row: 0, isBlack: true, pieceType: .queen, picName: "queen_chess_b"))
-        pieces.insert(ChessPiece(col: 4, row: 7, isBlack: true, pieceType: .queen, picName: "queen_chess_w"))
+        pieces.insert(ChessPiece(col: 4, row: 7, isBlack: false, pieceType: .queen, picName: "queen_chess_w"))
         /*
         pieces.insert(ChessPiece(col: 3, row: 7, isBlack: true, pieceType: .king, picName: "king_chess_w"))
         pieces.insert(ChessPiece(col: 3, row: 0, isBlack: true, pieceType: .king, picName: "king_chess_b"))
@@ -58,106 +56,84 @@ struct GameLogic: CustomStringConvertible {
             return //false
         }
         else if let p = pieceAt(column: fromX, row: fromY){
+            if let dest = pieceAt(column: toX, row: toY),dest.isBlack == p.isBlack{
+                return
+            }
+            var found:Bool = false
             switch p.pieceType {
             case .king:
                 break
             case .queen:
-                break
+                if queenMove(piece: p, column: toX, row: toY) {
+                    found = true
+                }
             case .rook:
-                rookMove(piece: p, column: toX, row: toY)
+                if rookMove(piece: p, column: toX, row: toY) {
+                    found = true
+                }
             case .bishop:
-                bishopMove(piece: p, column: toX, row: toY)
+                if bishopMove(piece: p, column: toX, row: toY) {
+                    found = true
+                }
             case .knight:
-                knightMove(piece: p, column: toX, row: toY)
+                if knightMove(piece: p, column: toX, row: toY) {
+                    found = true
+                }
             case .pawn:
                 break
             }
-        }
-    }
-    mutating func queenMove(piece: ChessPiece, column:Int, row:Int){
-        if let dest = pieceAt(column: column, row: row){
-            if piece.isBlack == dest.isBlack{
-                return
-            }
-        }
-        if isNotEmptyBetweenDiagnol(fromX: piece.col, fromY: piece.row, toX: column, toY: row) {
-            if(abs(piece.col - column) != abs(piece.row - row)){
-                return
-            }
-        }
-        if isNotEmptyBetweenLine(fromX: piece.col, fromY: piece.row, toX: column, toY: row){
-            if(piece.col != column && piece.row != row){
-                return
-            }
-        }
-        if let p = pieceAt(column: column, row: row) {
-            pieces.remove(p)
-        }
-        pieces.remove(piece)
-        let newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
-        pieces.insert(newPiece)
-        print(self)
-    }
-    mutating func knightMove(piece: ChessPiece, column:Int, row:Int) {
-        if let dest = pieceAt(column: column, row: row){
-            if piece.isBlack == dest.isBlack{
-                return
-            }
-        }
-        if (abs(column - piece.col) == 2 && abs(row - piece.row) == 1) || (abs(column - piece.col) == 1 && abs(row - piece.row) == 2){
-            if let p = pieceAt(column: column, row: row) {
+            if found {
+                if let dest2 = pieceAt(column: toX, row: toY){
+                    pieces.remove(dest2)
+                }
                 pieces.remove(p)
+                let newPiece = ChessPiece(col: toX, row: toY, isBlack: p.isBlack, pieceType: p.pieceType, picName: p.picName)
+                pieces.insert(newPiece)
             }
-            pieces.remove(piece)
-            let newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
-            pieces.insert(newPiece)
-            print(self)
-            
         }
+    }
+    func queenMove(piece: ChessPiece, column:Int, row:Int) -> Bool{
+        if(abs(piece.col - column) == abs(piece.row - row)){
+            if isNotEmptyBetweenDiagnol(fromX: piece.col, fromY: piece.row, toX: column, toY: row){
+                return false
+            }
+            return true
+        }
+        else if(piece.col == column || piece.row == row){
+            if isNotEmptyBetweenLine(fromX: piece.col, fromY: piece.row, toX: column, toY: row){
+                return false
+            }
+            return true
+        }
+        return false
+    }
+    func knightMove(piece: ChessPiece, column:Int, row:Int) -> Bool {
+        if (abs(column - piece.col) == 2 && abs(row - piece.row) == 1) || (abs(column - piece.col) == 1 && abs(row - piece.row) == 2){
+            return true
+        }
+        return false
     }
     
-    mutating func bishopMove(piece: ChessPiece, column:Int, row:Int) {
-        if let dest = pieceAt(column: column, row: row){
-            if piece.isBlack == dest.isBlack{
-                return
-            }
-        }
-        
+    func bishopMove(piece: ChessPiece, column:Int, row:Int) -> Bool {
         if isNotEmptyBetweenDiagnol(fromX: piece.col, fromY: piece.row, toX: column, toY: row){
-            return
+            return false
         }
         if(abs(piece.col - column) != abs(piece.row - row)){
-            return
-        }	
-        if let p = pieceAt(column: column, row: row) {
-            pieces.remove(p)
+            return false
         }
-        pieces.remove(piece)
-        let newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
-        pieces.insert(newPiece)
-        print(self)
+        return true
     }
     
-    mutating func rookMove(piece: ChessPiece, column:Int, row:Int) {
-        if let dest = pieceAt(column: column, row: row){
-            if piece.isBlack == dest.isBlack{
-                return
-            }
-        }
-        
+    
+    
+    func rookMove(piece: ChessPiece, column:Int, row:Int) -> Bool {
         if isNotEmptyBetweenLine(fromX: piece.col, fromY: piece.row, toX: column, toY: row){
-            return
+            return false
         }
         if(piece.col != column && piece.row != row){
-            return
+            return false
         }
-        if let p = pieceAt(column: column, row: row) {
-            pieces.remove(p)
-        }
-        pieces.remove(piece)
-        let newPiece = ChessPiece(col: column, row: row, isBlack: piece.isBlack, pieceType: piece.pieceType, picName: piece.picName)
-        pieces.insert(newPiece)
-        print(self)
+        return true
     }
     func isNotEmptyBetweenDiagnol(fromX: Int, fromY: Int, toX: Int, toY: Int) -> Bool {
         let smallerX = min(fromX, toX)

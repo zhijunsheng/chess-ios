@@ -73,9 +73,7 @@ class ChessView: UIView {
         }
     }
     func drawPieces(movingPiece: ChessPiece?,x: CGFloat, y:CGFloat) {
-        if let piece = movingPiece, let pic = UIImage(named: piece.picName){
-            pic.draw(in: CGRect(x: x, y: y, width: (bounds.width - 2 * margin) / 8, height: (bounds.width - 2 * margin) / 8))
-        }
+        
         for i in 0..<8{
             for j in 0..<8{
                 if let piece = delegate?.pieceAt(column: i, row: j){
@@ -84,6 +82,9 @@ class ChessView: UIView {
                     }
                 }
             }
+        }
+        if let piece = movingPiece, let pic = UIImage(named: piece.picName){
+            pic.draw(in: CGRect(x: x, y: y, width: (bounds.width - 2 * margin) / 8, height: (bounds.width - 2 * margin) / 8))
         }
     }
     
