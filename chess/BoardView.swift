@@ -13,7 +13,6 @@ class BoardView: UIView {
     var cell: CGFloat = 75
     var originX: CGFloat = CGFloat.zero
     var originY: CGFloat = 50
-    var shadowPieces: Set<Piece> = []
     var movingPieceImage: UIImage?
     var movingPieceX: CGFloat = CGFloat.zero
     var movingPieceY: CGFloat = CGFloat.zero
@@ -101,12 +100,14 @@ class BoardView: UIView {
     }
     
     func drawPieces() {
-        for piece in shadowPieces {
-            if movingPieceImage == nil || movingPieceImage != nil && !(piece.col == fromCol && piece.row == fromRow) {
-                drawPiece(col: piece.col, row: piece.row)
+        for r in 0 ..< 8 {
+            for c in 0 ..< 8 {
+                if chessDelegate?.pieceAt(col: c, row: r) != nil && (movingPieceImage == nil || movingPieceImage != nil && !(c == fromCol && r == fromRow)) {
+                    drawPiece(col: c, row: r)
+                }
             }
         }
-        
+            
         movingPieceImage?.draw(in: CGRect(x: movingPieceX - cell/2, y: movingPieceY - cell/2, width: cell, height: cell))
     }
     

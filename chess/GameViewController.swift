@@ -22,7 +22,6 @@ class GameViewController: UIViewController, ChessDelegate {
         turnLabel.text = "White's turn"
         turnLabel.backgroundColor = .white
         turnLabel.textColor = .black
-        boardView.shadowPieces = cEngine.pieces
         boardView.setNeedsDisplay()
     }
     
@@ -46,7 +45,6 @@ class GameViewController: UIViewController, ChessDelegate {
             turnLabel.textColor = .white
         }
         print(cEngine)
-        boardView.shadowPieces = cEngine.pieces
         boardView.setNeedsDisplay()
     }
 }

@@ -176,5 +176,3 @@ struct ChessEngine: CustomStringConvertible {
         return desc
     }
 }
-
-//sw
