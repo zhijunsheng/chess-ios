@@ -67,8 +67,6 @@ class BoardView: UIView {
         setNeedsDisplay()
     }
     
-    
-    
     func drawSquare(col: Int, row: Int, color: UIColor) {
         let colourPath = UIBezierPath()
         color.setFill()
@@ -118,4 +116,3 @@ class BoardView: UIView {
         pieceImage?.draw(in: CGRect(x: CGFloat(col) * cell + originX, y: CGFloat(row) * cell + originY, width: cell, height: cell))
     }
 }
-

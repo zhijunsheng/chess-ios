@@ -9,10 +9,8 @@
 import Foundation
 
 struct ChessEngine: CustomStringConvertible {
-    
-    
-    
     var pieces: Set<Piece> = []
+    var whitesTurn = true
     
     mutating func initGame() {
         pieces.insert(Piece(col: 3, row: 7, player: .white, rank: .queen, imageName: "queen_w"))
@@ -55,10 +53,13 @@ struct ChessEngine: CustomStringConvertible {
         if let pieceGone = pieceAt(col: toCol, row: toRow) {
             if pieceGone.player != movingPiece.player {
                 pieces.remove(pieceGone)
+            } else if pieceGone.player == movingPiece.player {
+                return
             }
         }
         
         pieces.insert(Piece(col: toCol, row: toRow, player: movingPiece.player, rank: movingPiece.rank, imageName: movingPiece.imageName))
+        whitesTurn.toggle()
     }
     
     func canPieceMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
@@ -93,7 +94,7 @@ struct ChessEngine: CustomStringConvertible {
     func canBishopMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         return abs(fromCol - toCol) == abs(fromRow - toRow)
     }
-    
+        
     func canQueenMove(fromCol: Int, fromRow: Int, toCol: Int, toRow: Int) -> Bool {
         return canBishopMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow) ||
             canRookMove(fromCol: fromCol, fromRow: fromRow, toCol: toCol, toRow: toRow)
@@ -174,5 +175,6 @@ struct ChessEngine: CustomStringConvertible {
         }
         return desc
     }
-    
 }
+
+//sw

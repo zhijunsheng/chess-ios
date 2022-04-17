@@ -18,6 +18,7 @@
 		1E55010C24D8A56600ED967C /* ChessDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E55010B24D8A56600ED967C /* ChessDelegate.swift */; };
 		1E7A6861273B40D20077497E /* ChessEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7A6860273B40D20077497E /* ChessEngineTests.swift */; };
 		1E8201BA24CB5BD100F22230 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8201B924CB5BD100F22230 /* BoardView.swift */; };
+		1EBB5965274DB1A70042E977 /* NApplesInMBoxesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBB5964274DB1A70042E977 /* NApplesInMBoxesTests.swift */; };
 		1EFD584C24D206DA00B08157 /* ChessEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFD584B24D206DA00B08157 /* ChessEngine.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		1E55010B24D8A56600ED967C /* ChessDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessDelegate.swift; sourceTree = "<group>"; };
 		1E7A6860273B40D20077497E /* ChessEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessEngineTests.swift; sourceTree = "<group>"; };
 		1E8201B924CB5BD100F22230 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		1EBB5964274DB1A70042E977 /* NApplesInMBoxesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NApplesInMBoxesTests.swift; sourceTree = "<group>"; };
 		1EFD584B24D206DA00B08157 /* ChessEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessEngine.swift; sourceTree = "<group>"; };
 		36DF8A92201D6D0B00E0E07B /* chessTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		36DF8A96201D6D0C00E0E07B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				1E7A6860273B40D20077497E /* ChessEngineTests.swift */,
+				1EBB5964274DB1A70042E977 /* NApplesInMBoxesTests.swift */,
 				36DF8A96201D6D0C00E0E07B /* Info.plist */,
 			);
 			path = chessTests;
@@ -234,6 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EBB5965274DB1A70042E977 /* NApplesInMBoxesTests.swift in Sources */,
 				1E7A6861273B40D20077497E /* ChessEngineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
