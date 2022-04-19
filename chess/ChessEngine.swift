@@ -48,6 +48,10 @@ struct ChessEngine: CustomStringConvertible {
             return
         }
         
+        if (movingPiece.player == .black) == whitesTurn {
+            return
+        }
+        
         pieces.remove(movingPiece)
         
         if let pieceGone = pieceAt(col: toCol, row: toRow) {
