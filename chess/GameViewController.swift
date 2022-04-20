@@ -25,6 +25,15 @@ class GameViewController: UIViewController, ChessDelegate {
         boardView.setNeedsDisplay()
     }
     
+    @IBAction func resetBoard(_ sender: Any) {
+        
+        cEngine.initGame()
+        turnLabel.text = "White's turn"
+        turnLabel.backgroundColor = .white
+        turnLabel.textColor = .black
+        boardView.setNeedsDisplay()
+    }
+    
     func pieceAt(col: Int, row: Int) -> Piece? {
         return cEngine.pieceAt(col: col, row: row)
     }

@@ -13,6 +13,7 @@ struct ChessEngine: CustomStringConvertible {
     var whitesTurn = true
     
     mutating func initGame() {
+        pieces.removeAll()
         pieces.insert(Piece(col: 3, row: 7, player: .white, rank: .queen, imageName: "queen_w"))
         pieces.insert(Piece(col: 4, row: 7, player: .white, rank: .king, imageName: "king_w"))
         pieces.insert(Piece(col: 3, row: 0, player: .black, rank: .queen, imageName: "queen_b"))
@@ -31,6 +32,8 @@ struct ChessEngine: CustomStringConvertible {
             pieces.insert(Piece(col: i * 5 + 1, row: 7, player: .white, rank: .knight, imageName: "knight_w"))
             pieces.insert(Piece(col: i * 3 + 2, row: 7, player: .white, rank: .bishop, imageName: "bishop_w"))
         }
+        
+        whitesTurn = true
     }
     
     func pieceAt(col: Int, row: Int) -> Piece? {
