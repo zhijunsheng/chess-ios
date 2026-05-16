@@ -439,7 +439,7 @@
 				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = J8B74FCZCC;
 				INFOPLIST_FILE = Chess/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Chess - Golden Thumb";
+				INFOPLIST_KEY_CFBundleDisplayName = "Golden  Chess";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -462,7 +462,7 @@
 				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = J8B74FCZCC;
 				INFOPLIST_FILE = Chess/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Chess - Golden Thumb";
+				INFOPLIST_KEY_CFBundleDisplayName = "Golden  Chess";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
